@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 1"
+title: "Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods"
 author: "Javier Phang"
 date: "April 15, 2026"
 date-modified: "last-modified"
@@ -10,6 +10,11 @@ execute:
   warning: false
 freeze: false
 ---
+Learning Objectives:
+
+- Basic Principles and essential components of ggplot2
+
+- Plot statistical graphics based on the principle of Layered Grammar of Graphics
 
 # Getting Started
 

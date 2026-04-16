@@ -2,11 +2,11 @@
 title: "About"
 ---
 
-Hello, my name is \*\*Javier Phang\*\*.\
+Hello, my name is Javier Phang.\
 \
 Here is a short introduction about me and this website.\
 \
-This website showcases my coursework for \*\*ISSS608 Visual Analytics and Applications\*\* at \*\*SMU\*\*.\
+This website showcases my coursework for \*\*ISSS608 Visual Analytics and Applications\*\* at SMU.\
 \
 You will find materials including:\
 \
@@ -15,4 +15,4 @@ You will find materials including:\
 - Take-home assignments\
 - Group project work\
 \
-The goal of this website is to document my learning journey in \*\*data visualization, analytics, and storytelling with data\*\*.
+The goal of this website is to document my learning journey in data visualization, analytics, and storytelling with data.
