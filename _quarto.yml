@@ -4,11 +4,24 @@ project:
 website:
   title: "ISSS608-VAA"
   navbar:
+    background: "#2f4358"
+    foreground: "#ffffff"
+    search: true
     left:
       - text: "Hands-on Exercise"
         menu:
           - text: "Hands-on Exercise 1"
             href: Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
+      - text: "In-class"
+        menu:
+          - text: "Coming Soon"
+            href: "#"
+      - text: "Take-home"
+        menu:
+          - text: "Coming Soon"
+            href: "#"
+      - text: "Group Project"
+        href: "#"
     right:
       - href: index.qmd
         text: Home
@@ -17,9 +30,7 @@ website:
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: cosmo
     css: styles.css
     toc: true
 

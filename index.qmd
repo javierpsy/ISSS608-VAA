@@ -1,5 +1,22 @@
 ---
-title: "ISSS608-VAA"
+title: "ISSS608-Visual Analytics and Applications"
+listing:
+  - id: hands-on-listings
+    contents: Hands-On_Ex
+    type: grid
+    sort: "date asc"
+    fields: [image, title, author, date]
+    categories: false
+    page-size: 6
+    sort-ui: false
+    filter-ui: false
 ---
 
-**Welcome to ISSS608 Visual Analytics and Application!** In this website, you will find my coursework prepared for this course.
+Welcome to **ISSS608 Visual Analytics and Application** homepage**.** In this website, you will find my coursework prepared for this course. Materials are based on <https://isss608-ay2025-26apr.netlify.app/> by Prof Kam Tin Seong from SMU.
+
+![Overview:](images/data_analytics_robot.png){width="94%"}
+
+## Hands On Exercise
+
+::: {#hands-on-listings}
+:::

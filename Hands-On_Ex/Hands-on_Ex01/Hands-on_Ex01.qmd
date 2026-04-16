@@ -3,6 +3,7 @@ title: "Hands-on Exercise 1"
 author: "Javier Phang"
 date: "April 15, 2026"
 date-modified: "last-modified"
+image: "Thumbnail.png"
 execute:
   eval: true
   echo: true
