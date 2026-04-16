@@ -18,7 +18,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Hello, my name is Javier Phang.\n\nHere is a short introduction about me and this website.\n\nThis website showcases my coursework for **ISSS608 Visual Analytics and Applications** at SMU.\n\nYou will find materials including:\n\n- Hands-on exercises\n- In-class exercises\n- Take-home assignments\n- Group project work\n\nThe goal of this website is to document my learning journey in data visualization, analytics, and storytelling with data."
+    "text": "Hello, my name is Javier.\n\nHere is a short introduction about me and this website.\n\nThis website showcases my coursework for **ISSS608 Visual Analytics and Applications** at SMU.\n\nYou will find materials including:\n\n- Hands-on exercises\n- In-class exercises\n- Take-home assignments\n- Group project work\n\nThe goal of this website is to document my learning journey in data visualization, analytics, and storytelling with data."
   },
   {
     "objectID": "Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
@@ -96,5 +96,12 @@
     "title": "Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods",
     "section": "1.11 Essential Grammatical Elements in ggplot2: themes",
     "text": "1.11 Essential Grammatical Elements in ggplot2: themes\nThemes control elements of the graph not related to the data. For example:\n\nbackground colour\nsize of fonts\ngridlines\ncolour of labels\n\nBuilt-in themes include: - theme_gray() (default) - theme_bw() - theme_classic()\nA list of theme can be found at this link. Each theme element can be conceived of as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).\n\n1.11.1 Working with theme\nThe code chunk below plot a horizontal bar chart using theme_gray().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_gray()\n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_classic().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_classic()\n\n\n\n\n\n\n\n\nA horizontal bar chart plotted using theme_minimal().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html#reference",
+    "href": "Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html#reference",
+    "title": "Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods",
+    "section": "1.12 Reference",
+    "text": "1.12 Reference\n\nHadley Wickham (2023) ggplot2: Elegant Graphics for Data Analysis. Online 3rd edition.\nWinston Chang (2013) R Graphics Cookbook 2nd edition. Online version.\nHealy, Kieran (2019) Data Visualization: A practical introduction. Online version.\nLearning ggplot2 on Paper – Components\nLearning ggplot2 on Paper – Layer\nLearning ggplot2 on Paper – Scale"
   }
 ]

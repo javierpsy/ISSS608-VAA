@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-Hello, my name is Javier Phang.\
+Hello, my name is Javier.\
 \
 Here is a short introduction about me and this website.\
 \
