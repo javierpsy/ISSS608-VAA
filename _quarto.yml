@@ -28,8 +28,10 @@ website:
     right:
       - href: index.qmd
         text: Home
+        icon: house
       - href: about.qmd
-        text: About
+        text: About Me
+        icon: person-circle
 
 format:
   html:
