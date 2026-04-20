@@ -29,3 +29,17 @@
 .navbar .dropdown-item:hover {
   background-color: #3b536b;
 }
+
+/* ============================= */
+/* Enlarge Navbar Logo */
+/* ============================= */
+
+.navbar-brand img {
+  max-height: 70px;   /* increase logo size */
+  width: auto;
+}
+
+/* Increase navbar height slightly */
+.navbar {
+  min-height: 75px;
+}
