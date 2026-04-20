@@ -27,11 +27,10 @@ website:
         href: "#"
     right:
       - href: index.qmd
-        text: Home
-        icon: house
+        text: 🏠 Home
       - href: about.qmd
-        text: About Me
-        icon: person-circle
+        text: 👤 About Me
+
 
 format:
   html:
