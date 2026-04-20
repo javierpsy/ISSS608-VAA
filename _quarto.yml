@@ -11,8 +11,10 @@ website:
     left:
       - text: "Hands-on Exercise"
         menu:
-          - text: "Hands-on Exercise 1"
+          - text: "Hands-on Exercise 1 (Introduction to Visual Analytics)"
             href: Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
+          - text: "Hands-on Exercise 2 (Designing Graphs to Enlighten)"
+            href: Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd  
       - text: "In-class"
         menu:
           - text: "Coming Soon"
