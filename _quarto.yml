@@ -3,7 +3,6 @@ project:
   output-dir: docs
 
 website:
-  title: "ISSS608-VAA"
   navbar:
     logo: images/Icon1.png
     background: "#2f4358"
