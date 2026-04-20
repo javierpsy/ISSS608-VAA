@@ -9,22 +9,19 @@ execute:
   warning: false
 freeze: true
 ---
+
 # 2.1 Overview (Learning Objectives)
 
-In this chapter, we will learn more on the ggplot2 extensions for creating more elegant and effective statistical graphics. This includes:
-- control the placement of annotation on a graph by using functions provided in ggrepel package,
-- create professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages,
-- plot composite figure by combining ggplot2 graphs by using patchwork package.
+In this chapter, we will learn more on the ggplot2 extensions for creating more elegant and effective statistical graphics. This includes: - control the placement of annotation on a graph by using functions provided in ggrepel package, - create professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages, - plot composite figure by combining ggplot2 graphs by using patchwork package.
 
 # 2.2 Getting Started
+
 ## 2.2.1 Installing and loading the required libraries
-In this exercise, 4 packages will be used aside from tidyberse. This includes:
-- ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
-- ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’.
-- hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
-- patchwork: an R package for preparing composite figure created using ggplot2.
+
+In this exercise, 4 packages will be used aside from tidyberse. This includes: - ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels. - ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’. - hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2. - patchwork: an R package for preparing composite figure created using ggplot2.
 
 We will check if these packages have been installed by running the below R codes
+
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
@@ -32,12 +29,15 @@ pacman::p_load(ggrepel, patchwork,
 ```
 
 ## 2.2.2 Importing data
+
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 # 2.3 Beyond ggplot2 Annotation: ggrepel
+
 We can observe a large number of data points based on the below R codes
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS, 
@@ -53,8 +53,10 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
-## 2.3.1 Working with ggrepel 
+## 2.3.1 Working with ggrepel
+
 We use ggrepel to repel overlapping text as shown below
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS, 
@@ -70,7 +72,9 @@ ggplot(data=exam_data,
 ```
 
 # 2.4 Beyond ggplot2 Themes
+
 We can change the themes of our plots: [Click here for more details:](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -83,7 +87,9 @@ ggplot(data=exam_data,
 ```
 
 ## 2.4.1 Working with ggtheme package
-ggthemes provides ‘ggplot2’ themes that replicate the look of plots 
+
+ggthemes provides ‘ggplot2’ themes that replicate the look of plots
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -96,6 +102,7 @@ ggplot(data=exam_data,
 ```
 
 ## 2.4.2 Working with hrbthemes package
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -108,6 +115,7 @@ ggplot(data=exam_data,
 ```
 
 The second goal centers around productivity for a production workflow. In fact, this “production workflow” is the context for where the elements of hrbrthemes should be used. [Click here to find out more](https://hrbrmstr.github.io/hrbrthemes/articles/why_hrbrthemes.html)
+
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -123,13 +131,14 @@ ggplot(data=exam_data,
 
 ::: callout-note
 ## What can we learn from the code chunk below?
-- axis_title_size argument is used to increase the font size of the axis title to 18,
-- base_size argument is used to increase the default axis label to 15, and
-- grid argument is used to remove the x-axis grid lines.
+
+-   axis_title_size argument is used to increase the font size of the axis title to 18,
+-   base_size argument is used to increase the default axis label to 15, and
+-   grid argument is used to remove the x-axis grid lines.
 :::
 
-#2.5 Beyond Single Graph
-We use ggplot2 extentions to compose figure with multiple graphs.
+#2.5 Beyond Single Graph We use ggplot2 extentions to compose figure with multiple graphs.
+
 ```{r}
 p1 <- ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -160,33 +169,39 @@ p3 <- ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
-## 2.5.1 Creating Composite Graphics: pathwork methods 
+## 2.5.1 Creating Composite Graphics: pathwork methods
+
 In this sectiom, we will learn about ggplot2 extension called [patchwork](https://patchwork.data-imaginist.com/), specially designed for combining separate ggplot2 graphs into a single figure.
 
 ## 2.5.2 Combining two ggplot2 graphs
+
 This example shows a composite of two histogram created side by side.
+
 ```{r}
 p1 + p2
 ```
 
 ## 2.5.3 Combining three ggplot2 graphs
-We can plot more complex composite by using appropriate operators. For example, the composite figure below is plotted by using:
-- “/” operator to stack two ggplot2 graphs,
-- “|” operator to place the plots beside each other,
-- “()” operator the define the sequence of the plotting.
+
+We can plot more complex composite by using appropriate operators. For example, the composite figure below is plotted by using: - “/” operator to stack two ggplot2 graphs, - “\|” operator to place the plots beside each other, - “()” operator the define the sequence of the plotting.
+
 ```{r}
 (p1 / p2) | p3
 ```
 
 ## 2.5.4 Creating a composite figure with tag
+
 To identify subplots in text, patchwork also provides auto-tagging capabilities as shown in the figure below.
+
 ```{r}
 ((p1 / p2) | p3) + 
   plot_annotation(tag_levels = 'I')
 ```
 
 ## 2.5.5 Creating figure with insert
+
 With inset_element() of patchwork, we can place one or several plots or graphic elements freely on top or below another plot.
+
 ```{r}
 p3 + inset_element(p2, 
                    left = 0.02, 
@@ -196,15 +211,19 @@ p3 + inset_element(p2,
 ```
 
 ## 2.5.6 Creating a composite figure by using patchwork and ggtheme
+
 Combining patchwork and theme_economist() of ggthemes package discussed earlier.
+
 ```{r}
 patchwork <- (p1 / p2) | p3
 patchwork & theme_economist()
 ```
 
-## Additional Analysis (1) - Comparing Maths Score by Gender, Race, Class
+## Additional Analysis (1): Comparing Maths Score by Gender, Race, Class
+
 ::: panel-tabset
 ### Distribution of Maths Scores by Gender
+
 ```{r}
 ggplot(data = exam_data,
        aes(x = MATHS,
@@ -222,6 +241,7 @@ ggplot(data = exam_data,
 ```
 
 ### Distribution of Maths Scores by Race
+
 ```{r}
 ggplot(data = exam_data,
        aes(x = MATHS,
@@ -239,6 +259,7 @@ ggplot(data = exam_data,
 ```
 
 ### Distribution of Maths Scores by Class
+
 ```{r}
 ggplot(data = exam_data,
        aes(x = MATHS,
@@ -256,10 +277,12 @@ ggplot(data = exam_data,
 ```
 :::
 
-## Additional Analysis (2) - Comparing subjects:
-- Maths vs English
-- Maths vs Science
-- English vs Science
+## Additional Analysis (2): Comparing subjects:
+
+-   Maths vs English
+-   Maths vs Science
+-   English vs Science
+
 ```{r}
 p1 <- ggplot(exam_data, aes(MATHS, ENGLISH)) +
   geom_point(alpha = 0.7) +
@@ -297,8 +320,10 @@ p4 <- exam_data %>%
   )
 ```
 
-## Additional Analysis (3) - Average Score Across 3 Subjects:
+## Additional Analysis (3): Average Score Across 3 Subjects:
+
 This analysis gives us an overview of how academic performance is distributed among students
+
 ```{r}
 exam_data_avg <- exam_data %>%
   mutate(AVERAGE = (MATHS + ENGLISH + SCIENCE)/3)
@@ -316,7 +341,8 @@ ggplot(data=exam_data_avg,
   theme_minimal()
 ```
 
-## Additional Analysis (4) - Comparing Subject Score Distributions
+## Additional Analysis (4): Comparing Subject Score Distributions
+
 ```{r}
 exam_long <- exam_data %>%
   pivot_longer(cols=c(MATHS, ENGLISH, SCIENCE),
@@ -335,7 +361,8 @@ ggplot(data=exam_long,
   theme_ipsum()
 ```
 
-## Additional Analysis (5) - Identify High and Low Performing Students
+## Additional Analysis (5): Identify High and Low Performing Students
+
 This analysis identifies students with the highest and lowest overall performance based on their average scores across Maths, English and Science. The highlighted points represent the top 10 and bottom 10 students in the dataset.
 
 ```{r}
@@ -368,10 +395,11 @@ ggplot(exam_avg,
 ```
 
 # 2.6 Reference
-- Patchwork R package goes nerd viral
-- ggrepel
-- ggthemes
-- hrbrthemes
-- ggplot tips: Arranging plots
-- ggplot2 Theme Elements Demonstration
-- ggplot2 Theme Elements Reference Sheet
+
+-   Patchwork R package goes nerd viral
+-   ggrepel
+-   ggthemes
+-   hrbrthemes
+-   ggplot tips: Arranging plots
+-   ggplot2 Theme Elements Demonstration
+-   ggplot2 Theme Elements Reference Sheet
