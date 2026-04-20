@@ -10,7 +10,7 @@ website:
     search: true
     left:
       - icon: bar-chart
-      - text: "Hands-on Exercise"
+        text: "Hands-on Exercise"
         menu:
           - text: "Hands-on Exercise 1 (Introduction to Visual Analytics)"
             href: Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.qmd
@@ -19,19 +19,19 @@ website:
             
           
       - icon: graph-up
-      - text: "In-class"
+        text: "In-class"
         menu:
           - text: "Coming Soon"
             href: "#"
             
       - icon: clipboard-data
-      - text: "Take-home"
+        text: "Take-home"
         menu:
           - text: "Coming Soon"
             href: "#"
             
       - icon: people
-      - text: "Group Project"
+        text: "Group Project"
         href: "#"
         
     right:
