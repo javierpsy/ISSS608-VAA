@@ -30,16 +30,21 @@
   background-color: #3b536b;
 }
 
-/* ============================= */
-/* Enlarge Navbar Logo */
-/* ============================= */
-
+/* Navbar logo size */
 .navbar-brand img {
-  max-height: 70px;   /* increase logo size */
+  max-height: 38px;   /* slightly smaller logo */
   width: auto;
 }
 
-/* Increase navbar height slightly */
+/* Reduce navbar height */
 .navbar {
-  min-height: 75px;
+  min-height: 48px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Reduce spacing between items */
+.navbar-nav .nav-link {
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
