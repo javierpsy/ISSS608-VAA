@@ -27,9 +27,9 @@ website:
         href: "#"
     right:
       - href: index.qmd
-        text: 🏠 Home
+        text: "🏠 Home"
       - href: about.qmd
-        text: 👤 About Me
+        text: "👤 About Me"
 
 
 format:
