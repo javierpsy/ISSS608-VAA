@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "ISSS608-Visual Analytics and Applications",
     "section": "",
-    "text": "Welcome to ISSS608 Visual Analytics and Application homepage. In this website, you will find my coursework prepared for this course, taught by Prof.Kam Tin Seong."
+    "text": "Welcome to ISSS608 Visual Analytics and Application homepage. This site showcases my coursework, hands-on exercises, and project work completed for the course taught by Prof Kam Tin Seong."
   },
   {
     "objectID": "index.html#hands-on-exercise",
@@ -264,5 +264,12 @@
     "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
     "section": "Additional Analysis (5): Identify High and Low Performing Students",
     "text": "Additional Analysis (5): Identify High and Low Performing Students\nThis analysis identifies students with the highest and lowest overall performance based on their average scores across Maths, English and Science. The highlighted points represent the top 10 and bottom 10 students in the dataset.\n\n\nCode\nexam_avg &lt;- exam_data %&gt;%\n  mutate(average_score = (MATHS + ENGLISH + SCIENCE) / 3)\n\nhighlight_students &lt;- exam_avg %&gt;%\n  arrange(desc(average_score)) %&gt;%\n  slice(c(1:10, (n()-9):n()))\n\nggplot(exam_avg,\n       aes(x = MATHS,\n           y = ENGLISH)) +\n  geom_point(color = \"grey70\") +\n  geom_point(data = highlight_students,\n             color = \"red\",\n             size = 3) +\n  geom_label_repel(data = highlight_students,\n                   aes(label = ID),\n                   size = 3) +\n  geom_smooth(method = \"lm\",\n              linewidth = 0.5) +\n  labs(\n    title = \"High and Low Performing Students\",\n    subtitle = \"Top 10 and Bottom 10 Students Based on Average Scores\",\n    x = \"Maths Score\",\n    y = \"English Score\"\n  ) +\n  theme_ipsum()"
+  },
+  {
+    "objectID": "index.html#about-this-website",
+    "href": "index.html#about-this-website",
+    "title": "ISSS608-Visual Analytics and Applications",
+    "section": "About This Website",
+    "text": "About This Website\nThis website serves as a portfolio of my learning journey in visual analytics.\nIt contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course."
   }
 ]
