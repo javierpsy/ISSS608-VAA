@@ -396,10 +396,10 @@ ggplot(exam_avg,
 
 # 2.6 Reference
 
--   Patchwork R package goes nerd viral
--   ggrepel
--   ggthemes
--   hrbrthemes
--   ggplot tips: Arranging plots
--   ggplot2 Theme Elements Demonstration
--   ggplot2 Theme Elements Reference Sheet
+- [Patchwork R package goes nerd viral](https://www.littlemissdata.com/blog/patchwork)
+- [ggrepel](https://ggrepel.slowkow.com/)
+- [ggthemes](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+- [hrbrthemes](https://cran.r-project.org/web/packages/hrbrthemes/index.html)
+- [ggplot tips: Arranging plots](https://www.r-bloggers.com/2021/10/ggplot-tips-arranging-plots/)
+- [ggplot2 Theme Elements Demonstration](https://henrywang.nl/ggplot2-theme-elements-demonstration/)
+- [ggplot2 Theme Elements Reference Sheet](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
