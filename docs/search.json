@@ -7,6 +7,13 @@
     "text": "Welcome to ISSS608 Visual Analytics and Application homepage. This site showcases my coursework, hands-on exercises, and project work completed for the course taught by Prof Kam Tin Seong."
   },
   {
+    "objectID": "index.html#about-this-website",
+    "href": "index.html#about-this-website",
+    "title": "ISSS608-Visual Analytics and Applications",
+    "section": "About This Website",
+    "text": "About This Website\nThis website serves as a portfolio of my learning journey in visual analytics.\nIt contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course."
+  },
+  {
     "objectID": "index.html#hands-on-exercise",
     "href": "index.html#hands-on-exercise",
     "title": "ISSS608-Visual Analytics and Applications",
@@ -196,41 +203,6 @@
     "text": "2.5.6 Creating a composite figure by using patchwork and ggtheme\nCombining patchwork and theme_economist() of ggthemes package discussed earlier.\n\n\nCode\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()"
   },
   {
-    "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-1---comparing-maths-score-by-gender-race-class",
-    "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-1---comparing-maths-score-by-gender-race-class",
-    "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
-    "section": "Additional Analysis (1) - Comparing Maths Score by Gender, Race, Class",
-    "text": "Additional Analysis (1) - Comparing Maths Score by Gender, Race, Class\n\nDistribution of Maths Scores by GenderDistribution of Maths Scores by RaceDistribution of Maths Scores by Class\n\n\n#| code-fold: true\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = GENDER)) +\n  geom_histogram(bins = 20,\n                 alpha = 0.7,\n                 color = \"grey25\") +\n  facet_wrap(~ GENDER) +\n  labs(\n    title = \"Distribution of Maths Scores by Gender\",\n    x = \"Maths Score\",\n    y = \"Count\"\n  ) +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = RACE)) +\n  geom_histogram(bins = 20,\n                 alpha = 0.7,\n                 color = \"grey25\") +\n  facet_wrap(~ RACE) +\n  labs(\n    title = \"Distribution of Maths Scores by Race\",\n    x = \"Maths Score\",\n    y = \"Count\"\n  ) +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\n\n\nggplot(data = exam_data,\n       aes(x = MATHS,\n           fill = CLASS)) +\n  geom_histogram(bins = 20,\n                 alpha = 0.7,\n                 color = \"grey25\") +\n  facet_wrap(~ CLASS) +\n  labs(\n    title = \"Distribution of Maths Scores by Class\",\n    x = \"Maths Score\",\n    y = \"Count\"\n  ) +\n  theme_ipsum()"
-  },
-  {
-    "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-2---comparing-subjects",
-    "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-2---comparing-subjects",
-    "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
-    "section": "Additional Analysis (2) - Comparing subjects:",
-    "text": "Additional Analysis (2) - Comparing subjects:\n\nMaths vs English\nMaths vs Science\nEnglish vs Science\n\n\np1 &lt;- ggplot(exam_data, aes(MATHS, ENGLISH)) +\n  geom_point(alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(title = \"Maths vs English\") +\n  theme_ipsum()\n\np2 &lt;- ggplot(exam_data, aes(MATHS, SCIENCE)) +\n  geom_point(alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(title = \"Maths vs Science\") +\n  theme_ipsum()\n\np3 &lt;- ggplot(exam_data, aes(ENGLISH, SCIENCE)) +\n  geom_point(alpha = 0.7) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  labs(title = \"English vs Science\") +\n  theme_ipsum()\n\np4 &lt;- exam_data %&gt;%\n  pivot_longer(cols = c(MATHS, ENGLISH, SCIENCE),\n               names_to = \"Subject\",\n               values_to = \"Score\") %&gt;%\n  ggplot(aes(x = Score, fill = Subject)) +\n  geom_histogram(alpha = 0.6, bins = 20, position = \"identity\") +\n  facet_wrap(~Subject, ncol = 1) +\n  theme_ipsum() +\n  theme(legend.position = \"none\") +\n  labs(title = \"Score Distributions by Subject\")\n\n(p1 | p2) / (p3 | p4) +\n  plot_annotation(\n    title = \"Subject Relationship Dashboard\",\n    subtitle = \"Comparing pairwise performance patterns across core subjects\"\n  )"
-  },
-  {
-    "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-3---average-score-across-3-subjects",
-    "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-3---average-score-across-3-subjects",
-    "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
-    "section": "Additional Analysis (3) - Average Score Across 3 Subjects:",
-    "text": "Additional Analysis (3) - Average Score Across 3 Subjects:\nThis analysis gives us an overview of how academic performance is distributed among students\n\nexam_data_avg &lt;- exam_data %&gt;%\n  mutate(AVERAGE = (MATHS + ENGLISH + SCIENCE)/3)\n\nggplot(data=exam_data_avg,\n       aes(x=AVERAGE)) +\n  geom_histogram(bins=20,\n                 fill=\"skyblue\",\n                 color=\"grey25\") +\n  labs(\n    title=\"Distribution of Average Student Scores\",\n    x=\"Average Score\",\n    y=\"Number of Students\"\n  ) +\n  theme_minimal()"
-  },
-  {
-    "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-4---comparing-subject-score-distributions",
-    "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-4---comparing-subject-score-distributions",
-    "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
-    "section": "Additional Analysis (4) - Comparing Subject Score Distributions",
-    "text": "Additional Analysis (4) - Comparing Subject Score Distributions\n\nexam_long &lt;- exam_data %&gt;%\n  pivot_longer(cols=c(MATHS, ENGLISH, SCIENCE),\n               names_to=\"Subject\",\n               values_to=\"Score\")\n\nggplot(data=exam_long,\n       aes(x=Score,\n           fill=Subject)) +\n  geom_density(alpha=0.5) +\n  labs(\n    title=\"Comparison of Score Distributions Across Subjects\",\n    x=\"Score\",\n    y=\"Density\"\n  ) +\n  theme_ipsum()"
-  },
-  {
-    "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-5---identify-high-and-low-performing-students",
-    "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-5---identify-high-and-low-performing-students",
-    "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
-    "section": "Additional Analysis (5) - Identify High and Low Performing Students",
-    "text": "Additional Analysis (5) - Identify High and Low Performing Students\nThis analysis identifies students with the highest and lowest overall performance based on their average scores across Maths, English and Science. The highlighted points represent the top 10 and bottom 10 students in the dataset.\n\nexam_avg &lt;- exam_data %&gt;%\n  mutate(average_score = (MATHS + ENGLISH + SCIENCE) / 3)\n\nhighlight_students &lt;- exam_avg %&gt;%\n  arrange(desc(average_score)) %&gt;%\n  slice(c(1:10, (n()-9):n()))\n\nggplot(exam_avg,\n       aes(x = MATHS,\n           y = ENGLISH)) +\n  geom_point(color = \"grey70\") +\n  geom_point(data = highlight_students,\n             color = \"red\",\n             size = 3) +\n  geom_label_repel(data = highlight_students,\n                   aes(label = ID),\n                   size = 3) +\n  geom_smooth(method = \"lm\",\n              linewidth = 0.5) +\n  labs(\n    title = \"High and Low Performing Students\",\n    subtitle = \"Top 10 and Bottom 10 Students Based on Average Scores\",\n    x = \"Maths Score\",\n    y = \"English Score\"\n  ) +\n  theme_ipsum()"
-  },
-  {
     "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-1-comparing-maths-score-by-gender-race-class",
     "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html#additional-analysis-1-comparing-maths-score-by-gender-race-class",
     "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
@@ -264,12 +236,5 @@
     "title": "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals",
     "section": "Additional Analysis (5): Identify High and Low Performing Students",
     "text": "Additional Analysis (5): Identify High and Low Performing Students\nThis analysis identifies students with the highest and lowest overall performance based on their average scores across Maths, English and Science. The highlighted points represent the top 10 and bottom 10 students in the dataset.\n\n\nCode\nexam_avg &lt;- exam_data %&gt;%\n  mutate(average_score = (MATHS + ENGLISH + SCIENCE) / 3)\n\nhighlight_students &lt;- exam_avg %&gt;%\n  arrange(desc(average_score)) %&gt;%\n  slice(c(1:10, (n()-9):n()))\n\nggplot(exam_avg,\n       aes(x = MATHS,\n           y = ENGLISH)) +\n  geom_point(color = \"grey70\") +\n  geom_point(data = highlight_students,\n             color = \"red\",\n             size = 3) +\n  geom_label_repel(data = highlight_students,\n                   aes(label = ID),\n                   size = 3) +\n  geom_smooth(method = \"lm\",\n              linewidth = 0.5) +\n  labs(\n    title = \"High and Low Performing Students\",\n    subtitle = \"Top 10 and Bottom 10 Students Based on Average Scores\",\n    x = \"Maths Score\",\n    y = \"English Score\"\n  ) +\n  theme_ipsum()"
-  },
-  {
-    "objectID": "index.html#about-this-website",
-    "href": "index.html#about-this-website",
-    "title": "ISSS608-Visual Analytics and Applications",
-    "section": "About This Website",
-    "text": "About This Website\nThis website serves as a portfolio of my learning journey in visual analytics.\nIt contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course."
   }
 ]
