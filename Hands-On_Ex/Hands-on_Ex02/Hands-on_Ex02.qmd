@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 1 - Beyond ggplot2 Fundamentals"
+title: "Hands-on Exercise 2 - Beyond ggplot2 Fundamentals"
 author: "Javier Phang"
 date: "April 20, 2026"
 date-modified: "last-modified"
