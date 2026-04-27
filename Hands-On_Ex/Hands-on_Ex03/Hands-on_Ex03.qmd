@@ -585,10 +585,13 @@ The Data worksheet from GlobalPopulation Excel workbook will be used.
 Write a code chunk to import Data worksheet from GlobalPopulation Excel workbook by using appropriate R package from tidyverse family.
 
 ```{r}
+#Step 1:
 col <- c("Country", "Continent")
+
+#Step 2:
 globalPop <- read_xls("data/GlobalPopulation.xls",
-                      sheet="Data") %>%
-  mutate_each_(funs(factor(.)), col) %>%
+                         sheet="Data") %>%
+  mutate(across(col, as.factor)) %>%
   mutate(Year = as.integer(Year))
 ```
 
