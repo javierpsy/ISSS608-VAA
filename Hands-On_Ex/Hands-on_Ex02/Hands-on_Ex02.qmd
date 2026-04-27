@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-freeze: true
+  freeze: true
 ---
 
 # 2.1 Overview (Learning Objectives)
@@ -38,6 +38,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 
 We can observe a large number of data points based on the below R codes
 
+::: {style='font-size: 1.4em"}
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS, 
@@ -52,7 +53,7 @@ ggplot(data=exam_data,
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
-
+:::
 ## 2.3.1 Working with ggrepel
 
 We use ggrepel to repel overlapping text as shown below
