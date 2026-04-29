@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: [],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -234,7 +234,6 @@ window.Quarto = {
    
   <ul>
   <li><a href="#about-this-website" id="toc-about-this-website" class="nav-link active" data-scroll-target="#about-this-website">About This Website</a></li>
-  <li><a href="#hands-on-exercise" id="toc-hands-on-exercise" class="nav-link" data-scroll-target="#hands-on-exercise">Hands On Exercise</a></li>
   </ul>
 </nav>
     </div>
@@ -271,21 +270,75 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="about-this-website">About This Website</h2>
 <p>This website serves as a portfolio of my learning journey in visual analytics.<br>
 It contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course.</p>
-</section>
-<section id="hands-on-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-exercise">Hands On Exercise</h2>
-<div id="listing-hands-on-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
 
+
+
+</section>
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-hands-on-listings">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-date-sort="1776182400000" data-listing-file-modified-sort="1777305799901" data-listing-date-modified-sort="1777305799000" data-listing-reading-time-sort="15" data-listing-word-count-sort="2988">
+<a href="./Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./Hands-On_Ex/Hands-on_Ex01/Thumbnail.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Javier Phang
+</div>
+<div class="listing-date">
+Apr 15, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-date-sort="1776614400000" data-listing-file-modified-sort="1777474849721" data-listing-date-modified-sort="1777474849000" data-listing-reading-time-sort="13" data-listing-word-count-sort="2493">
+<a href="./Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex02\Hands-on_Ex02_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Exercise 2 - Beyond ggplot2 Fundamentals
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Javier Phang
+</div>
+<div class="listing-date">
+Apr 20, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-date-sort="1777219200000" data-listing-file-modified-sort="1777473899970" data-listing-date-modified-sort="1777473899000" data-listing-reading-time-sort="37" data-listing-word-count-sort="7266">
+<a href="./Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex03\Image1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Exercise 3 - Programming Interactive Data Visualisation with R
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Javier Phang
+</div>
+<div class="listing-date">
+Apr 27, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
-</div>
-
-
-
-</section>
-
-</main> <!-- /main -->
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

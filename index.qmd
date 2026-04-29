@@ -20,10 +20,3 @@ Welcome to **ISSS608 Visual Analytics and Application** homepage**.** This site 
 
 This website serves as a portfolio of my learning journey in visual analytics.  
 It contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course.
-
-
-
-## Hands On Exercise
-
-::: {#hands-on-listings}
-:::
