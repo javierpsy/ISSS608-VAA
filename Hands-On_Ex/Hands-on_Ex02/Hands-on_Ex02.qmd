@@ -139,7 +139,7 @@ ggplot(data=exam_data,
 -   grid argument is used to remove the x-axis grid lines.
 :::
 
-#2.5 Beyond Single Graph We use ggplot2 extentions to compose figure with multiple graphs.
+# 2.5 Beyond Single Graph We use ggplot2 extentions to compose figure with multiple graphs.
 
 ```{r}
 p1 <- ggplot(data=exam_data, 
@@ -223,7 +223,7 @@ patchwork & theme_economist()
 
 ## Additional Analysis (1): Comparing Maths Score by Gender, Race, Class
 
-::: panel-tabset
+::: {.panel-tabset}
 ### Distribution of Maths Scores by Gender
 
 ```{r}
