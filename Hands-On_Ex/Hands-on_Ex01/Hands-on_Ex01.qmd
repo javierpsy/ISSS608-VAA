@@ -26,6 +26,7 @@ Note: Ensure that the pacman package has already been installed.
 The code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R. Otherwise, tidyverse will be installed and launched into R.
 
 ## Loading tinyverse
+
 This code chunk use pacman's [p_load()](https://cran.r-project.org/web/packages/pacman/refman/pacman.html#p_load) to load tidyverse family of package into R environment.
 
 ```{r}

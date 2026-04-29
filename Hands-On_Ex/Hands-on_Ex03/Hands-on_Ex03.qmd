@@ -524,9 +524,124 @@ Things to learn from the code chunk:
 -   **bscols()** is a helper function from the **crosstalk** package. It makes it easy to place HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown or Quarto document. **Warning:** This will bring in all of Bootstrap!
 :::
 
-## 3.9 Reference
 
-### 3.9.1 ggiraph
+# Additional Analysis
+
+## 3.9.1 Additional Analysis 1 - Subject Peformance Comparison
+**Objective**
+To compare the distribution of scores across Mathematics, English, and Science.
+
+```{r}
+exam_long <- exam_data %>%
+  pivot_longer(cols = c(MATHS, ENGLISH, SCIENCE),
+               names_to = "Subject",
+               values_to = "Score")
+
+ggplot(exam_long,
+       aes(x = Subject,
+           y = Score,
+           fill = Subject)) +
+  geom_boxplot() +
+  theme_ipsum() +
+  labs(
+    title = "Comparison of Score Distribution Across Subjects",
+    x = "Subject",
+    y = "Score"
+  )
+```
+
+**Insights**
+The boxplot reveals median score differences, variation in performance, and outliers between genders, helping identify whether one gender tends to perform better or shows more score variability.
+
+## 3.9.2 Additional Analysis 2 - Class Performance Comparison
+**Objective**
+To compare English score distributions across different classes.
+
+```{r}
+ggplot(exam_data,
+       aes(x = CLASS,
+           y = ENGLISH,
+           fill = CLASS)) +
+  geom_boxplot() +
+  theme_ipsum() +
+  labs(
+    title = "English Score Distribution by Class",
+    x = "Class",
+    y = "English Score"
+  )
+```
+**Insights**
+The boxplot highlights differences in median scores, variability within classes, and extreme performers, helping identify which classes perform better or show greater score spread.
+
+## 3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects
+**Objective**
+To examine the strength and direction of relationships between Mathematics, English, and Science scores.
+
+```{r}
+corr_matrix <- exam_data %>%
+  select(MATHS, ENGLISH, SCIENCE) %>%
+  cor()
+
+corrplot(corr_matrix,
+         method = "color",
+         type = "upper",
+         addCoef.col = "black")
+```
+
+**Insights**
+The heatmap highlights how strongly the subjects are related to each other. A higher correlation value indicates that students who perform well in one subject tend to perform well in another. Hence, we can identify the strongest subject relationship across subjects.
+
+## 3.9.4 Additional Analysis 4 - Student Peformance Ranking
+**Objective**
+To rank students based on their average scores across Mathematics, English, and Science in order to understand the overall performance hierarchy among students.
+
+```{r}
+exam_rank <- exam_data %>%
+  mutate(avg_score = (MATHS + ENGLISH + SCIENCE) / 3) %>%
+  arrange(desc(avg_score)) %>%
+  mutate(rank = row_number())
+
+ggplot(exam_rank,
+       aes(x = rank,
+           y = avg_score)) +
+  geom_line(color = "steelblue") +
+  geom_point(color = "steelblue", size = 2) +
+  labs(
+    title = "Student Performance Ranking Based on Average Scores",
+    x = "Student Rank",
+    y = "Average Score"
+  ) +
+  theme_ipsum()
+```
+
+**Insights**
+The ranking plot highlights the distribution of student performance levels across the dataset. Students at the top of the ranking represent the highest academic performers, while those at the bottom indicate lower overall performance.
+
+## 3.9.5 Subject Performance Gap Analysis
+**Objective**
+To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.
+
+```{r}
+exam_data %>%
+  mutate(score_gap = MATHS - ENGLISH) %>%
+  ggplot(aes(x = score_gap)) +
+  geom_histogram(bins = 20,
+                 fill = "orange",
+                 color = "grey25") +
+  labs(
+    title = "Performance Gap Between Maths and English",
+    x = "Score Difference (Maths - English)",
+    y = "Number of Students"
+  ) +
+  theme_ipsum()
+```
+
+**Insights**
+This analysis helps reveal subject imbalance in student performance and identifies whether most students perform consistently across subjects.
+
+## 3.10 Reference
+
+### 3.10.1 ggiraph
 
 This link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.
 
@@ -534,6 +649,13 @@ This link provides online version of the reference guide and several useful arti
 -   [Interactive map of France with ggiraph](https://rstudio-pubs-static.s3.amazonaws.com/152833_56a4917734204de7b37881d164cf8051.html)
 -   [Custom interactive sunbursts with ggplot in R](https://www.pipinghotdata.com/posts/2021-06-01-custom-interactive-sunbursts-with-ggplot-in-r/)
 -   This [link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes)\] provides code example on how ggiraph is used to interactive graphs for [Swiss Olympians - the solo specialists.](https://www.swissinfo.ch/eng/rio-2016-_swiss-olympiansthe-solo-specialists-/42349156?utm_content=bufferd148b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer)
+
+
+
+
+
+
+
 
 # 4 Programming Animated Statisical Graphics with R
 
