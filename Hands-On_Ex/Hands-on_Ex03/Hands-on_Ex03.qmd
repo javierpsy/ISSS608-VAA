@@ -528,7 +528,7 @@ Things to learn from the code chunk:
 # Additional Analysis
 
 ## 3.9.1 Additional Analysis 1 - Subject Peformance Comparison
-**Objective**
+**Objective:**
 To compare the distribution of scores across Mathematics, English, and Science.
 
 ```{r}
@@ -550,11 +550,11 @@ ggplot(exam_long,
   )
 ```
 
-**Insights**
+**Insights:**
 The boxplot reveals median score differences, variation in performance, and outliers between genders, helping identify whether one gender tends to perform better or shows more score variability.
 
 ## 3.9.2 Additional Analysis 2 - Class Performance Comparison
-**Objective**
+**Objective:**
 To compare English score distributions across different classes.
 
 ```{r}
@@ -570,11 +570,11 @@ ggplot(exam_data,
     y = "English Score"
   )
 ```
-**Insights**
+**Insights:**
 The boxplot highlights differences in median scores, variability within classes, and extreme performers, helping identify which classes perform better or show greater score spread.
 
 ## 3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects
-**Objective**
+**Objective:**
 To examine the strength and direction of relationships between Mathematics, English, and Science scores.
 
 ```{r}
@@ -590,11 +590,11 @@ corrplot(corr_matrix,
          addCoef.col = "black")
 ```
 
-**Insights**
+**Insights:**
 The heatmap highlights how strongly the subjects are related to each other. A higher correlation value indicates that students who perform well in one subject tend to perform well in another. Hence, we can identify the strongest subject relationship across subjects.
 
 ## 3.9.4 Additional Analysis 4 - Student Peformance Ranking
-**Objective**
+**Objective:**
 To rank students based on their average scores across Mathematics, English, and Science in order to understand the overall performance hierarchy among students.
 
 ```{r}
@@ -616,11 +616,11 @@ ggplot(exam_rank,
   theme_ipsum()
 ```
 
-**Insights**
+**Insights:**
 The ranking plot highlights the distribution of student performance levels across the dataset. Students at the top of the ranking represent the highest academic performers, while those at the bottom indicate lower overall performance.
 
 ## 3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis
-**Objective**
+**Objective:**
 To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.
 
 ```{r}
@@ -638,7 +638,7 @@ exam_data %>%
   theme_ipsum()
 ```
 
-**Insights**
+**Insights:**
 This analysis helps reveal subject imbalance in student performance and identifies whether most students perform consistently across subjects.
 
 ## 3.10 Reference
@@ -942,7 +942,68 @@ bp
 ```
 :::
 
-## 4.5 Reference
+# Additional Analysis 
+
+## 4.5.1 Additional Analysis 1 - Population Growth Rate Analysis
+**Objective:**
+To analyse how population has grown over time across different countries or regions in order to identify long-term growth patterns.
+
+```{r}
+ggplot(pop_data,
+       aes(x = Year,
+           y = Population,
+           color = Country)) +
+  geom_line() +
+  labs(
+    title = "Population Growth Trend by Country",
+    x = "Year",
+    y = "Population"
+  ) +
+  theme_minimal()
+```
+
+**Insights:** The line chart reveals the population growth trends across countries over time. Countries such as China and India exhibit steep upward trends, indicating rapid population growth over the years.
+
+## 4.5.2 Additional Analysis 2 - Population Distribution by Region
+**Objective:**
+To examine how population sizes vary across different regions and identify regions with large variability in population.
+
+```{r}
+ggplot(pop_data,
+       aes(x = Region,
+           y = Population,
+           fill = Region)) +
+  geom_boxplot() +
+  labs(
+    title = "Population Distribution Across Regions",
+    x = "Region",
+    y = "Population"
+  ) +
+  theme_minimal()
+```
+
+**Insights:** The boxplot shows clear differences in population distribution across regions. Asia has the highest median population and the widest variability, largely driven by highly populated countries such as China and India.
+
+## 4.5.3 Additional Analysis 3 - Population vs Life Expectancy Relationship
+**Objective:** To investigate whether countries with larger populations tend to have different life expectancy levels.
+
+```{r}
+ggplot(pop_data,
+       aes(x = Population,
+           y = LifeExpectancy)) +
+  geom_point(color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Relationship Between Population and Life Expectancy",
+    x = "Population",
+    y = "Life Expectancy"
+  ) +
+  theme_minimal()
+```
+
+**Insights:** The scatterplot indicates that there is no strong direct relationship between population size and life expectancy. Countries with large populations do not necessarily have higher or lower life expectancy.
+
+## 4.6 Reference
 
 - Visit this [**link**](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
 - [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/)

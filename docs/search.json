@@ -18,7 +18,7 @@
     "href": "index.html#hands-on-exercise",
     "title": "ISSS608-Visual Analytics and Applications",
     "section": "Hands on Exercise",
-    "text": "Hands on Exercise\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods\n\n\n\nJavier Phang\n\n\nApr 15, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 2 - Beyond ggplot2 Fundamentals\n\n\n\nJavier Phang\n\n\nApr 20, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 3 - Programming Interactive Data Visualisation with R\n\n\n\nJavier Phang\n\n\nApr 27, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Hands on Exercise\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
@@ -336,11 +336,11 @@
     "text": "3.9.4 Additional Analysis 4 - Student Peformance Ranking\nObjective To rank students based on their average scores across Mathematics, English, and Science in order to understand the overall performance hierarchy among students.\n\n\nCode\nexam_rank &lt;- exam_data %&gt;%\n  mutate(avg_score = (MATHS + ENGLISH + SCIENCE) / 3) %&gt;%\n  arrange(desc(avg_score)) %&gt;%\n  mutate(rank = row_number())\n\nggplot(exam_rank,\n       aes(x = rank,\n           y = avg_score)) +\n  geom_line(color = \"steelblue\") +\n  geom_point(color = \"steelblue\", size = 2) +\n  labs(\n    title = \"Student Performance Ranking Based on Average Scores\",\n    x = \"Student Rank\",\n    y = \"Average Score\"\n  ) +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\nInsights The ranking plot highlights the distribution of student performance levels across the dataset. Students at the top of the ranking represent the highest academic performers, while those at the bottom indicate lower overall performance."
   },
   {
-    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#subject-performance-gap-analysis",
-    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#subject-performance-gap-analysis",
+    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-5---subject-performance-gap-analysis",
+    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-5---subject-performance-gap-analysis",
     "title": "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R",
-    "section": "3.9.5 Subject Performance Gap Analysis",
-    "text": "3.9.5 Subject Performance Gap Analysis\nObjective To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.\n\n\nCode\nexam_data %&gt;%\n  mutate(score_gap = MATHS - ENGLISH) %&gt;%\n  ggplot(aes(x = score_gap)) +\n  geom_histogram(bins = 20,\n                 fill = \"orange\",\n                 color = \"grey25\") +\n  labs(\n    title = \"Performance Gap Between Maths and English\",\n    x = \"Score Difference (Maths - English)\",\n    y = \"Number of Students\"\n  ) +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\nInsights This analysis helps reveal subject imbalance in student performance and identifies whether most students perform consistently across subjects."
+    "section": "3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis",
+    "text": "3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis\nObjective To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.\n\n\nCode\nexam_data %&gt;%\n  mutate(score_gap = MATHS - ENGLISH) %&gt;%\n  ggplot(aes(x = score_gap)) +\n  geom_histogram(bins = 20,\n                 fill = \"orange\",\n                 color = \"grey25\") +\n  labs(\n    title = \"Performance Gap Between Maths and English\",\n    x = \"Score Difference (Maths - English)\",\n    y = \"Number of Students\"\n  ) +\n  theme_ipsum()\n\n\n\n\n\n\n\n\n\nInsights This analysis helps reveal subject imbalance in student performance and identifies whether most students perform consistently across subjects."
   },
   {
     "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#reference",
