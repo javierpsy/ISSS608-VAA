@@ -619,7 +619,7 @@ ggplot(exam_rank,
 **Insights**
 The ranking plot highlights the distribution of student performance levels across the dataset. Students at the top of the ranking represent the highest academic performers, while those at the bottom indicate lower overall performance.
 
-## 3.9.5 Subject Performance Gap Analysis
+## 3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis
 **Objective**
 To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.
 
