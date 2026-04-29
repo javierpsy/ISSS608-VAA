@@ -38,7 +38,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 We can observe a large number of data points based on the below R codes
 
 ## The plot
-```{r echo=False}
+```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS, 
            y=ENGLISH)) +
@@ -139,7 +139,9 @@ ggplot(data=exam_data,
 -   grid argument is used to remove the x-axis grid lines.
 :::
 
-# 2.5 Beyond Single Graph We use ggplot2 extentions to compose figure with multiple graphs.
+# 2.5 Beyond Single Graph
+
+We use ggplot2 extensions to compose figures with multiple graphs.
 
 ```{r}
 p1 <- ggplot(data=exam_data, 

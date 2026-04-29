@@ -24,7 +24,7 @@ We need to run the code chunk below:
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
                tidyverse, ggiraph, plotly, 
-               patchwork, DT) 
+               patchwork, DT, corrplot) 
 ```
 
 ## 3.3 Importing Data
@@ -578,6 +578,8 @@ The boxplot highlights differences in median scores, variability within classes,
 To examine the strength and direction of relationships between Mathematics, English, and Science scores.
 
 ```{r}
+library(corrplot)
+
 corr_matrix <- exam_data %>%
   select(MATHS, ENGLISH, SCIENCE) %>%
   cor()
