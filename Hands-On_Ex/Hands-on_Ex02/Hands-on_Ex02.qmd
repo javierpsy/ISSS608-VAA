@@ -35,10 +35,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 # 2.3 Beyond ggplot2 Annotation: ggrepel
-
-::: {style='font-size: 1.4em"}
 We can observe a large number of data points based on the below R codes
-:::
 
 ::: {.panel-tabset}
 ## The plot
