@@ -37,7 +37,6 @@ exam_data <- read_csv("data/Exam_data.csv")
 # 2.3 Beyond ggplot2 Annotation: ggrepel
 We can observe a large number of data points based on the below R codes
 
-::: {.panel-tabset}
 ## The plot
 ```{r echo=False}
 ggplot(data=exam_data, 
@@ -53,13 +52,11 @@ ggplot(data=exam_data,
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
-:::
+
 
 ## 2.3.1 Working with ggrepel
 
 We use ggrepel to repel overlapping text as shown below
-
-::: {.panel-tabset}
 
 ```{r}
 ggplot(data=exam_data, 
@@ -74,7 +71,7 @@ ggplot(data=exam_data,
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
-:::
+
 
 # 2.4 Beyond ggplot2 Themes
 
