@@ -20,13 +20,13 @@ website:
             href: Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.qmd    
           
       - icon: graph-up
-        text: "In-class"
+        text: "In-class Exercise"
         menu:
-          - text: "Coming Soon"
+          - text: "In-Class Exercise 1"
             href: "#"
             
       - icon: clipboard-data
-        text: "Take-home"
+        text: "Take-home Exercise"
         menu:
           - text: "Coming Soon"
             href: "#"

@@ -14,6 +14,13 @@
     "text": "About This Website\nThis website serves as a portfolio of my learning journey in visual analytics.\nIt contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course."
   },
   {
+    "objectID": "index.html#hands-on-exercise",
+    "href": "index.html#hands-on-exercise",
+    "title": "ISSS608-Visual Analytics and Applications",
+    "section": "Hands on Exercise",
+    "text": "Hands on Exercise\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods\n\n\n\nJavier Phang\n\n\nApr 15, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 2 - Beyond ggplot2 Fundamentals\n\n\n\nJavier Phang\n\n\nApr 20, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 3 - Programming Interactive Data Visualisation with R\n\n\n\nJavier Phang\n\n\nApr 27, 2026\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
     "href": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
     "title": "Hands-on Exercise 2 - Beyond ggplot2 Fundamentals",
@@ -376,12 +383,5 @@
     "title": "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R",
     "section": "4.5 Reference",
     "text": "4.5 Reference\n\nVisit this link for a very interesting implementation of gganimate by your senior.\nBuilding an animation step-by-step with gganimate\nCreating a composite gif with multiple gganimate panels"
-  },
-  {
-    "objectID": "index.html#hands-on-exercise",
-    "href": "index.html#hands-on-exercise",
-    "title": "ISSS608-Visual Analytics and Applications",
-    "section": "Hands on Exercise",
-    "text": "Hands on Exercise\n\n\n\n\nNo matching items"
   }
 ]
