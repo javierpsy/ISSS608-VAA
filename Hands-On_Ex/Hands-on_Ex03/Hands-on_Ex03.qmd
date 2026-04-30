@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: false
+  freeze: true
 ---
 
 ## 3.1 Learning Objectives:
@@ -944,64 +944,45 @@ bp
 
 # Additional Analysis 
 
-## 4.5.1 Additional Analysis 1 - Population Growth Rate Analysis
+## 4.5.1 Additional Analysis 6 - Population Distribution by Continent
 **Objective:**
-To analyse how population has grown over time across different countries or regions in order to identify long-term growth patterns.
+To examine how population sizes vary across different continent and identify regions with large variability in population.
 
 ```{r}
-ggplot(pop_data,
-       aes(x = Year,
+ggplot(globalPop,
+       aes(x = Continent,
            y = Population,
-           color = Country)) +
-  geom_line() +
-  labs(
-    title = "Population Growth Trend by Country",
-    x = "Year",
-    y = "Population"
-  ) +
-  theme_minimal()
-```
-
-**Insights:** The line chart reveals the population growth trends across countries over time. Countries such as China and India exhibit steep upward trends, indicating rapid population growth over the years.
-
-## 4.5.2 Additional Analysis 2 - Population Distribution by Region
-**Objective:**
-To examine how population sizes vary across different regions and identify regions with large variability in population.
-
-```{r}
-ggplot(pop_data,
-       aes(x = Region,
-           y = Population,
-           fill = Region)) +
+           fill = Continent)) +
   geom_boxplot() +
   labs(
-    title = "Population Distribution Across Regions",
-    x = "Region",
+    title = "Population Distribution Across Continents",
+    x = "Continent",
     y = "Population"
   ) +
   theme_minimal()
 ```
 
-**Insights:** The boxplot shows clear differences in population distribution across regions. Asia has the highest median population and the widest variability, largely driven by highly populated countries such as China and India.
+**Insights:** It helps identify which continents have larger population spread and whether there are countries with unusually large populations.
 
-## 4.5.3 Additional Analysis 3 - Population vs Life Expectancy Relationship
-**Objective:** To investigate whether countries with larger populations tend to have different life expectancy levels.
+## 4.5.2 Additional Analysis 7 - Young vs Old Population
+**Objective:** To investigate the relationship between Young vs Old Population.
 
 ```{r}
-ggplot(pop_data,
-       aes(x = Population,
-           y = LifeExpectancy)) +
-  geom_point(color = "steelblue") +
-  geom_smooth(method = "lm", se = FALSE) +
+ggplot(globalPop,
+       aes(x = Young,
+           y = Old,
+           color = Continent)) +
+  geom_point(alpha = 0.7) +
   labs(
-    title = "Relationship Between Population and Life Expectancy",
-    x = "Population",
-    y = "Life Expectancy"
+    title = "Relationship Between Young and Old Population",
+    x = "Young Population (%)",
+    y = "Old Population (%)",
+    color = "Continent"
   ) +
   theme_minimal()
 ```
 
-**Insights:** The scatterplot indicates that there is no strong direct relationship between population size and life expectancy. Countries with large populations do not necessarily have higher or lower life expectancy.
+**Insights:** It helps identify whether countries with a higher young population tend to have a lower ageing population profile.
 
 ## 4.6 Reference
 
