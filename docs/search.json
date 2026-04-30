@@ -18,7 +18,7 @@
     "href": "index.html#hands-on-exercise",
     "title": "ISSS608-Visual Analytics and Applications",
     "section": "Hands on Exercise",
-    "text": "Hands on Exercise\n\n\n\n\nNo matching items"
+    "text": "Hands on Exercise\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods\n\n\n\nJavier Phang\n\n\nApr 15, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 2 - Beyond ggplot2 Fundamentals\n\n\n\nJavier Phang\n\n\nApr 20, 2026\n\n\n\n\n\n\n\n\n\n\n\nHands-on Exercise 3 - Programming Interactive Data Visualisation with R\n\n\n\nJavier Phang\n\n\nApr 27, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
@@ -378,25 +378,18 @@
     "text": "4.4 Animated Data Visualisation: plotly\nIn Plotly R package, both ggplotly() and plot_ly() support key frame animations through the frame argument/aesthetic. They also support an ids argument/aesthetic to ensure smooth transitions between objects with the same id (which helps facilitate object constancy).\n\n4.4.1 Building an animated bubble plot: ggplotly() method\nWe will create an animated bubble plot by using ggplot() method.\n\nThe plotThe code chunk\n\n\n\n\n\n\n\n\n\n\n\n\nCode\ngg &lt;- ggplot(globalPop, \n       aes(x = Old, \n           y = Young, \n           size = Population, \n           colour = Country)) +\n  geom_point(aes(size = Population,\n                 frame = Year),\n             alpha = 0.7, \n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(x = '% Aged', \n       y = '% Young')\n\nggplotly(gg)      \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteThings to learn from the code chunk above\n\n\n\n\nAppropriate ggplot2 functions are used to create a static bubble plot. The output is then saved as an R object called gg.\nggplotly() is then used to convert the R graphic object into an animated svg object.\n\n\n\nshow.legend = FALSE argument was used, the legend still appears on the plot. To overcome this problem, theme(legend.position='none') should be used as shown in the plot and code chunk below.\n\nThe plotThe code chunk\n\n\n\n\n\n\n\n\n\n\n\n\nCode\ngg &lt;- ggplot(globalPop, \n       aes(x = Old, \n           y = Young, \n           size = Population, \n           colour = Country)) +\n  geom_point(aes(size = Population,\n                 frame = Year),\n             alpha = 0.7) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(x = '% Aged', \n       y = '% Young') + \n  theme(legend.position='none')\n\nggplotly(gg)     \n\n\n\n\n\n\n\n\n\n\n\n4.4.2 Building an animated bubble plot: plot_ly() method\nWe will create an animated bubble plot by using plot_ly() method.\n\nThe plotThe code chunk\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nbp &lt;- globalPop %&gt;%\n  plot_ly(x = ~Old, \n          y = ~Young, \n          size = ~Population, \n          color = ~Continent,\n          sizes = c(2, 100),\n          frame = ~Year, \n          text = ~Country, \n          hoverinfo = \"text\",\n          type = 'scatter',\n          mode = 'markers'\n          ) %&gt;%\n  layout(showlegend = FALSE)\nbp"
   },
   {
-    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-1---population-growth-rate-analysis",
-    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-1---population-growth-rate-analysis",
+    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-6---population-distribution-by-continent",
+    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-6---population-distribution-by-continent",
     "title": "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R",
-    "section": "4.5.1 Additional Analysis 1 - Population Growth Rate Analysis",
-    "text": "4.5.1 Additional Analysis 1 - Population Growth Rate Analysis\nObjective: To analyse how population has grown over time across different countries or regions in order to identify long-term growth patterns.\n\n\nCode\nggplot(globalPop,\n       aes(x = Year,\n           y = Population,\n           color = Country)) +\n  geom_line() +\n  labs(\n    title = \"Population Growth Trend by Country\",\n    x = \"Year\",\n    y = \"Population\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nInsights: The line chart reveals the population growth trends across countries over time. Countries such as China and India exhibit steep upward trends, indicating rapid population growth over the years."
+    "section": "4.5.1 Additional Analysis 6 - Population Distribution by Continent",
+    "text": "4.5.1 Additional Analysis 6 - Population Distribution by Continent\nObjective: To examine how population sizes vary across different continent and identify regions with large variability in population.\n\n\nCode\nggplot(globalPop,\n       aes(x = Continent,\n           y = Population,\n           fill = Continent)) +\n  geom_boxplot() +\n  labs(\n    title = \"Population Distribution Across Continents\",\n    x = \"Continent\",\n    y = \"Population\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nInsights: It helps identify which continents have larger population spread and whether there are countries with unusually large populations."
   },
   {
-    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-2---population-distribution-by-continent",
-    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-2---population-distribution-by-continent",
+    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-7---young-vs-old-population",
+    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-7---young-vs-old-population",
     "title": "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R",
-    "section": "4.5.2 Additional Analysis 2 - Population Distribution by Continent",
-    "text": "4.5.2 Additional Analysis 2 - Population Distribution by Continent\nObjective: To examine how population sizes vary across different continent and identify regions with large variability in population.\n\n\nCode\nggplot(globalPop,\n       aes(x = Continent,\n           y = Population,\n           fill = Continent)) +\n  geom_boxplot() +\n  labs(\n    title = \"Population Distribution Across Continents\",\n    x = \"Continent\",\n    y = \"Population\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nInsights: It helps identify which continents have larger population spread and whether there are countries with unusually large populations."
-  },
-  {
-    "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-3---young-vs-old-population",
-    "href": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#additional-analysis-3---young-vs-old-population",
-    "title": "Hands-on Exercise 3 - Programming Interactive Data Visualisation with R",
-    "section": "4.5.3 Additional Analysis 3 - Young vs Old Population",
-    "text": "4.5.3 Additional Analysis 3 - Young vs Old Population\nObjective: To investigate the relationship between Young vs Old Population.\n\n\nCode\nggplot(globalPop,\n       aes(x = Young,\n           y = Old,\n           color = Continent)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    title = \"Relationship Between Young and Old Population\",\n    x = \"Young Population (%)\",\n    y = \"Old Population (%)\",\n    color = \"Continent\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nInsights: It helps identify whether countries with a higher young population tend to have a lower ageing population profile."
+    "section": "4.5.2 Additional Analysis 7 - Young vs Old Population",
+    "text": "4.5.2 Additional Analysis 7 - Young vs Old Population\nObjective: To investigate the relationship between Young vs Old Population.\n\n\nCode\nggplot(globalPop,\n       aes(x = Young,\n           y = Old,\n           color = Continent)) +\n  geom_point(alpha = 0.7) +\n  labs(\n    title = \"Relationship Between Young and Old Population\",\n    x = \"Young Population (%)\",\n    y = \"Old Population (%)\",\n    color = \"Continent\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nInsights: It helps identify whether countries with a higher young population tend to have a lower ageing population profile."
   },
   {
     "objectID": "Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html#reference-1",

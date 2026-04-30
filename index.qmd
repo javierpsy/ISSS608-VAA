@@ -2,7 +2,8 @@
 title: "ISSS608-Visual Analytics and Applications"
 listing:
   - id: hands-on-listings
-    contents: Hands-On_Ex
+    contents:
+      - "Hands-On_Ex/**/*.qmd"
     type: grid
     sort: "date asc"
     fields: [image, title, author, date]
