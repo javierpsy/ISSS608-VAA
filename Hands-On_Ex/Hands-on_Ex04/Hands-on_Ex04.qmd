@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: auto
 ---
 
 # 8 Funnel Plots for Fair Comparisons
@@ -16,14 +16,11 @@ execute:
 
 **What is Funnel plot?**
 
-Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets
-
+Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets.
 In this hands-on Exercise, we'll gain hands-on experience on:
 
 -   plotting funnel plots by using **funnelPlotR** package,
-
 -   plotting static funnel plot by using ggplot2 package, and
-
 -   plotting interactive funnel plot by using both **plotly R** and **ggplot2** packages.
 
 ## 8.2 Getting Started:
@@ -31,13 +28,9 @@ In this hands-on Exercise, we'll gain hands-on experience on:
 In this exercise, four R packages will be used. They are:
 
 -   **readr** for importing csv into R.
-
 -   **FunnelPlotR** for creating funnel plot.
-
 -   **ggplot2** for creating funnel plot manually.
-
 -   **knitr** for building static html table.
-
 -   **plotly** for creating interactive funnel plot.
 
 ```{r}
@@ -61,15 +54,10 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 [**FunnelPlotR**](https://nhs-r-community.github.io/FunnelPlotR/) package uses ggplot to generate funnel plots. It requires a `numerator` (events of interest), `denominator` (population to be considered) and `group`. The key arguments selected for customisation are:
 
 -   `limit`: plot limits (95 or 99).
-
 -   `label_outliers`: to label outliers (true or false).
-
 -   `Poisson_limits`: to add Poisson limits to the plot.
-
 -   `OD_adjust`: to add overdispersed limits to the plot.
-
 -   `xrange` and `yrange`: to specify the range to display for axes, acts like a zoom function.
-
 -   Other aesthetic components such as graph title, axis labels etc.
 
 ### 8.4.1 **FunnelPlotR methods: The basic plot**
@@ -92,9 +80,7 @@ A funnel plot object with 267 points of which 0 are outliers.  Plot is adjusted 
 Things to learn from the code chunk above.
 
 -   `group` in this function is different from the scatterplot. Here, it defines the level of the points to be plotted i.e. Sub-district, District or City. If Cityc is chosen, there are only six data points.
-
 -   By default, `data_type`argument is “SR”.
-
 -   `limit`: Plot limits, accepted values are: 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.
 
 ### 8.4.2 **FunnelPlotR methods: Makeover 1**
@@ -146,9 +132,7 @@ A funnel plot object with 267 points of which 7 are outliers.  Plot is adjusted 
 Things to learn from the code chunk above.
 
 -   `label = NA` argument is to removed the default label outliers feature.
-
 -   `title` argument is used to add plot title.
-
 -   `x_label` and `y_label` arguments are used to add/edit x-axis and y-axis titles.
 
 ## 8.5 **Funnel Plot for Fair Visual Comparison: ggplot2 methods**
@@ -251,12 +235,84 @@ fp_ggplotly
 ## 8.6 **References**
 
 -   [funnelPlotR](https://nhs-r-community.github.io/FunnelPlotR/index.html) package.
-
 -   [Funnel Plots for Indirectly-standardised ratios](https://nhs-r-community.github.io/FunnelPlotR/articles/funnel_plots.html).
-
 -   [Changing funnel plot options](https://nhs-r-community.github.io/FunnelPlotR/articles/changing_funnel_plot_options.html)
-
 -   [ggplot2](https://ggplot2.tidyverse.org/) package.
+
+# **Additional Analysis**
+
+## 8.7.1 Additional Analysis 1 - Distribution of Fatality Rates by City
+
+**Objective:** To compare how COVID-19 fatality rates vary across different cities in DKI Jakarta using boxplots.
+
+```{r}
+covid19_city_rate <- covid19 %>%
+  mutate(fatality_rate = Death / Positive) %>%
+  filter(Positive > 0)
+
+ggplot(covid19_city_rate,
+       aes(x = City, y = fatality_rate, fill = City)) +
+  geom_boxplot(alpha = 0.7, outlier.color = "red") +
+  labs(
+    title = "Distribution of COVID-19 Fatality Rates by City",
+    x = "City",
+    y = "Fatality Rate"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+**Insights:** Some cities exhibit higher and more variable fatality rates across sub-districts, indicating differences in COVID-19 impact and healthcare burden.
+
+
+## 8.7.2 Additional Analysis 2: Relationship Between Positive Cases and Deaths
+
+**Objective:** To examine the relationship between cumulative positive COVID-19 cases and cumulative deaths across sub-districts.
+
+```{r}
+covid19 %>%
+  filter(Positive > 0, Death >= 0) %>%
+  ggplot(aes(x = Positive, y = Death)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  geom_smooth(method = "lm", se = TRUE, color = "red") +
+  labs(
+    title = "Relationship Between Positive Cases and Deaths",
+    x = "Cumulative Positive Cases",
+    y = "Cumulative Deaths"
+  ) +
+  theme_minimal()
+```
+
+**Insights:** Sub-districts with higher positive cases generally tend to report higher deaths, suggesting a positive relationship between infection burden and mortality.
+
+## 8.7.3 Additional Analysis 3: Top 10 Sub-districts by Fatality Rate
+
+**Objective:** To identify the top 10 sub-districts with the highest COVID-19 fatality rates for targeted monitoring and public health intervention.
+
+```{r}
+covid19 %>%
+  mutate(fatality_rate = Death / Positive) %>%
+  filter(Positive >= 100, Death > 0) %>%
+  arrange(desc(fatality_rate)) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(x = reorder(`Sub-district`, fatality_rate),
+             y = fatality_rate)) +
+
+  geom_col(fill = "tomato") +
+
+  coord_flip() +
+
+  labs(
+    title = "Top 10 Sub-districts by Fatality Rate",
+    subtitle = "Sub-districts with at least 100 positive cases",
+    x = "Sub-district",
+    y = "Fatality Rate"
+  ) +
+
+  theme_minimal()
+```
+
+**Insights:** Several sub-districts recorded significantly higher fatality rates relative to their positive cases, highlighting potential high-risk areas requiring closer investigation.
 
 # 9 Visualising Distribution
 
@@ -671,11 +727,8 @@ ggplot(exam,
 ## 9.5 **Reference**
 
 -   [Introducing Ridgeline Plots (formerly Joyplots)](https://blog.revolutionanalytics.com/2017/07/joyplots.html)
-
 -   Claus O. Wilke [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) especially Chapter [6](https://clauswilke.com/dataviz/visualizing-amounts.html), [7](https://clauswilke.com/dataviz/histograms-density-plots.html), [8](https://clauswilke.com/dataviz/ecdf-qq.html), [9](https://clauswilke.com/dataviz/boxplots-violins.html) and [10](https://clauswilke.com/dataviz/visualizing-proportions.html).
-
 -   Allen M, Poggiali D, Whitaker K et al. [“Raincloud plots: a multi-platform tool for robust data. visualization”](https://wellcomeopenresearch.org/articles/4-63) \[version 2; peer review: 2 approved\]. Welcome Open Res 2021, pp. 4:63.
-
 -   [Dots + interval stats and geoms](https://mjskay.github.io/ggdist/articles/dotsinterval.html)
 
 # 10 Visual Statistical Analysis
@@ -685,9 +738,7 @@ ggplot(exam,
 In this hands-on exercise, you will gain hands-on experience on using:
 
 -   ggstatsplot package to create visual graphics with rich statistical information,
-
 -   performance package to visualise model diagnostics, and
-
 -   parameters package to visualise model parameters
 
 ## 10.2 **Visual Statistical Analysis with ggstatsplot**
@@ -708,7 +759,7 @@ In this hands-on exercise, you will gain hands-on experience on using:
 In this exercise, **ggstatsplot** and **tidyverse** will be used.
 
 ```{r}
-pacman::p_load(ggstatsplot, tidyverse)
+pacman::p_load(ggstatsplot, tidyverse, ggplot2)
 ```
 
 ### 10.3.2 **Importing data**
@@ -726,7 +777,7 @@ In the code chunk below, [*gghistostats()*](https://indrajeetpatil.github.io/gg
 ```{r}
 set.seed(1234)
 
-gghistostats(
+ggstatsplot::gghistostats(
   data = exam,
   x = ENGLISH,
   type = "bayes",
@@ -740,9 +791,7 @@ Default information: - statistical details - Bayes Factor - sample sizes - distr
 ### 10.3.4 **Unpacking the Bayes Factor**
 
 -   A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.
-
 -   That’s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.
-
 -   When we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10. It can be defined mathematically as
 
 ![](/Hands-On_Ex/Hands-on_Ex04/Unpacking%20the%20Bayes%20Factor.png)
@@ -1270,4 +1319,97 @@ ggplot(data = exam,
   transition_states(.draw, 1, 3)
 ```
 
+# **Additional Analysis**
 
+## 11.6.1 Additional Analysis 4 - Class Consistency Analysis
+
+**Objective:** To identify which classes demonstrate the most consistent Mathematics performance based on score variability.
+
+```{r}
+class_sd <- exam %>%
+  group_by(CLASS) %>%
+  summarise(
+    maths_sd = sd(MATHS),
+    avg_maths = mean(MATHS),
+    .groups = "drop"
+  )
+
+ggplot(class_sd,
+       aes(x = reorder(CLASS, maths_sd),
+           y = maths_sd)) +
+
+  geom_col(fill = "steelblue") +
+
+  coord_flip() +
+
+  labs(
+    title = "Variation in Maths Scores by Class",
+    x = "Class",
+    y = "Standard Deviation of Maths Scores"
+  ) +
+
+  theme_minimal()
+```
+
+**Insights:** Classes with lower standard deviation indicate more consistent student performance, while higher variation suggests larger performance gaps among students.
+
+## 11.6.2 Additional Analysis 5 - High Performer Composition by Race
+
+**Objective:** To examine the distribution of high-performing students in Mathematics across different racial groups.
+
+```{r}
+high_perf <- exam %>%
+  filter(MATHS >= 85) %>%
+  count(RACE)
+
+ggplot(high_perf,
+       aes(x = reorder(RACE, n),
+           y = n,
+           fill = RACE)) +
+
+  geom_col() +
+
+  coord_flip() +
+
+  labs(
+    title = "Number of High Performers in Maths by Race",
+    x = "Race",
+    y = "Number of Students"
+  ) +
+
+  theme_minimal() +
+
+  theme(legend.position = "none")
+```
+
+**Insights:** Some racial groups contribute a larger proportion of students scoring 85 and above in Mathematics, highlighting differences in top-performing student representation.
+
+## 11.6.3 Additional Analysis 6 - Subject Balance Analysis
+
+**Objective:** To analyse whether students perform consistently across Mathematics and English by measuring the score gap between the two subjects.
+
+```{r}
+exam %>%
+  mutate(
+    score_gap = abs(MATHS - ENGLISH)
+  ) %>%
+
+  ggplot(aes(x = score_gap)) +
+
+  geom_histogram(
+    bins = 20,
+    fill = "tomato",
+    color = "white"
+  ) +
+
+  labs(
+    title = "Distribution of Subject Performance Gaps",
+    subtitle = "Absolute difference between Maths and English scores",
+    x = "Score Gap",
+    y = "Number of Students"
+  ) +
+
+  theme_minimal()
+```
+
+**Insights:** Most students exhibit relatively balanced performance between Mathematics and English, although some students show noticeably stronger performance in one subject over the other.

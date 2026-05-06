@@ -18,7 +18,7 @@ website:
             href: Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd  
           - text: "Hands-on Exercise 3 (Interactivity in Visual Analytics)"
             href: Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.qmd   
-          - text: "Lesson 4: Fundamentals of Visual Analytics"
+          - text: "Hands-on Exercise 4 (Fundamentals of Visual Analytics)"
             href: Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.qmd 
           
       - icon: graph-up
