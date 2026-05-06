@@ -17,13 +17,19 @@ website:
           - text: "Hands-on Exercise 2 (Designing Graphs to Enlighten)"
             href: Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.qmd  
           - text: "Hands-on Exercise 3 (Interactivity in Visual Analytics)"
-            href: Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.qmd    
+            href: Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.qmd   
+          - text: "Lesson 4: Fundamentals of Visual Analytics"
+            href: Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.qmd 
           
       - icon: graph-up
         text: "In-class Exercise"
         menu:
-          - text: "In-Class Exercise 1"
-            href: "#"
+          - text: "In-Class Exercise 2"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex02_17771005377600/Dashboard1"
+          - text: "In-Class Exercise 3"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03_17777054045000/SuperStoreSalesReport"
+          - text: "In-Class Exercise 3B"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03B/AgeSexPyramid"  
             
       - icon: clipboard-data
         text: "Take-home Exercise"
