@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.9.37" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-
-<meta name="author" content="Javier Phang" />
-<meta name="dcterms.date" content="2026-04-27" />
+<meta name="author" content="Javier Phang">
+<meta name="dcterms.date" content="2026-04-27">
 
 <title>Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</title>
 <style>
@@ -64,7 +62,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-52e90109c9fd1ab1ecaf05b4af9305f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -92,87 +107,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<link href="../../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
-<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="../../site_libs/ggiraphjs-0.9.4/girafe.css" rel="stylesheet" />
-<script src="../../site_libs/ggiraphjs-0.9.4/girafe.js"></script>
-<script src="../../site_libs/girafe-binding-0.9.6/girafe.js"></script>
-<link href="../../site_libs/liberation-sans-0.5.0/css/liberation-sans.css" rel="stylesheet" />
-<link href="../../site_libs/liberation-serif-0.5.0/css/liberation-serif.css" rel="stylesheet" />
-<link href="../../site_libs/liberation-mono-0.5.0/css/liberation-mono.css" rel="stylesheet" />
-<script src="../../site_libs/plotly-binding-4.12.0/plotly.js"></script>
-<script src="../../site_libs/typedarray-0.1/typedarray.min.js"></script>
-<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
-<script src="../../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
-<link href="../../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="../../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
-<link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="../../site_libs/datatables-binding-0.34.0/datatables.js"></script>
-<link href="../../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="../../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="../../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="../../site_libs/bootstrap-grid-3.4.1/bootstrap-grid.min.css" rel="stylesheet" />
+<link href="../../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="../../site_libs/ggiraphjs-0.9.4/girafe.css" rel="stylesheet">
+
+<script src="../../site_libs/ggiraphjs-0.9.4/girafe.js"></script>
+
+<script src="../../site_libs/girafe-binding-0.9.6/girafe.js"></script>
+
+<link href="../../site_libs/liberation-sans-0.5.0/css/liberation-sans.css" rel="stylesheet">
+
+<link href="../../site_libs/liberation-serif-0.5.0/css/liberation-serif.css" rel="stylesheet">
+
+<link href="../../site_libs/liberation-mono-0.5.0/css/liberation-mono.css" rel="stylesheet">
+
+<script src="../../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+
+<script src="../../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="../../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+<link href="../../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+<link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="../../site_libs/datatables-binding-0.34.0/datatables.js"></script>
+
+<link href="../../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="../../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="../../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="../../site_libs/bootstrap-grid-3.4.1/bootstrap-grid.min.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../../styles.css" />
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body>
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="/index.html" class="navbar-brand navbar-brand-logo">
-    <img src="/images/Icon1.png" alt="" class="navbar-logo light-content" />
-    <img src="/images/Icon1.png" alt="" class="navbar-logo dark-content" />
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
-  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
-      <i 
-  class="bi bi-bar-chart" 
-  role="img" 
->
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-bar-chart" role="img">
 </i> 
  <span class="menu-text">Hands-on Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="/Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1 (Introduction to Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2 (Designing Graphs to Enlighten)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
  <span class="dropdown-text">Hands-on Exercise 3 (Interactivity in Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
- <span class="dropdown-text">Lesson 4: Fundamentals of Visual Analytics</span></a>
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+ <span class="dropdown-text">Hands-on Exercise 4 (Fundamentals of Visual Analytics)</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
-      <i 
-  class="bi bi-graph-up" 
-  role="img" 
->
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-graph-up" role="img">
 </i> 
  <span class="menu-text">In-class Exercise</span>
     </a>
@@ -192,44 +221,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false" >
-      <i 
-  class="bi bi-clipboard-data" 
-  role="img" 
->
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-clipboard-data" role="img">
 </i> 
  <span class="menu-text">Take-home Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="/#">
+    <a class="dropdown-item" href="../../#">
  <span class="dropdown-text">Coming Soon</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/#"> <i 
-  class="bi bi-people" 
-  role="img" 
->
+    <a class="nav-link" href="../../#"> <i class="bi bi-people" role="img">
 </i> 
 <span class="menu-text">Group Project</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="/index.html"> <i 
-  class="bi bi-house-fill" 
-  role="img" 
->
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-fill" role="img">
 </i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="/about.html"> <i 
-  class="bi bi-person-circle" 
-  role="img" 
->
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person-circle" role="img">
 </i> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -245,7 +262,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">3.1 Learning Objectives:</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">3.2 Getting Started:</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data">3.3 Importing Data</a></li>
+  <li><a href="#interactive-data-visualisation---ggiraph-methods" id="toc-interactive-data-visualisation---ggiraph-methods" class="nav-link" data-scroll-target="#interactive-data-visualisation---ggiraph-methods">3.4 Interactive Data Visualisation - ggiraph methods</a>
+  <ul class="collapse">
+  <li><a href="#tooltip-effect-with-tooltip-aesthetic" id="toc-tooltip-effect-with-tooltip-aesthetic" class="nav-link" data-scroll-target="#tooltip-effect-with-tooltip-aesthetic">3.4.1 Tooltip effect with tooltip aesthetic</a></li>
+  </ul></li>
+  <li><a href="#interactivity" id="toc-interactivity" class="nav-link" data-scroll-target="#interactivity">3.5 Interactivity</a>
+  <ul class="collapse">
+  <li><a href="#displaying-multiple-information-on-tooltip" id="toc-displaying-multiple-information-on-tooltip" class="nav-link" data-scroll-target="#displaying-multiple-information-on-tooltip">3.5.1 Displaying multiple information on tooltip</a></li>
+  </ul></li>
+  <li><a href="#interactivity-1" id="toc-interactivity-1" class="nav-link" data-scroll-target="#interactivity-1">3.6 Interactivity</a>
+  <ul class="collapse">
+  <li><a href="#customising-tooltip-style" id="toc-customising-tooltip-style" class="nav-link" data-scroll-target="#customising-tooltip-style">3.6.1 Customising Tooltip style</a></li>
+  <li><a href="#displaying-statistics-on-tooltip" id="toc-displaying-statistics-on-tooltip" class="nav-link" data-scroll-target="#displaying-statistics-on-tooltip">3.6.2 Displaying statistics on tooltip</a></li>
+  <li><a href="#hover-effect-with-data_id-aesthetic" id="toc-hover-effect-with-data_id-aesthetic" class="nav-link" data-scroll-target="#hover-effect-with-data_id-aesthetic">3.6.3 Hover effect with data_id aesthetic</a></li>
+  <li><a href="#styling-hover-effect" id="toc-styling-hover-effect" class="nav-link" data-scroll-target="#styling-hover-effect">3.6.4 Styling hover effect</a></li>
+  <li><a href="#combining-tooltip-and-hover-effect" id="toc-combining-tooltip-and-hover-effect" class="nav-link" data-scroll-target="#combining-tooltip-and-hover-effect">3.6.5 Combining tooltip and hover effect</a></li>
+  <li><a href="#click-effect-with-onclick" id="toc-click-effect-with-onclick" class="nav-link" data-scroll-target="#click-effect-with-onclick">3.6.6 Click effect with onclick</a></li>
+  <li><a href="#coordinated-multiple-views-with-ggiraph" id="toc-coordinated-multiple-views-with-ggiraph" class="nav-link" data-scroll-target="#coordinated-multiple-views-with-ggiraph">3.6.7 Coordinated Multiple Views with ggiraph</a></li>
+  </ul></li>
+  <li><a href="#interactive-data-visualisation---plotly-methods" id="toc-interactive-data-visualisation---plotly-methods" class="nav-link" data-scroll-target="#interactive-data-visualisation---plotly-methods">3.7 Interactive Data Visualisation - plotly methods!</a>
+  <ul class="collapse">
+  <li><a href="#creating-an-interactive-scatter-plot-plot_ly-method" id="toc-creating-an-interactive-scatter-plot-plot_ly-method" class="nav-link" data-scroll-target="#creating-an-interactive-scatter-plot-plot_ly-method">3.7.1 Creating an interactive scatter plot: plot_ly() method</a></li>
+  <li><a href="#working-with-visual-variable-plot_ly-method" id="toc-working-with-visual-variable-plot_ly-method" class="nav-link" data-scroll-target="#working-with-visual-variable-plot_ly-method">3.7.2 Working with visual variable: plot_ly() method</a></li>
+  <li><a href="#creating-an-interactive-scatter-plot-ggplotly-method" id="toc-creating-an-interactive-scatter-plot-ggplotly-method" class="nav-link" data-scroll-target="#creating-an-interactive-scatter-plot-ggplotly-method">3.7.3 Creating an interactive scatter plot: ggplotly() method</a></li>
+  <li><a href="#coordinated-multiple-views-with-plotly" id="toc-coordinated-multiple-views-with-plotly" class="nav-link" data-scroll-target="#coordinated-multiple-views-with-plotly">3.7.4 Coordinated Multiple Views with plotly</a></li>
+  </ul></li>
+  <li><a href="#interactive-data-visualisation---crosstalk-methods" id="toc-interactive-data-visualisation---crosstalk-methods" class="nav-link" data-scroll-target="#interactive-data-visualisation---crosstalk-methods">3.8 Interactive Data Visualisation - crosstalk methods!</a>
+  <ul class="collapse">
+  <li><a href="#interactive-data-table-dt-package" id="toc-interactive-data-table-dt-package" class="nav-link" data-scroll-target="#interactive-data-table-dt-package">3.8.1 Interactive Data Table: DT package</a></li>
+  <li><a href="#linked-brushing-crosstalk-method" id="toc-linked-brushing-crosstalk-method" class="nav-link" data-scroll-target="#linked-brushing-crosstalk-method">3.8.2 Linked brushing: crosstalk method</a></li>
+  </ul></li>
+  <li><a href="#additional-analysis" id="toc-additional-analysis" class="nav-link" data-scroll-target="#additional-analysis">Additional Analysis</a>
+  <ul class="collapse">
+  <li><a href="#additional-analysis-1---subject-peformance-comparison" id="toc-additional-analysis-1---subject-peformance-comparison" class="nav-link" data-scroll-target="#additional-analysis-1---subject-peformance-comparison">3.9.1 Additional Analysis 1 - Subject Peformance Comparison</a></li>
+  <li><a href="#additional-analysis-2---class-performance-comparison" id="toc-additional-analysis-2---class-performance-comparison" class="nav-link" data-scroll-target="#additional-analysis-2---class-performance-comparison">3.9.2 Additional Analysis 2 - Class Performance Comparison</a></li>
+  <li><a href="#additional-analysis-3---correlation-analysis-between-subjects" id="toc-additional-analysis-3---correlation-analysis-between-subjects" class="nav-link" data-scroll-target="#additional-analysis-3---correlation-analysis-between-subjects">3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects</a></li>
+  <li><a href="#additional-analysis-4---student-peformance-ranking" id="toc-additional-analysis-4---student-peformance-ranking" class="nav-link" data-scroll-target="#additional-analysis-4---student-peformance-ranking">3.9.4 Additional Analysis 4 - Student Peformance Ranking</a></li>
+  <li><a href="#additional-analysis-5---subject-performance-gap-analysis" id="toc-additional-analysis-5---subject-performance-gap-analysis" class="nav-link" data-scroll-target="#additional-analysis-5---subject-performance-gap-analysis">3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">3.10 Reference</a>
+  <ul class="collapse">
+  <li><a href="#ggiraph" id="toc-ggiraph" class="nav-link" data-scroll-target="#ggiraph">3.10.1 ggiraph</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#programming-animated-statisical-graphics-with-r" id="toc-programming-animated-statisical-graphics-with-r" class="nav-link" data-scroll-target="#programming-animated-statisical-graphics-with-r">4 Programming Animated Statisical Graphics with R</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">4.1 Overview</a>
+  <ul class="collapse">
+  <li><a href="#basic-concepts-of-animation" id="toc-basic-concepts-of-animation" class="nav-link" data-scroll-target="#basic-concepts-of-animation">4.1.1. Basic concepts of animation</a></li>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link" data-scroll-target="#terminology">4.1.2 Terminology</a></li>
+  </ul></li>
+  <li><a href="#getting-started-1" id="toc-getting-started-1" class="nav-link" data-scroll-target="#getting-started-1">4.2 Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-r-packages" id="toc-loading-the-r-packages" class="nav-link" data-scroll-target="#loading-the-r-packages">4.2.1 Loading the R packages</a></li>
+  <li><a href="#importing-the-data" id="toc-importing-the-data" class="nav-link" data-scroll-target="#importing-the-data">4.2.2 Importing the data</a></li>
+  </ul></li>
+  <li><a href="#animated-data-visualisation-gganimate-methods" id="toc-animated-data-visualisation-gganimate-methods" class="nav-link" data-scroll-target="#animated-data-visualisation-gganimate-methods">4.3 Animated Data Visualisation: gganimate methods</a>
+  <ul class="collapse">
+  <li><a href="#building-a-static-population-bubble-plot" id="toc-building-a-static-population-bubble-plot" class="nav-link" data-scroll-target="#building-a-static-population-bubble-plot">4.3.1 Building a static population bubble plot</a></li>
+  <li><a href="#building-the-animated-bubble-plot" id="toc-building-the-animated-bubble-plot" class="nav-link" data-scroll-target="#building-the-animated-bubble-plot">4.3.2 Building the animated bubble plot</a></li>
+  </ul></li>
+  <li><a href="#animated-data-visualisation-plotly" id="toc-animated-data-visualisation-plotly" class="nav-link" data-scroll-target="#animated-data-visualisation-plotly">4.4 Animated Data Visualisation: plotly</a>
+  <ul class="collapse">
+  <li><a href="#building-an-animated-bubble-plot-ggplotly-method" id="toc-building-an-animated-bubble-plot-ggplotly-method" class="nav-link" data-scroll-target="#building-an-animated-bubble-plot-ggplotly-method">4.4.1 Building an animated bubble plot: ggplotly() method</a></li>
+  <li><a href="#building-an-animated-bubble-plot-plot_ly-method" id="toc-building-an-animated-bubble-plot-plot_ly-method" class="nav-link" data-scroll-target="#building-an-animated-bubble-plot-plot_ly-method">4.4.2 Building an animated bubble plot: <code>plot_ly()</code> method</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#additional-analysis-1" id="toc-additional-analysis-1" class="nav-link" data-scroll-target="#additional-analysis-1">Additional Analysis</a>
+  <ul class="collapse">
+  <li><a href="#additional-analysis-6---population-distribution-by-continent" id="toc-additional-analysis-6---population-distribution-by-continent" class="nav-link" data-scroll-target="#additional-analysis-6---population-distribution-by-continent">4.5.1 Additional Analysis 6 - Population Distribution by Continent</a></li>
+  <li><a href="#additional-analysis-7---young-vs-old-population" id="toc-additional-analysis-7---young-vs-old-population" class="nav-link" data-scroll-target="#additional-analysis-7---young-vs-old-population">4.5.2 Additional Analysis 7 - Young vs Old Population</a></li>
+  <li><a href="#reference-1" id="toc-reference-1" class="nav-link" data-scroll-target="#reference-1">4.6 Reference</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -286,117 +382,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#learning-objectives" id="toc-learning-objectives">3.1 Learning Objectives:</a></li>
-  <li><a href="#getting-started" id="toc-getting-started">3.2 Getting Started:</a></li>
-  <li><a href="#importing-data" id="toc-importing-data">3.3 Importing Data</a></li>
-  <li><a href="#interactive-data-visualisation---ggiraph-methods" id="toc-interactive-data-visualisation---ggiraph-methods">3.4 Interactive Data Visualisation - ggiraph methods</a>
-  <ul>
-  <li><a href="#tooltip-effect-with-tooltip-aesthetic" id="toc-tooltip-effect-with-tooltip-aesthetic">3.4.1 Tooltip effect with tooltip aesthetic</a></li>
-  </ul></li>
-  <li><a href="#interactivity" id="toc-interactivity">3.5 Interactivity</a>
-  <ul>
-  <li><a href="#displaying-multiple-information-on-tooltip" id="toc-displaying-multiple-information-on-tooltip">3.5.1 Displaying multiple information on tooltip</a></li>
-  </ul></li>
-  <li><a href="#interactivity-1" id="toc-interactivity-1">3.6 Interactivity</a>
-  <ul>
-  <li><a href="#customising-tooltip-style" id="toc-customising-tooltip-style">3.6.1 Customising Tooltip style</a></li>
-  <li><a href="#displaying-statistics-on-tooltip" id="toc-displaying-statistics-on-tooltip">3.6.2 Displaying statistics on tooltip</a></li>
-  <li><a href="#hover-effect-with-data_id-aesthetic" id="toc-hover-effect-with-data_id-aesthetic">3.6.3 Hover effect with data_id aesthetic</a></li>
-  <li><a href="#styling-hover-effect" id="toc-styling-hover-effect">3.6.4 Styling hover effect</a></li>
-  <li><a href="#combining-tooltip-and-hover-effect" id="toc-combining-tooltip-and-hover-effect">3.6.5 Combining tooltip and hover effect</a></li>
-  <li><a href="#click-effect-with-onclick" id="toc-click-effect-with-onclick">3.6.6 Click effect with onclick</a></li>
-  <li><a href="#coordinated-multiple-views-with-ggiraph" id="toc-coordinated-multiple-views-with-ggiraph">3.6.7 Coordinated Multiple Views with ggiraph</a></li>
-  </ul></li>
-  <li><a href="#interactive-data-visualisation---plotly-methods" id="toc-interactive-data-visualisation---plotly-methods">3.7 Interactive Data Visualisation - plotly methods!</a>
-  <ul>
-  <li><a href="#creating-an-interactive-scatter-plot-plot_ly-method" id="toc-creating-an-interactive-scatter-plot-plot_ly-method">3.7.1 Creating an interactive scatter plot: plot_ly() method</a></li>
-  <li><a href="#working-with-visual-variable-plot_ly-method" id="toc-working-with-visual-variable-plot_ly-method">3.7.2 Working with visual variable: plot_ly() method</a></li>
-  <li><a href="#creating-an-interactive-scatter-plot-ggplotly-method" id="toc-creating-an-interactive-scatter-plot-ggplotly-method">3.7.3 Creating an interactive scatter plot: ggplotly() method</a></li>
-  <li><a href="#coordinated-multiple-views-with-plotly" id="toc-coordinated-multiple-views-with-plotly">3.7.4 Coordinated Multiple Views with plotly</a></li>
-  </ul></li>
-  <li><a href="#interactive-data-visualisation---crosstalk-methods" id="toc-interactive-data-visualisation---crosstalk-methods">3.8 Interactive Data Visualisation - crosstalk methods!</a>
-  <ul>
-  <li><a href="#interactive-data-table-dt-package" id="toc-interactive-data-table-dt-package">3.8.1 Interactive Data Table: DT package</a></li>
-  <li><a href="#linked-brushing-crosstalk-method" id="toc-linked-brushing-crosstalk-method">3.8.2 Linked brushing: crosstalk method</a></li>
-  </ul></li>
-  <li><a href="#additional-analysis" id="toc-additional-analysis">Additional Analysis</a>
-  <ul>
-  <li><a href="#additional-analysis-1---subject-peformance-comparison" id="toc-additional-analysis-1---subject-peformance-comparison">3.9.1 Additional Analysis 1 - Subject Peformance Comparison</a></li>
-  <li><a href="#additional-analysis-2---class-performance-comparison" id="toc-additional-analysis-2---class-performance-comparison">3.9.2 Additional Analysis 2 - Class Performance Comparison</a></li>
-  <li><a href="#additional-analysis-3---correlation-analysis-between-subjects" id="toc-additional-analysis-3---correlation-analysis-between-subjects">3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects</a></li>
-  <li><a href="#additional-analysis-4---student-peformance-ranking" id="toc-additional-analysis-4---student-peformance-ranking">3.9.4 Additional Analysis 4 - Student Peformance Ranking</a></li>
-  <li><a href="#additional-analysis-5---subject-performance-gap-analysis" id="toc-additional-analysis-5---subject-performance-gap-analysis">3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis</a></li>
-  <li><a href="#reference" id="toc-reference">3.10 Reference</a>
-  <ul>
-  <li><a href="#ggiraph" id="toc-ggiraph">3.10.1 ggiraph</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#programming-animated-statisical-graphics-with-r" id="toc-programming-animated-statisical-graphics-with-r">4 Programming Animated Statisical Graphics with R</a>
-  <ul>
-  <li><a href="#overview" id="toc-overview">4.1 Overview</a>
-  <ul>
-  <li><a href="#basic-concepts-of-animation" id="toc-basic-concepts-of-animation">4.1.1. Basic concepts of animation</a></li>
-  <li><a href="#terminology" id="toc-terminology">4.1.2 Terminology</a></li>
-  </ul></li>
-  <li><a href="#getting-started-1" id="toc-getting-started-1">4.2 Getting Started</a>
-  <ul>
-  <li><a href="#loading-the-r-packages" id="toc-loading-the-r-packages">4.2.1 Loading the R packages</a></li>
-  <li><a href="#importing-the-data" id="toc-importing-the-data">4.2.2 Importing the data</a></li>
-  </ul></li>
-  <li><a href="#animated-data-visualisation-gganimate-methods" id="toc-animated-data-visualisation-gganimate-methods">4.3 Animated Data Visualisation: gganimate methods</a>
-  <ul>
-  <li><a href="#building-a-static-population-bubble-plot" id="toc-building-a-static-population-bubble-plot">4.3.1 Building a static population bubble plot</a></li>
-  <li><a href="#building-the-animated-bubble-plot" id="toc-building-the-animated-bubble-plot">4.3.2 Building the animated bubble plot</a></li>
-  </ul></li>
-  <li><a href="#animated-data-visualisation-plotly" id="toc-animated-data-visualisation-plotly">4.4 Animated Data Visualisation: plotly</a>
-  <ul>
-  <li><a href="#building-an-animated-bubble-plot-ggplotly-method" id="toc-building-an-animated-bubble-plot-ggplotly-method">4.4.1 Building an animated bubble plot: ggplotly() method</a></li>
-  <li><a href="#building-an-animated-bubble-plot-plot_ly-method" id="toc-building-an-animated-bubble-plot-plot_ly-method">4.4.2 Building an animated bubble plot: <code>plot_ly()</code> method</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#additional-analysis-1" id="toc-additional-analysis-1">Additional Analysis</a>
-  <ul>
-  <li><a href="#additional-analysis-6---population-distribution-by-continent" id="toc-additional-analysis-6---population-distribution-by-continent">4.5.1 Additional Analysis 6 - Population Distribution by Continent</a></li>
-  <li><a href="#additional-analysis-7---young-vs-old-population" id="toc-additional-analysis-7---young-vs-old-population">4.5.2 Additional Analysis 7 - Young vs Old Population</a></li>
-  <li><a href="#reference-1" id="toc-reference-1">4.6 Reference</a></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <section id="learning-objectives" class="level2">
-<h2>3.1 Learning Objectives:</h2>
+<h2 class="anchored" data-anchor-id="learning-objectives">3.1 Learning Objectives:</h2>
 <p>We will learn how to create interactive data visualisation by using functions like ggiraph and poltly packages.</p>
 </section>
 <section id="getting-started" class="level2">
-<h2>3.2 Getting Started:</h2>
+<h2 class="anchored" data-anchor-id="getting-started">3.2 Getting Started:</h2>
 <p>We need to install and launch the following R packages: - <a href="https://davidgohel.github.io/ggiraph/">ggiraph for making ‘ggplot’ graphics interactive.</a> - <a href="https://plotly.com/r/">plotly, R library for plotting interactive statistical graphs.</a> - <a href="https://rstudio.github.io/DT/">DT</a> provides an R interface to the JavaScript library <a href="https://datatables.net/">DataTables</a> that create interactive table on html page.() - <a href="https://tidyverse.org/">tidyverse</a>, a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs. - <a href="https://patchwork.data-imaginist.com/">patchwork</a> for combining multiple ggplot2 graphs into one figure.</p>
 <p>We need to run the code chunk below:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel, patchwork, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel, patchwork, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes, hrbrthemes,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               tidyverse, ggiraph, plotly, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               patchwork, DT, corrplot) </span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               patchwork, DT, corrplot) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="importing-data" class="level2">
-<h2>3.3 Importing Data</h2>
+<h2 class="anchored" data-anchor-id="importing-data">3.3 Importing Data</h2>
 <p>We will load the Exam_data.csv and use read_csv of <strong>readr</strong> package to import Exam_data.csv into R.</p>
 <p>The code chunk below read_csv() of <strong>readr</strong> package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Exam_data.csv&quot;</span>)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="interactive-data-visualisation---ggiraph-methods" class="level2">
-<h2>3.4 Interactive Data Visualisation - ggiraph methods</h2>
+<h2 class="anchored" data-anchor-id="interactive-data-visualisation---ggiraph-methods">3.4 Interactive Data Visualisation - ggiraph methods</h2>
 <p>ggiraph is an htmlwidget and a ggplot2 extension. It allows ggplot graphics to be interactive.</p>
 <p>It is made with ggplot <a href="https://davidgohel.github.io/ggiraph/reference/index.html#section-interactive-geometries">geometrics</a> that can understand three arguments:</p>
 <ul>
@@ -405,25 +422,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Data_id</strong>: a column of data-sets that contain an id to be associated with elements.</li>
 </ul>
 <section id="tooltip-effect-with-tooltip-aesthetic" class="level3">
-<h3>3.4.1 Tooltip effect with tooltip aesthetic</h3>
+<h3 class="anchored" data-anchor-id="tooltip-effect-with-tooltip-aesthetic">3.4.1 Tooltip effect with tooltip aesthetic</h3>
 <p>Below shows a typical code chunk to plot an interactive statistical graph by using <strong>ggiraph</strong> package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, <a href="https://davidgohel.github.io/ggiraph/reference/girafe.html">girafe()</a> of <strong>ggiraph</strong> will be used to create an interactive svg object.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot_interactive</span>(</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">tooltip =</span> ID),</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>, </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggobj =</span> p,</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">6</span>,</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-b9a43398e78f71af3b97" style="width:100%;height:464px;"></div>
@@ -434,17 +451,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="interactivity" class="level2">
-<h2>3.5 Interactivity</h2>
+<h2 class="anchored" data-anchor-id="interactivity">3.5 Interactivity</h2>
 <p>By hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.</p>
 <section id="displaying-multiple-information-on-tooltip" class="level3">
-<h3>3.5.1 Displaying multiple information on tooltip</h3>
+<h3 class="anchored" data-anchor-id="displaying-multiple-information-on-tooltip">3.5.1 Displaying multiple information on tooltip</h3>
 <p>The content of the tooltip can be customised by including a list object as shown in the code chunk below.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exam_data<span class="sc">$</span>tooltip <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(     </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Name = &quot;</span>, exam_data<span class="sc">$</span>ID,         </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> Class = &quot;</span>, exam_data<span class="sc">$</span>CLASS)) </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exam_data<span class="sc">$</span>tooltip <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">paste0</span>(     </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Name = "</span>, exam_data<span class="sc">$</span>ID,         </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\n</span><span class="st"> Class = "</span>, exam_data<span class="sc">$</span>CLASS)) </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -452,14 +469,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">tooltip =</span> exam_data<span class="sc">$</span>tooltip), </span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggobj =</span> p,</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">8</span>,</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">8</span><span class="sc">*</span><span class="fl">0.618</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-1ec7630adcdb66eb64b0" style="width:100%;height:464px;"></div>
@@ -470,16 +487,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="interactivity-1" class="level2">
-<h2>3.6 Interactivity</h2>
+<h2 class="anchored" data-anchor-id="interactivity-1">3.6 Interactivity</h2>
 <p>By hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.</p>
 <section id="customising-tooltip-style" class="level3">
-<h3>3.6.1 Customising Tooltip style</h3>
+<h3 class="anchored" data-anchor-id="customising-tooltip-style">3.6.1 Customising Tooltip style</h3>
 <p>Code chunk below uses <a href="https://davidgohel.github.io/ggiraph/reference/opts_tooltip.html">opts_tooltip()</a> of <strong>ggiraph</strong> to customize tooltip rendering by add css declarations.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tooltip_css <span class="ot">&lt;-</span> <span class="st">&quot;background-color:white; #&lt;&lt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">font-style:bold; color:black;&quot;</span> <span class="co">#&lt;&lt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tooltip_css <span class="ot">&lt;-</span> <span class="st">"background-color:white; #&lt;&lt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">font-style:bold; color:black;"</span> <span class="co">#&lt;&lt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
@@ -487,7 +504,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">tooltip =</span> ID),                   </span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>               </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>               </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(                                  </span>
@@ -497,7 +514,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(    <span class="co">#&lt;&lt;</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_tooltip</span>(    <span class="co">#&lt;&lt;</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">css =</span> tooltip_css)) <span class="co">#&lt;&lt;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)       </span></code></pre></div>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)       </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-36959075ee6d87d640c0" style="width:100%;height:464px;"></div>
@@ -507,15 +524,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Refer to <a href="https://www.ardata.fr/ggiraph-book/customize.html">Customizing girafe objects</a> to learn more about how to customise ggiraph objects.</p>
 </section>
 <section id="displaying-statistics-on-tooltip" class="level3">
-<h3>3.6.2 Displaying statistics on tooltip</h3>
+<h3 class="anchored" data-anchor-id="displaying-statistics-on-tooltip">3.6.2 Displaying statistics on tooltip</h3>
 <p>Code chunk below shows an advanced way to customise tooltip. In this example, a function is used to compute 90% confident interval of the mean. The derived statistics are then displayed in the tooltip.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tooltip <span class="ot">&lt;-</span> <span class="cf">function</span>(y, ymax, <span class="at">accuracy =</span> .<span class="dv">01</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tooltip <span class="ot">&lt;-</span> <span class="cf">function</span>(y, ymax, <span class="at">accuracy =</span> .<span class="dv">01</span>) {</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">number</span>(y, <span class="at">accuracy =</span> accuracy)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  sem <span class="ot">&lt;-</span> scales<span class="sc">::</span><span class="fu">number</span>(ymax <span class="sc">-</span> y, <span class="at">accuracy =</span> accuracy)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;Mean maths scores:&quot;</span>, mean, <span class="st">&quot;+/-&quot;</span>, sem)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"Mean maths scores:"</span>, mean, <span class="st">"+/-"</span>, sem)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>gg_point <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
@@ -524,18 +541,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">y =</span> MATHS, </span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">tooltip =</span> <span class="fu">after_stat</span>(  </span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">tooltip</span>(y, ymax))),  </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.data =</span> <span class="st">&quot;mean_se&quot;</span>, </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.data =</span> <span class="st">"mean_se"</span>, </span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> GeomInteractiveCol,  </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;light blue&quot;</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"light blue"</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">y =</span> MATHS),</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.data =</span> mean_se,</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">0.2</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"errorbar"</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">0.2</span></span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(<span class="at">ggobj =</span> gg_point,</span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">width_svg =</span> <span class="dv">8</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">height_svg =</span> <span class="dv">8</span><span class="sc">*</span><span class="fl">0.618</span>)</span></code></pre></div>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">height_svg =</span> <span class="dv">8</span><span class="sc">*</span><span class="fl">0.618</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-34218fa346eb982cfff6" style="width:100%;height:464px;"></div>
@@ -544,25 +561,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="hover-effect-with-data_id-aesthetic" class="level3">
-<h3>3.6.3 Hover effect with data_id aesthetic</h3>
+<h3 class="anchored" data-anchor-id="hover-effect-with-data_id-aesthetic">3.6.3 Hover effect with data_id aesthetic</h3>
 <p>Code chunk below shows the second interactive feature of ggiraph, namely <strong>data_id</strong>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot_interactive</span>(           </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">data_id =</span> CLASS),             </span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,               </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>               </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>               </span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(                                  </span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggobj =</span> p,                             </span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">6</span>,                         </span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span>                      </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-ea9eb66c57dd9173da50" style="width:100%;height:464px;"></div>
@@ -571,18 +588,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="styling-hover-effect" class="level3">
-<h3>3.6.4 Styling hover effect</h3>
+<h3 class="anchored" data-anchor-id="styling-hover-effect">3.6.4 Styling hover effect</h3>
 <p>Code chunk below, css codes are used to change the highlighting effect.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot_interactive</span>(              </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">data_id =</span> CLASS),              </span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>               </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>               </span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(                                  </span>
@@ -590,10 +607,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">6</span>,                         </span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span>,</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(                        </span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">&quot;fill: #202020;&quot;</span>),  </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">&quot;opacity:0.2;&quot;</span>) </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">"fill: #202020;"</span>),  </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">"opacity:0.2;"</span>) </span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  )                                        </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-df28ff3142b265d9a080" style="width:100%;height:464px;"></div>
@@ -602,19 +619,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="combining-tooltip-and-hover-effect" class="level3">
-<h3>3.6.5 Combining tooltip and hover effect</h3>
+<h3 class="anchored" data-anchor-id="combining-tooltip-and-hover-effect">3.6.5 Combining tooltip and hover effect</h3>
 <p>We are combining tooltip and hover effect on the interactive statistical graph as shown below</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot_interactive</span>(              </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">tooltip =</span> CLASS, </span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">data_id =</span> CLASS),              </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>               </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>               </span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(                                  </span>
@@ -622,10 +639,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">6</span>,                         </span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span>,</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(                        </span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">&quot;fill: #202020;&quot;</span>),  </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">&quot;opacity:0.2;&quot;</span>) </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">"fill: #202020;"</span>),  </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">"opacity:0.2;"</span>) </span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  )                                        </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>)                                        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-8686150264879864227b" style="width:100%;height:464px;"></div>
@@ -634,13 +651,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="click-effect-with-onclick" class="level3">
-<h3>3.6.6 Click effect with onclick</h3>
+<h3 class="anchored" data-anchor-id="click-effect-with-onclick">3.6.6 Click effect with onclick</h3>
 <p>Onclick is used within the Shiny web framework to trigger actions when a user clicks on a specific UI element.Below is an example of it</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>exam_data<span class="sc">$</span>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">&quot;window.open(</span><span class="sc">\&quot;</span><span class="st">%s%s</span><span class="sc">\&quot;</span><span class="st">)&quot;</span>,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;https://www.moe.gov.sg/schoolfinder?journey=Primary%20school&quot;</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>exam_data<span class="sc">$</span>onclick <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"window.open(</span><span class="sc">\"</span><span class="st">%s%s</span><span class="sc">\"</span><span class="st">)"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school"</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(exam_data<span class="sc">$</span>ID))</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
@@ -649,13 +666,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">onclick =</span> onclick),              </span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>               </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>               </span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">girafe</span>(                                  </span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggobj =</span> p,                             </span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">width_svg =</span> <span class="dv">6</span>,                         </span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span>)                                        </span></code></pre></div>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">height_svg =</span> <span class="dv">6</span><span class="sc">*</span><span class="fl">0.618</span>)                                        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-b9f23b82aa67b4297f5a" style="width:100%;height:464px;"></div>
@@ -665,7 +682,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class='callout-icon'></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Warning</span>Warning
@@ -677,7 +694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="coordinated-multiple-views-with-ggiraph" class="level3">
-<h3>3.6.7 Coordinated Multiple Views with ggiraph</h3>
+<h3 class="anchored" data-anchor-id="coordinated-multiple-views-with-ggiraph">3.6.7 Coordinated Multiple Views with ggiraph</h3>
 <p>Coordinated multiple views methods has been implemented in data visualisation below.</p>
 <p>When a data point of one of the dotplot is selected, the corresponding data point ID on the second data visualisation will be highlighted too</p>
 <p>In order to build a coordinated multiple views as shown in the example above, the following programming strategy will be used:</p>
@@ -696,13 +713,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> MATHS)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_dotplot_interactive</span>(              </span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">data_id =</span> ID),              </span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span>  </span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span> </span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
@@ -713,7 +730,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">data_id =</span> ID),              </span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">stackgroups =</span> <span class="cn">TRUE</span>,                  </span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">binwidth =</span> <span class="dv">1</span>,                        </span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;histodot&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"histodot"</span>) <span class="sc">+</span> </span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)) <span class="sc">+</span> </span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="cn">NULL</span>,               </span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="cn">NULL</span>)</span>
@@ -722,10 +739,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">width_svg =</span> <span class="dv">6</span>,</span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">height_svg =</span> <span class="dv">3</span>,</span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">options =</span> <span class="fu">list</span>(</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>         <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">&quot;fill: #202020;&quot;</span>),</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>         <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">&quot;opacity:0.2;&quot;</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>         <span class="fu">opts_hover</span>(<span class="at">css =</span> <span class="st">"fill: #202020;"</span>),</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>         <span class="fu">opts_hover_inv</span>(<span class="at">css =</span> <span class="st">"opacity:0.2;"</span>)</span>
 <span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>         )</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>       ) </span></code></pre></div>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>       ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="girafe html-widget html-fill-item" id="htmlwidget-5be9fd7e6a8c8e84c78a" style="width:100%;height:464px;"></div>
@@ -735,18 +752,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="interactive-data-visualisation---plotly-methods" class="level2">
-<h2>3.7 Interactive Data Visualisation - plotly methods!</h2>
+<h2 class="anchored" data-anchor-id="interactive-data-visualisation---plotly-methods">3.7 Interactive Data Visualisation - plotly methods!</h2>
 <p>Plotly’s R graphing library create interactive web graphics from <strong>ggplot2</strong> graphs and/or a custom interface to the (MIT-licensed) JavaScript library <a href="https://plotly.com/javascript/">plotly.js</a> inspired by the grammar of graphics. Different from other plotly platform, plot.R is free and open source.</p>
-<p><img src="Image1.png" class="img-fluid" /></p>
+<p><img src="Image1.png" class="img-fluid"></p>
 <p>There are two ways to create interactive graph by using plotly, they are:</p>
 <ul>
 <li>by using plot_ly(), and</li>
 <li>by using ggplotly()</li>
 </ul>
 <section id="creating-an-interactive-scatter-plot-plot_ly-method" class="level3">
-<h3>3.7.1 Creating an interactive scatter plot: plot_ly() method</h3>
+<h3 class="anchored" data-anchor-id="creating-an-interactive-scatter-plot-plot_ly-method">3.7.1 Creating an interactive scatter plot: plot_ly() method</h3>
 <p>The tabset below shows an example a basic interactive plot created by using plot_ly()</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
@@ -761,9 +778,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">~</span>MATHS,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>ENGLISH)</span></code></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>ENGLISH)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-f61fa52197c946293b57" style="width:100%;height:464px;"></div>
@@ -775,9 +792,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="working-with-visual-variable-plot_ly-method" class="level3">
-<h3>3.7.2 Working with visual variable: plot_ly() method</h3>
-<p>In the code chunk below, color argument is mapped to a qualitative visual variable (i.e. RACE).</p>
-<div class="panel-tabset">
+<h3 class="anchored" data-anchor-id="working-with-visual-variable-plot_ly-method">3.7.2 Working with visual variable: plot_ly() method</h3>
+<p>In the code chunk below, color argument is mapped to a qualitative visual variable (i.e.&nbsp;RACE).</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
@@ -792,10 +809,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data, </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">~</span>ENGLISH, </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>MATHS, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="sc">~</span>RACE)</span></code></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="sc">~</span>RACE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-225d3b538f8efadbf632" style="width:100%;height:464px;"></div>
@@ -807,9 +824,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="creating-an-interactive-scatter-plot-ggplotly-method" class="level3">
-<h3>3.7.3 Creating an interactive scatter plot: ggplotly() method</h3>
+<h3 class="anchored" data-anchor-id="creating-an-interactive-scatter-plot-ggplotly-method">3.7.3 Creating an interactive scatter plot: ggplotly() method</h3>
 <p>The code chunk below plots an interactive scatter plot by using ggplotly().</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
@@ -824,10 +841,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(<span class="at">data =</span> exam_data, </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">~</span>ENGLISH, </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>MATHS, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="sc">~</span>RACE)</span></code></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="sc">~</span>RACE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-6afccc007b758147783c" style="width:100%;height:464px;"></div>
@@ -839,14 +856,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="coordinated-multiple-views-with-plotly" class="level3">
-<h3>3.7.4 Coordinated Multiple Views with plotly</h3>
+<h3 class="anchored" data-anchor-id="coordinated-multiple-views-with-plotly">3.7.4 Coordinated Multiple Views with plotly</h3>
 <p>It involves three steps:</p>
 <ul>
 <li><a href="https://www.rdocumentation.org/packages/plotly/versions/4.9.2/topics/highlight_key">highlight_key()</a> of <strong>plotly</strong> package is used as shared data.</li>
 <li>two scatterplots will be created by using ggplot2 functions.</li>
 <li>lastly, <a href="https://plotly.com/r/subplots/">subplot()</a> of <strong>plotly</strong> package is used to place them next to each other side-by-side.</li>
 </ul>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
@@ -861,7 +878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">highlight_key</span>(exam_data)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">highlight_key</span>(exam_data)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>d, </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> MATHS,</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> ENGLISH)) <span class="sc">+</span></span>
@@ -876,7 +893,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>),</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">subplot</span>(<span class="fu">ggplotly</span>(p1),</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplotly</span>(p2))</span></code></pre></div>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplotly</span>(p2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-4c2de3581b53b9fd66f9" style="width:100%;height:464px;"></div>
@@ -889,10 +906,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="interactive-data-visualisation---crosstalk-methods" class="level2">
-<h2>3.8 Interactive Data Visualisation - crosstalk methods!</h2>
+<h2 class="anchored" data-anchor-id="interactive-data-visualisation---crosstalk-methods">3.8 Interactive Data Visualisation - crosstalk methods!</h2>
 <p><a href="https://rstudio.github.io/crosstalk/index.html">Crosstalk</a> is an add-on to the htmlwidgets package. It extends htmlwidgets with a set of classes, functions, and conventions for implementing cross-widget interactions (currently, linked brushing and filtering).</p>
 <section id="interactive-data-table-dt-package" class="level3">
-<h3>3.8.1 Interactive Data Table: DT package</h3>
+<h3 class="anchored" data-anchor-id="interactive-data-table-dt-package">3.8.1 Interactive Data Table: DT package</h3>
 <ul>
 <li>A wrapper of the JavaScript Library <a href="https://datatables.net/">DataTables</a></li>
 <li>Data objects in R can be rendered as HTML tables using the JavaScript library ‘DataTables’ (typically via R Markdown or Shiny).</li>
@@ -900,7 +917,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(exam_data, <span class="at">class=</span> <span class="st">&quot;compact&quot;</span>)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(exam_data, <span class="at">class=</span> <span class="st">"compact"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="datatables html-widget html-fill-item" id="htmlwidget-c48c0c91181b99ecca38" style="width:100%;height:auto;"></div>
@@ -909,8 +926,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="linked-brushing-crosstalk-method" class="level3">
-<h3>3.8.2 Linked brushing: crosstalk method</h3>
-<div class="panel-tabset">
+<h3 class="anchored" data-anchor-id="linked-brushing-crosstalk-method">3.8.2 Linked brushing: crosstalk method</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
@@ -935,7 +952,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">highlight_key</span>(exam_data) </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">highlight_key</span>(exam_data) </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(ENGLISH, </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                MATHS)) <span class="sc">+</span> </span>
@@ -944,11 +961,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">highlight</span>(<span class="fu">ggplotly</span>(p),        </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;plotly_selected&quot;</span>)  </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"plotly_selected"</span>)  </span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>crosstalk<span class="sc">::</span><span class="fu">bscols</span>(gg,               </span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>                  DT<span class="sc">::</span><span class="fu">datatable</span>(d), </span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">widths =</span> <span class="dv">5</span>)        </span></code></pre></div>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">widths =</span> <span class="dv">5</span>)        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="container-fluid crosstalk-bscols">
@@ -978,15 +995,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="additional-analysis" class="level1">
 <h1>Additional Analysis</h1>
 <section id="additional-analysis-1---subject-peformance-comparison" class="level2">
-<h2>3.9.1 Additional Analysis 1 - Subject Peformance Comparison</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-1---subject-peformance-comparison">3.9.1 Additional Analysis 1 - Subject Peformance Comparison</h2>
 <p><strong>Objective:</strong> To compare the distribution of scores across Mathematics, English, and Science.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>exam_long <span class="ot">&lt;-</span> exam_data <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>exam_long <span class="ot">&lt;-</span> exam_data <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(MATHS, ENGLISH, SCIENCE),</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Subject&quot;</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;Score&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Score"</span>)</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_long,</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Subject,</span>
@@ -995,15 +1012,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Comparison of Score Distribution Across Subjects&quot;</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Subject&quot;</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Score&quot;</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Comparison of Score Distribution Across Subjects"</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Score"</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1011,27 +1028,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> The boxplot reveals median score differences, variation in performance, and outliers between genders, helping identify whether one gender tends to perform better or shows more score variability.</p>
 </section>
 <section id="additional-analysis-2---class-performance-comparison" class="level2">
-<h2>3.9.2 Additional Analysis 2 - Class Performance Comparison</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-2---class-performance-comparison">3.9.2 Additional Analysis 2 - Class Performance Comparison</h2>
 <p><strong>Objective:</strong> To compare English score distributions across different classes.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_data,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_data,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> CLASS,</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> ENGLISH,</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> CLASS)) <span class="sc">+</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;English Score Distribution by Class&quot;</span>,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Class&quot;</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;English Score&quot;</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"English Score Distribution by Class"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Class"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"English Score"</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1039,26 +1056,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> The boxplot highlights differences in median scores, variability within classes, and extreme performers, helping identify which classes perform better or show greater score spread.</p>
 </section>
 <section id="additional-analysis-3---correlation-analysis-between-subjects" class="level2">
-<h2>3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-3---correlation-analysis-between-subjects">3.9.3 Additional Analysis 3 - Correlation Analysis Between Subjects</h2>
 <p><strong>Objective:</strong> To examine the strength and direction of relationships between Mathematics, English, and Science scores.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="ot">&lt;-</span> exam_data <span class="sc">%&gt;%</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MATHS, ENGLISH, SCIENCE) <span class="sc">%&gt;%</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>()</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">&quot;color&quot;</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1066,12 +1083,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> The heatmap highlights how strongly the subjects are related to each other. A higher correlation value indicates that students who perform well in one subject tend to perform well in another. Hence, we can identify the strongest subject relationship across subjects.</p>
 </section>
 <section id="additional-analysis-4---student-peformance-ranking" class="level2">
-<h2>3.9.4 Additional Analysis 4 - Student Peformance Ranking</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-4---student-peformance-ranking">3.9.4 Additional Analysis 4 - Student Peformance Ranking</h2>
 <p><strong>Objective:</strong> To rank students based on their average scores across Mathematics, English, and Science in order to understand the overall performance hierarchy among students.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>exam_rank <span class="ot">&lt;-</span> exam_data <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>exam_rank <span class="ot">&lt;-</span> exam_data <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_score =</span> (MATHS <span class="sc">+</span> ENGLISH <span class="sc">+</span> SCIENCE) <span class="sc">/</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_score)) <span class="sc">%&gt;%</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>())</span>
@@ -1079,19 +1096,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(exam_rank,</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> rank,</span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> avg_score)) <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Student Performance Ranking Based on Average Scores&quot;</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Student Rank&quot;</span>,</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average Score&quot;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Student Performance Ranking Based on Average Scores"</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Student Rank"</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Score"</span></span>
 <span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span></code></pre></div>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1099,28 +1116,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> The ranking plot highlights the distribution of student performance levels across the dataset. Students at the top of the ranking represent the highest academic performers, while those at the bottom indicate lower overall performance.</p>
 </section>
 <section id="additional-analysis-5---subject-performance-gap-analysis" class="level2">
-<h2>3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-5---subject-performance-gap-analysis">3.9.5 Additional Analysis 5 - Subject Performance Gap Analysis</h2>
 <p><strong>Objective:</strong> To analyse the difference between Mathematics and English scores in order to identify students who perform significantly better in one subject than the other.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>exam_data <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score_gap =</span> MATHS <span class="sc">-</span> ENGLISH) <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> score_gap)) <span class="sc">+</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>,</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;grey25&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"orange"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"grey25"</span>) <span class="sc">+</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Performance Gap Between Maths and English&quot;</span>,</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Score Difference (Maths - English)&quot;</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Students&quot;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Performance Gap Between Maths and English"</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Score Difference (Maths - English)"</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Students"</span></span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span></code></pre></div>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1128,9 +1145,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> This analysis helps reveal subject imbalance in student performance and identifies whether most students perform consistently across subjects.</p>
 </section>
 <section id="reference" class="level2">
-<h2>3.10 Reference</h2>
+<h2 class="anchored" data-anchor-id="reference">3.10 Reference</h2>
 <section id="ggiraph" class="level3">
-<h3>3.10.1 ggiraph</h3>
+<h3 class="anchored" data-anchor-id="ggiraph">3.10.1 ggiraph</h3>
 <p>This link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.</p>
 <ul>
 <li><a href="https://www.r-bloggers.com/2018/04/how-to-plot-with-ggiraph/">How to Plot With Ggiraph</a></li>
@@ -1144,15 +1161,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="programming-animated-statisical-graphics-with-r" class="level1">
 <h1>4 Programming Animated Statisical Graphics with R</h1>
 <section id="overview" class="level2">
-<h2>4.1 Overview</h2>
+<h2 class="anchored" data-anchor-id="overview">4.1 Overview</h2>
 <p>Animated visualisations attract audience attention and create a stronger impression than static graphics. In this exercise, you will learn to create animated data visualisations using gganimate and plotly. You will also learn to reshape data with tidyr and process or transform data using dplyr.</p>
 <section id="basic-concepts-of-animation" class="level3">
-<h3>4.1.1. Basic concepts of animation</h3>
+<h3 class="anchored" data-anchor-id="basic-concepts-of-animation">4.1.1. Basic concepts of animation</h3>
 <p>Animation in plots works by generating multiple individual frames, not by moving the plot itself. Each frame represents a different subset of the data. When these frames are stitched together sequentially, they create the illusion of motion, similar to a flipbook or cartoon.</p>
-<p><img src="Image2.png" class="img-fluid" /></p>
+<p><img src="Image2.png" class="img-fluid"></p>
 </section>
 <section id="terminology" class="level3">
-<h3>4.1.2 Terminology</h3>
+<h3 class="anchored" data-anchor-id="terminology">4.1.2 Terminology</h3>
 <p>It’s important to understand some of the key concepts and terminology related to this type of visualization.</p>
 <ul>
 <li><p>1.<strong>Frame:</strong> In an animated line graph, each frame represents a different point in time or a different category. When the frame changes, the data points on the graph are updated to reflect the new data.</p></li>
@@ -1161,7 +1178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class='callout-icon'></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Tip</span>Tip
@@ -1174,9 +1191,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="getting-started-1" class="level2">
-<h2>4.2 Getting Started</h2>
+<h2 class="anchored" data-anchor-id="getting-started-1">4.2 Getting Started</h2>
 <section id="loading-the-r-packages" class="level3">
-<h3>4.2.1 Loading the R packages</h3>
+<h3 class="anchored" data-anchor-id="loading-the-r-packages">4.2.1 Loading the R packages</h3>
 <p>First, write a code chunk to check, install and load the following R packages:</p>
 <ul>
 <li><a href="https://plotly.com/r/"><strong>plotly</strong></a>, R library for plotting interactive statistical graphs.</li>
@@ -1188,32 +1205,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, gifski, gapminder,</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>               plotly, gganimate, tidyverse)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, gifski, gapminder,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>               plotly, gganimate, tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="importing-the-data" class="level3">
-<h3>4.2.2 Importing the data</h3>
+<h3 class="anchored" data-anchor-id="importing-the-data">4.2.2 Importing the data</h3>
 <p>The Data worksheet from GlobalPopulation Excel workbook will be used.</p>
 <p>Write a code chunk to import Data worksheet from GlobalPopulation Excel workbook by using appropriate R package from tidyverse family.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 1:</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Continent&quot;</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 1:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Continent"</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 2:</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">&quot;data/GlobalPopulation.xls&quot;</span>,</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sheet=</span><span class="st">&quot;Data&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">"data/GlobalPopulation.xls"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sheet=</span><span class="st">"Data"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(col, as.factor)) <span class="sc">%&gt;%</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class='callout-icon'></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Things to learn from the code chunk above
@@ -1231,28 +1248,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Continent&quot;</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">&quot;data/GlobalPopulation.xls&quot;</span>,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet=</span><span class="st">&quot;Data&quot;</span>) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Continent"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">"data/GlobalPopulation.xls"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet=</span><span class="st">"Data"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(col, as.factor) <span class="sc">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>Instead of using <code>mutate_at()</code>, <a href="https://dplyr.tidyverse.org/reference/across.html">across()</a> can be used to derive the same outputs.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Continent&quot;</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">&quot;data/GlobalPopulation.xls&quot;</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet=</span><span class="st">&quot;Data&quot;</span>) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Continent"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>globalPop <span class="ot">&lt;-</span> <span class="fu">read_xls</span>(<span class="st">"data/GlobalPopulation.xls"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet=</span><span class="st">"Data"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(col, as.factor)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(Year))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 </section>
 <section id="animated-data-visualisation-gganimate-methods" class="level2">
-<h2>4.3 Animated Data Visualisation: gganimate methods</h2>
+<h2 class="anchored" data-anchor-id="animated-data-visualisation-gganimate-methods">4.3 Animated Data Visualisation: gganimate methods</h2>
 <p><strong>gganimate</strong> extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customise how it should change with time.</p>
 <ul>
 <li><code>transition_*()</code> defines how the data should be spread out and how it relates to itself across time.</li>
@@ -1262,58 +1279,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>ease_aes()</code> defines how different aesthetics should be eased during transitions.</li>
 </ul>
 <section id="building-a-static-population-bubble-plot" class="level3">
-<h3>4.3.1 Building a static population bubble plot</h3>
+<h3 class="anchored" data-anchor-id="building-a-static-population-bubble-plot">4.3.1 Building a static population bubble plot</h3>
 <p>In the code chunk below, the basic ggplot2 functions are used to create a static bubble plot.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop, <span class="fu">aes</span>(<span class="at">x =</span> Old, <span class="at">y =</span> Young, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop, <span class="fu">aes</span>(<span class="at">x =</span> Old, <span class="at">y =</span> Young, </span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> Population, </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">colour =</span> Country)) <span class="sc">+</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colors) <span class="sc">+</span></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Year: {frame_time}&#39;</span>, </span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;% Aged&#39;</span>, </span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;% Young&#39;</span>) </span></code></pre></div>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {frame_time}'</span>, </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'% Aged'</span>, </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'% Young'</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="building-the-animated-bubble-plot" class="level3">
-<h3>4.3.2 Building the animated bubble plot</h3>
+<h3 class="anchored" data-anchor-id="building-the-animated-bubble-plot">4.3.2 Building the animated bubble plot</h3>
 <p>In the code chunk below,</p>
 <ul>
-<li><a href="https://gganimate.com/reference/transition_time.html">transition_time()</a> of <strong>gganimate</strong> is used to create transition through distinct states in time (i.e. Year).</li>
+<li><a href="https://gganimate.com/reference/transition_time.html">transition_time()</a> of <strong>gganimate</strong> is used to create transition through distinct states in time (i.e.&nbsp;Year).</li>
 <li><code>ease_aes()</code> is used to control easing of aesthetics. The default is linear. Other methods are: quadratic, cubic, quartic, quintic, sine, circular, exponential, elastic, back, and bounce.</li>
 </ul>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop, <span class="fu">aes</span>(<span class="at">x =</span> Old, <span class="at">y =</span> Young, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop, <span class="fu">aes</span>(<span class="at">x =</span> Old, <span class="at">y =</span> Young, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> Population, </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">colour =</span> Country)) <span class="sc">+</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, </span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colors) <span class="sc">+</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Year: {frame_time}&#39;</span>, </span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;% Aged&#39;</span>, </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;% Young&#39;</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Year: {frame_time}'</span>, </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'% Aged'</span>, </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'% Young'</span>) <span class="sc">+</span></span>
 <span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transition_time</span>(Year) <span class="sc">+</span>       </span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ease_aes</span>(<span class="st">&#39;linear&#39;</span>)          </span></code></pre></div>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ease_aes</span>(<span class="st">'linear'</span>)          </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-33-1.gif" class="img-fluid" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-33-1.gif" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1322,12 +1339,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="animated-data-visualisation-plotly" class="level2">
-<h2>4.4 Animated Data Visualisation: plotly</h2>
+<h2 class="anchored" data-anchor-id="animated-data-visualisation-plotly">4.4 Animated Data Visualisation: plotly</h2>
 <p>In <strong>Plotly R</strong> package, both <code>ggplotly()</code> and <code>plot_ly()</code> support key frame animations through the <code>frame</code> argument/aesthetic. They also support an <code>ids</code> argument/aesthetic to ensure smooth transitions between objects with the same id (which helps facilitate object constancy).</p>
 <section id="building-an-animated-bubble-plot-ggplotly-method" class="level3">
-<h3>4.4.1 Building an animated bubble plot: ggplotly() method</h3>
+<h3 class="anchored" data-anchor-id="building-an-animated-bubble-plot-ggplotly-method">4.4.1 Building an animated bubble plot: ggplotly() method</h3>
 <p>We will create an animated bubble plot by using <code>ggplot()</code> method.</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
@@ -1342,7 +1359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(globalPop, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(globalPop, </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Old, </span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Young, </span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> Population, </span>
@@ -1353,10 +1370,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colors) <span class="sc">+</span></span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;% Aged&#39;</span>, </span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;% Young&#39;</span>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'% Aged'</span>, </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'% Young'</span>)</span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(gg)      </span></code></pre></div>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(gg)      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-9578b0cc000252543766" style="width:100%;height:464px;"></div>
@@ -1369,7 +1386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class='callout-icon'></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Things to learn from the code chunk above
@@ -1383,7 +1400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>show.legend = FALSE</code> argument was used, the legend still appears on the plot. To overcome this problem, <code>theme(legend.position='none')</code> should be used as shown in the plot and code chunk below.</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
@@ -1398,7 +1415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(globalPop, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(globalPop, </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Old, </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Young, </span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> Population, </span>
@@ -1408,11 +1425,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> country_colors) <span class="sc">+</span></span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;% Aged&#39;</span>, </span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;% Young&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&#39;none&#39;</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">'% Aged'</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'% Young'</span>) <span class="sc">+</span> </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'none'</span>)</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(gg)     </span></code></pre></div>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(gg)     </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-ce0d248c3342efd34bcf" style="width:100%;height:464px;"></div>
@@ -1424,9 +1441,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="building-an-animated-bubble-plot-plot_ly-method" class="level3">
-<h3>4.4.2 Building an animated bubble plot: <code>plot_ly()</code> method</h3>
+<h3 class="anchored" data-anchor-id="building-an-animated-bubble-plot-plot_ly-method">4.4.2 Building an animated bubble plot: <code>plot_ly()</code> method</h3>
 <p>We will create an animated bubble plot by using <code>plot_ly()</code> method.</p>
-<div class="panel-tabset">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true" href="">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false" href="">The code chunk</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
@@ -1441,7 +1458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> globalPop <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> globalPop <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_ly</span>(<span class="at">x =</span> <span class="sc">~</span>Old, </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="sc">~</span>Young, </span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="sc">~</span>Population, </span>
@@ -1449,12 +1466,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">sizes =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">100</span>),</span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">frame =</span> <span class="sc">~</span>Year, </span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">text =</span> <span class="sc">~</span>Country, </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">hoverinfo =</span> <span class="st">&quot;text&quot;</span>,</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">&#39;scatter&#39;</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">mode =</span> <span class="st">&#39;markers&#39;</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">hoverinfo =</span> <span class="st">"text"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">'scatter'</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">mode =</span> <span class="st">'markers'</span></span>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>          ) <span class="sc">%&gt;%</span></span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">showlegend =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>bp    </span></code></pre></div>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>bp    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-f31b2a23c39bd0e12146" style="width:100%;height:464px;"></div>
@@ -1470,27 +1487,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="additional-analysis-1" class="level1">
 <h1>Additional Analysis</h1>
 <section id="additional-analysis-6---population-distribution-by-continent" class="level2">
-<h2>4.5.1 Additional Analysis 6 - Population Distribution by Continent</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-6---population-distribution-by-continent">4.5.1 Additional Analysis 6 - Population Distribution by Continent</h2>
 <p><strong>Objective:</strong> To examine how population sizes vary across different continent and identify regions with large variability in population.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop,</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Continent,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Population,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> Continent)) <span class="sc">+</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Population Distribution Across Continents&quot;</span>,</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Continent&quot;</span>,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Population&quot;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Population Distribution Across Continents"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Continent"</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Population"</span></span>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1498,28 +1515,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> It helps identify which continents have larger population spread and whether there are countries with unusually large populations.</p>
 </section>
 <section id="additional-analysis-7---young-vs-old-population" class="level2">
-<h2>4.5.2 Additional Analysis 7 - Young vs Old Population</h2>
+<h2 class="anchored" data-anchor-id="additional-analysis-7---young-vs-old-population">4.5.2 Additional Analysis 7 - Young vs Old Population</h2>
 <p><strong>Objective:</strong> To investigate the relationship between Young vs Old Population.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(globalPop,</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Young,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Old,</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> Continent)) <span class="sc">+</span></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Relationship Between Young and Old Population&quot;</span>,</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Young Population (%)&quot;</span>,</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Old Population (%)&quot;</span>,</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Continent&quot;</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship Between Young and Old Population"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Young Population (%)"</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Old Population (%)"</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Continent"</span></span>
 <span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672" /></p>
+<figure class="figure">
+<p><img src="Hands-on_Ex03_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1527,23 +1544,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Insights:</strong> It helps identify whether countries with a higher young population tend to have a lower ageing population profile.</p>
 </section>
 <section id="reference-1" class="level2">
-<h2>4.6 Reference</h2>
+<h2 class="anchored" data-anchor-id="reference-1">4.6 Reference</h2>
 <ul>
 <li>Visit this <a href="https://rpubs.com/raymondteo/dataviz8"><strong>link</strong></a> for a very interesting implementation of gganimate by your senior.</li>
 <li><a href="https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/">Building an animation step-by-step with gganimate</a></li>
 <li><a href="https://solarchemist.se/2021/08/02/composite-gif-gganimate/">Creating a composite gif with multiple gganimate panels</a></li>
 </ul>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SGFuZHMtb24gRXhlcmNpc2U=">Hands-on Exercise</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SGFuZHMtb24gRXhlcmNpc2UgMSAoSW50cm9kdWN0aW9uIHRvIFZpc3VhbCBBbmFseXRpY3Mp">Hands-on Exercise 1 (Introduction to Visual Analytics)</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L0hhbmRzLU9uX0V4L0hhbmRzLW9uX0V4MDEvSGFuZHMtb25fRXgwMS5odG1s">/Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SGFuZHMtb24gRXhlcmNpc2UgMiAoRGVzaWduaW5nIEdyYXBocyB0byBFbmxpZ2h0ZW4p">Hands-on Exercise 2 (Designing Graphs to Enlighten)</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L0hhbmRzLU9uX0V4L0hhbmRzLW9uX0V4MDIvSGFuZHMtb25fRXgwMi5odG1s">/Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SGFuZHMtb24gRXhlcmNpc2UgMyAoSW50ZXJhY3Rpdml0eSBpbiBWaXN1YWwgQW5hbHl0aWNzKQ==">Hands-on Exercise 3 (Interactivity in Visual Analytics)</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L0hhbmRzLU9uX0V4L0hhbmRzLW9uX0V4MDMvSGFuZHMtb25fRXgwMy5odG1s">/Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6TGVzc29uIDQ6IEZ1bmRhbWVudGFscyBvZiBWaXN1YWwgQW5hbHl0aWNz">Lesson 4: Fundamentals of Visual Analytics</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L0hhbmRzLU9uX0V4L0hhbmRzLW9uX0V4MDQvSGFuZHMtb25fRXgwNC5odG1s">/Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SW4tY2xhc3MgRXhlcmNpc2U=">In-class Exercise</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SW4tQ2xhc3MgRXhlcmNpc2UgMg==">In-Class Exercise 2</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9wdWJsaWMudGFibGVhdS5jb20vYXBwL3Byb2ZpbGUvamF2aWVyLnBoYW5nL3Zpei9Jbi1DbGFzc19FeDAyXzE3NzcxMDA1Mzc3NjAwL0Rhc2hib2FyZDE=">https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex02_17771005377600/Dashboard1</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SW4tQ2xhc3MgRXhlcmNpc2UgMw==">In-Class Exercise 3</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9wdWJsaWMudGFibGVhdS5jb20vYXBwL3Byb2ZpbGUvamF2aWVyLnBoYW5nL3Zpei9Jbi1DbGFzc19FeDAzXzE3Nzc3MDU0MDQ1MDAwL1N1cGVyU3RvcmVTYWxlc1JlcG9ydA==">https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03_17777054045000/SuperStoreSalesReport</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SW4tQ2xhc3MgRXhlcmNpc2UgM0I=">In-Class Exercise 3B</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9wdWJsaWMudGFibGVhdS5jb20vYXBwL3Byb2ZpbGUvamF2aWVyLnBoYW5nL3Zpei9Jbi1DbGFzc19FeDAzQi9BZ2VTZXhQeXJhbWlk">https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03B/AgeSexPyramid</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6VGFrZS1ob21lIEV4ZXJjaXNl">Take-home Exercise</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6Q29taW5nIFNvb24=">Coming Soon</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6LyM=">/#</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6R3JvdXAgUHJvamVjdA==">Group Project</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SG9tZQ==">Home</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2luZGV4Lmh0bWw=">/index.html</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6QWJvdXQ=">About</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2Fib3V0Lmh0bWw=">/about.html</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">Hands-on Exercise 3 - Programming Interactive Data Visualisation with R</span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw=="></span> <span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj"></span></p>
-</div>
+
+
 </section>
 </section>
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1945,6 +1958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>

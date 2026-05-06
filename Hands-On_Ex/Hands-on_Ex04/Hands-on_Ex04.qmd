@@ -1321,95 +1321,112 @@ ggplot(data = exam,
 
 # **Additional Analysis**
 
-## 11.6.1 Additional Analysis 4 - Class Consistency Analysis
+## 11.6.1 Additional Analysis 4 - Heatmap of Class Subject Performance
 
-**Objective:** To identify which classes demonstrate the most consistent Mathematics performance based on score variability.
+**Objective:** To compare average subject performance across classes using a heatmap.
 
 ```{r}
-class_sd <- exam %>%
-  group_by(CLASS) %>%
+exam_long <- exam %>%
+  pivot_longer(
+    cols = c(MATHS, ENGLISH, SCIENCE),
+    names_to = "Subject",
+    values_to = "Score"
+  )
+
+class_summary <- exam_long %>%
+  group_by(CLASS, Subject) %>%
   summarise(
-    maths_sd = sd(MATHS),
-    avg_maths = mean(MATHS),
+    avg_score = mean(Score),
     .groups = "drop"
   )
 
-ggplot(class_sd,
-       aes(x = reorder(CLASS, maths_sd),
-           y = maths_sd)) +
+ggplot(class_summary,
+       aes(x = Subject,
+           y = CLASS,
+           fill = avg_score)) +
 
-  geom_col(fill = "steelblue") +
+  geom_tile(color = "white") +
 
-  coord_flip() +
+  geom_text(aes(label = round(avg_score,1)),
+            size = 3) +
+
+  scale_fill_gradient(
+    low = "lightyellow",
+    high = "steelblue"
+  ) +
 
   labs(
-    title = "Variation in Maths Scores by Class",
-    x = "Class",
-    y = "Standard Deviation of Maths Scores"
+    title = "Average Subject Scores by Class",
+    x = "Subject",
+    y = "Class",
+    fill = "Average Score"
   ) +
 
   theme_minimal()
 ```
 
-**Insights:** Classes with lower standard deviation indicate more consistent student performance, while higher variation suggests larger performance gaps among students.
+**Insights:** The heatmap reveals which classes consistently perform better across subjects and highlights subject-specific strengths or weaknesses.
 
-## 11.6.2 Additional Analysis 5 - High Performer Composition by Race
+## 11.6.2 Additional Analysis 5 - Parallel Coordinate Plot of Top Students
 
-**Objective:** To examine the distribution of high-performing students in Mathematics across different racial groups.
+**Objective:** To analyse how top-performing students perform across multiple subjects simultaneously.
 
 ```{r}
-high_perf <- exam %>%
-  filter(MATHS >= 85) %>%
-  count(RACE)
+top_students <- exam %>%
+  mutate(avg_score = (MATHS + ENGLISH + SCIENCE)/3) %>%
+  arrange(desc(avg_score)) %>%
+  slice_head(n = 15)
 
-ggplot(high_perf,
-       aes(x = reorder(RACE, n),
-           y = n,
-           fill = RACE)) +
+top_students_long <- top_students %>%
+  pivot_longer(
+    cols = c(MATHS, ENGLISH, SCIENCE),
+    names_to = "Subject",
+    values_to = "Score"
+  )
 
-  geom_col() +
+ggplot(top_students_long,
+       aes(x = Subject,
+           y = Score,
+           group = ID,
+           color = avg_score)) +
 
-  coord_flip() +
+  geom_line(alpha = 0.7) +
+
+  geom_point(size = 2) +
 
   labs(
-    title = "Number of High Performers in Maths by Race",
-    x = "Race",
-    y = "Number of Students"
+    title = "Performance Profiles of Top Students",
+    x = "Subject",
+    y = "Score"
   ) +
 
-  theme_minimal() +
+  theme_minimal()
+```
 
+**Insights:** Top-performing students generally maintain consistently high performance across all subjects, although some show stronger subject specialisation.
+
+## 11.6.3 Additional Analysis 6 - Density Ridge Plot of Maths Scores by Race
+
+**Objective:** To compare the distribution patterns of Mathematics scores across racial groups.
+
+```{r}
+ggplot(exam,
+       aes(x = MATHS,
+           y = RACE,
+           fill = RACE)) +
+
+  geom_density_ridges(
+    alpha = 0.7
+  ) +
+
+  labs(
+    title = "Distribution of Maths Scores by Race",
+    x = "Maths Scores",
+    y = "Race"
+  ) +
+
+  theme_ridges() +
   theme(legend.position = "none")
 ```
 
-**Insights:** Some racial groups contribute a larger proportion of students scoring 85 and above in Mathematics, highlighting differences in top-performing student representation.
-
-## 11.6.3 Additional Analysis 6 - Subject Balance Analysis
-
-**Objective:** To analyse whether students perform consistently across Mathematics and English by measuring the score gap between the two subjects.
-
-```{r}
-exam %>%
-  mutate(
-    score_gap = abs(MATHS - ENGLISH)
-  ) %>%
-
-  ggplot(aes(x = score_gap)) +
-
-  geom_histogram(
-    bins = 20,
-    fill = "tomato",
-    color = "white"
-  ) +
-
-  labs(
-    title = "Distribution of Subject Performance Gaps",
-    subtitle = "Absolute difference between Maths and English scores",
-    x = "Score Gap",
-    y = "Number of Students"
-  ) +
-
-  theme_minimal()
-```
-
-**Insights:** Most students exhibit relatively balanced performance between Mathematics and English, although some students show noticeably stronger performance in one subject over the other.
+**Insights:** The ridgeline plot highlights differences in score concentration, spread, and distribution shape among racial groups.
