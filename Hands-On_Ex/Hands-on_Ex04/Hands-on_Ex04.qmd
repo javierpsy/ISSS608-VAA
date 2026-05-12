@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: auto
+  freeze: true
 ---
 
 # 8 Funnel Plots for Fair Comparisons
