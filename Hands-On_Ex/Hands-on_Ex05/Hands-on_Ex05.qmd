@@ -35,7 +35,7 @@ Before you get started, you are required to open a new Quarto document. Keep the
 Next, you will use the code chunk below to install and launch **corrplot, ggpubr, plotly and tidyverse** in RStudio.
 
 ```{r}
-pacman::p_load(corrplot, ggstatsplot, tidyverse)
+pacman::p_load(corrplot, ggstatsplot, tidyverse, heatmaply, GGally)
 ```
 
 ## 6.3 **Importing and Preparing The Data Set**
@@ -348,6 +348,128 @@ D.J. Murdoch, E.D. Chow (1996). “A graphical display of large correlation matr
 -   [`ggscatmat`](https://ggobi.github.io/ggally/reference/ggscatmat.html) and [`ggpairs`](https://ggobi.github.io/ggally/reference/ggpairs.html) of [**GGally**](https://ggobi.github.io/ggally/index.html).
 -   [**corrplot**](https://cran.r-project.org/web/packages/corrplot/index.html). A graphical display of a correlation matrix or general matrix. It also contains some algorithms to do matrix reordering. In addition, corrplot is good at details, including choosing color, text labels, color labels, layout, etc.
 -   [**corrgram**](https://cran.r-project.org/web/packages/corrgram/index.html) calculates correlation of variables and displays the results graphically. Included panel functions can display points, shading, ellipses, and correlation values with confidence intervals.
+
+# Additional Analysis
+
+## Additional Analysis 1 - Wine Quality “Premium vs Basic” Correlation
+
+**Objective:** To identify which chemical attributes are strongly related among premium-quality wines.
+
+```{r}
+wine2 <- wine %>%
+  mutate(
+    quality_group = case_when(
+      quality >= 7 ~ "Premium Wine",
+      quality <= 5 ~ "Basic Wine",
+      TRUE ~ "Mid-range Wine"
+    )
+  )
+
+premium_corr <- wine2 %>%
+  filter(quality_group == "Premium Wine") %>%
+  select(where(is.numeric), -quality) %>%
+  cor(use = "pairwise.complete.obs")
+
+corrplot(
+  premium_corr,
+  method = "ellipse",
+  type = "upper",
+  order = "hclust",
+  addCoef.col = "black",
+  number.cex = 0.55,
+  tl.cex = 0.75,
+  tl.col = "black",
+  title = "Premium Wine Correlation Signature",
+  mar = c(0, 0, 2, 0)
+)
+```
+
+**Insight:** This analysis focuses only on higher-rated wines, making the correlation pattern more specific than the general wine correlation matrix.
+
+## Additional Analysis 2 - Top 5 Highest vs Lowest Alcohol Wines” Heatmap
+
+**Objective:** To compare the chemical composition patterns between wines with the highest and lowest alcohol content.
+
+```{r}
+# Select top 5 and bottom 5 alcohol wines
+high_alcohol <- wine %>%
+  slice_max(alcohol, n = 5)
+
+low_alcohol <- wine %>%
+  slice_min(alcohol, n = 5)
+
+wine_extreme <- bind_rows(
+  high_alcohol %>% mutate(group = "High Alcohol"),
+  low_alcohol %>% mutate(group = "Low Alcohol")
+)
+
+heatmap_data <- wine_extreme %>%
+  select(
+    `fixed acidity`,
+    `volatile acidity`,
+    `citric acid`,
+    `residual sugar`,
+    chlorides,
+    sulphates,
+    alcohol
+  )
+
+rownames(heatmap_data) <- paste(
+  wine_extreme$group,
+  seq_len(nrow(wine_extreme))
+)
+
+heatmaply(
+  scale(as.matrix(heatmap_data)),
+  k_row = 2,
+  k_col = 2,
+  main = "Top 5 Highest vs Lowest Alcohol Wines",
+  fontsize_row = 8,
+  fontsize_col = 9
+)
+```
+
+**Insights:** The heatmap shows that high-alcohol wines generally exhibit different acidity and sulphate patterns compared to low-alcohol wines, suggesting that alcohol content may influence overall wine composition.
+
+## Additional Analysis 3 - Top 5 Best vs Worst Wines” Parallel Coordinates
+
+**Objective:** To compare the chemical profiles between the top 5 and bottom 5 wines based on quality scores.
+
+```{r}
+# Select top 5 and bottom 5 quality wines
+top_wines <- wine %>%
+  slice_max(quality, n = 5) %>%
+  mutate(group = "Top 5 Wines")
+
+bottom_wines <- wine %>%
+  slice_min(quality, n = 5) %>%
+  mutate(group = "Bottom 5 Wines")
+
+wine_compare <- bind_rows(top_wines, bottom_wines)
+
+ggparcoord(
+  data = wine_compare,
+  columns = 1:11,
+  groupColumn = "group",
+  scale = "uniminmax",
+  alphaLines = 0.5,
+  showPoints = TRUE
+) +
+  theme_minimal() +
+  labs(
+    title = "Top 5 Best vs Worst Wine Profiles",
+    subtitle = "Comparison of chemical characteristics"
+  ) +
+  theme(
+    axis.text.x = element_text(
+      angle = 30,
+      hjust = 1,
+      size = 8
+    )
+  )
+```
+
+**Insights:** The top 5 wines generally display higher alcohol and sulphate levels, while the bottom 5 wines tend to show higher volatile acidity, indicating noticeable differences in wine composition associated with quality.
 
 # 13 **Creating Ternary Plot with R**
 
@@ -780,7 +902,8 @@ For this exercise, the **GGally, parallelPlot** and **tidyverse** packages will 
 The code chunks below are used to install and load the packages in R.
 
 ```{r}
-pacman::p_load(GGally, parallelPlot, tidyverse)
+pacman::p_load(GGally, parallelPlot, tidyverse,tidyverse,
+  heatmaply, tibble)
 ```
 
 ## 15.3 **Data Preparation**
@@ -940,6 +1063,70 @@ parallelPlot(wh,
 
 -   [*ggparcoord()*](http://ggobi.github.io/ggally/reference/ggparcoord.html) of [**GGally**](http://ggobi.github.io/ggally/index.html) package
 -   [**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/parallelPlot.pdf)
+
+# Additional Analysis
+
+## Additional Analysis 4 - Top 10 Most Balanced vs Unbalanced Countries” Heatmap 
+- Countries with low variation across indicators = balanced development
+- Countries with high variation = unbalanced development
+
+**Objective:** To compare countries with balanced and unbalanced happiness indicator profiles.
+
+```{r}
+# Reload original WH dataset because wh was modified earlier
+wh <- read_csv("data/WHData-2018.csv")
+
+wh_balance <- wh %>%
+  rowwise() %>%
+  mutate(
+    variation_score = sd(c(
+      `GDP per capita`,
+      `Social support`,
+      `Healthy life expectancy`,
+      `Freedom to make life choices`,
+      Generosity,
+      `Perceptions of corruption`
+    ), na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+balanced <- wh_balance %>%
+  slice_min(variation_score, n = 10)
+
+unbalanced <- wh_balance %>%
+  slice_max(variation_score, n = 10)
+
+compare_data <- bind_rows(
+  balanced %>% mutate(group = "Balanced"),
+  unbalanced %>% mutate(group = "Unbalanced")
+)
+
+heatmap_data <- compare_data %>%
+  select(
+    Country,
+    `GDP per capita`,
+    `Social support`,
+    `Healthy life expectancy`,
+    `Freedom to make life choices`,
+    Generosity,
+    `Perceptions of corruption`
+  )
+
+heatmap_matrix <- heatmap_data %>%
+  tibble::column_to_rownames("Country") %>%
+  as.matrix()
+
+heatmaply(
+  scale(heatmap_matrix),
+  k_row = 2,
+  k_col = 2,
+  main = "Top 10 Balanced vs Unbalanced Happiness Profiles",
+  fontsize_row = 7,
+  fontsize_col = 9
+)
+```
+
+**Insight:** Balanced countries tend to show consistently moderate-to-high performance across all indicators, while unbalanced countries display strong performance in some indicators but weak performance in others.
 
 # 16 **Treemap Visualisation with R**
 
@@ -1260,7 +1447,10 @@ This slide shows you how to install a R package which is not available in cran.
 1.  If this is the first time you install a package from github, you should install *devtools* package by using the code below or else you can skip this step.
 
 ```{r}
-install.packages("devtools")
+#| eval: false
+# Install only once manually in the Console, not during rendering
+install.packages("devtools", repos = "https://cloud.r-project.org")
+devtools::install_github("timelyportfolio/d3treeR")
 ```
 
 Next, you will load the *devtools* library and install the package found in github by using the codes below.
@@ -1283,19 +1473,75 @@ The codes below perform two processes.
 1.  *treemap()* is used to build a treemap by using selected variables in condominium data.frame. The treemap created is save as object called ***tm***.
 
 ```{r}
-tm <- treemap(realis2018_summarised,
-        index=c("Planning Region", "Planning Area"),
-        vSize="Total Unit Sold",
-        vColor="Median Unit Price ($ psm)",
-        type="value",
-        title="Private Residential Property Sold, 2017",
-        title.legend = "Median Unit Price (S$ per sq. m)"
-        )
+#| eval: false
+library(d3treeR)
+
+tm <- treemap(
+  realis2018_summarised,
+  index = c("Planning Region", "Planning Area"),
+  vSize = "Total Unit Sold",
+  vColor = "Median Unit Price ($ psm)",
+  type = "value",
+  title = "Private Residential Property Sold, 2017",
+  title.legend = "Median Unit Price (S$ per sq. m)"
+)
+
+d3tree(tm, rootname = "Singapore")
 ```
 
-2.  Then *d3tree()* is used to build an interactive treemap.
+# Additional Analysis
+
+## Additional Analysis 5 - Luxury Property Hotspots by Region
+
+**Objective:** To identify regions and planning areas with high concentrations of luxury property transactions.
 
 ```{r}
-d3tree(tm,rootname = "Singapore" )
+luxury_data <- realis2018 %>%
+  filter(`Transacted Price ($)` >= 3000000) %>%
+  group_by(`Planning Region`, `Planning Area`) %>%
+  summarise(
+    Total_Transactions = n(),
+    Median_Price = median(`Transacted Price ($)`, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+treemap(
+  luxury_data,
+  index = c("Planning Region", "Planning Area"),
+  vSize = "Total_Transactions",
+  vColor = "Median_Price",
+  type = "value",
+  palette = "Blues",
+  title = "Luxury Property Hotspots by Region",
+  title.legend = "Median Transacted Price"
+)
 ```
 
+**Insights:** Luxury property transactions are concentrated in selected planning areas, with some regions showing both high transaction activity and high median property prices.
+
+## Additional Analysis 6 - Property Type Dominance by Sales Type
+
+**Objective:** To examine how property types differ across various sales categories in terms of transaction volume and pricing.
+
+```{r}
+sales_data <- realis2018 %>%
+  group_by(`Type of Sale`, `Property Type`) %>%
+  summarise(
+    Units_Sold = sum(`No. of Units`, na.rm = TRUE),
+    Median_Unit_Price = median(`Unit Price ($ psm)`, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+treemap(
+  sales_data,
+  index = c("Type of Sale", "Property Type"),
+  vSize = "Units_Sold",
+  vColor = "Median_Unit_Price",
+  type = "value",
+  palette = "RdYlGn",
+  title = "Property Type Dominance by Sales Type",
+  title.legend = "Median Unit Price ($ psm)"
+)
+```
+
+**Insights:** Certain property types dominate specific sales categories, while higher-priced property segments tend to occupy smaller market shares but contribute significantly to overall transaction value.
