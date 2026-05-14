@@ -129,7 +129,6 @@ In this section, you will learn how to visualising correlation matrix by using [
 On of the advantage of using *ggcorrmat()* over many other methods to visualise a correlation matrix is it’s ability to provide a comprehensive and yet professional statistical report as shown in the figure below.
 
 ```{r}
-```{r}
 #| fig-width: 9
 #| fig-height: 9
 #| out-width: 90%
@@ -143,9 +142,7 @@ ggstatsplot::ggcorrmat(
   )
 )
 ```
-```
 
-```{r}
 ```{r}
 #| fig-width: 9
 #| fig-height: 9
