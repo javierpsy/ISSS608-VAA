@@ -32,6 +32,10 @@ website:
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03_17777054045000/SuperStoreSalesReport"
           - text: "In-Class Exercise 3B"
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex03B/AgeSexPyramid"  
+          - text: "In-Class Exercise 4A"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex04A/DashboardAnalysis"    
+          - text: "In-Class Exercise 4B"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex04B/HospitalSurveyDashboard"      
             
       - icon: clipboard-data
         text: "Take-home Exercise"

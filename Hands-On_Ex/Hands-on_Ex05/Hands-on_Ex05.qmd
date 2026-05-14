@@ -129,20 +129,39 @@ In this section, you will learn how to visualising correlation matrix by using [
 On of the advantage of using *ggcorrmat()* over many other methods to visualise a correlation matrix is it’s ability to provide a comprehensive and yet professional statistical report as shown in the figure below.
 
 ```{r}
-ggstatsplot::ggcorrmat(
-  data = wine, 
-  cor.vars = 1:11)
-```
-
 ```{r}
+#| fig-width: 9
+#| fig-height: 9
+#| out-width: 90%
+
 ggstatsplot::ggcorrmat(
   data = wine, 
   cor.vars = 1:11,
-  ggcorrplot.args = list(outline.color = "black", 
-                         hc.order = TRUE,
-                         tl.cex = 10),
-  title    = "Correlogram for wine dataset",
-  subtitle = "Four pairs are no significant at p < 0.05"
+  ggcorrplot.args = list(
+    tl.cex = 9,
+    lab_size = 3
+  )
+)
+```
+```
+
+```{r}
+```{r}
+#| fig-width: 9
+#| fig-height: 9
+#| out-width: 90%
+
+ggstatsplot::ggcorrmat(
+  data = wine, 
+  cor.vars = 1:11,
+  ggcorrplot.args = list(
+    outline.color = "black", 
+    hc.order = TRUE,
+    tl.cex = 8,
+    lab_size = 3
+  ),
+  title = "Correlogram for wine dataset",
+  subtitle = "Four pairs are not significant at p < 0.05"
 )
 ```
 
@@ -166,6 +185,10 @@ ggplot.component = list(
 Since ggstasplot is an extension of ggplot2, it also supports faceting. However the feature is not available in *ggcorrmat()* but in the [*grouped_ggcorrmat()*](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html) of **ggstatsplot**.
 
 ```{r}
+#| fig-width: 14
+#| fig-height: 7
+#| out-width: 100%
+
 grouped_ggcorrmat(
   data = wine,
   cor.vars = 1:11,
@@ -173,13 +196,15 @@ grouped_ggcorrmat(
   type = "robust",
   p.adjust.method = "holm",
   plotgrid.args = list(ncol = 2),
-  ggcorrplot.args = list(outline.color = "black", 
-                         hc.order = TRUE,
-                         tl.cex = 10),
+  ggcorrplot.args = list(
+    outline.color = "black", 
+    hc.order = TRUE,
+    tl.cex = 8
+  ),
   annotation.args = list(
     tag_levels = "a",
     title = "Correlogram for wine dataset",
-    subtitle = "The measures are: alcohol, sulphates, fixed acidity, citric acid, chlorides, residual sugar, density, free sulfur dioxide and volatile acidity",
+    subtitle = "Correlation comparison between red and white wine",
     caption = "Dataset: UCI Machine Learning Repository"
   )
 )
@@ -501,7 +526,7 @@ pacman::p_load(plotly, ggtern, tidyverse)
 
 ### 13.3.1 **The data**
 
-### For the purpose of this hands-on exercise, the [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called *respopagsex2000to2018_tidy.csv* and is in csv file format.
+For the purpose of this hands-on exercise, the [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called *respopagsex2000to2018_tidy.csv* and is in csv file format.
 
 ### 13.3.2 **Importing Data**
 
@@ -734,9 +759,16 @@ Three main data transformation methods are supported by heatmaply(), namely: sca
 The code chunk below is used to scale variable values columewise.
 
 ```{r}
-heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
-          scale = "column")
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: 100%
+
+heatmaply(
+  wh_matrix[, -c(1, 2, 4, 5)],
+  scale = "column"
+)
 ```
+
 
 #### 14.5.2.2 Normalising method
 
@@ -746,7 +778,13 @@ heatmaply(wh_matrix[, -c(1, 2, 4, 5)],
 Different from Scaling, the normalise method is performed on the input data set i.e. wh_matrix as shown in the code chunk below.
 
 ```{r}
-heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: 100%
+
+heatmaply(
+  normalize(wh_matrix[, -c(1, 2, 4, 5)])
+)
 ```
 
 #### 14.5.2.3 Percentising method
@@ -758,6 +796,10 @@ heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))
 Similar to Normalize method, the Percentize method is also performed on the input data set i.e. wh_matrix as shown in the code chunk below.
 
 ```{r}
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: 100%
+
 heatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))
 ```
 
@@ -777,6 +819,10 @@ In general, a clustering model can be calibrated either manually or statisticall
 In the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with “Euclidean distance” and “ward.D” method.
 
 ```{r}
+#| fig-width: 14
+#| fig-height: 10
+#| out-width: 100%
+
 heatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),
           dist_method = "euclidean",
           hclust_method = "ward.D")
@@ -1366,7 +1412,7 @@ treemap(realis2018_selected,
         )
 ```
 
-### 16.4.9 \*\*Using \*sortID\*\*
+### 16.4.9 **Using sortID**
 
 When “pivotSize” algorithm is used, *sortID* argument can be used to dertemine the order in which the rectangles are placed from top left to bottom right.
 
