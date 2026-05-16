@@ -48,10 +48,15 @@ This section gives readers understanding of the dataset before cleaning.
 
 The analysis primarily uses packages from the **tidyverse ecosystem** for data preprocessing and wrangling, while **ggplot2 extensions** are used to enhance visual analytics and improve presentation quality.
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+suppressPackageStartupMessages({
 pacman::p_load(tidyverse,tibble,knitr,kableExtra,janitor,skimr,naniar,patchwork,ggthemes,scales,
                ggridges,ggdist,ggpubr,GGally,ggcorrplot,corrplot,heatmaply,plotly,ggstatsplot,ggrepel)
 
+})
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 packages <- tribble(
 ~Library, ~Description,
 "tidyverse","A collection of packages used extensively for data preprocessing, transformation, and wrangling.",
@@ -76,16 +81,31 @@ packages <- tribble(
 "ggrepel","Prevents overlapping labels in visualisations."
 )
 
-kable(
+knitr::kable(
   packages,
   caption = "Libraries used in this study",
   booktabs = TRUE,
-  align = c("l","l")
-) %>%
-kable_styling(
-  full_width = FALSE,
-  position = "center"
-)
+  align = c("l", "l")
+) |>
+  kableExtra::kable_styling(
+    full_width = FALSE,
+    position = "center"
+  )
 ```
 
+## 2.2 **Import Dataset**
+
+```{r}
+motor <- read_delim("Dataset of motor insurance portfolio.csv",delim=";")
+```
+
+## 2.3 **Dataset Overview**
+
+```{r}
+glimpse(motor)
+
+skim(motor)
+
+dim(motor)
+```
 

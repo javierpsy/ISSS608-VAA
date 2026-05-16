@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Javier Phang">
+<meta name="dcterms.date" content="2026-05-16">
 
-<title>ISSS608-Visual Analytics and Applications</title>
+<title>Take-home Exercise 1</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,25 +28,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-52e90109c9fd1ab1ecaf05b4af9305f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-52e90109c9fd1ab1ecaf05b4af9305f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +72,13 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-hands-on-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
 
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-hands-on-listings'] = new List('listing-hands-on-listings', options);
 
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,9 +88,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/Icon1.png" alt="" class="navbar-logo light-content">
-    <img src="./images/Icon1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -161,23 +107,23 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1 (Introduction to Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2 (Designing Graphs to Enlighten)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
  <span class="dropdown-text">Hands-on Exercise 3 (Interactivity in Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
  <span class="dropdown-text">Hands-on Exercise 4 (Fundamentals of Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
  <span class="dropdown-text">Hands-on Exercise 5 (Visual Multivariate Analysis)</span></a>
   </li>  
     </ul>
@@ -227,25 +173,25 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="./Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html">
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html">
  <span class="dropdown-text">Take-Home_Ex01</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./#"> <i class="bi bi-people" role="img">
+    <a class="nav-link" href="../../#"> <i class="bi bi-people" role="img">
 </i> 
 <span class="menu-text">Group Project</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-house-fill" role="img">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-fill" role="img">
 </i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> <i class="bi bi-person-circle" role="img">
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person-circle" role="img">
 </i> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -265,8 +211,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#about-this-website" id="toc-about-this-website" class="nav-link active" data-scroll-target="#about-this-website">About This Website</a></li>
-  <li><a href="#hands-on-exercise" id="toc-hands-on-exercise" class="nav-link" data-scroll-target="#hands-on-exercise">Hands on Exercise</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 <strong>Overview</strong></a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 <strong>Background</strong></a></li>
+  <li><a href="#objectives-and-analytical-questions" id="toc-objectives-and-analytical-questions" class="nav-link" data-scroll-target="#objectives-and-analytical-questions">1.2 <strong>Objectives and Analytical Questions</strong></a></li>
+  </ul></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">2 <strong>Data Preparation</strong></a>
+  <ul class="collapse">
+  <li><a href="#loading-packages" id="toc-loading-packages" class="nav-link" data-scroll-target="#loading-packages">2.1 <strong>Loading Packages</strong></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -275,15 +228,33 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ISSS608-Visual Analytics and Applications</h1>
+<h1 class="title">Take-home Exercise 1</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Javier Phang </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 16, 2026</p>
+    </div>
+  </div>
   
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">May 17, 2026</p>
+    </div>
+  </div>
     
   </div>
   
@@ -292,125 +263,176 @@ window.Quarto = {
 </header>
 
 
-<p>Welcome to <strong>ISSS608 Visual Analytics and Application</strong> homepage<strong>.</strong> This site showcases my coursework, hands-on exercises, and project work completed for the course taught by <strong>Prof Kam Tin Seong</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/data_analytics_robot.png" class="img-fluid figure-img" style="width:94.0%"></p>
-<figcaption>Overview:</figcaption>
-</figure>
-</div>
-<section id="about-this-website" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-website">About This Website</h2>
-<p>This website serves as a portfolio of my learning journey in visual analytics.<br>
-It contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course.</p>
+<section id="overview" class="level1">
+<h1>1 <strong>Overview</strong></h1>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">1.1 <strong>Background</strong></h2>
+<p>Motor insurance continues to be a key element of the worldwide non-life insurance sector and is crucial for safeguarding individuals and businesses against financial setbacks resulting from vehicle collisions, theft, and third-party claims.</p>
+<p>According to research published by the <a href="chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.swissre.com/dam/jcr:3257ef4b-fe20-45e2-9700-7677702407af/sigma4_2019_en.pdf">Swiss Re Institute</a>, the non-life insurance industry is constantly developing due to technological progress, transforming mobility trends, rising urbanization, and altering risk environments. These advancements have changed the way insurers evaluate risk and handle insurance portfolios.</p>
+<p>With the growth of motor insurance portfolios and the increasing diversity of customer profiles, insurers depend significantly on data-driven methods to identify claims trends, assess portfolio risks, and enhance underwriting strategies. Data analytics allows insurers to uncover connections among customer traits, vehicle features, claims history, and financial outcomes.</p>
+<p>As policy-level insurance data becomes more accessible, Exploratory Data Analysis (EDA) offers chances to reveal hidden trends and produce insights that facilitate evidence-based decision-making.</p>
 </section>
-<section id="hands-on-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-exercise">Hands on Exercise</h2>
-<div id="listing-hands-on-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1776182400000" data-listing-file-modified-sort="1777305799901" data-listing-date-modified-sort="1777305799000" data-listing-reading-time-sort="15" data-listing-word-count-sort="2988">
-<a href="./Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./Hands-On_Ex/Hands-on_Ex01/Thumbnail.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
+<section id="objectives-and-analytical-questions" class="level2">
+<h2 class="anchored" data-anchor-id="objectives-and-analytical-questions">1.2 <strong>Objectives and Analytical Questions</strong></h2>
+<p>In this take-home exercise, <strong>tidyverse family packages</strong> for data preprocessing, transformation, and wrangling, while <em>ggplot2 and its extensions</em> are used to conduct visual analytics on the motor insurance portfolio dataset.</p>
+<p>The objectives of this study are:</p>
+<ul>
+<li>to analyze the distributions of portfolio factors like premiums, claims, incurred losses, exposure, and policyholder characteristics;</li>
+<li>to investigate relationships among customer, vehicle, and policy attributes with insurance results;</li>
+<li>to determine patterns linked to high-risk customer groups;</li>
+<li>to derive meaningful insights from the motor insurance portfolio data and provide analytical findings that may support insurance-related decision-making.</li>
+</ul>
+<p>The analysis seeks to address the following analytical questions:</p>
+<ol type="1">
+<li>What are the distributions of key insurance variables such as premiums, claims, and incurred losses?</li>
+<li>Which customer or vehicle characteristics appear to be associated with higher claims or losses?</li>
+<li>Are there customer groups that exhibit distinct risk patterns?</li>
+<li>Which policy characteristics appear to contribute more strongly to insurance outcomes?</li>
+</ol>
+</section>
+</section>
+<section id="data-preparation" class="level1">
+<h1>2 <strong>Data Preparation</strong></h1>
+<p>This section gives readers understanding of the dataset before cleaning.</p>
+<section id="loading-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-packages">2.1 <strong>Loading Packages</strong></h2>
+<p>The analysis primarily uses packages from the <strong>tidyverse ecosystem</strong> for data preprocessing and wrangling, while <strong>ggplot2 extensions</strong> are used to enhance visual analytics and improve presentation quality.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'kableExtra' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\javie\AppData\Local\Temp\RtmpCqd0Wn\downloaded_packages</code></pre>
 </div>
-<div class="listing-date">
-Apr 15, 2026
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'snakecase' successfully unpacked and MD5 sums checked
+package 'janitor' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\javie\AppData\Local\Temp\RtmpCqd0Wn\downloaded_packages</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'repr' successfully unpacked and MD5 sums checked
+package 'skimr' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\javie\AppData\Local\Temp\RtmpCqd0Wn\downloaded_packages</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'norm' successfully unpacked and MD5 sums checked
+package 'visdat' successfully unpacked and MD5 sums checked
+package 'UpSetR' successfully unpacked and MD5 sums checked
+package 'naniar' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\javie\AppData\Local\Temp\RtmpCqd0Wn\downloaded_packages</code></pre>
 </div>
-</div></a>
+<div class="cell-output cell-output-stdout">
+<pre><code>package 'ggsci' successfully unpacked and MD5 sums checked
+package 'polynom' successfully unpacked and MD5 sums checked
+package 'rstatix' successfully unpacked and MD5 sums checked
+package 'ggpubr' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+    C:\Users\javie\AppData\Local\Temp\RtmpCqd0Wn\downloaded_packages</code></pre>
 </div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1776614400000" data-listing-file-modified-sort="1777476802259" data-listing-date-modified-sort="1777476802000" data-listing-reading-time-sort="13" data-listing-word-count-sort="2488">
-<a href="./Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex02\Hands-on_Ex02_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 2 - Beyond ggplot2 Fundamentals
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small">
+<caption>Libraries used in this study</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Library</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">tidyverse</td>
+<td style="text-align: left;">A collection of packages used extensively for data preprocessing, transformation, and wrangling.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tibble</td>
+<td style="text-align: left;">Provides modern and enhanced data frame structures for easier data handling and display.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">knitr</td>
+<td style="text-align: left;">Supports dynamic report generation within Quarto.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">kableExtra</td>
+<td style="text-align: left;">Enhances table formatting and styling for publication-quality outputs.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">janitor</td>
+<td style="text-align: left;">Provides functions for cleaning and standardizing variable names.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">skimr</td>
+<td style="text-align: left;">Generates concise summary statistics and dataset overviews.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">naniar</td>
+<td style="text-align: left;">Provides tools for visualising and assessing missing values.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">patchwork</td>
+<td style="text-align: left;">Combines multiple ggplot visualisations into composite figures.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggthemes</td>
+<td style="text-align: left;">Provides additional themes and scales for ggplot2 visualisations.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">scales</td>
+<td style="text-align: left;">Formats labels, percentages, and axes in charts.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggridges</td>
+<td style="text-align: left;">Creates ridgeline plots for comparing distributions.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggdist</td>
+<td style="text-align: left;">Supports visualisation of distributions and uncertainty.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggpubr</td>
+<td style="text-align: left;">Provides publication-quality graphical outputs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GGally</td>
+<td style="text-align: left;">Provides pairwise relationship visualisations such as ggpairs().</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggcorrplot</td>
+<td style="text-align: left;">Visualises correlation matrices using ggplot2.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">corrplot</td>
+<td style="text-align: left;">Provides graphical tools for correlation analysis.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">heatmaply</td>
+<td style="text-align: left;">Creates interactive heatmaps.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">plotly</td>
+<td style="text-align: left;">Adds interactivity to visualisations.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ggstatsplot</td>
+<td style="text-align: left;">Combines visualisations with statistical summaries.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggrepel</td>
+<td style="text-align: left;">Prevents overlapping labels in visualisations.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="listing-date">
-Apr 20, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1777219200000" data-listing-file-modified-sort="1778079222549" data-listing-date-modified-sort="1778079222000" data-listing-reading-time-sort="38" data-listing-word-count-sort="7541">
-<a href="./Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex03\Image1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 3 - Programming Interactive Data Visualisation with R
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-Apr 27, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-date-sort="1777824000000" data-listing-file-modified-sort="1778297564866" data-listing-date-modified-sort="1778297564000" data-listing-reading-time-sort="49" data-listing-word-count-sort="9727">
-<a href="./Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex04\Hands-on_Ex04_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4 - Fundamentals of Visual Analytics
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-May 4, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-date-sort="1778428800000" data-listing-file-modified-sort="1778940958723" data-listing-date-modified-sort="1778940958000" data-listing-reading-time-sort="51" data-listing-word-count-sort="10030">
-<a href="./Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex05\Hands-on_Ex05_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 5 - Visual Multivariate Analysis
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-May 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
 </div>
 
 
-
+</section>
 </section>
 
 </main> <!-- /main -->
