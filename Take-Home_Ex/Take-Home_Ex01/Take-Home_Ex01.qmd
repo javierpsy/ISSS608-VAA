@@ -102,10 +102,24 @@ motor <- read_delim("Dataset of motor insurance portfolio.csv",delim=";")
 ## 2.3 **Dataset Overview**
 
 ```{r}
-glimpse(motor)
-
-skim(motor)
+#| echo: false
 
 dim(motor)
+
+glimpse(motor)
 ```
 
+```{r}
+#| echo: false
+#| column: screen
+
+skimr::skim(motor)
+```
+
+::: callout-note
+## ![](images/Observations.png){width=40px} Observations
+
+- The dataset consists of **354,140 observations** and **47 variables**, including **38 numerical** and **9 categorical variables**.
+
+- The variables comprise a mixture of **policyholder characteristics**, **vehicle information**, **premium components**, **claims**, **incurred losses**, and **exposure measures** associated with the motor insurance portfolio.
+:::
