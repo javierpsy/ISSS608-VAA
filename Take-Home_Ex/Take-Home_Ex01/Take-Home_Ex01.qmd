@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: auto
 ---
 
 # 1 **Overview**
