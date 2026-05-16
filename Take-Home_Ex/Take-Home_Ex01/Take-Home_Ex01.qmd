@@ -1,0 +1,91 @@
+---
+title: "Take-home Exercise 1 "
+author: "Javier Phang"
+date: "16 May, 2026"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# 1 **Overview**
+
+## 1.1 **Background**
+
+Motor insurance continues to be a key element of the worldwide non-life insurance sector and is crucial for safeguarding individuals and businesses against financial setbacks resulting from vehicle collisions, theft, and third-party claims.
+
+According to research published by the [Swiss Re Institute](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.swissre.com/dam/jcr:3257ef4b-fe20-45e2-9700-7677702407af/sigma4_2019_en.pdf), the non-life insurance industry is constantly developing due to technological progress, transforming mobility trends, rising urbanization, and altering risk environments. These advancements have changed the way insurers evaluate risk and handle insurance portfolios.
+
+With the growth of motor insurance portfolios and the increasing diversity of customer profiles, insurers depend significantly on data-driven methods to identify claims trends, assess portfolio risks, and enhance underwriting strategies. Data analytics allows insurers to uncover connections among customer traits, vehicle features, claims history, and financial outcomes.
+
+As policy-level insurance data becomes more accessible, Exploratory Data Analysis (EDA) offers chances to reveal hidden trends and produce insights that facilitate evidence-based decision-making.
+
+## 1.2 **Objectives and Analytical Questions**
+
+In this take-home exercise, **tidyverse family packages** for data preprocessing, transformation, and wrangling, while *ggplot2 and its extensions* are used to conduct visual analytics on the motor insurance portfolio dataset.
+
+The objectives of this study are:
+
+-   to analyze the distributions of portfolio factors like premiums, claims, incurred losses, exposure, and policyholder characteristics;
+-   to investigate relationships among customer, vehicle, and policy attributes with insurance results;
+-   to determine patterns linked to high-risk customer groups;
+-   to derive meaningful insights from the motor insurance portfolio data and provide analytical findings that may support insurance-related decision-making.
+
+The analysis seeks to address the following analytical questions:
+
+1.  What are the distributions of key insurance variables such as premiums, claims, and incurred losses?
+2.  Which customer or vehicle characteristics appear to be associated with higher claims or losses?
+3.  Are there customer groups that exhibit distinct risk patterns?
+4.  Which policy characteristics appear to contribute more strongly to insurance outcomes?
+
+# 2 **Data Preparation**
+
+This section gives readers understanding of the dataset before cleaning.
+
+## 2.1 **Loading Packages**
+
+The analysis primarily uses packages from the **tidyverse ecosystem** for data preprocessing and wrangling, while **ggplot2 extensions** are used to enhance visual analytics and improve presentation quality.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+pacman::p_load(tidyverse,tibble,knitr,kableExtra,janitor,skimr,naniar,patchwork,ggthemes,scales,
+               ggridges,ggdist,ggpubr,GGally,ggcorrplot,corrplot,heatmaply,plotly,ggstatsplot,ggrepel)
+
+packages <- tribble(
+~Library, ~Description,
+"tidyverse","A collection of packages used extensively for data preprocessing, transformation, and wrangling.",
+"tibble","Provides modern and enhanced data frame structures for easier data handling and display.",
+"knitr","Supports dynamic report generation within Quarto.",
+"kableExtra","Enhances table formatting and styling for publication-quality outputs.",
+"janitor","Provides functions for cleaning and standardizing variable names.",
+"skimr","Generates concise summary statistics and dataset overviews.",
+"naniar","Provides tools for visualising and assessing missing values.",
+"patchwork","Combines multiple ggplot visualisations into composite figures.",
+"ggthemes","Provides additional themes and scales for ggplot2 visualisations.",
+"scales","Formats labels, percentages, and axes in charts.",
+"ggridges","Creates ridgeline plots for comparing distributions.",
+"ggdist","Supports visualisation of distributions and uncertainty.",
+"ggpubr","Provides publication-quality graphical outputs.",
+"GGally","Provides pairwise relationship visualisations such as ggpairs().",
+"ggcorrplot","Visualises correlation matrices using ggplot2.",
+"corrplot","Provides graphical tools for correlation analysis.",
+"heatmaply","Creates interactive heatmaps.",
+"plotly","Adds interactivity to visualisations.",
+"ggstatsplot","Combines visualisations with statistical summaries.",
+"ggrepel","Prevents overlapping labels in visualisations."
+)
+
+kable(
+  packages,
+  caption = "Libraries used in this study",
+  booktabs = TRUE,
+  align = c("l","l")
+) %>%
+kable_styling(
+  full_width = FALSE,
+  position = "center"
+)
+```
+
+

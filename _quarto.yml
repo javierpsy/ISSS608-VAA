@@ -36,12 +36,17 @@ website:
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex04A/DashboardAnalysis"    
           - text: "In-Class Exercise 4B"
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex04B/HospitalSurveyDashboard"      
+          - text: "In-Class Exercise 5A"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex05A/Dashboard1"
+          - text: "In-Class Exercise 5B"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex05B_17789166791910/AnalysisofTreemapofRegionStateandCity"  
+            
             
       - icon: clipboard-data
         text: "Take-home Exercise"
         menu:
-          - text: "Coming Soon"
-            href: "#"
+          - text: "Take-Home_Ex01"
+            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.qmd"
             
       - icon: people
         text: "Group Project"

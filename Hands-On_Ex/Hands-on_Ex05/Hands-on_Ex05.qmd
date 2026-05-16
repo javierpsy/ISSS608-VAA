@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: auto
+  freeze: true
 ---
 
 # **6 Visual Correlation Analysis**
@@ -213,7 +213,7 @@ Things to learn from the code chunk above:
 -   Behind *group_ggcorrmat()*, **patchwork** package is used to create the multiplot. `plotgrid.args` argument provides a list of additional arguments passed to [*patchwork::wrap_plots*](https://patchwork.data-imaginist.com/reference/wrap_plots.html), except for guides argument which is already separately specified earlier.
 -   Likewise, `annotation.args` argument is calling [*plot annotation arguments*](https://patchwork.data-imaginist.com/reference/plot_annotation.html) of patchwork package.
 
-## 6.7 \*\*Visualising Correlation Matrix using corrplot Package
+## 6.7 Visualising Correlation Matrix using corrplot Package
 
 In this hands-on exercise, we will focus on corrplot. However, you are encouraged to explore the other two packages too.
 
