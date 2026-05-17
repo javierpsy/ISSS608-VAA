@@ -251,11 +251,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">1.1 <strong>Background</strong></a></li>
   <li><a href="#objectives-and-analytical-questions" id="toc-objectives-and-analytical-questions" class="nav-link" data-scroll-target="#objectives-and-analytical-questions">1.2 <strong>Objectives and Analytical Questions</strong></a></li>
   </ul></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">2 <strong>Data Preparation</strong></a>
+  <li><a href="#data-preparation-and-initial-exploration" id="toc-data-preparation-and-initial-exploration" class="nav-link" data-scroll-target="#data-preparation-and-initial-exploration">2 <strong>Data Preparation and Initial Exploration</strong></a>
   <ul class="collapse">
   <li><a href="#loading-packages" id="toc-loading-packages" class="nav-link" data-scroll-target="#loading-packages">2.1 <strong>Loading Packages</strong></a></li>
   <li><a href="#import-dataset" id="toc-import-dataset" class="nav-link" data-scroll-target="#import-dataset">2.2 <strong>Import Dataset</strong></a></li>
-  <li><a href="#dataset-overview" id="toc-dataset-overview" class="nav-link" data-scroll-target="#dataset-overview">2.3 <strong>Dataset Overview</strong></a></li>
+  <li><a href="#dataset-overview" id="toc-dataset-overview" class="nav-link" data-scroll-target="#dataset-overview">2.3 <strong>Dataset Overview</strong></a>
+  <ul class="collapse">
+  <li><a href="#glimpse-of-dataset" id="toc-glimpse-of-dataset" class="nav-link" data-scroll-target="#glimpse-of-dataset">Glimpse of Dataset</a></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -328,8 +332,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="data-preparation" class="level1">
-<h1>2 <strong>Data Preparation</strong></h1>
+<section id="data-preparation-and-initial-exploration" class="level1">
+<h1>2 <strong>Data Preparation and Initial Exploration</strong></h1>
 <p>This section gives readers understanding of the dataset before cleaning.</p>
 <section id="loading-packages" class="level2">
 <h2 class="anchored" data-anchor-id="loading-packages">2.1 <strong>Loading Packages</strong></h2>
@@ -432,6 +436,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="import-dataset">2.2 <strong>Import Dataset</strong></h2>
+<p>The motor insurance portfolio dataset used in this study contains policy-level information associated with a non-life insurance portfolio. The dataset includes variables related to <strong>policyholder characteristics</strong>, <strong>vehicle information</strong>, <strong>premium components</strong>, <strong>claims experience</strong>, <strong>incurred losses</strong>, and <strong>exposure measures</strong>. These variables provide useful information for understanding insurance risk patterns and portfolio performance.</p>
+<p>The dataset is imported into R and stored as the object <code>motor</code> for subsequent preprocessing and exploratory analysis.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -441,11 +447,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dataset-overview" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-overview">2.3 <strong>Dataset Overview</strong></h2>
+<p>Before conducting data wrangling and analysis, an initial exploration of the dataset was conducted to comprehend its overall structure, dimensions, and variable composition. This helps in recognizing the characteristics of the data and potential issues that may require further preprocessing.</p>
+<section id="glimpse-of-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="glimpse-of-dataset">Glimpse of Dataset</h3>
+<p>The <code>glimpse()</code> function provides a concise overview of the dataset, including the number of observations, variables, data types, and sample values from each variable.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(motor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 354,140
 Columns: 47
@@ -497,10 +503,31 @@ $ occupants_incurred          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 $ total_exposure              &lt;dbl&gt; 0.09863014, 1.00000000, 1.00000000, 1.0000…
 $ liability_exposure          &lt;dbl&gt; 0.09863014, 1.00000000, 1.00000000, 1.0000…</code></pre>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(motor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><img src="images/Observation.png" class="img-fluid" width="31"> Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The dataset contains <strong>354,140 observations</strong> and <strong>47 variables</strong>, comprising <strong>38 numerical</strong> and <strong>9 categorical variables</strong>, indicating a relatively large portfolio suitable for exploratory analysis.</p></li>
+<li><p>The variables cover multiple insurance dimensions, including <strong>policyholder characteristics</strong>, <strong>vehicle attributes</strong>, <strong>premium components</strong>, <strong>claims behaviour</strong>, <strong>incurred losses</strong>, and <strong>exposure measures</strong>, providing a comprehensive view of portfolio performance.</p></li>
+<li><p>Initial inspection suggests that the dataset integrates both customer-level and policy-level information, allowing analysis of relationships between policy attributes and insurance outcomes.</p></li>
+<li><p>Several variables, such as <code>fuel_type</code>, <code>vehicle_value</code>, and <code>vehicle_age</code>, contain missing values and may require additional preprocessing.</p></li>
+<li><p>Claim-related variables are expected to contain a substantial proportion of zero values, a phenomenon commonly observed in motor insurance portfolios because many policyholders do not report claims. Prior studies describe this as <strong>zero inflation</strong> in motor insurance claim data (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0167668704001301">Yip &amp; Yau, 2005</a>).</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h3>
+<p>The <code>skim()</code> function is used to generate descriptive summaries of the variables, including missing values, central tendency measures, and distribution characteristics.</p>
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -1188,16 +1215,30 @@ $ liability_exposure          &lt;dbl&gt; 0.09863014, 1.00000000, 1.00000000, 1.
 </tbody>
 </table>
 </div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(motor)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 354140     47</code></pre>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><img src="images/StatisticalFindings.png" class="img-fluid" width="31">Statistical Findings
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The summary statistics show significant **variation** among various numerical variables, evident from the considerable differences between the **lowest** and **highest** values. This indicates that the portfolio might include policyholders with different premium amounts, claims histories, and risk profiles.</p></li>
+<li><p>An initial review of financial variables like premiums, claims, and incurred losses indicates possible disparities between **mean** and **median** values, potentially reflecting **right-skewed distributions** typically seen in insurance data sets.</p></li>
+<li><p>The presence of wide <strong>interquartile ranges (IQR)</strong> for selected variables suggests that the middle 50% of observations still show meaningful variation. This indicates that portfolio risk is not evenly distributed across policyholders.</p></li>
+<li><p>Significant discrepancies between the **upper quartiles** and **maximum values** might suggest the existence of **extreme observations or possible outliers**, especially in financial and claim-related variables.</p></li>
+<li><p>The distributional characteristics suggest that standard average-based comparisons may be insufficient. Therefore, later visual analysis should also consider <strong>median values</strong>, <strong>quartiles</strong>, <strong>boxplots</strong>, and <strong>skewness-sensitive visualisations</strong> to better understand portfolio behaviour.</p></li>
+<li><p>Overall, the summary statistics suggest that the motor insurance portfolio exhibits substantial variability across policyholders, indicating heterogeneous risk profiles and financial outcomes.</p></li>
+</ul>
 </div>
 </div>
 
 
+</section>
 </section>
 </section>
 

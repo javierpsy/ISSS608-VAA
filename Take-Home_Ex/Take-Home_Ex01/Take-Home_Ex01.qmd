@@ -40,7 +40,7 @@ The analysis seeks to address the following analytical questions:
 3.  Are there customer groups that exhibit distinct risk patterns?
 4.  Which policy characteristics appear to contribute more strongly to insurance outcomes?
 
-# 2 **Data Preparation**
+# 2 **Data Preparation and Initial Exploration**
 
 This section gives readers understanding of the dataset before cleaning.
 
@@ -95,31 +95,66 @@ knitr::kable(
 
 ## 2.2 **Import Dataset**
 
+The motor insurance portfolio dataset used in this study contains policy-level information associated with a non-life insurance portfolio. The dataset includes variables related to **policyholder characteristics**, **vehicle information**, **premium components**, **claims experience**, **incurred losses**, and **exposure measures**. These variables provide useful information for understanding insurance risk patterns and portfolio performance.
+
+The dataset is imported into R and stored as the object `motor` for subsequent preprocessing and exploratory analysis.
+
 ```{r}
 motor <- read_delim("Dataset of motor insurance portfolio.csv",delim=";")
 ```
 
 ## 2.3 **Dataset Overview**
 
+Before conducting data wrangling and analysis, an initial exploration of the dataset was conducted to comprehend its overall structure, dimensions, and variable composition. This helps in recognizing the characteristics of the data and potential issues that may require further preprocessing.
+
+### Glimpse of Dataset
+
+The `glimpse()` function provides a concise overview of the dataset, including the number of observations, variables, data types, and sample values from each variable.
+
 ```{r}
 #| echo: false
-
-dim(motor)
 
 glimpse(motor)
 ```
 
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   The dataset contains **354,140 observations** and **47 variables**, comprising **38 numerical** and **9 categorical variables**, indicating a relatively large portfolio suitable for exploratory analysis.
+
+-   The variables cover multiple insurance dimensions, including **policyholder characteristics**, **vehicle attributes**, **premium components**, **claims behaviour**, **incurred losses**, and **exposure measures**, providing a comprehensive view of portfolio performance.
+
+-   Initial inspection suggests that the dataset integrates both customer-level and policy-level information, allowing analysis of relationships between policy attributes and insurance outcomes.
+
+-   Several variables, such as `fuel_type`, `vehicle_value`, and `vehicle_age`, contain missing values and may require additional preprocessing.
+
+-   Claim-related variables are expected to contain a substantial proportion of zero values, a phenomenon commonly observed in motor insurance portfolios because many policyholders do not report claims. Prior studies describe this as **zero inflation** in motor insurance claim data ([Yip & Yau, 2005](https://www.sciencedirect.com/science/article/abs/pii/S0167668704001301)).
+:::
+
+### Summary Statistics
+
+The `skim()` function is used to generate descriptive summaries of the variables, including missing values, central tendency measures, and distribution characteristics.
+
 ```{r}
 #| echo: false
-#| column: screen
+#| message: false
+#| warning: false
 
 skimr::skim(motor)
 ```
 
 ::: callout-note
-## ![](images/Observations.png){width=40px} Observations
+## ![](images/StatisticalFindings.png){width="31"}Statistical Findings
 
-- The dataset consists of **354,140 observations** and **47 variables**, including **38 numerical** and **9 categorical variables**.
+-   The summary statistics show significant \*\*variation\*\* among various numerical variables, evident from the considerable differences between the \*\*lowest\*\* and \*\*highest\*\* values. This indicates that the portfolio might include policyholders with different premium amounts, claims histories, and risk profiles.
 
-- The variables comprise a mixture of **policyholder characteristics**, **vehicle information**, **premium components**, **claims**, **incurred losses**, and **exposure measures** associated with the motor insurance portfolio.
+-   An initial review of financial variables like premiums, claims, and incurred losses indicates possible disparities between \*\*mean\*\* and \*\*median\*\* values, potentially reflecting \*\*right-skewed distributions\*\* typically seen in insurance data sets.
+
+-   The presence of wide **interquartile ranges (IQR)** for selected variables suggests that the middle 50% of observations still show meaningful variation. This indicates that portfolio risk is not evenly distributed across policyholders.
+
+-   Significant discrepancies between the \*\*upper quartiles\*\* and \*\*maximum values\*\* might suggest the existence of \*\*extreme observations or possible outliers\*\*, especially in financial and claim-related variables.
+
+-   The distributional characteristics suggest that standard average-based comparisons may be insufficient. Therefore, later visual analysis should also consider **median values**, **quartiles**, **boxplots**, and **skewness-sensitive visualisations** to better understand portfolio behaviour.
+
+-   Overall, the summary statistics suggest that the motor insurance portfolio exhibits substantial variability across policyholders, indicating heterogeneous risk profiles and financial outcomes.
 :::
