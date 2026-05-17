@@ -230,6 +230,8 @@ The original motor insurance dataset includes 47 variables covering various aspe
 
 As the study focuses on understanding portfolio characteristics and insurance outcomes, not every variable was necessary for evaluation. Consequently, a subset of variables was **selected and extracted** according to their insurance relevance, analytical objectives, and suitability for supporting downstream visual analytics.
 
+The selection of variables was done thoughtfully. Variables were kept if they contributed to at least one analytical goal, such as policy segmentation, customer and vehicle risk profiling, premium evaluation, claim frequency examination, claim severity evaluation, and exposure-adjusted interpretation.
+
 According to the Swiss Re report on the evolving motor insurance landscape, key portfolio indicators commonly used in motor insurance analysis include **premium measures, claims outcomes, exposure indicators, and customer risk characteristics**, as these factors influence underwriting performance and portfolio risk assessment (Swiss Re Institute, 2019).
 
 ```{r}
@@ -294,6 +296,7 @@ caption="Selected variables and analytical justification"
 )
 ```
 
+
 The `select()` function from tidyverse was used to extract variables relevant to the analytical objectives and reduce unnecessary complexity from the original dataset.
 
 ```{r}
@@ -311,90 +314,43 @@ total_claims,
 total_incurred,
 total_exposure
 )
-
-glimpse(motor_select)
-
-tibble(
-Rows = nrow(motor_select),
-Columns = ncol(motor_select)
-) |>
-knitr::kable(
-caption="Dimensions of extracted dataset"
-)
 ```
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Findings
 
--   Variables were extracted according to the business categories defined in the data dictionary and supported by motor insurance literature.
+-   Variables were extracted according to business categories defined in the data dictionary and supported by motor insurance literature.
 
--   The selected variables encompass customer demographics, vehicle features, policy specifics, premium metrics, and insurance results.
+-   The selected variables capture customer characteristics, vehicle attributes, policy information, premium measures, and insurance outcomes.
 
--   The extraction process reduced the dimensionality of the original dataset while retaining variables necessary for supporting subsequent preprocessing and visual analysis.
+-   Variable extraction reduced dimensional complexity from the original dataset while retaining variables relevant to downstream visual analysis.
 
--   Organising variables based on insurance dimensions helps in streamlining subsequent preprocessing and enhances clarity during exploratory analysis.
+-   The retained variables support multiple analytical perspectives, including portfolio segmentation, customer risk profiling, claim analysis, and underwriting-related interpretation.
 :::
 
-## 3.2 Review of Extracted Data Structure
+## 3.2 Data Type Conversion
 
-After extracting variables, the resulting analytical dataset was examined to confirm that variables were accurately kept and to detect any potential preprocessing needs. This assessment aids in identifying inconsistent data types, missing observations, and characteristics of variables that need transformation.
+Before conducting downstream analysis, selected categorical variables were reviewed and converted into appropriate factor formats. Several categorical variables in the dataset are stored as character values. These variables were converted into factor formats to support grouping, segmentation, and clearer visualisation in subsequent analyses.
+
+The conversion was applied to selected categorical variables as shown below:
 
 ```{r}
-glimpse(motor_select)
+motor_convert <- motor_select %>%
+mutate(
 
-skimr::skim(
-motor_select
+policy_type = factor(policy_type),
+
+fuel_type = factor(fuel_type),
+
+bonus_score = factor(
+  bonus_score,
+  ordered = TRUE
+  )
+
 )
 ```
 
-The extracted dataset contains a combination of categorical and numerical variables representing policyholder characteristics, vehicle attributes, premium components, claims behaviour, and insurance outcomes. Preliminary inspection indicates that selected variables may require further preprocessing, including data type refinement and treatment of missing observations before downstream feature engineering and visual analytics.
-
-## 3.3 Data Cleaning
-
-Data cleaning procedures were conducted to improve consistency and prepare the extracted variables for subsequent preprocessing and analysis. The cleaning process focused on standardising variable names and reviewing selected variables for potential recoding requirements before downstream transformations.
-
-```{r}
-
-motor_clean <- motor_select %>%
-  janitor::clean_names()
-
-tibble(
-  Original_Variable = names(motor_select),
-  Cleaned_Variable = names(motor_clean)
-) |>
-  knitr::kable(
-    caption = "Comparison of variable names before and after cleaning"
-  )
-```
-
-The selected variables already exhibited relatively consistent naming structures. Therefore, extensive renaming procedures were unnecessary. Applying `clean_names()` ensures a standardized lowercase and underscore-separated naming convention, thereby reducing potential coding inconsistencies during subsequent transformation and feature engineering procedures.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The conversion process transformed selected categorical variables into factor representations to improve interpretability during visual analysis. The `bonus_score` variable was represented as an ordered factor because it reflects a ranking structure associated with claims and driving history.
 
 
 
