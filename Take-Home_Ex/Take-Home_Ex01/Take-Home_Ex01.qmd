@@ -112,7 +112,6 @@ Before conducting data wrangling and analysis, an initial exploration of the dat
 The `glimpse()` function provides a concise overview of the dataset, including the number of observations, variables, data types, and sample values from each variable.
 
 ```{r}
-#| echo: false
 
 glimpse(motor)
 ```
@@ -136,7 +135,6 @@ glimpse(motor)
 The `skim()` function is used to generate descriptive summaries of the variables, including missing values, central tendency measures, and distribution characteristics.
 
 ```{r}
-#| echo: false
 #| message: false
 #| warning: false
 
@@ -158,3 +156,282 @@ skimr::skim(motor)
 
 -   Overall, the summary statistics suggest that the motor insurance portfolio exhibits substantial variability across policyholders, indicating heterogeneous risk profiles and financial outcomes.
 :::
+
+## 2.4 **Data Quality Assessment**
+
+Following the initial exploration, a brief data quality validation was performed to identify structural issues that may influence downstream preprocessing and analysis. The assessment focuses on duplicated observations and missing-value patterns.
+
+### Duplicate Record Assessment
+
+Duplicate records can lead to bias and skew statistical results if unintentional observations are kept. Hence, a duplicate evaluation was conducted to ascertain if there are repeated entries present in the portfolio data.
+
+```{r}
+
+duplicate_records <- motor %>%
+  group_by_all() %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+duplicate_summary <- tibble(
+  Assessment = c("Duplicated Records", "Unique Insured IDs"),
+  Count = c(
+    nrow(duplicate_records),
+    n_distinct(motor$insured_id)
+  )
+)
+
+knitr::kable(
+  duplicate_summary,
+  caption = "Duplicate and Unique ID Assessment"
+)
+```
+
+### Missing Value Assessment
+
+An analysis of missing values was conducted to pinpoint variables with incomplete observations that could affect future preprocessing and analytical choices.
+
+```{r, echo=FALSE, fig.width=10, fig.height=6}
+
+missing_summary <- motor %>%
+ summarise(across(everything(), ~sum(is.na(.)))) %>%
+ pivot_longer(
+   everything(),
+   names_to="Variable",
+   values_to="Missing_Count"
+ ) %>%
+ filter(Missing_Count>0) %>%
+ arrange(desc(Missing_Count))
+
+knitr::kable(
+missing_summary,
+caption="Variables Containing Missing Values"
+)
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Findings
+
+-   Missing values are concentrated within a limited number of variables rather than being distributed uniformly across the portfolio.
+
+-   `fuel_type` has the greatest number of missing entries (**1,287**), followed by `vehicle_value` (**513**), whereas `vehicle_age` and `age_driving_licence` have very few missing values.
+
+-   Relative to the portfolio size of **354,140 observations**, the overall proportion of missingness is small and is unlikely to substantially affect downstream analysis.
+
+-   These variables will be reviewed further during preprocessing to determine suitable treatment strategies.
+:::
+
+# 3 **Data Wrangling and Feature Engineering**
+
+## 3.1 Variable Extraction, Selection and Justification
+
+The original motor insurance dataset includes 47 variables covering various aspects of the insurance portfolio. According to the provided data dictionary, variables are categorized into four main groups:
+
+**- Characteristics of policy and insured** **- Attributes of drivers and vehicles** **- Variables associated with premium** **- Exposure, claims, and incurred metrics**
+
+As the study focuses on understanding portfolio characteristics and insurance outcomes, not every variable was necessary for evaluation. Consequently, a subset of variables was **selected and extracted** according to their insurance relevance, analytical objectives, and suitability for supporting downstream visual analytics.
+
+According to the Swiss Re report on the evolving motor insurance landscape, key portfolio indicators commonly used in motor insurance analysis include **premium measures, claims outcomes, exposure indicators, and customer risk characteristics**, as these factors influence underwriting performance and portfolio risk assessment (Swiss Re Institute, 2019).
+
+```{r}
+
+selected_variables <- tibble(
+Group = c(
+"Policy and insured",
+"Policy and insured",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Premiums",
+"Exposure/Claims/Incurred",
+"Exposure/Claims/Incurred",
+"Exposure/Claims/Incurred"
+),
+
+Variable = c(
+"policy_type",
+"bonus_score",
+"driver_age",
+"vehicle_age",
+"vehicle_value",
+"fuel_type",
+"total_premium",
+"total_claims",
+"total_incurred",
+"total_exposure"
+),
+
+Type = c(
+"Categorical unordered",
+"Categorical ordered",
+"Numerical continuous",
+"Numerical continuous",
+"Numerical continuous",
+"Categorical unordered",
+"Numerical continuous",
+"Numerical discrete",
+"Numerical continuous",
+"Numerical continuous"
+),
+
+Justification = c(
+"Policy segmentation",
+"Claims history indicator",
+"Demographic risk characteristic",
+"Vehicle risk characteristic",
+"Vehicle financial characteristic",
+"Vehicle profile segmentation",
+"Portfolio financial indicator",
+"Claim frequency measure",
+"Claim severity measure",
+"Policy exposure measure"
+)
+)
+
+knitr::kable(
+selected_variables,
+caption="Selected variables and analytical justification"
+)
+```
+
+The `select()` function from tidyverse was used to extract variables relevant to the analytical objectives and reduce unnecessary complexity from the original dataset.
+
+```{r}
+
+motor_select <- motor %>%
+select(
+policy_type,
+bonus_score,
+driver_age,
+vehicle_age,
+vehicle_value,
+fuel_type,
+total_premium,
+total_claims,
+total_incurred,
+total_exposure
+)
+
+glimpse(motor_select)
+
+tibble(
+Rows = nrow(motor_select),
+Columns = ncol(motor_select)
+) |>
+knitr::kable(
+caption="Dimensions of extracted dataset"
+)
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Findings
+
+-   Variables were extracted according to the business categories defined in the data dictionary and supported by motor insurance literature.
+
+-   The selected variables encompass customer demographics, vehicle features, policy specifics, premium metrics, and insurance results.
+
+-   The extraction process reduced the dimensionality of the original dataset while retaining variables necessary for supporting subsequent preprocessing and visual analysis.
+
+-   Organising variables based on insurance dimensions helps in streamlining subsequent preprocessing and enhances clarity during exploratory analysis.
+:::
+
+## 3.2 Review of Extracted Data Structure
+
+After extracting variables, the resulting analytical dataset was examined to confirm that variables were accurately kept and to detect any potential preprocessing needs. This assessment aids in identifying inconsistent data types, missing observations, and characteristics of variables that need transformation.
+
+```{r}
+glimpse(motor_select)
+
+skimr::skim(
+motor_select
+)
+```
+
+The extracted dataset contains a combination of categorical and numerical variables representing policyholder characteristics, vehicle attributes, premium components, claims behaviour, and insurance outcomes. Preliminary inspection indicates that selected variables may require further preprocessing, including data type refinement and treatment of missing observations before downstream feature engineering and visual analytics.
+
+## 3.3 Data Cleaning
+
+Data cleaning procedures were conducted to improve consistency and prepare the extracted variables for subsequent preprocessing and analysis. The cleaning process focused on standardising variable names and reviewing selected variables for potential recoding requirements before downstream transformations.
+
+```{r}
+
+motor_clean <- motor_select %>%
+  janitor::clean_names()
+
+tibble(
+  Original_Variable = names(motor_select),
+  Cleaned_Variable = names(motor_clean)
+) |>
+  knitr::kable(
+    caption = "Comparison of variable names before and after cleaning"
+  )
+```
+
+The selected variables already exhibited relatively consistent naming structures. Therefore, extensive renaming procedures were unnecessary. Applying `clean_names()` ensures a standardized lowercase and underscore-separated naming convention, thereby reducing potential coding inconsistencies during subsequent transformation and feature engineering procedures.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 6 **References**
+
+Yip, K. C., & Yau, K. K. (2005b). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. https://doi.org/10.1016/j.insmatheco.2004.11.002
