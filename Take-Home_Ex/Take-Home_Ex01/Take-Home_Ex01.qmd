@@ -237,65 +237,29 @@ According to the Swiss Re report on the evolving motor insurance landscape, key 
 ```{r}
 
 selected_variables <- tibble(
-Group = c(
-"Policy and insured",
-"Policy and insured",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Premiums",
-"Exposure/Claims/Incurred",
-"Exposure/Claims/Incurred",
-"Exposure/Claims/Incurred"
-),
+Group = c("Policy and insured","Policy and insured",
+          "Driver and vehicle","Driver and vehicle","Driver and vehicle","Driver and vehicle","Driver and vehicle",
+          "Premiums","Exposure/Claims/Incurred","Exposure/Claims/Incurred","Exposure/Claims/Incurred"),
 
-Variable = c(
-"policy_type",
-"bonus_score",
-"driver_age",
-"vehicle_age",
-"vehicle_value",
-"fuel_type",
-"total_premium",
-"total_claims",
-"total_incurred",
-"total_exposure"
-),
+Variable = c("policy_type","bonus_score",
+             "driver_age","age_driving_licence","vehicle_age","vehicle_value","fuel_type",
+             "total_premium","total_claims","total_incurred","total_exposure"),
 
-Type = c(
-"Categorical unordered",
-"Categorical ordered",
-"Numerical continuous",
-"Numerical continuous",
-"Numerical continuous",
-"Categorical unordered",
-"Numerical continuous",
-"Numerical discrete",
-"Numerical continuous",
-"Numerical continuous"
-),
+Type = c("Categorical unordered","Categorical ordered",
+         "Numerical continuous","Numerical continuous","Numerical continuous","Numerical continuous","Categorical unordered",
+         "Numerical continuous","Numerical discrete","Numerical continuous","Numerical continuous"),
 
-Justification = c(
-"Policy segmentation",
-"Claims history indicator",
-"Demographic risk characteristic",
-"Vehicle risk characteristic",
-"Vehicle financial characteristic",
-"Vehicle profile segmentation",
-"Portfolio financial indicator",
-"Claim frequency measure",
-"Claim severity measure",
-"Policy exposure measure"
-)
+Justification = c("Policy segmentation","Claims history indicator",
+                  "Demographic risk characteristic","Driving experience indicator","Vehicle risk characteristic",
+                  "Vehicle financial characteristic","Vehicle profile segmentation",
+                  "Portfolio financial indicator","Claim frequency measure","Claim severity measure","Policy exposure measure")
 )
 
 knitr::kable(
-selected_variables,
-caption="Selected variables and analytical justification"
+  selected_variables,
+  caption = "Selected variables and analytical justification"
 )
 ```
-
 
 The `select()` function from tidyverse was used to extract variables relevant to the analytical objectives and reduce unnecessary complexity from the original dataset.
 
@@ -305,6 +269,7 @@ motor_select <- motor %>%
 select(
 policy_type,
 bonus_score,
+age_driving_license,
 driver_age,
 vehicle_age,
 vehicle_value,
@@ -312,7 +277,8 @@ fuel_type,
 total_premium,
 total_claims,
 total_incurred,
-total_exposure
+total_exposure,
+age_driving_licence
 )
 ```
 
@@ -328,55 +294,199 @@ total_exposure
 -   The retained variables support multiple analytical perspectives, including portfolio segmentation, customer risk profiling, claim analysis, and underwriting-related interpretation.
 :::
 
-## 3.2 Data Type Conversion
+## 3.2 Missing Value
 
-Before conducting downstream analysis, selected categorical variables were reviewed and converted into appropriate factor formats. Several categorical variables in the dataset are stored as character values. These variables were converted into factor formats to support grouping, segmentation, and clearer visualisation in subsequent analyses.
-
-The conversion was applied to selected categorical variables as shown below:
+Based on the findings from 2.4 data quality assessment, missing observations were identified in a small number of selected variables. Since the missingness was concentrated rather than widespread across the dataset, targeted treatment approaches were adopted to preserve data completeness and minimise information loss.
 
 ```{r}
-motor_convert <- motor_select %>%
-mutate(
+missing_treatment <- tibble(
+Variable = c("fuel_type", "vehicle_value", "vehicle_age", "age_driving_licence"),
 
-policy_type = factor(policy_type),
+Treatment = c("Unknown category", "Median imputation", "Median imputation", "Median imputation")
+)
 
-fuel_type = factor(fuel_type),
-
-bonus_score = factor(
-  bonus_score,
-  ordered = TRUE
-  )
-
+knitr::kable(
+  missing_treatment,
+  caption = "Missing value treatment strategy"
 )
 ```
 
-The conversion process transformed selected categorical variables into factor representations to improve interpretability during visual analysis. The `bonus_score` variable was represented as an ordered factor because it reflects a ranking structure associated with claims and driving history.
+```{r}
+motor_impute <- motor_select |>
+mutate(
+  fuel_type = replace_na(fuel_type, "Unknown"),
 
+  vehicle_value = replace_na(
+    vehicle_value,
+    median(vehicle_value, na.rm = TRUE)
+  ),
 
+  vehicle_age = replace_na(
+    vehicle_age,
+    median(vehicle_age, na.rm = TRUE)
+  ),
 
+  age_driving_licence = replace_na(
+    age_driving_licence,
+    median(age_driving_licence, na.rm = TRUE)
+  )
+)
+```
 
+## 3.3 Recoding Categorical Variables
 
+Several categorical variables in the motor insurance dataset are represented using abbreviated coding schemes. According to the data dictionary, these codes represent specific policy and customer characteristics. To improve interpretability and facilitate clearer visualisation, selected variables were recoded into more descriptive labels.
 
+The following mappings were applied based on definitions provided in the accompanying motor insurance data dictionary:
 
+::: panel-tabset
 
+### Mapping Table
 
+```{r}
+recode_tbl <- tibble(
+  Variable = c(
+    "policy_type", "policy_type", "policy_type", "policy_type", "policy_type",
+    "bonus_score", "bonus_score", "bonus_score",
+    "fuel_type", "fuel_type"
+  ),
+  Original_Value = c(
+    "TP", "TPG", "CC", "COMP_E", "COMP_N",
+    "G", "N", "B",
+    "D", "G"
+  ),
+  Recoded_Value = c(
+    "Third-party",
+    "Third-party + Glass",
+    "Combined Coverage",
+    "Comprehensive with Excess",
+    "Comprehensive without Excess",
+    "Favourable history",
+    "Neutral history",
+    "Poor history",
+    "Diesel",
+    "Gasoline"
+  )
+)
 
+knitr::kable(
+  recode_tbl,
+  caption = "Recoding scheme based on the motor insurance data dictionary"
+)
+```
 
+### Recoding Code
 
+```{r}
+motor_recode <- motor_impute |>
+  mutate(
+    policy_type = recode(
+      policy_type,
+      "TP" = "Third-party",
+      "TPG" = "Third-party + Glass",
+      "CC" = "Combined Coverage",
+      "COMP_E" = "Comprehensive with Excess",
+      "COMP_N" = "Comprehensive without Excess"
+    ),
+    bonus_score = recode(
+      bonus_score,
+      "G" = "Favourable history",
+      "N" = "Neutral history",
+      "B" = "Poor history"
+    ),
+    fuel_type = recode(
+      fuel_type,
+      "D" = "Diesel",
+      "G" = "Gasoline",
+      "Unknown" = "Unknown"
+    )
+  )
+```
+:::
 
+Using more detailed labels decreases ambiguity and promotes clearer understanding of policy features, customer demographics, and insurance results in later visual representations.
 
+## 3.4 Data Type Conversion
 
+After recoding, chosen variables were transformed into suitable data formats to facilitate subsequent visual analysis. Variables meant for grouping and segmentation were converted into categorical formats, whereas variables with inherent progression were expressed using ordered categories.
 
+## 3.4 Data Type Conversion
 
+Following recoding, selected variables were converted into appropriate data representations to support downstream visual analysis. Variables intended for grouping and segmentation were transformed into categorical forms, while variables possessing natural progression were represented using ordered categories.
 
+::: panel-tabset
 
+### Conversion Summary
 
+```{r}
+conversion_summary <- tibble(
 
+Variable = c(
+"policy_type",
+"fuel_type",
+"bonus_score"
+),
 
+Before_Conversion = c(
+"Character",
+"Character",
+"Character"
+),
 
+After_Conversion = c(
+"Categorical",
+"Categorical",
+"Ordered categorical"
+)
 
+)
 
+knitr::kable(
+conversion_summary,
+caption="Variables requiring data type conversion"
+)
+```
 
+### Conversion Code
+
+```{r}
+motor_convert <- motor_recode |>
+mutate(
+
+policy_type =
+factor(policy_type),
+
+fuel_type =
+factor(fuel_type),
+
+bonus_score =
+factor(
+bonus_score,
+levels = c(
+"Poor history",
+"Neutral history",
+"Favourable history"
+),
+ordered = TRUE
+)
+
+)
+
+glimpse(motor_convert)
+```
+
+:::
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Findings
+
+- `policy_type` and `fuel_type` were converted into categorical representations to facilitate grouping and segmentation.
+
+- `bonus_score` was represented as an ordered category because it reflects progression associated with claims and driving history.
+
+- Appropriate data representations improve consistency and support clearer downstream visualisations.
+
+:::
 
 
 
