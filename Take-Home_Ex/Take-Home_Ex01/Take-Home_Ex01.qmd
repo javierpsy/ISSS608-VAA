@@ -237,27 +237,115 @@ According to the Swiss Re report on the evolving motor insurance landscape, key 
 ```{r}
 
 selected_variables <- tibble(
-Group = c("Policy and insured","Policy and insured",
-          "Driver and vehicle","Driver and vehicle","Driver and vehicle","Driver and vehicle","Driver and vehicle",
-          "Premiums","Exposure/Claims/Incurred","Exposure/Claims/Incurred","Exposure/Claims/Incurred"),
 
-Variable = c("policy_type","bonus_score",
-             "driver_age","age_driving_licence","vehicle_age","vehicle_value","fuel_type",
-             "total_premium","total_claims","total_incurred","total_exposure"),
+Group = c(
 
-Type = c("Categorical unordered","Categorical ordered",
-         "Numerical continuous","Numerical continuous","Numerical continuous","Numerical continuous","Categorical unordered",
-         "Numerical continuous","Numerical discrete","Numerical continuous","Numerical continuous"),
+"Policy and insured",
+"Policy and insured",
+"Policy and insured",
+"Policy and insured",
 
-Justification = c("Policy segmentation","Claims history indicator",
-                  "Demographic risk characteristic","Driving experience indicator","Vehicle risk characteristic",
-                  "Vehicle financial characteristic","Vehicle profile segmentation",
-                  "Portfolio financial indicator","Claim frequency measure","Claim severity measure","Policy exposure measure")
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+"Driver and vehicle",
+
+"Premiums",
+
+"Exposure/Claims/Incurred",
+"Exposure/Claims/Incurred",
+"Exposure/Claims/Incurred"
+
+),
+
+Variable = c(
+
+"insured_id",
+"year",
+"policy_type",
+"bonus_score",
+
+"driver_age",
+"age_driving_licence",
+"vehicle_age",
+"vehicle_value",
+"fuel_type",
+"municipality_type",
+"circulation_area",
+"vehicle_brand",
+"power_to_weight_ratio",
+"seats",
+
+"total_premium",
+
+"total_claims",
+"total_incurred",
+"total_exposure"
+
+),
+
+Type = c(
+
+"Identifier",
+"Numerical discrete",
+"Categorical unordered",
+"Categorical ordered",
+
+"Numerical continuous",
+"Numerical continuous",
+"Numerical continuous",
+"Numerical continuous",
+"Categorical unordered",
+"Categorical unordered",
+"Categorical unordered",
+"Categorical unordered",
+"Numerical continuous",
+"Numerical discrete",
+
+"Numerical continuous",
+
+"Numerical discrete",
+"Numerical continuous",
+"Numerical continuous"
+
+),
+
+Justification = c(
+
+"Unique policyholder identification",
+"Temporal trend analysis",
+"Policy segmentation",
+"Claims history indicator",
+
+"Demographic risk characteristic",
+"Driving experience indicator",
+"Vehicle risk characteristic",
+"Vehicle financial characteristic",
+"Vehicle profile segmentation",
+"Geographical segmentation",
+"Driving environment indicator",
+"Vehicle profile characteristic",
+"Vehicle performance indicator",
+"Vehicle configuration characteristic",
+
+"Portfolio financial indicator",
+
+"Claim frequency measure",
+"Claim severity measure",
+"Policy exposure measure"
+
+)
+
 )
 
 knitr::kable(
-  selected_variables,
-  caption = "Selected variables and analytical justification"
+selected_variables,
+caption="Selected variables and analytical justification"
 )
 ```
 
@@ -267,18 +355,24 @@ The `select()` function from tidyverse was used to extract variables relevant to
 
 motor_select <- motor %>%
 select(
+insured_id,
+year,
 policy_type,
 bonus_score,
-age_driving_licence,
 driver_age,
+age_driving_licence,
 vehicle_age,
 vehicle_value,
 fuel_type,
+municipality_type,
+circulation_area,
+vehicle_brand,
+power_to_weight_ratio,
+seats,
 total_premium,
 total_claims,
 total_incurred,
-total_exposure,
-age_driving_licence
+total_exposure
 )
 ```
 
@@ -294,7 +388,7 @@ age_driving_licence
 -   The retained variables support multiple analytical perspectives, including portfolio segmentation, customer risk profiling, claim analysis, and underwriting-related interpretation.
 :::
 
-## 3.2 Missing Value
+## 3.2 Handling Missing Value
 
 Based on the findings from 2.4 data quality assessment, missing observations were identified in a small number of selected variables. Since the missingness was concentrated rather than widespread across the dataset, targeted treatment approaches were adopted to preserve data completeness and minimise information loss.
 
@@ -345,33 +439,44 @@ The following mappings were applied based on definitions provided in the accompa
 
 ```{r}
 recode_tbl <- tibble(
-  Variable = c(
-    "policy_type", "policy_type", "policy_type", "policy_type", "policy_type",
-    "bonus_score", "bonus_score", "bonus_score",
-    "fuel_type", "fuel_type"
-  ),
-  Original_Value = c(
-    "TP", "TPG", "CC", "COMP_E", "COMP_N",
-    "G", "N", "B",
-    "D", "G"
-  ),
-  Recoded_Value = c(
-    "Third-party",
-    "Third-party + Glass",
-    "Combined Coverage",
-    "Comprehensive with Excess",
-    "Comprehensive without Excess",
-    "Favourable history",
-    "Neutral history",
-    "Poor history",
-    "Diesel",
-    "Gasoline"
-  )
+Variable = c(
+"policy_type","policy_type","policy_type","policy_type","policy_type",
+"bonus_score","bonus_score","bonus_score",
+"fuel_type","fuel_type",
+"municipality_type","municipality_type","municipality_type",
+"circulation_area","circulation_area"
+),
+
+Original_Value = c(
+"TP","TPG","CC","COMP_E","COMP_N",
+"G","N","B",
+"D","G",
+"I","C","IS",
+"U","R"
+),
+
+Recoded_Value = c(
+"Third-party",
+"Third-party + Glass",
+"Combined Coverage",
+"Comprehensive with Excess",
+"Comprehensive without Excess",
+"Favourable history",
+"Neutral history",
+"Poor history",
+"Diesel",
+"Gasoline",
+"Inland",
+"Coastal",
+"Islands",
+"Urban",
+"Rural"
+)
 )
 
 knitr::kable(
-  recode_tbl,
-  caption = "Recoding scheme based on the motor insurance data dictionary"
+recode_tbl,
+caption = "Recoding scheme based on the motor insurance data dictionary"
 )
 ```
 
@@ -379,28 +484,43 @@ knitr::kable(
 
 ```{r}
 motor_recode <- motor_impute |>
-  mutate(
-    policy_type = recode(
-      policy_type,
-      "TP" = "Third-party",
-      "TPG" = "Third-party + Glass",
-      "CC" = "Combined Coverage",
-      "COMP_E" = "Comprehensive with Excess",
-      "COMP_N" = "Comprehensive without Excess"
-    ),
-    bonus_score = recode(
-      bonus_score,
-      "G" = "Favourable history",
-      "N" = "Neutral history",
-      "B" = "Poor history"
-    ),
-    fuel_type = recode(
-      fuel_type,
-      "D" = "Diesel",
-      "G" = "Gasoline",
-      "Unknown" = "Unknown"
-    )
-  )
+mutate(
+policy_type = recode(
+policy_type,
+"TP" = "Third-party",
+"TPG" = "Third-party + Glass",
+"CC" = "Combined Coverage",
+"COMP_E" = "Comprehensive with Excess",
+"COMP_N" = "Comprehensive without Excess"
+),
+
+bonus_score = recode(
+bonus_score,
+"G" = "Favourable history",
+"N" = "Neutral history",
+"B" = "Poor history"
+),
+
+fuel_type = recode(
+fuel_type,
+"D" = "Diesel",
+"G" = "Gasoline",
+"Unknown" = "Unknown"
+),
+
+municipality_type = recode(
+municipality_type,
+"I" = "Inland",
+"C" = "Coastal",
+"IS" = "Islands"
+),
+
+circulation_area = recode(
+circulation_area,
+"U" = "Urban",
+"R" = "Rural"
+)
+)
 ```
 :::
 
@@ -416,30 +536,32 @@ Following recoding, selected variables were converted into appropriate data repr
 
 ```{r}
 conversion_summary <- tibble(
-
-Variable = c(
-"policy_type",
-"fuel_type",
-"bonus_score"
-),
-
-Before_Conversion = c(
-"Character",
-"Character",
-"Character"
-),
-
-After_Conversion = c(
-"Categorical",
-"Categorical",
-"Ordered categorical"
-)
-
+  Variable = c(
+    "policy_type",
+    "bonus_score",
+    "fuel_type",
+    "municipality_type",
+    "circulation_area"
+  ),
+  Before_Conversion = c(
+    "Character",
+    "Character",
+    "Character",
+    "Character",
+    "Character"
+  ),
+  After_Conversion = c(
+    "Categorical",
+    "Ordered categorical",
+    "Categorical",
+    "Categorical",
+    "Categorical"
+  )
 )
 
 knitr::kable(
-conversion_summary,
-caption="Variables requiring data type conversion"
+  conversion_summary,
+  caption = "Variables requiring data type conversion"
 )
 ```
 
@@ -450,53 +572,205 @@ The following code was applied to transform selected variables into their corres
 
 ```{r}
 motor_convert <- motor_recode |>
-mutate(
+  mutate(
+    policy_type = factor(policy_type),
+    fuel_type = factor(fuel_type),
+    municipality_type = factor(municipality_type),
+    circulation_area = factor(circulation_area),
 
-policy_type =
-factor(policy_type),
-
-fuel_type =
-factor(fuel_type),
-
-bonus_score =
-factor(
-bonus_score,
-levels = c(
-"Poor history",
-"Neutral history",
-"Favourable history"
-),
-ordered = TRUE
-)
-
-)
+    bonus_score = factor(
+      bonus_score,
+      levels = c(
+        "Poor history",
+        "Neutral history",
+        "Favourable history"
+      ),
+      ordered = TRUE
+    )
+  )
 ```
 
 The resulting variable structures were subsequently reviewed to verify that the conversion had been successfully applied:
 
 ```{r}
 motor_convert |>
-select(
-policy_type,
-bonus_score,
-fuel_type
-) |>
-str()
+  select(
+    policy_type,
+    bonus_score,
+    fuel_type,
+    municipality_type,
+    circulation_area
+  ) |>
+  str()
 ```
 :::
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Findings
 
-- `policy_type` and `fuel_type` were converted into categorical representations to facilitate grouping and segmentation.
+- `policy_type`, `fuel_type`, `municipality_type`, and `circulation_area` were converted into categorical representations to facilitate grouping and segmentation.
 
 - `bonus_score` was represented as an ordered category because it reflects progression associated with claims and driving history.
 
 - Appropriate data representations improve consistency and support clearer downstream visualisations.
 
+- Converting coded variables into meaningful analytical formats improves interpretability and prepares the dataset for subsequent feature engineering and visual exploration.
 :::
 
-## 
+## 3.5 Variable Creation
+
+Several extra variables were created to reflect fundamental insurance traits and enable more comprehensive visual analysis. Instead of depending only on raw variables, engineered variables were developed to depict customer risk profiles, exposure-adjusted metrics, and categorized traits valuable for subsequent portfolio analysis.
+
+The `mutate()`, `case_when()`, and `cut()` functions from the dplyr package were used to create new variables and generate categorical groupings. These transformations help simplify interpretation and facilitate clearer comparisons in later visualisations.
+
+::: panel-tabset
+
+### Driving Profile
+
+```{r}
+motor_feature <- motor_convert |>
+  mutate(
+    driving_experience = pmax(
+      driver_age - age_driving_licence,
+      0
+    ),
+    
+    driving_experience_group = case_when(
+      driving_experience < 5 ~ "New driver",
+      driving_experience < 15 ~ "Moderately experienced",
+      driving_experience < 30 ~ "Experienced",
+      TRUE ~ "Highly experienced"
+    )
+  )
+```
+
+### Insurance Indicators
+
+```{r}
+motor_feature <- motor_feature |>
+  mutate(
+    claim_frequency = if_else(
+      total_exposure > 0,
+      total_claims / total_exposure,
+      0
+    ),
+    
+    claim_severity = if_else(
+      total_claims > 0,
+      total_incurred / total_claims,
+      0
+    ),
+    
+    loss_ratio = if_else(
+      total_premium > 0,
+      total_incurred / total_premium,
+      0
+    )
+  )
+```
+
+### Customer and Vehicle Segmentation
+
+```{r}
+motor_feature <- motor_feature |>
+  mutate(
+    driver_age_group = case_when(
+      driver_age < 25 ~ "18–24",
+      driver_age < 40 ~ "25–39",
+      driver_age < 60 ~ "40–59",
+      TRUE ~ "60+"
+    ),
+    
+    vehicle_age_group = case_when(
+      vehicle_age < 5 ~ "New vehicle",
+      vehicle_age < 10 ~ "Moderate age vehicle",
+      vehicle_age < 20 ~ "Older vehicle",
+      TRUE ~ "Very old vehicle"
+    ),
+    
+    vehicle_value_band = cut(
+      vehicle_value,
+      breaks = quantile(
+        vehicle_value,
+        probs = c(0, 0.25, 0.50, 0.75, 1),
+        na.rm = TRUE
+      ),
+      include.lowest = TRUE,
+      labels = c(
+        "Low value",
+        "Mid value",
+        "High value",
+        "Premium value"
+      )
+    )
+  )
+```
+
+### Vehicle Profile
+
+```{r}
+motor_feature <- motor_feature |>
+  mutate(
+    power_weight_group = case_when(
+      power_to_weight_ratio < quantile(power_to_weight_ratio, 0.33, na.rm = TRUE) ~ "Lower power-to-weight",
+      power_to_weight_ratio < quantile(power_to_weight_ratio, 0.67, na.rm = TRUE) ~ "Moderate power-to-weight",
+      TRUE ~ "Higher power-to-weight"
+    ),
+    
+    seat_capacity_group = case_when(
+      seats <= 2 ~ "Two-seater",
+      seats <= 5 ~ "Standard passenger vehicle",
+      TRUE ~ "Large passenger vehicle"
+    )
+  )
+```
+
+### Portfolio Outcome Grouping
+
+```{r}
+motor_feature <- motor_feature |>
+  mutate(
+    claim_status = if_else(
+      total_claims > 0,
+      "Claim reported",
+      "No claim reported"
+    ),
+    
+    loss_ratio_group = case_when(
+      loss_ratio == 0 ~ "No loss",
+      loss_ratio < 0.50 ~ "Low loss ratio",
+      loss_ratio < 1.00 ~ "Moderate loss ratio",
+      TRUE ~ "High loss ratio"
+    )
+  )
+```
+
+### Verification
+
+```{r}
+motor_feature |>
+  select(
+    driving_experience,
+    driving_experience_group,
+    claim_frequency,
+    claim_severity,
+    loss_ratio,
+    driver_age_group,
+    vehicle_age_group,
+    vehicle_value_band,
+    power_weight_group,
+    seat_capacity_group,
+    claim_status,
+    loss_ratio_group
+  ) |>
+  glimpse()
+```
+
+:::
+
+
+
+
 
 
 
