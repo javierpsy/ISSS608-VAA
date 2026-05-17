@@ -269,7 +269,7 @@ motor_select <- motor %>%
 select(
 policy_type,
 bonus_score,
-age_driving_license,
+age_driving_licence,
 driver_age,
 vehicle_age,
 vehicle_value,
@@ -408,10 +408,6 @@ Using more detailed labels decreases ambiguity and promotes clearer understandin
 
 ## 3.4 Data Type Conversion
 
-After recoding, chosen variables were transformed into suitable data formats to facilitate subsequent visual analysis. Variables meant for grouping and segmentation were converted into categorical formats, whereas variables with inherent progression were expressed using ordered categories.
-
-## 3.4 Data Type Conversion
-
 Following recoding, selected variables were converted into appropriate data representations to support downstream visual analysis. Variables intended for grouping and segmentation were transformed into categorical forms, while variables possessing natural progression were represented using ordered categories.
 
 ::: panel-tabset
@@ -447,7 +443,10 @@ caption="Variables requiring data type conversion"
 )
 ```
 
-### Conversion Code
+
+### Transformation Process
+
+The following code was applied to transform selected variables into their corresponding categorical representations before downstream analysis:
 
 ```{r}
 motor_convert <- motor_recode |>
@@ -471,10 +470,19 @@ ordered = TRUE
 )
 
 )
-
-glimpse(motor_convert)
 ```
 
+The resulting variable structures were subsequently reviewed to verify that the conversion had been successfully applied:
+
+```{r}
+motor_convert |>
+select(
+policy_type,
+bonus_score,
+fuel_type
+) |>
+str()
+```
 :::
 
 ::: callout-note
@@ -488,7 +496,7 @@ glimpse(motor_convert)
 
 :::
 
-
+## 
 
 
 
