@@ -78,7 +78,11 @@ packages <- tribble(
 "heatmaply","Creates interactive heatmaps.",
 "plotly","Adds interactivity to visualisations.",
 "ggstatsplot","Combines visualisations with statistical summaries.",
-"ggrepel","Prevents overlapping labels in visualisations."
+"ggrepel","Prevents overlapping labels in visualisations.",
+"ggiraph","Interactive ggplot visualizations with hover functionality.",
+"treemapify","Creates treemap visualizations for hierarchical portfolio analysis.",
+"waffle","Builds waffle charts for proportional comparisons.",
+"FunnelPlotR","Creates funnel plots for benchmarking and performance comparison."
 )
 
 knitr::kable(
@@ -235,32 +239,30 @@ The selection of variables was done thoughtfully. Variables were kept if they co
 According to the Swiss Re report on the evolving motor insurance landscape, key portfolio indicators commonly used in motor insurance analysis include **premium measures, claims outcomes, exposure indicators, and customer risk characteristics**, as these factors influence underwriting performance and portfolio risk assessment (Swiss Re Institute, 2019).
 
 ```{r}
-
 selected_variables <- tibble(
 
 Group = c(
+  "Policy and insured",
+  "Policy and insured",
+  "Policy and insured",
+  "Policy and insured",
 
-"Policy and insured",
-"Policy and insured",
-"Policy and insured",
-"Policy and insured",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
+  "Driver and vehicle",
 
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
-"Driver and vehicle",
+  "Premiums",
 
-"Premiums",
-
-"Exposure/Claims/Incurred",
-"Exposure/Claims/Incurred",
-"Exposure/Claims/Incurred"
-
+  "Exposure/Claims/Incurred",
+  "Exposure/Claims/Incurred",
+  "Exposure/Claims/Incurred"
 ),
 
 Variable = c(
@@ -434,7 +436,6 @@ Several categorical variables in the motor insurance dataset are represented usi
 The following mappings were applied based on definitions provided in the accompanying motor insurance data dictionary:
 
 ::: panel-tabset
-
 ### Mapping Table
 
 ```{r}
@@ -531,7 +532,6 @@ Using more detailed labels decreases ambiguity and promotes clearer understandin
 Following recoding, selected variables were converted into appropriate data representations to support downstream visual analysis. Variables intended for grouping and segmentation were transformed into categorical forms, while variables possessing natural progression were represented using ordered categories.
 
 ::: panel-tabset
-
 ### Conversion Summary
 
 ```{r}
@@ -564,7 +564,6 @@ knitr::kable(
   caption = "Variables requiring data type conversion"
 )
 ```
-
 
 ### Transformation Process
 
@@ -608,13 +607,13 @@ motor_convert |>
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Findings
 
-- `policy_type`, `fuel_type`, `municipality_type`, and `circulation_area` were converted into categorical representations to facilitate grouping and segmentation.
+-   `policy_type`, `fuel_type`, `municipality_type`, and `circulation_area` were converted into categorical representations to facilitate grouping and segmentation.
 
-- `bonus_score` was represented as an ordered category because it reflects progression associated with claims and driving history.
+-   `bonus_score` was represented as an ordered category because it reflects progression associated with claims and driving history.
 
-- Appropriate data representations improve consistency and support clearer downstream visualisations.
+-   Appropriate data representations improve consistency and support clearer downstream visualisations.
 
-- Converting coded variables into meaningful analytical formats improves interpretability and prepares the dataset for subsequent feature engineering and visual exploration.
+-   Converting coded variables into meaningful analytical formats improves interpretability and prepares the dataset for subsequent feature engineering and visual exploration.
 :::
 
 ## 3.5 Variable Creation
@@ -624,8 +623,9 @@ Several extra variables were created to reflect fundamental insurance traits and
 The `mutate()`, `case_when()`, and `cut()` functions from the dplyr package were used to create new variables and generate categorical groupings. These transformations help simplify interpretation and facilitate clearer comparisons in later visualisations.
 
 ::: panel-tabset
-
 ### Driving Profile
+
+Variables related to driving were created to estimate the experiences of policyholders and categorize drivers into wider experience groups for segmentation analysis.
 
 ```{r}
 motor_feature <- motor_convert |>
@@ -645,6 +645,8 @@ motor_feature <- motor_convert |>
 ```
 
 ### Insurance Indicators
+
+Exposure-adjusted indicators were created to offer a more accurate depiction of claims and portfolio performance beyond simple counts and financial figures.
 
 ```{r}
 motor_feature <- motor_feature |>
@@ -670,6 +672,8 @@ motor_feature <- motor_feature |>
 ```
 
 ### Customer and Vehicle Segmentation
+
+Variables were grouped to facilitate interpretation and allow for comparisons across demographic and vehicle traits.
 
 ```{r}
 motor_feature <- motor_feature |>
@@ -708,6 +712,8 @@ motor_feature <- motor_feature |>
 
 ### Vehicle Profile
 
+Vehicle-specific indicators were categorized to identify various vehicle traits and driving behaviors.
+
 ```{r}
 motor_feature <- motor_feature |>
   mutate(
@@ -727,6 +733,8 @@ motor_feature <- motor_feature |>
 
 ### Portfolio Outcome Grouping
 
+Portfolio Outcome variables for the portfolio were created to categorize claim incidents and summarize insurance effectiveness.
+
 ```{r}
 motor_feature <- motor_feature |>
   mutate(
@@ -744,35 +752,106 @@ motor_feature <- motor_feature |>
     )
   )
 ```
+:::
 
 ### Verification
 
+The resulting dataset structure was reviewed to verify that all engineered variables had been successfully created and appended to the analytical dataset.
+
 ```{r}
 motor_feature |>
-  select(
-    driving_experience,
-    driving_experience_group,
-    claim_frequency,
-    claim_severity,
-    loss_ratio,
-    driver_age_group,
-    vehicle_age_group,
-    vehicle_value_band,
-    power_weight_group,
-    seat_capacity_group,
-    claim_status,
-    loss_ratio_group
-  ) |>
-  glimpse()
+select(
+driving_experience,
+driving_experience_group,
+claim_frequency,
+claim_severity,
+loss_ratio,
+driver_age_group,
+vehicle_age_group,
+vehicle_value_band,
+power_weight_group,
+seat_capacity_group,
+claim_status,
+loss_ratio_group
+) |>
+glimpse()
 ```
 
+::: callout-note
+## ![](images/MachineLearning.png){width="31"} Findings
+
+-   Exposure-adjusted indicators like `claim_frequency`, `claim_severity`, and `loss_ratio` were created to provide more insightful assessments of insurance performance than raw claim counts.
+
+-   Customer and vehicle groupings like `driver_age_group`, `vehicle_age_group`, and `vehicle_value_band` were created to support segmentation analysis.
+
+-   Variables such as `driving_experience_group`, `power_weight_group`, and `seat_capacity_group` provide further insights into analyzing characteristics of policyholders and vehicles.
+
+-   Portfolio outcome variables (`claim_status` and `loss_ratio_group`) enable easier interpretation of insurance outcomes and support comparison across policy segments.
+
+-   Hence, the engineered variables enhance the analytical dataset and create a more robust basis for following univariate and multivariate visual analysis.
+:::
+
+# 4 **Univariate Analysis** 
+
+Univariate analysis was performed to analyze the individual distribution and composition of essential variables within the motor insurance portfolio. The analysis starts with the comprehensive portfolio layout, then shifts to driver profiles, vehicle traits, and insurance outcomes.
+
+## 4.1 Portolio Composition 
+
+The first stage analyzes the overall structure of the portfolio to grasp the types of policies and vehicles that predominate within the insured group.
+
+### 4.1.1 Interactive Treemap - Vehical Nramd Distribution
+
+```{r}
+brand_data <- motor_feature |>
+  count(vehicle_brand, sort = TRUE) |>
+  slice_max(n, n = 15)
+
+brand_plot <- ggplot(
+  brand_data,
+  aes(
+    area = n,
+    fill = n,
+    label = paste0(vehicle_brand, "\n", scales::comma(n)),
+    tooltip = paste0(
+      "Vehicle Brand: ", vehicle_brand,
+      "<br>Number of Policies: ", scales::comma(n)
+    )
+  )
+) +
+  treemapify::geom_treemap_interactive() +
+  treemapify::geom_treemap_text_interactive(
+    colour = "white",
+    place = "centre",
+    grow = TRUE
+  ) +
+  labs(
+    title = "Top 15 Vehicle Brands in the Motor Insurance Portfolio"
+  ) +
+  theme(
+    legend.position = "none"
+  )
+
+ggiraph::girafe(
+  ggobj = brand_plot
+)
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+- The treemap highlights whether the portfolio is concentrated among a few dominant vehicle brands.
+
+- Larger rectangles represent brands with higher policy counts, allowing portfolio concentration to be assessed visually.
+
+- This provides a useful starting point before analysing whether vehicle characteristics are associated with claims or incurred losses.
 :::
 
 
 
+### 4.1.2 Waffle Chart - Claim vs No Claim
 
 
-
+## 
 
 
 
