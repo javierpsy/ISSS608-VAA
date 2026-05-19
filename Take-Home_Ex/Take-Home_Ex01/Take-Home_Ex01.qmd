@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: auto
+  freeze: false
 ---
 
 # 1 **Overview**
@@ -793,65 +793,500 @@ glimpse()
 
 # 4 **Univariate Analysis** 
 
-Univariate analysis was performed to analyze the individual distribution and composition of essential variables within the motor insurance portfolio. The analysis starts with the comprehensive portfolio layout, then shifts to driver profiles, vehicle traits, and insurance outcomes.
+Univariate analysis was conducted to understand the characteristics of the motor insurance portfolio prior to examining relationships among variables. The analysis starts with insurance outcomes to establish an overview of portfolio performance, followed by policyholder and vehicle characteristics before concluding with engineered indicators that reveal hidden portfolio risk patterns.
 
 ## 4.1 Portolio Composition 
 
-The first stage analyzes the overall structure of the portfolio to grasp the types of policies and vehicles that predominate within the insured group.
+The following visualisations examine claim occurrence and loss-related behaviour to establish an initial understanding of portfolio performance.
 
-### 4.1.1 Interactive Treemap - Vehical Nramd Distribution
+### 4.1.1 Claim Status Composition
+
+Bar charts are useful for representing the frequency of categorical variables because they allow differences across groups to be identified easily. Direct labels are included to improve readability and reduce the need for readers to estimate values from axis scales.
+
+The chart below examines whether the portfolio is dominated by policies with reported claims or by claim-free policies.
 
 ```{r}
-brand_data <- motor_feature |>
-  count(vehicle_brand, sort = TRUE) |>
-  slice_max(n, n = 15)
+#| fig-width: 12
+#| fig-height: 6
 
-brand_plot <- ggplot(
-  brand_data,
-  aes(
-    area = n,
-    fill = n,
-    label = paste0(vehicle_brand, "\n", scales::comma(n)),
-    tooltip = paste0(
-      "Vehicle Brand: ", vehicle_brand,
-      "<br>Number of Policies: ", scales::comma(n)
+claim_status_plot <- motor_feature |>
+  count(claim_status) |>
+  mutate(
+    pct = n / sum(n),
+    label = paste0(scales::comma(n), " (", scales::percent(pct, accuracy = 0.1), ")")
+  ) |>
+  ggplot(
+    aes(
+      x = reorder(claim_status, n),
+      y = n,
+      fill = claim_status
     )
-  )
-) +
-  treemapify::geom_treemap_interactive() +
-  treemapify::geom_treemap_text_interactive(
-    colour = "white",
-    place = "centre",
-    grow = TRUE
+  ) +
+  geom_col(width = 0.6) +
+  geom_text(
+    aes(label = label),
+    hjust = -0.1,
+    size = 3.8
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(mult = c(0, 0.15))
   ) +
   labs(
-    title = "Top 15 Vehicle Brands in the Motor Insurance Portfolio"
+    title = "Most Policies Did Not Report Claims",
+    subtitle = "Claim status composition across the motor insurance portfolio",
+    x = NULL,
+    y = "Number of Policies"
   ) +
+  theme_minimal() +
   theme(
     legend.position = "none"
   )
 
-ggiraph::girafe(
-  ggobj = brand_plot
-)
+claim_status_plot
 ```
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
-- The treemap highlights whether the portfolio is concentrated among a few dominant vehicle brands.
+-   The portfolio primarily consists of **no-claim policies**, with **303,333 policies (85.7%)** indicating no claims.
 
-- Larger rectangles represent brands with higher policy counts, allowing portfolio concentration to be assessed visually.
+-   Only **50,807 policies (14.3%)** filed claims, showing that claim occurrences are focused on a limited group of policyholders.
 
-- This provides a useful starting point before analysing whether vehicle characteristics are associated with claims or incurred losses.
+-   This underscores the necessity of examining claim frequency and loss ratio independently, as mere raw claim totals might obscure variations in claim severity and financial implications.
+
 :::
 
+### 4.1.2 Premium Distribution Across Policies
+
+Histograms paired with density curves enable the simultaneous examination of frequency patterns and the shapes of overall distributions. Density overlays assist in visualizing areas of concentration and uncovering skewness or long-tail characteristics. A logarithmic scale was utilized due to the significant variation in premium values among policies.The chart below examines if lower-premium policies dominate the portfolio or if there is significant variability in policy pricing.
+
+```{r}
+premium_data <- motor_feature |>
+  filter(
+    !is.na(total_premium),
+    total_premium > 0
+  )
+
+premium_median <- median(
+  premium_data$total_premium,
+  na.rm = TRUE
+)
+
+premium_plot <- ggplot(
+  premium_data,
+  aes(x = total_premium)
+) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    bins = 40,
+    alpha = 0.7
+  ) +
+  geom_density(
+    linewidth = 1
+  ) +
+  geom_vline(
+    xintercept = premium_median,
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+  scale_x_log10(
+    labels = scales::comma
+  ) +
+  labs(
+    title = "Premium Distribution Across Policies",
+    subtitle = "Log scale applied because premium values are right-skewed",
+    x = "Premium (Log Scale)",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+premium_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   Premium values exhibit a positively skewed distribution, where most policies are concentrated within lower-to-moderate premium ranges while a smaller number of policies possess substantially higher premiums.
+
+-   The concentration around the median premium level suggests that the portfolio mainly consists of standard-priced policies, with fewer high-premium policies contributing to the long tail.
+
+-   The extended right tail indicates heterogeneity within the insurance portfolio and may reflect policies with higher vehicle values, broader coverage types, or policyholders with elevated risk characteristics.
+
+-   Such variability suggests that portfolio pricing is not evenly distributed and motivates further investigation into customer and vehicle attributes associated with premium differences.
+
+:::
+
+## 4.2 Policyholder Characteristics
+
+After portfolio outcomes are determined, the focus of the analysis turns to the characteristics of policyholders. Customer demographic characteristics are significant as they impact underwriting choices and may lead to variations in insurance risk tendencies.
+
+The subsequent visual representations analyze the distributions of age and driving experience among insured policyholders.
+
+### 4.2.1 Driver Age Profile
+
+Boxplots along with jittered observations offer insights into both summary statistics and patterns in individual data. Jittering minimizes overplotting and exposes the concentration of observations that could potentially overlap.
+
+The chart below examines the age distribution of insured drivers and emphasizes the occurrence of possible outlier age groups.
+
+```{r}
+driver_age_group_plot_data <-
+  motor_feature |>
+
+  mutate(
+
+    age_band =
+      cut(
+        driver_age,
+
+        breaks = c(
+          18,
+          30,
+          40,
+          50,
+          60,
+          Inf
+        ),
+
+        labels = c(
+          "<30",
+          "30–39",
+          "40–49",
+          "50–59",
+          "60+"
+        ),
+
+        right = FALSE
+      )
+
+  ) |>
+
+  count(age_band) |>
+
+  mutate(
+
+    pct =
+      n/sum(n),
+
+    label =
+      paste0(
+        scales::comma(n),
+        "\n",
+        scales::percent(
+          pct,
+          accuracy=.1
+        )
+      )
+
+  )
 
 
-### 4.1.2 Waffle Chart - Claim vs No Claim
+driver_age_plot <-
+
+ggplot(
+    driver_age_group_plot_data,
+
+    aes(
+      x = age_band,
+      y = n,
+      fill = age_band
+    )
+) +
+
+geom_col(
+    width=.7
+) +
+
+geom_text(
+    aes(
+      label=label
+    ),
+    vjust=-0.4,
+    size=3.5
+) +
+
+scale_y_continuous(
+    labels=scales::comma,
+    expand=expansion(
+      mult=c(0,.15)
+    )
+) +
+
+labs(
+title="Driver Age Group Composition",
+subtitle="Distribution of insured policyholders across age categories",
+x="Driver Age Group",
+y="Number of Policyholders"
+)+
+
+theme_minimal()+
+
+theme(
+legend.position="none"
+)
+
+driver_age_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   The ages of drivers are mainly focused between around 35 and 60 years, indicating that the portfolio consists predominantly of middle-aged policyholders.
+
+-   An average age of approximately 48 years suggests that the usual insured client is part of a fairly older demographic group.
+
+-   Drivers who are younger or older represent a reduced share of the portfolio and might display varying characteristics of insurance risk.
+
+-   The age distribution indicates that the existing portfolio might be dominated by seasoned drivers instead of recently licensed policyholders.
+:::
+
+### 4.2.2 Driving Experience Profile
+
+Driving experience offers extra insights beyond age alone, as drivers of the same age can have varying degrees of driving exposure. Visualizing distributions of driving experiences enables comparisons among various experience categories and aids in understanding portfolio maturity.
+
+The chart below explores the comprehensive experience profile of policyholders within the insurance portfolio.
+
+```{r}
+driving_exp_plot <- ggplot(
+  motor_feature,
+  aes(
+    x = driving_experience_group,
+    y = driving_experience
+  )
+) +
+  geom_boxplot(
+    width = 0.45,
+    outlier.alpha = 0.25
+  ) +
+  labs(
+    title = "Driving Experience Profile",
+    subtitle = "Distribution of estimated driving experience by experience group",
+    x = "Driving Experience Group",
+    y = "Driving Experience"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(
+      angle = 20,
+      hjust = 1
+    )
+  )
+
+driving_exp_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   Highly experienced drivers show the highest median driving exposure and the widest spread, suggesting substantial variability within this customer segment.
+
+-   Several outliers are observed among highly experienced drivers, indicating a small group with exceptionally long driving histories beyond the typical range.
+
+-   New drivers display a narrow and concentrated distribution with consistently low driving experience, reflecting a relatively homogeneous profile.
+
+-   The clear separation across experience categories suggests that the portfolio consists of multiple driving maturity segments, which may exhibit different insurance risk characteristics and behavioural patterns.
+
+:::
+
+## 4.3 Vehicle Portfolio Structure
+
+Vehicle attributes were then analyzed since vehicle-related features affect pricing, underwriting choices, and claims behavior. Grasping the makeup of insured vehicles offers further context prior to examining risk factors and claims results.
+
+The following visualisations focus on portfolio concentration and vehicle characteristics.
+
+### 4.3.1 Vehicle Brand Portfolio Structure
+
+Treemaps offer a clear visualization of categorical composition by showing category size in proportion. Bigger rectangles signify enhanced portfolio representation and assist in recognizing leading vehicle brands.
+
+The chart below examines if insurance policies are focused on particular vehicle manufacturers.
+
+```{r}
+brand_data <-
+
+  motor_feature |>
+
+  count(
+    vehicle_brand,
+    sort = TRUE
+  ) |>
+
+  slice_max(
+    n,
+    n = 10
+  ) |>
+
+  mutate(
+
+    pct =
+      n/sum(n),
+
+    label =
+      paste0(
+        vehicle_brand,
+        "\n",
+        scales::percent(
+          pct,
+          accuracy=.1
+        )
+      )
+
+  )
 
 
-## 
+brand_plot <-
+
+ggplot(
+
+brand_data,
+
+aes(
+area=n,
+fill=n,
+label=label
+)
+
+)+
+
+treemapify::geom_treemap(
+colour="white",
+linewidth=.8
+)+
+
+treemapify::geom_treemap_text(
+place="centre",
+grow=TRUE,
+reflow=TRUE,
+colour="white",
+min.size=6
+)+
+
+labs(
+title="Vehicle Brand Portfolio Structure",
+subtitle="Top 10 vehicle brands by portfolio share"
+)+
+
+theme(
+legend.position="none"
+)
+
+brand_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   The portfolio shows an even distribution among various top vehicle brands instead of being controlled by one manufacturer.
+
+-   Renault (13.4%), Citroen (12.7%), Peugeot (11.5%), Volkswagen (11.2%), and Ford (11.0%) hold relatively greater portfolio shares and together make up a significant fraction of insured vehicles.
+
+-   The fairly even distribution among various brands indicates a diversified insured vehicle portfolio.
+
+-   The composition of vehicle brands could still affect later analyses if certain manufacturers exhibit varied premium trends or claims behaviors.
+
+:::
+
+## 4.3.2 Vehicle Value Distribution by actual value bands
+
+Vehicle value distributions are typically characterized by skewness, with a limited number of observations having significantly higher values. Rather than analyzing raw values directly, vehicle values were categorized into wider segments to enable simpler interpretation and comparison.
+
+The chart below examines if the portfolio mainly includes economy, standard, premium, or luxury vehicle categories.
+
+```{r}
+motor_feature <-
+  motor_feature |>
+  mutate(
+    vehicle_value_segment =
+      case_when(
+        vehicle_value < 10000 ~ "Below 10k",
+        vehicle_value < 30000 ~ "10k–29k",
+        vehicle_value < 60000 ~ "30k–59k",
+        vehicle_value < 100000 ~ "60k–99k",
+        TRUE ~ "100k and above"
+      )
+  )
+
+vehicle_value_segment_data <-
+  motor_feature |>
+  count(
+    vehicle_value_segment
+  ) |>
+  mutate(
+    vehicle_value_segment =
+      factor(
+        vehicle_value_segment,
+        levels = c(
+          "Below 10k",
+          "10k–29k",
+          "30k–59k",
+          "60k–99k",
+          "100k and above"
+        )
+      ),
+    pct = n / sum(n),
+    label =
+      paste0(
+        scales::comma(n),
+        "\n",
+        scales::percent(
+          pct,
+          accuracy = 0.1
+        )
+      )
+  )
+
+vehicle_value_segment_plot <-
+  ggplot(
+    vehicle_value_segment_data,
+    aes(
+      x = vehicle_value_segment,
+      y = n,
+      fill = vehicle_value_segment
+    )
+  ) +
+  geom_col(
+    width = 0.7
+  ) +
+  geom_text(
+    aes(
+      label = label
+    ),
+    vjust = -0.3,
+    size = 3.5
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(
+      mult = c(0, 0.15)
+    )
+  ) +
+  labs(
+    title = "Vehicle Value Segment Composition",
+    subtitle = "Distribution of insured vehicles across fixed value bands",
+    x = "Vehicle Value Segment",
+    y = "Number of Policies"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  )
+
+vehicle_value_segment_plot
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
