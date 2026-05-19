@@ -809,40 +809,134 @@ The chart below examines whether the portfolio is dominated by policies with rep
 #| fig-width: 12
 #| fig-height: 6
 
-claim_status_plot <- motor_feature |>
-  count(claim_status) |>
-  mutate(
-    pct = n / sum(n),
-    label = paste0(scales::comma(n), " (", scales::percent(pct, accuracy = 0.1), ")")
-  ) |>
-  ggplot(
-    aes(
-      x = reorder(claim_status, n),
-      y = n,
-      fill = claim_status
+claim_status_plot <-
+
+motor_feature |>
+
+count(
+  claim_status
+) |>
+
+mutate(
+
+  pct =
+    n/sum(n),
+
+  label =
+    paste0(
+      scales::comma(n),
+      " (",
+      scales::percent(
+        pct,
+        accuracy=.1
+      ),
+      ")"
     )
-  ) +
-  geom_col(width = 0.6) +
-  geom_text(
-    aes(label = label),
-    hjust = -0.1,
-    size = 3.8
-  ) +
-  coord_flip() +
-  scale_y_continuous(
-    labels = scales::comma,
-    expand = expansion(mult = c(0, 0.15))
-  ) +
-  labs(
-    title = "Most Policies Did Not Report Claims",
-    subtitle = "Claim status composition across the motor insurance portfolio",
-    x = NULL,
-    y = "Number of Policies"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none"
-  )
+
+) |>
+
+ggplot(
+
+aes(
+
+x=
+reorder(
+claim_status,
+n
+),
+
+y=n
+
+)
+
+)+
+
+geom_col(
+
+width=.6,
+
+fill="#c7c8cc",
+
+color="#f5f5f5"
+
+)+
+
+geom_text(
+
+aes(
+label=label
+),
+
+hjust=-0.1,
+
+size=3.8
+
+)+
+
+coord_flip()+
+
+scale_y_continuous(
+
+labels=
+scales::comma,
+
+expand=
+expansion(
+mult=c(
+0,
+0.15
+)
+)
+
+)+
+
+labs(
+
+title=
+"Most Policies Did Not Report Claims",
+
+subtitle=
+"Claim status composition across the motor insurance portfolio",
+
+x=NULL,
+
+y=
+"Number of Policies"
+
+)+
+
+theme_minimal()+
+
+theme(
+
+legend.position="none",
+
+panel.grid.major=
+element_blank(),
+
+panel.grid.minor=
+element_blank(),
+
+plot.background=
+element_rect(
+
+fill="#f5f5f5",
+colour="#f5f5f5"
+
+),
+
+panel.background=
+element_rect(
+
+fill="#f5f5f5",
+colour="#f5f5f5"
+
+),
+
+axis.ticks=
+element_blank()
+
+)
 
 claim_status_plot
 ```
@@ -881,15 +975,28 @@ premium_plot <- ggplot(
   geom_histogram(
     aes(y = after_stat(density)),
     bins = 40,
-    alpha = 0.7
+    fill = "#c7c8cc",
+    colour = "#f5f5f5",
+    alpha = 0.9
   ) +
   geom_density(
+    colour = "#34414E",
     linewidth = 1
   ) +
   geom_vline(
     xintercept = premium_median,
-    linetype = "dashed",
-    linewidth = 1
+    colour = "#595DE5",
+    linewidth = 0.8,
+    linetype = "dashed"
+  ) +
+  annotate(
+    "text",
+    x = premium_median * 1.35,
+    y = 1.72,
+    label = "Median",
+    colour = "#595DE5",
+    hjust = 0,
+    size = 4
   ) +
   scale_x_log10(
     labels = scales::comma
@@ -900,7 +1007,20 @@ premium_plot <- ggplot(
     x = "Premium (Log Scale)",
     y = "Density"
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
 
 premium_plot
 ```
@@ -908,13 +1028,13 @@ premium_plot
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Premium values exhibit a positively skewed distribution, where most policies are concentrated within lower-to-moderate premium ranges while a smaller number of policies possess substantially higher premiums.
+-   Premium values exhibit a positively skewed distribution, where most policies are concentrated within lower-to-moderate premium ranges while fewer policies possess substantially larger premiums.
 
--   The concentration around the median premium level suggests that the portfolio mainly consists of standard-priced policies, with fewer high-premium policies contributing to the long tail.
+-   The red vertical line represents the median premium level and serves as a reference for the typical pricing point within the insurance portfolio.
 
--   The extended right tail indicates heterogeneity within the insurance portfolio and may reflect policies with higher vehicle values, broader coverage types, or policyholders with elevated risk characteristics.
+-   The prominent peak in the density curve indicates the premium range where policies are most highly concentrated, suggesting a common pricing level among insured customers.
 
--   Such variability suggests that portfolio pricing is not evenly distributed and motivates further investigation into customer and vehicle attributes associated with premium differences.
+-   The extended right tail suggests that a smaller number of higher-premium policies exist and may reflect higher-value vehicles, broader coverage plans, or policyholders with elevated risk characteristics.
 
 :::
 
@@ -932,99 +1052,106 @@ The chart below examines the age distribution of insured drivers and emphasizes 
 
 ```{r}
 driver_age_group_plot_data <-
+
   motor_feature |>
 
   mutate(
 
-    age_band =
-      cut(
-        driver_age,
-
-        breaks = c(
-          18,
-          30,
-          40,
-          50,
-          60,
-          Inf
-        ),
-
-        labels = c(
-          "<30",
-          "30–39",
-          "40–49",
-          "50–59",
-          "60+"
-        ),
-
-        right = FALSE
-      )
+    age_band = cut(
+      driver_age,
+      breaks = c(
+        18,
+        30,
+        40,
+        50,
+        60,
+        Inf
+      ),
+      labels = c(
+        "<30",
+        "30–39",
+        "40–49",
+        "50–59",
+        "60+"
+      ),
+      right = FALSE
+    )
 
   ) |>
 
-  count(age_band) |>
+  count(
+    age_band
+  ) |>
 
   mutate(
 
-    pct =
-      n/sum(n),
+    pct = n / sum(n),
 
-    label =
-      paste0(
-        scales::comma(n),
-        "\n",
-        scales::percent(
-          pct,
-          accuracy=.1
-        )
+    label = paste0(
+      scales::comma(n),
+      "\n",
+      scales::percent(
+        pct,
+        accuracy = 0.1
       )
+    )
 
   )
 
 
 driver_age_plot <-
 
-ggplot(
+  ggplot(
     driver_age_group_plot_data,
-
     aes(
       x = age_band,
-      y = n,
-      fill = age_band
+      y = n
     )
-) +
+  ) +
 
-geom_col(
-    width=.7
-) +
+  geom_col(
+    width = 0.7,
+    fill = "#c7c8cc",
+    color = "#f5f5f5"
+  ) +
 
-geom_text(
+  geom_text(
     aes(
-      label=label
+      label = label
     ),
-    vjust=-0.4,
-    size=3.5
-) +
+    vjust = -0.4,
+    size = 3.5
+  ) +
 
-scale_y_continuous(
-    labels=scales::comma,
-    expand=expansion(
-      mult=c(0,.15)
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(
+      mult = c(0, 0.15)
     )
-) +
+  ) +
 
-labs(
-title="Driver Age Group Composition",
-subtitle="Distribution of insured policyholders across age categories",
-x="Driver Age Group",
-y="Number of Policyholders"
-)+
+  labs(
+    title = "Driver Age Group Composition",
+    subtitle = "Distribution of insured policyholders across age categories",
+    x = "Driver Age Group",
+    y = "Number of Policyholders"
+  ) +
 
-theme_minimal()+
+  theme_minimal() +
 
-theme(
-legend.position="none"
-)
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
 
 driver_age_plot
 ```
@@ -1048,32 +1175,126 @@ Driving experience offers extra insights beyond age alone, as drivers of the sam
 The chart below explores the comprehensive experience profile of policyholders within the insurance portfolio.
 
 ```{r}
-driving_exp_plot <- ggplot(
-  motor_feature,
-  aes(
-    x = driving_experience_group,
-    y = driving_experience
-  )
-) +
-  geom_boxplot(
-    width = 0.45,
-    outlier.alpha = 0.25
-  ) +
-  labs(
-    title = "Driving Experience Profile",
-    subtitle = "Distribution of estimated driving experience by experience group",
-    x = "Driving Experience Group",
-    y = "Driving Experience"
-  ) +
-  theme_minimal() +
-  theme(
-    axis.text.x = element_text(
-      angle = 20,
-      hjust = 1
-    )
+motor_feature <-
+  motor_feature |>
+  mutate(
+    driving_experience_group =
+      factor(
+        driving_experience_group,
+        levels = c(
+          "New driver",
+          "Moderately experienced",
+          "Experienced",
+          "Highly experienced"
+        )
+      )
   )
 
-driving_exp_plot
+
+mean_exp <-
+round(
+mean(
+motor_feature$driving_experience,
+na.rm=TRUE
+),1)
+
+median_exp <-
+round(
+median(
+motor_feature$driving_experience,
+na.rm=TRUE
+),1)
+
+
+ggplot(
+
+motor_feature,
+
+aes(
+x=driving_experience_group,
+y=driving_experience
+)
+
+)+
+
+geom_boxplot(
+
+fill="#c7c8cc",
+
+outlier.colour="#d18a7d",
+
+outlier.size=1
+
+)+
+
+stat_summary(
+
+fun=mean,
+
+geom="point",
+
+colour="#e0218a",
+
+size=3
+
+)+
+
+geom_hline(
+
+yintercept=median_exp,
+
+colour="#595DE5",
+
+linewidth=.7,
+
+linetype="dashed"
+
+)+
+
+annotate(
+
+"text",
+
+x=4.2,
+
+y=median_exp,
+
+label=paste0(
+"Median=",median_exp
+),
+
+colour="#595DE5"
+
+)+
+
+labs(
+
+title="Driving Experience Profile",
+
+subtitle="Distribution across engineered driving experience groups",
+
+x="Driving Experience Group",
+
+y="Years of Driving Experience"
+
+)+
+
+theme_minimal()+
+
+theme(
+
+panel.grid.major=
+element_blank(),
+
+plot.background=
+element_rect(
+
+fill="#f5f5f5",
+colour="#f5f5f5"
+
+)
+
+)
 ```
 
 ::: callout-note
