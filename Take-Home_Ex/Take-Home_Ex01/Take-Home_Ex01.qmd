@@ -954,7 +954,9 @@ claim_status_plot
 
 ### 4.1.2 Premium Distribution Across Policies
 
-Histograms paired with density curves enable the simultaneous examination of frequency patterns and the shapes of overall distributions. Density overlays assist in visualizing areas of concentration and uncovering skewness or long-tail characteristics. A logarithmic scale was utilized due to the significant variation in premium values among policies.The chart below examines if lower-premium policies dominate the portfolio or if there is significant variability in policy pricing.
+Histograms paired with density curves enable the simultaneous examination of frequency patterns and the shapes of overall distributions. Density overlays assist in visualizing areas of concentration and uncovering skewness or long-tail characteristics. A logarithmic scale was utilized due to the significant variation in premium values among policies.
+
+The chart below examines if lower-premium policies dominate the portfolio or if there is significant variability in policy pricing.
 
 ```{r}
 premium_data <- motor_feature |>
@@ -1159,13 +1161,15 @@ driver_age_plot
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   The ages of drivers are mainly focused between around 35 and 60 years, indicating that the portfolio consists predominantly of middle-aged policyholders.
+-   Policyholders are primarily concentrated between the ages of 30 and above, with the 40–49 age group representing the largest segment at approximately 27.4% of the portfolio.
 
--   An average age of approximately 48 years suggests that the usual insured client is part of a fairly older demographic group.
+-   Younger drivers below age 30 account for only 2.7% of policyholders, suggesting that newly licensed or early-career drivers form a relatively small portion of the insured population.
 
--   Drivers who are younger or older represent a reduced share of the portfolio and might display varying characteristics of insurance risk.
+-   The distribution remains relatively balanced across the 30–39, 50–59, and 60+ groups, each contributing approximately one quarter of the portfolio.
 
--   The age distribution indicates that the existing portfolio might be dominated by seasoned drivers instead of recently licensed policyholders.
+-   This pattern suggests that the portfolio is largely composed of mature and experienced drivers, which may indicate differing risk characteristics compared to portfolios dominated by younger drivers.
+
+:::
 :::
 
 ### 4.2.2 Driving Experience Profile
@@ -1190,123 +1194,64 @@ motor_feature <-
       )
   )
 
+driving_exp_plot <-
+  ggplot(
+    motor_feature,
+    aes(
+      x = driving_experience_group,
+      y = driving_experience
+    )
+  ) +
+  geom_boxplot(
+    fill = "#c7c8cc",
+    outlier.colour = "#d18a7d",
+    outlier.shape = 16,
+    outlier.size = 1,
+    width = 0.45
+  ) +
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    colour = "#e0218a",
+    size = 3
+  ) +
+  labs(
+    title = "Driving Experience Profile",
+    subtitle = "Boxplot with mean point across driving experience groups",
+    x = "Driving Experience Group",
+    y = "Years of Driving Experience"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
 
-mean_exp <-
-round(
-mean(
-motor_feature$driving_experience,
-na.rm=TRUE
-),1)
-
-median_exp <-
-round(
-median(
-motor_feature$driving_experience,
-na.rm=TRUE
-),1)
-
-
-ggplot(
-
-motor_feature,
-
-aes(
-x=driving_experience_group,
-y=driving_experience
-)
-
-)+
-
-geom_boxplot(
-
-fill="#c7c8cc",
-
-outlier.colour="#d18a7d",
-
-outlier.size=1
-
-)+
-
-stat_summary(
-
-fun=mean,
-
-geom="point",
-
-colour="#e0218a",
-
-size=3
-
-)+
-
-geom_hline(
-
-yintercept=median_exp,
-
-colour="#595DE5",
-
-linewidth=.7,
-
-linetype="dashed"
-
-)+
-
-annotate(
-
-"text",
-
-x=4.2,
-
-y=median_exp,
-
-label=paste0(
-"Median=",median_exp
-),
-
-colour="#595DE5"
-
-)+
-
-labs(
-
-title="Driving Experience Profile",
-
-subtitle="Distribution across engineered driving experience groups",
-
-x="Driving Experience Group",
-
-y="Years of Driving Experience"
-
-)+
-
-theme_minimal()+
-
-theme(
-
-panel.grid.major=
-element_blank(),
-
-plot.background=
-element_rect(
-
-fill="#f5f5f5",
-colour="#f5f5f5"
-
-)
-
-)
+driving_exp_plot
 ```
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Highly experienced drivers show the highest median driving exposure and the widest spread, suggesting substantial variability within this customer segment.
 
--   Several outliers are observed among highly experienced drivers, indicating a small group with exceptionally long driving histories beyond the typical range.
+-   Drivers with extensive experience show the highest median driving tenure and the broadest range, reflecting more variability in this customer group.
 
--   New drivers display a narrow and concentrated distribution with consistently low driving experience, reflecting a relatively homogeneous profile.
+-   Several high-end outliers are observed among highly experienced drivers, suggesting the presence of policyholders with exceptionally long driving histories.
 
--   The clear separation across experience categories suggests that the portfolio consists of multiple driving maturity segments, which may exhibit different insurance risk characteristics and behavioural patterns.
+-   New drivers display a narrow and concentrated distribution, indicating relatively homogeneous driving profiles.
+
+-   Interestingly,  the wider variation among very experienced drivers implies that driving experience by itself might not completely account for differences in driver behavior or risk.
+
+-   A deeper analysis could investigate whether claim frequency or claim severity differs across experience levels to determine whether increasing experience consistently reduces insurance risk.
 
 :::
 
@@ -1325,35 +1270,34 @@ The chart below examines if insurance policies are focused on particular vehicle
 ```{r}
 brand_data <-
 
-  motor_feature |>
+motor_feature |>
 
-  count(
-    vehicle_brand,
-    sort = TRUE
-  ) |>
+count(
+  vehicle_brand,
+  sort = TRUE
+) |>
 
-  slice_max(
-    n,
-    n = 10
-  ) |>
+slice_max(
+  n,
+  n = 10
+) |>
 
-  mutate(
+mutate(
 
-    pct =
-      n/sum(n),
+  pct =
+    n/sum(n),
 
-    label =
-      paste0(
-        vehicle_brand,
-        "\n",
-        scales::percent(
-          pct,
-          accuracy=.1
-        )
+  label =
+    paste0(
+      vehicle_brand,
+      "\n",
+      scales::percent(
+        pct,
+        accuracy=.1
       )
+    )
 
-  )
-
+)
 
 brand_plot <-
 
@@ -1370,7 +1314,7 @@ label=label
 )+
 
 treemapify::geom_treemap(
-colour="white",
+colour="#f5f5f5",
 linewidth=.8
 )+
 
@@ -1382,13 +1326,34 @@ colour="white",
 min.size=6
 )+
 
+scale_fill_gradient(
+low="#d9d9d9",
+high="#5c5c5c"
+)+
+
 labs(
 title="Vehicle Brand Portfolio Structure",
 subtitle="Top 10 vehicle brands by portfolio share"
 )+
 
+theme_minimal()+
+
 theme(
-legend.position="none"
+
+legend.position="none",
+
+plot.background=
+element_rect(
+fill="#f5f5f5",
+colour="#f5f5f5"
+),
+
+panel.background=
+element_rect(
+fill="#f5f5f5",
+colour="#f5f5f5"
+)
+
 )
 
 brand_plot
@@ -1428,74 +1393,713 @@ motor_feature <-
   )
 
 vehicle_value_segment_data <-
-  motor_feature |>
-  count(
-    vehicle_value_segment
-  ) |>
-  mutate(
-    vehicle_value_segment =
-      factor(
-        vehicle_value_segment,
-        levels = c(
-          "Below 10k",
-          "10k–29k",
-          "30k–59k",
-          "60k–99k",
-          "100k and above"
-        )
-      ),
-    pct = n / sum(n),
-    label =
-      paste0(
-        scales::comma(n),
-        "\n",
-        scales::percent(
-          pct,
-          accuracy = 0.1
-        )
-      )
-  )
+
+motor_feature |>
+
+count(
+  vehicle_value_segment
+) |>
+
+mutate(
+
+vehicle_value_segment =
+factor(
+
+vehicle_value_segment,
+
+levels=c(
+"Below 10k",
+"10k–29k",
+"30k–59k",
+"60k–99k",
+"100k and above"
+)
+
+),
+
+pct=n/sum(n),
+
+label=
+paste0(
+scales::comma(n),
+"\n",
+scales::percent(
+pct,
+accuracy=.1
+)
+)
+
+)
+
 
 vehicle_value_segment_plot <-
-  ggplot(
-    vehicle_value_segment_data,
-    aes(
-      x = vehicle_value_segment,
-      y = n,
-      fill = vehicle_value_segment
-    )
-  ) +
-  geom_col(
-    width = 0.7
-  ) +
-  geom_text(
-    aes(
-      label = label
-    ),
-    vjust = -0.3,
-    size = 3.5
-  ) +
-  scale_y_continuous(
-    labels = scales::comma,
-    expand = expansion(
-      mult = c(0, 0.15)
-    )
-  ) +
-  labs(
-    title = "Vehicle Value Segment Composition",
-    subtitle = "Distribution of insured vehicles across fixed value bands",
-    x = "Vehicle Value Segment",
-    y = "Number of Policies"
-  ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none"
-  )
+
+ggplot(
+
+vehicle_value_segment_data,
+
+aes(
+x=vehicle_value_segment,
+y=n
+)
+
+)+
+
+geom_col(
+
+width=.7,
+
+fill="#c7c8cc",
+
+color="#f5f5f5"
+
+)+
+
+geom_text(
+
+aes(
+label=label
+),
+
+vjust=-0.3,
+
+size=3.5
+
+)+
+
+scale_y_continuous(
+
+labels=scales::comma,
+
+expand=
+expansion(
+mult=c(
+0,
+0.15
+)
+)
+
+)+
+
+labs(
+
+title=
+"Vehicle Value Segment Composition",
+
+subtitle=
+"Distribution of insured vehicles across fixed value bands",
+
+x=
+"Vehicle Value Segment",
+
+y=
+"Number of Policies"
+
+)+
+
+theme_minimal()+
+
+theme(
+
+legend.position="none",
+
+panel.grid.major=
+element_blank(),
+
+panel.grid.minor=
+element_blank(),
+
+plot.background=
+element_rect(
+fill="#f5f5f5",
+colour="#f5f5f5"
+),
+
+panel.background=
+element_rect(
+fill="#f5f5f5",
+colour="#f5f5f5"
+),
+
+axis.ticks=
+element_blank()
+
+)
 
 vehicle_value_segment_plot
 ```
 
+## 4.4 Hidden Risk Indicators
 
+Finally, engineered indicators were examined to uncover portfolio patterns that are not directly observable from the original variables. Unlike raw claim counts, these derived indicators provide a more meaningful view of claim behaviour, claim size, and portfolio loss performance.
+
+Similar to the statistical distribution approach used earlier, each tab combines a boxplot and histogram. The boxplot highlights the spread, central tendency, and possible outliers, while the histogram shows the frequency distribution and skewness of each engineered indicator.
+
+::: panel-tabset
+
+### Claim Frequency
+
+Claim frequency measures the number of claims relative to policy exposure. This helps identify whether claims are broadly distributed across the portfolio or concentrated among a smaller subset of policies.
+
+```{r}
+claim_frequency_data <-
+
+  motor_feature |>
+
+  filter(
+    !is.na(claim_frequency),
+    claim_frequency >= 0,
+    claim_frequency <= quantile(
+      claim_frequency,
+      0.99,
+      na.rm = TRUE
+    )
+  )
+
+
+mean_claim_frequency <-
+
+  round(
+    mean(
+      claim_frequency_data$claim_frequency,
+      na.rm = TRUE
+    ),
+    2
+  )
+
+
+median_claim_frequency <-
+
+  round(
+    median(
+      claim_frequency_data$claim_frequency,
+      na.rm = TRUE
+    ),
+    2
+  )
+
+
+hist_claim_frequency <-
+
+  ggplot(
+    claim_frequency_data,
+    aes(
+      x = claim_frequency
+    )
+  ) +
+
+  geom_histogram(
+    bins = 30,
+    colour = "#f5f5f5",
+    fill = "#c7c8cc"
+  ) +
+
+  geom_vline(
+    xintercept = median_claim_frequency,
+    colour = "#595DE5",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  geom_vline(
+    xintercept = mean_claim_frequency,
+    colour = "#e0218a",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  annotate(
+    "text",
+    x = median_claim_frequency,
+    y = Inf,
+    label = paste0(
+      "Median = ",
+      median_claim_frequency
+    ),
+    colour = "#595DE5",
+    vjust = 2,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  annotate(
+    "text",
+    x = mean_claim_frequency,
+    y = Inf,
+    label = paste0(
+      "Mean = ",
+      mean_claim_frequency
+    ),
+    colour = "#e0218a",
+    vjust = 4,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  labs(
+    x = "Claim Frequency",
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_claim_frequency <-
+
+  ggplot(
+    claim_frequency_data,
+    aes(
+      y = claim_frequency,
+      x = ""
+    )
+  ) +
+
+  geom_boxplot(
+    fill = "#c7c8cc",
+    outlier.colour = "#d18a7d",
+    outlier.shape = 16,
+    outlier.size = 1
+  ) +
+
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    colour = "#e0218a",
+    size = 3
+  ) +
+
+  coord_flip() +
+
+  labs(
+    title = "Distribution of Claim Frequency",
+    x = NULL,
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_claim_frequency / hist_claim_frequency +
+  plot_layout(
+    heights = c(
+      1,
+      3.5
+    )
+  )
+```
+
+### Claim Severity
+
+Claim severity measures the average incurred amount per claim. This indicator is useful because two policies may have the same claim frequency but very different financial impact depending on the size of the claims.
+
+```{r}
+claim_severity_data <-
+
+  motor_feature |>
+
+  filter(
+    !is.na(claim_severity),
+    claim_severity > 0,
+    claim_severity <= quantile(
+      claim_severity,
+      0.99,
+      na.rm = TRUE
+    )
+  )
+
+
+mean_claim_severity <-
+
+  round(
+    mean(
+      claim_severity_data$claim_severity,
+      na.rm = TRUE
+    ),
+    0
+  )
+
+
+median_claim_severity <-
+
+  round(
+    median(
+      claim_severity_data$claim_severity,
+      na.rm = TRUE
+    ),
+    0
+  )
+
+
+hist_claim_severity <-
+
+  ggplot(
+    claim_severity_data,
+    aes(
+      x = claim_severity
+    )
+  ) +
+
+  geom_histogram(
+    bins = 30,
+    colour = "#f5f5f5",
+    fill = "#c7c8cc"
+  ) +
+
+  geom_vline(
+    xintercept = median_claim_severity,
+    colour = "#595DE5",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  geom_vline(
+    xintercept = mean_claim_severity,
+    colour = "#e0218a",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  annotate(
+    "text",
+    x = median_claim_severity,
+    y = Inf,
+    label = paste0(
+      "Median = ",
+      scales::comma(median_claim_severity)
+    ),
+    colour = "#595DE5",
+    vjust = 2,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  annotate(
+    "text",
+    x = mean_claim_severity,
+    y = Inf,
+    label = paste0(
+      "Mean = ",
+      scales::comma(mean_claim_severity)
+    ),
+    colour = "#e0218a",
+    vjust = 4,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  scale_x_continuous(
+    labels = scales::comma
+  ) +
+
+  labs(
+    x = "Claim Severity",
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_claim_severity <-
+
+  ggplot(
+    claim_severity_data,
+    aes(
+      y = claim_severity,
+      x = ""
+    )
+  ) +
+
+  geom_boxplot(
+    fill = "#c7c8cc",
+    outlier.colour = "#d18a7d",
+    outlier.shape = 16,
+    outlier.size = 1
+  ) +
+
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    colour = "#e0218a",
+    size = 3
+  ) +
+
+  coord_flip() +
+
+  labs(
+    title = "Distribution of Claim Severity",
+    x = NULL,
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_claim_severity / hist_claim_severity +
+  plot_layout(
+    heights = c(
+      1,
+      3.5
+    )
+  )
+```
+
+### Loss Ratio
+
+Loss ratio compares incurred losses against premium collected. This is an important insurance performance indicator because higher loss ratios may indicate policies where claims costs exceed or approach premium income.
+
+```{r}
+loss_ratio_data <-
+
+  motor_feature |>
+
+  filter(
+    !is.na(loss_ratio),
+    loss_ratio >= 0,
+    loss_ratio <= quantile(
+      loss_ratio,
+      0.99,
+      na.rm = TRUE
+    )
+  )
+
+
+mean_loss_ratio <-
+
+  round(
+    mean(
+      loss_ratio_data$loss_ratio,
+      na.rm = TRUE
+    ),
+    2
+  )
+
+
+median_loss_ratio <-
+
+  round(
+    median(
+      loss_ratio_data$loss_ratio,
+      na.rm = TRUE
+    ),
+    2
+  )
+
+
+hist_loss_ratio <-
+
+  ggplot(
+    loss_ratio_data,
+    aes(
+      x = loss_ratio
+    )
+  ) +
+
+  geom_histogram(
+    bins = 30,
+    colour = "#f5f5f5",
+    fill = "#c7c8cc"
+  ) +
+
+  geom_vline(
+    xintercept = median_loss_ratio,
+    colour = "#595DE5",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  geom_vline(
+    xintercept = mean_loss_ratio,
+    colour = "#e0218a",
+    linewidth = 0.7,
+    linetype = "dashed"
+  ) +
+
+  annotate(
+    "text",
+    x = median_loss_ratio,
+    y = Inf,
+    label = paste0(
+      "Median = ",
+      median_loss_ratio
+    ),
+    colour = "#595DE5",
+    vjust = 2,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  annotate(
+    "text",
+    x = mean_loss_ratio,
+    y = Inf,
+    label = paste0(
+      "Mean = ",
+      mean_loss_ratio
+    ),
+    colour = "#e0218a",
+    vjust = 4,
+    hjust = -0.05,
+    size = 3.2
+  ) +
+
+  labs(
+    x = "Loss Ratio",
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_loss_ratio <-
+
+  ggplot(
+    loss_ratio_data,
+    aes(
+      y = loss_ratio,
+      x = ""
+    )
+  ) +
+
+  geom_boxplot(
+    fill = "#c7c8cc",
+    outlier.colour = "#d18a7d",
+    outlier.shape = 16,
+    outlier.size = 1
+  ) +
+
+  stat_summary(
+    geom = "point",
+    fun = mean,
+    colour = "#e0218a",
+    size = 3
+  ) +
+
+  coord_flip() +
+
+  labs(
+    title = "Distribution of Loss Ratio",
+    x = NULL,
+    y = NULL
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    )
+  )
+
+
+box_loss_ratio / hist_loss_ratio +
+  plot_layout(
+    heights = c(
+      1,
+      3.5
+    )
+  )
+```
+
+:::
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+- Claim frequency, claim severity, and loss ratio are strongly right-skewed, indicating that most policies generate low claim activity or limited financial loss while a smaller subset contributes higher risk outcomes.
+
+- The comparison between mean and median values helps reveal skewness. When the mean is greater than the median, it suggests that extreme observations are pulling the average upward.
+
+- Claim severity provides insight into the financial magnitude of claims, while claim frequency focuses on how often claims occur. Both indicators are needed to understand portfolio risk.
+
+- Loss ratio links claims back to premium income and provides a more direct view of whether policy losses are proportionate to the premiums collected.
+
+- These engineered risk indicators provide a strong foundation for subsequent bivariate analysis, where claim and loss behaviour can be compared across customer, vehicle, and policy characteristics.
+
+:::
 
 
 
