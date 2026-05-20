@@ -1214,21 +1214,13 @@ motor_feature <-
 
 driving_exp_mean_data <-
   motor_feature |>
-  group_by(
-    driving_experience_group
-  ) |>
+  group_by(driving_experience_group) |>
   summarise(
-    mean_exp = mean(
-      driving_experience,
-      na.rm = TRUE
-    ),
+    mean_exp = mean(driving_experience, na.rm = TRUE),
     .groups = "drop"
   ) |>
   mutate(
-    label = paste0(
-      "Mean = ",
-      round(mean_exp, 1)
-    )
+    label = round(mean_exp, 1)
   )
 
 driving_exp_plot <-
@@ -1253,13 +1245,15 @@ driving_exp_plot <-
     size = 3
   ) +
   geom_text(
-    data = driving_exp_mean_data,
-    aes(
-      y = mean_exp + 3,
-      label = label
-    ),
-    colour = "#e0218a",
-    size = 3.2
+  data = driving_exp_mean_data,
+  aes(
+    x = driving_experience_group,
+    y = mean_exp + 4,
+    label = label
+  ),
+  colour = "#e0218a",
+  size = 3.2,
+  hjust = 0
   ) +
   labs(
     title = "Driving Experience Profile",
@@ -1575,39 +1569,47 @@ element_blank()
 vehicle_value_segment_plot
 ```
 
-## 4.4 Target Variable: Claim Frequency by Policy Type
+## 4.4 Claim Cost Distribution across Policy Types
 
-When exploring motor insurance data, one of the first steps is to examine the distribution of claim frequency. Claim frequency is used because it measures how often claims occur relative to the policy exposure period.
+When exploring motor insurance data, one important target variable is the total incurred claim cost. This represents the total claim cost of each policy, including paid amounts and outstanding reserves.
+
+However, insurance claim costs are usually highly right-skewed, where many policies have no claims while a small number of policies incur very large losses. Therefore, `log1p(total_incurred)` is used to improve readability while retaining zero-claim policies.
 
 The axis limits are kept consistent across policy types to allow fair comparison when navigating between tabs.
 
-::: panel-tabset
-
 ```{r}
-plot_policy_claimfreq <- function(data, selected_policy, chart_title) {
+motor_feature <-
+  motor_feature |>
+  mutate(
+    log_total_incurred = log1p(total_incurred)
+  )
+
+plot_policy_incurred <- function(data, selected_policy, chart_title) {
   
-  plot_data <- data |>
+  plot_data <-
+    data |>
     filter(
       policy_type == selected_policy,
-      !is.na(claim_frequency),
-      is.finite(claim_frequency),
-      claim_frequency >= 0
+      !is.na(log_total_incurred),
+      is.finite(log_total_incurred),
+      log_total_incurred >= 0
     )
   
-  x_upper <- quantile(data$claim_frequency, 0.99, na.rm = TRUE)
+  mean_value <- round(mean(plot_data$log_total_incurred, na.rm = TRUE), 2)
+  median_value <- round(median(plot_data$log_total_incurred, na.rm = TRUE), 2)
+  min_value <- round(min(plot_data$log_total_incurred, na.rm = TRUE), 2)
+  max_value <- round(max(plot_data$log_total_incurred, na.rm = TRUE), 2)
   
-  mean_freq <- round(mean(plot_data$claim_frequency, na.rm = TRUE), 3)
-  median_freq <- round(median(plot_data$claim_frequency, na.rm = TRUE), 3)
-  min_freq <- round(min(plot_data$claim_frequency, na.rm = TRUE), 3)
-  max_freq <- round(max(plot_data$claim_frequency, na.rm = TRUE), 3)
-  
-  leftwhisk_freq <- round(
-    quantile(plot_data$claim_frequency, probs = .25, na.rm = TRUE) -
-      1.5 * IQR(plot_data$claim_frequency, na.rm = TRUE),
-    3
+  leftwhisk_value <- round(
+    quantile(plot_data$log_total_incurred, probs = .25, na.rm = TRUE) -
+      1.5 * IQR(plot_data$log_total_incurred, na.rm = TRUE),
+    2
   )
   
-  hist_freq <- ggplot(plot_data, aes(x = claim_frequency)) +
+  x_upper <- quantile(data$log_total_incurred, 0.99, na.rm = TRUE)
+  
+  hist_plot <-
+    ggplot(plot_data, aes(x = log_total_incurred)) +
     geom_histogram(
       bins = 25,
       color = "#f5f5f5",
@@ -1618,42 +1620,49 @@ plot_policy_claimfreq <- function(data, selected_policy, chart_title) {
       limits = c(0, x_upper)
     ) +
     geom_vline(
-      aes(xintercept = median_freq),
+      xintercept = median_value,
       colour = "#595DE5",
       linewidth = 0.7,
       linetype = "dashed"
     ) +
     annotate(
       geom = "text",
-      x = median_freq,
+      x = median_value,
       y = Inf,
-      label = paste0("Median = ", median_freq),
+      label = paste0("Median = ", median_value),
       color = "#595DE5",
       vjust = 2
     ) +
     geom_vline(
-      aes(xintercept = mean_freq),
+      xintercept = mean_value,
       colour = "#e0218a",
       linewidth = 0.7,
       linetype = "dashed"
     ) +
     annotate(
       geom = "text",
-      x = mean_freq,
+      x = mean_value,
       y = Inf,
-      label = paste0("Mean = ", mean_freq),
+      label = paste0("Mean = ", mean_value),
       color = "#e0218a",
       vjust = 4
     ) +
-    labs(x = NULL, y = NULL) +
+    labs(
+      x = "Log(1 + Total Incurred)",
+      y = NULL
+    ) +
     theme_minimal() +
     theme(
       axis.text.y = element_blank(),
       panel.grid.major = element_blank(),
-      plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5")
+      plot.background = element_rect(
+        fill = "#f5f5f5",
+        colour = "#f5f5f5"
+      )
     )
   
-  box_freq <- ggplot(plot_data, aes(y = claim_frequency, x = "")) +
+  box_plot <-
+    ggplot(plot_data, aes(y = log_total_incurred, x = "")) +
     geom_boxplot(
       fill = "#c7c8cc",
       outlier.colour = "#d18a7d",
@@ -1671,22 +1680,22 @@ plot_policy_claimfreq <- function(data, selected_policy, chart_title) {
     annotate(
       geom = "text",
       x = 0.5,
-      y = min_freq,
-      label = paste0(min_freq),
+      y = min_value,
+      label = paste0(min_value),
       color = "#d18a7d"
     ) +
     annotate(
       geom = "text",
       x = 0.5,
-      y = leftwhisk_freq,
-      label = paste0(leftwhisk_freq),
+      y = leftwhisk_value,
+      label = paste0(leftwhisk_value),
       color = "#34414E"
     ) +
     annotate(
       geom = "text",
       x = 0.5,
-      y = max_freq,
-      label = paste0(max_freq),
+      y = max_value,
+      label = paste0(max_value),
       color = "#34414E"
     ) +
     labs(
@@ -1706,66 +1715,92 @@ plot_policy_claimfreq <- function(data, selected_policy, chart_title) {
       axis.text = element_blank(),
       axis.ticks = element_blank(),
       panel.grid.major = element_blank(),
-      plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5")
+      plot.background = element_rect(
+        fill = "#f5f5f5",
+        colour = "#f5f5f5"
+      )
     )
   
-  hbox_freq <- (box_freq / hist_freq) +
+  hbox_plot <-
+    (box_plot / hist_plot) +
     plot_layout(heights = c(1, 3.5))
   
-  hbox_freq & 
-    theme(plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5"))
+  hbox_plot &
+    theme(
+      plot.background = element_rect(
+        fill = "#f5f5f5",
+        colour = "#f5f5f5"
+      )
+    )
 }
 ```
+
+::: panel-tabset
 
 ### Third-party
 
 ```{r}
-plot_policy_claimfreq(
+plot_policy_incurred(
   motor_feature,
   "Third-party",
-  "Distribution of Claim Frequency for Third-party Policies"
+  "Distribution of Log Total Incurred for Third-party Policies"
 )
 ```
 
 ### Third-party + Glass
 
 ```{r}
-plot_policy_claimfreq(
+plot_policy_incurred(
   motor_feature,
   "Third-party + Glass",
-  "Distribution of Claim Frequency for Third-party + Glass Policies"
+  "Distribution of Log Total Incurred for Third-party + Glass Policies"
 )
 ```
 
 ### Combined Coverage
 
 ```{r}
-plot_policy_claimfreq(
+plot_policy_incurred(
   motor_feature,
   "Combined Coverage",
-  "Distribution of Claim Frequency for Combined Coverage Policies"
+  "Distribution of Log Total Incurred for Combined Coverage Policies"
 )
 ```
 
 ### Comprehensive with Excess
 
 ```{r}
-plot_policy_claimfreq(
+plot_policy_incurred(
   motor_feature,
   "Comprehensive with Excess",
-  "Distribution of Claim Frequency for Comprehensive with Excess Policies"
+  "Distribution of Log Total Incurred for Comprehensive with Excess Policies"
 )
 ```
 
 ### Comprehensive without Excess
 
 ```{r}
-plot_policy_claimfreq(
+plot_policy_incurred(
   motor_feature,
   "Comprehensive without Excess",
-  "Distribution of Claim Frequency for Comprehensive without Excess Policies"
+  "Distribution of Log Total Incurred for Comprehensive without Excess Policies"
 )
 ```
+
+:::
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+- The distribution of incurred claim cost remains right-skewed across policy types, even after logarithmic transformation.
+
+- Most policies are concentrated at the lower end of incurred cost, indicating that many policyholders recorded no or low claim amounts.
+
+- The mean values are generally higher than the median values, suggesting that a smaller group of higher-cost claims pulls the average upward.
+
+- Comprehensive policy products appear to show wider spread and more extreme observations, indicating greater claim cost variability.
+
+- This suggests that policy type is an important factor to consider when analysing claim cost risk and portfolio profitability.
 
 :::
 
