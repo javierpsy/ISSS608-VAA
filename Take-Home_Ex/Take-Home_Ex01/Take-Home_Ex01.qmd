@@ -1000,8 +1000,24 @@ premium_plot <- ggplot(
     hjust = 0,
     size = 4
   ) +
+  annotate(
+    "text",
+    x = premium_median,
+    y = -0.18,
+    label = scales::comma(
+      round(premium_median,0)
+    ),
+    colour = "#595DE5",
+    vjust = 1,
+    size = 3.5
+  ) +
   scale_x_log10(
     labels = scales::comma
+  ) +
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.12, 0.05)
+    )
   ) +
   labs(
     title = "Premium Distribution Across Policies",
@@ -1032,7 +1048,7 @@ premium_plot
 
 -   Premium values exhibit a positively skewed distribution, where most policies are concentrated within lower-to-moderate premium ranges while fewer policies possess substantially larger premiums.
 
--   The red vertical line represents the median premium level and serves as a reference for the typical pricing point within the insurance portfolio.
+-   The blue vertical line represents the median premium level and serves as a reference for the typical pricing point within the insurance portfolio.
 
 -   The prominent peak in the density curve indicates the premium range where policies are most highly concentrated, suggesting a common pricing level among insured customers.
 
@@ -1170,7 +1186,6 @@ driver_age_plot
 -   This pattern suggests that the portfolio is largely composed of mature and experienced drivers, which may indicate differing risk characteristics compared to portfolios dominated by younger drivers.
 
 :::
-:::
 
 ### 4.2.2 Driving Experience Profile
 
@@ -1179,6 +1194,9 @@ Driving experience offers extra insights beyond age alone, as drivers of the sam
 The chart below explores the comprehensive experience profile of policyholders within the insurance portfolio.
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 6
+
 motor_feature <-
   motor_feature |>
   mutate(
@@ -1192,6 +1210,25 @@ motor_feature <-
           "Highly experienced"
         )
       )
+  )
+
+driving_exp_mean_data <-
+  motor_feature |>
+  group_by(
+    driving_experience_group
+  ) |>
+  summarise(
+    mean_exp = mean(
+      driving_experience,
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) |>
+  mutate(
+    label = paste0(
+      "Mean = ",
+      round(mean_exp, 1)
+    )
   )
 
 driving_exp_plot <-
@@ -1210,10 +1247,19 @@ driving_exp_plot <-
     width = 0.45
   ) +
   stat_summary(
-    geom = "point",
     fun = mean,
+    geom = "point",
     colour = "#e0218a",
     size = 3
+  ) +
+  geom_text(
+    data = driving_exp_mean_data,
+    aes(
+      y = mean_exp + 3,
+      label = label
+    ),
+    colour = "#e0218a",
+    size = 3.2
   ) +
   labs(
     title = "Driving Experience Profile",
@@ -1529,577 +1575,200 @@ element_blank()
 vehicle_value_segment_plot
 ```
 
-## 4.4 Hidden Risk Indicators
+## 4.4 Target Variable: Claim Frequency by Policy Type
 
-Finally, engineered indicators were examined to uncover portfolio patterns that are not directly observable from the original variables. Unlike raw claim counts, these derived indicators provide a more meaningful view of claim behaviour, claim size, and portfolio loss performance.
+When exploring motor insurance data, one of the first steps is to examine the distribution of claim frequency. Claim frequency is used because it measures how often claims occur relative to the policy exposure period.
 
-Similar to the statistical distribution approach used earlier, each tab combines a boxplot and histogram. The boxplot highlights the spread, central tendency, and possible outliers, while the histogram shows the frequency distribution and skewness of each engineered indicator.
+The axis limits are kept consistent across policy types to allow fair comparison when navigating between tabs.
 
 ::: panel-tabset
 
-### Claim Frequency
-
-Claim frequency measures the number of claims relative to policy exposure. This helps identify whether claims are broadly distributed across the portfolio or concentrated among a smaller subset of policies.
-
 ```{r}
-claim_frequency_data <-
-
-  motor_feature |>
-
-  filter(
-    !is.na(claim_frequency),
-    claim_frequency >= 0,
-    claim_frequency <= quantile(
-      claim_frequency,
-      0.99,
-      na.rm = TRUE
+plot_policy_claimfreq <- function(data, selected_policy, chart_title) {
+  
+  plot_data <- data |>
+    filter(
+      policy_type == selected_policy,
+      !is.na(claim_frequency),
+      is.finite(claim_frequency),
+      claim_frequency >= 0
     )
+  
+  x_upper <- quantile(data$claim_frequency, 0.99, na.rm = TRUE)
+  
+  mean_freq <- round(mean(plot_data$claim_frequency, na.rm = TRUE), 3)
+  median_freq <- round(median(plot_data$claim_frequency, na.rm = TRUE), 3)
+  min_freq <- round(min(plot_data$claim_frequency, na.rm = TRUE), 3)
+  max_freq <- round(max(plot_data$claim_frequency, na.rm = TRUE), 3)
+  
+  leftwhisk_freq <- round(
+    quantile(plot_data$claim_frequency, probs = .25, na.rm = TRUE) -
+      1.5 * IQR(plot_data$claim_frequency, na.rm = TRUE),
+    3
   )
-
-
-mean_claim_frequency <-
-
-  round(
-    mean(
-      claim_frequency_data$claim_frequency,
-      na.rm = TRUE
-    ),
-    2
-  )
-
-
-median_claim_frequency <-
-
-  round(
-    median(
-      claim_frequency_data$claim_frequency,
-      na.rm = TRUE
-    ),
-    2
-  )
-
-
-hist_claim_frequency <-
-
-  ggplot(
-    claim_frequency_data,
-    aes(
-      x = claim_frequency
+  
+  hist_freq <- ggplot(plot_data, aes(x = claim_frequency)) +
+    geom_histogram(
+      bins = 25,
+      color = "#f5f5f5",
+      fill = "#c7c8cc"
+    ) +
+    scale_x_continuous(
+      breaks = scales::pretty_breaks(n = 5),
+      limits = c(0, x_upper)
+    ) +
+    geom_vline(
+      aes(xintercept = median_freq),
+      colour = "#595DE5",
+      linewidth = 0.7,
+      linetype = "dashed"
+    ) +
+    annotate(
+      geom = "text",
+      x = median_freq,
+      y = Inf,
+      label = paste0("Median = ", median_freq),
+      color = "#595DE5",
+      vjust = 2
+    ) +
+    geom_vline(
+      aes(xintercept = mean_freq),
+      colour = "#e0218a",
+      linewidth = 0.7,
+      linetype = "dashed"
+    ) +
+    annotate(
+      geom = "text",
+      x = mean_freq,
+      y = Inf,
+      label = paste0("Mean = ", mean_freq),
+      color = "#e0218a",
+      vjust = 4
+    ) +
+    labs(x = NULL, y = NULL) +
+    theme_minimal() +
+    theme(
+      axis.text.y = element_blank(),
+      panel.grid.major = element_blank(),
+      plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5")
     )
-  ) +
-
-  geom_histogram(
-    bins = 30,
-    colour = "#f5f5f5",
-    fill = "#c7c8cc"
-  ) +
-
-  geom_vline(
-    xintercept = median_claim_frequency,
-    colour = "#595DE5",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  geom_vline(
-    xintercept = mean_claim_frequency,
-    colour = "#e0218a",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  annotate(
-    "text",
-    x = median_claim_frequency,
-    y = Inf,
-    label = paste0(
-      "Median = ",
-      median_claim_frequency
-    ),
-    colour = "#595DE5",
-    vjust = 2,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  annotate(
-    "text",
-    x = mean_claim_frequency,
-    y = Inf,
-    label = paste0(
-      "Mean = ",
-      mean_claim_frequency
-    ),
-    colour = "#e0218a",
-    vjust = 4,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  labs(
-    x = "Claim Frequency",
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_claim_frequency <-
-
-  ggplot(
-    claim_frequency_data,
-    aes(
-      y = claim_frequency,
+  
+  box_freq <- ggplot(plot_data, aes(y = claim_frequency, x = "")) +
+    geom_boxplot(
+      fill = "#c7c8cc",
+      outlier.colour = "#d18a7d",
+      outlier.shape = 16,
+      outlier.size = 1,
+      notch = FALSE
+    ) +
+    stat_summary(
+      geom = "point",
+      fun = mean,
+      colour = "#e0218a",
+      size = 4
+    ) +
+    coord_flip() +
+    annotate(
+      geom = "text",
+      x = 0.5,
+      y = min_freq,
+      label = paste0(min_freq),
+      color = "#d18a7d"
+    ) +
+    annotate(
+      geom = "text",
+      x = 0.5,
+      y = leftwhisk_freq,
+      label = paste0(leftwhisk_freq),
+      color = "#34414E"
+    ) +
+    annotate(
+      geom = "text",
+      x = 0.5,
+      y = max_freq,
+      label = paste0(max_freq),
+      color = "#34414E"
+    ) +
+    labs(
+      title = chart_title,
+      y = "",
       x = ""
+    ) +
+    scale_y_continuous(
+      limits = c(0, x_upper)
+    ) +
+    stat_boxplot(
+      geom = "errorbar",
+      width = 0.5
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid.major = element_blank(),
+      plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5")
     )
-  ) +
-
-  geom_boxplot(
-    fill = "#c7c8cc",
-    outlier.colour = "#d18a7d",
-    outlier.shape = 16,
-    outlier.size = 1
-  ) +
-
-  stat_summary(
-    geom = "point",
-    fun = mean,
-    colour = "#e0218a",
-    size = 3
-  ) +
-
-  coord_flip() +
-
-  labs(
-    title = "Distribution of Claim Frequency",
-    x = NULL,
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_claim_frequency / hist_claim_frequency +
-  plot_layout(
-    heights = c(
-      1,
-      3.5
-    )
-  )
+  
+  hbox_freq <- (box_freq / hist_freq) +
+    plot_layout(heights = c(1, 3.5))
+  
+  hbox_freq & 
+    theme(plot.background = element_rect(fill = "#f5f5f5", colour = "#f5f5f5"))
+}
 ```
 
-### Claim Severity
-
-Claim severity measures the average incurred amount per claim. This indicator is useful because two policies may have the same claim frequency but very different financial impact depending on the size of the claims.
+### Third-party
 
 ```{r}
-claim_severity_data <-
-
-  motor_feature |>
-
-  filter(
-    !is.na(claim_severity),
-    claim_severity > 0,
-    claim_severity <= quantile(
-      claim_severity,
-      0.99,
-      na.rm = TRUE
-    )
-  )
-
-
-mean_claim_severity <-
-
-  round(
-    mean(
-      claim_severity_data$claim_severity,
-      na.rm = TRUE
-    ),
-    0
-  )
-
-
-median_claim_severity <-
-
-  round(
-    median(
-      claim_severity_data$claim_severity,
-      na.rm = TRUE
-    ),
-    0
-  )
-
-
-hist_claim_severity <-
-
-  ggplot(
-    claim_severity_data,
-    aes(
-      x = claim_severity
-    )
-  ) +
-
-  geom_histogram(
-    bins = 30,
-    colour = "#f5f5f5",
-    fill = "#c7c8cc"
-  ) +
-
-  geom_vline(
-    xintercept = median_claim_severity,
-    colour = "#595DE5",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  geom_vline(
-    xintercept = mean_claim_severity,
-    colour = "#e0218a",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  annotate(
-    "text",
-    x = median_claim_severity,
-    y = Inf,
-    label = paste0(
-      "Median = ",
-      scales::comma(median_claim_severity)
-    ),
-    colour = "#595DE5",
-    vjust = 2,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  annotate(
-    "text",
-    x = mean_claim_severity,
-    y = Inf,
-    label = paste0(
-      "Mean = ",
-      scales::comma(mean_claim_severity)
-    ),
-    colour = "#e0218a",
-    vjust = 4,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  scale_x_continuous(
-    labels = scales::comma
-  ) +
-
-  labs(
-    x = "Claim Severity",
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_claim_severity <-
-
-  ggplot(
-    claim_severity_data,
-    aes(
-      y = claim_severity,
-      x = ""
-    )
-  ) +
-
-  geom_boxplot(
-    fill = "#c7c8cc",
-    outlier.colour = "#d18a7d",
-    outlier.shape = 16,
-    outlier.size = 1
-  ) +
-
-  stat_summary(
-    geom = "point",
-    fun = mean,
-    colour = "#e0218a",
-    size = 3
-  ) +
-
-  coord_flip() +
-
-  labs(
-    title = "Distribution of Claim Severity",
-    x = NULL,
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_claim_severity / hist_claim_severity +
-  plot_layout(
-    heights = c(
-      1,
-      3.5
-    )
-  )
+plot_policy_claimfreq(
+  motor_feature,
+  "Third-party",
+  "Distribution of Claim Frequency for Third-party Policies"
+)
 ```
 
-### Loss Ratio
-
-Loss ratio compares incurred losses against premium collected. This is an important insurance performance indicator because higher loss ratios may indicate policies where claims costs exceed or approach premium income.
+### Third-party + Glass
 
 ```{r}
-loss_ratio_data <-
+plot_policy_claimfreq(
+  motor_feature,
+  "Third-party + Glass",
+  "Distribution of Claim Frequency for Third-party + Glass Policies"
+)
+```
 
-  motor_feature |>
+### Combined Coverage
 
-  filter(
-    !is.na(loss_ratio),
-    loss_ratio >= 0,
-    loss_ratio <= quantile(
-      loss_ratio,
-      0.99,
-      na.rm = TRUE
-    )
-  )
+```{r}
+plot_policy_claimfreq(
+  motor_feature,
+  "Combined Coverage",
+  "Distribution of Claim Frequency for Combined Coverage Policies"
+)
+```
 
+### Comprehensive with Excess
 
-mean_loss_ratio <-
+```{r}
+plot_policy_claimfreq(
+  motor_feature,
+  "Comprehensive with Excess",
+  "Distribution of Claim Frequency for Comprehensive with Excess Policies"
+)
+```
 
-  round(
-    mean(
-      loss_ratio_data$loss_ratio,
-      na.rm = TRUE
-    ),
-    2
-  )
+### Comprehensive without Excess
 
-
-median_loss_ratio <-
-
-  round(
-    median(
-      loss_ratio_data$loss_ratio,
-      na.rm = TRUE
-    ),
-    2
-  )
-
-
-hist_loss_ratio <-
-
-  ggplot(
-    loss_ratio_data,
-    aes(
-      x = loss_ratio
-    )
-  ) +
-
-  geom_histogram(
-    bins = 30,
-    colour = "#f5f5f5",
-    fill = "#c7c8cc"
-  ) +
-
-  geom_vline(
-    xintercept = median_loss_ratio,
-    colour = "#595DE5",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  geom_vline(
-    xintercept = mean_loss_ratio,
-    colour = "#e0218a",
-    linewidth = 0.7,
-    linetype = "dashed"
-  ) +
-
-  annotate(
-    "text",
-    x = median_loss_ratio,
-    y = Inf,
-    label = paste0(
-      "Median = ",
-      median_loss_ratio
-    ),
-    colour = "#595DE5",
-    vjust = 2,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  annotate(
-    "text",
-    x = mean_loss_ratio,
-    y = Inf,
-    label = paste0(
-      "Mean = ",
-      mean_loss_ratio
-    ),
-    colour = "#e0218a",
-    vjust = 4,
-    hjust = -0.05,
-    size = 3.2
-  ) +
-
-  labs(
-    x = "Loss Ratio",
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_loss_ratio <-
-
-  ggplot(
-    loss_ratio_data,
-    aes(
-      y = loss_ratio,
-      x = ""
-    )
-  ) +
-
-  geom_boxplot(
-    fill = "#c7c8cc",
-    outlier.colour = "#d18a7d",
-    outlier.shape = 16,
-    outlier.size = 1
-  ) +
-
-  stat_summary(
-    geom = "point",
-    fun = mean,
-    colour = "#e0218a",
-    size = 3
-  ) +
-
-  coord_flip() +
-
-  labs(
-    title = "Distribution of Loss Ratio",
-    x = NULL,
-    y = NULL
-  ) +
-
-  theme_minimal() +
-
-  theme(
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    )
-  )
-
-
-box_loss_ratio / hist_loss_ratio +
-  plot_layout(
-    heights = c(
-      1,
-      3.5
-    )
-  )
+```{r}
+plot_policy_claimfreq(
+  motor_feature,
+  "Comprehensive without Excess",
+  "Distribution of Claim Frequency for Comprehensive without Excess Policies"
+)
 ```
 
 :::
 
-::: callout-note
-## ![](images/Observation.png){width="31"} Observations
-
-- Claim frequency, claim severity, and loss ratio are strongly right-skewed, indicating that most policies generate low claim activity or limited financial loss while a smaller subset contributes higher risk outcomes.
-
-- The comparison between mean and median values helps reveal skewness. When the mean is greater than the median, it suggests that extreme observations are pulling the average upward.
-
-- Claim severity provides insight into the financial magnitude of claims, while claim frequency focuses on how often claims occur. Both indicators are needed to understand portfolio risk.
-
-- Loss ratio links claims back to premium income and provides a more direct view of whether policy losses are proportionate to the premiums collected.
-
-- These engineered risk indicators provide a strong foundation for subsequent bivariate analysis, where claim and loss behaviour can be compared across customer, vehicle, and policy characteristics.
-
-:::
 
 
 
