@@ -29,9 +29,10 @@ In this take-home exercise, **tidyverse family packages** for data preprocessing
 The objectives of this study are:
 
 -   to analyze the distributions of portfolio factors like premiums, claims, incurred losses, exposure, and policyholder characteristics;
--   to investigate relationships among customer, vehicle, and policy attributes with insurance results;
+-   to investigate relationships among customer, vehicle, and policy attributes with claim behaviour, profitability, and portfolio risk;
 -   to determine patterns linked to high-risk customer groups;
 -   to derive meaningful insights from the motor insurance portfolio data and provide analytical findings that may support insurance-related decision-making.
+-   to identify hidden patterns and volatility drivers that may support underwriting and pricing decisions.
 
 The analysis seeks to address the following analytical questions:
 
@@ -42,7 +43,7 @@ The analysis seeks to address the following analytical questions:
 
 # 2 **Data Preparation and Initial Exploration**
 
-This section gives readers understanding of the dataset before cleaning.
+This section introduces the motor insurance portfolio dataset and outlines the preprocessing, exploratory assessment, and data quality validation procedures performed prior to downstream visual analytics.
 
 ## 2.1 **Loading Packages**
 
@@ -55,6 +56,24 @@ pacman::p_load(tidyverse,tibble,knitr,kableExtra,janitor,skimr,naniar,patchwork,
 
 })
 ```
+
+### 2.1.1 Visual Analytics Libraries and Functions
+
+Beyond standard data wrangling packages, several specialised visual analytics libraries are used to enhance exploratory analysis and support deeper statistical interpretation of the motor insurance portfolio.
+
+The `ggplot2` package serves as the primary visualisation engine based on the Grammar of Graphics framework, enabling flexible layering and customisation of statistical graphics.
+
+The `ggridges` package is used extensively to construct ridgeline plots that compare the distributions of claim severity and risk behaviour across different policyholder and policy segments. Ridgeline visualisations are particularly useful for identifying concentration, skewness, and tail-risk patterns within insurance portfolios.
+
+The `ggdist` package is used to generate raincloud-style visualisations and distributional summaries. These plots combine density distributions, boxplots, and raw observations into a single integrated visual, allowing more comprehensive assessment of claim variability, volatility, and dispersion.
+
+The `ggpubr` package is used to enhance publication-quality graphical outputs and support the inclusion of statistical annotations such as correlation coefficients and confidence intervals.
+
+The `GGally`, `corrplot`, `ggcorrplot`, and `heatmaply` packages are used to examine relationships among numerical variables through correlation matrices and heatmaps. These tools assist in identifying potential multicollinearity and hidden relationships among portfolio variables.
+
+The `plotly` package is incorporated to support interactive visualisation capabilities, allowing enhanced exploration of portfolio behaviour and risk patterns.
+
+Collectively, these libraries support the objectives of visual analytics by combining statistical reasoning, exploratory visualisation, and interactive analysis to uncover hidden patterns within the motor insurance portfolio.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 packages <- tribble(
@@ -113,7 +132,7 @@ Before conducting data wrangling and analysis, an initial exploration of the dat
 
 ### Glimpse of Dataset
 
-The `glimpse()` function provides a concise overview of the dataset, including the number of observations, variables, data types, and sample values from each variable.
+The `glimpse()` function from the dplyr package is used to provide a compact overview of the dataset structure, including the number of observations, variables, data types, and representative sample values. Compared to traditional structure functions, `glimpse()` presents information in a more readable horizontal format that facilitates rapid exploratory assessment of large datasets.
 
 ```{r}
 
@@ -167,7 +186,7 @@ Following the initial exploration, a brief data quality validation was performed
 
 ### Duplicate Record Assessment
 
-Duplicate records can lead to bias and skew statistical results if unintentional observations are kept. Hence, a duplicate evaluation was conducted to ascertain if there are repeated entries present in the portfolio data.
+The `group_by_all()` and `filter()` functions are used to identify duplicated observations across all variables within the portfolio dataset. Duplicate assessments are vital in insurance analytics because unintended replicated records may distort exposure counts, claim frequencies, and profitability indicators.
 
 ```{r}
 
@@ -192,7 +211,7 @@ knitr::kable(
 
 ### Missing Value Assessment
 
-An analysis of missing values was conducted to pinpoint variables with incomplete observations that could affect future preprocessing and analytical choices.
+The `summarise()`, `across()`, and `pivot_longer()` functions from the tidyverse ecosystem are used to compute and restructure missing-value summaries across variables. This approach enables systematic identification of incomplete variables that may influence downstream preprocessing and analytical modelling.
 
 ```{r, echo=FALSE, fig.width=10, fig.height=6}
 
@@ -232,7 +251,7 @@ The original motor insurance dataset includes 47 variables covering various aspe
 
 **- Characteristics of policy and insured** **- Attributes of drivers and vehicles** **- Variables associated with premium** **- Exposure, claims, and incurred metrics**
 
-As the study focuses on understanding portfolio characteristics and insurance outcomes, not every variable was necessary for evaluation. Consequently, a subset of variables was **selected and extracted** according to their insurance relevance, analytical objectives, and suitability for supporting downstream visual analytics.
+As the study focuses on understanding portfolio characteristics and insurance outcomes, not every variable was necessary for evaluation. Therefore, a subset of variables was **selected and extracted** according to their insurance relevance, analytical objectives, and suitability for supporting downstream visual analytics.
 
 The selection of variables was done thoughtfully. Variables were kept if they contributed to at least one analytical goal, such as policy segmentation, customer and vehicle risk profiling, premium evaluation, claim frequency examination, claim severity evaluation, and exposure-adjusted interpretation.
 
@@ -242,6 +261,8 @@ According to the Swiss Re report on the evolving motor insurance landscape, key 
 selected_variables <- tibble(
 
 Group = c(
+  "Policy and insured",
+  "Policy and insured",
   "Policy and insured",
   "Policy and insured",
   "Policy and insured",
@@ -270,6 +291,8 @@ Variable = c(
 "insured_id",
 "year",
 "policy_type",
+"business_type",
+"payment_frequency",
 "bonus_score",
 
 "driver_age",
@@ -295,6 +318,8 @@ Type = c(
 
 "Identifier",
 "Numerical discrete",
+"Categorical unordered",
+"Categorical unordered",
 "Categorical unordered",
 "Categorical ordered",
 
@@ -322,6 +347,8 @@ Justification = c(
 "Unique policyholder identification",
 "Temporal trend analysis",
 "Policy segmentation",
+"Business origin indicator",
+"Premium payment behaviour indicator",
 "Claims history indicator",
 
 "Demographic risk characteristic",
@@ -351,7 +378,7 @@ caption="Selected variables and analytical justification"
 )
 ```
 
-The `select()` function from tidyverse was used to extract variables relevant to the analytical objectives and reduce unnecessary complexity from the original dataset.
+The `select()` function from the dplyr package was used to extract variables pertinent to the analytical goals and reduce dimensional complexity from the original dataset.Variable reduction plays a crucial role in exploratory visual analytics, as too many irrelevant variables can hide significant portfolio patterns and diminish clarity in subsequent analyses.
 
 ```{r}
 
@@ -360,6 +387,8 @@ select(
 insured_id,
 year,
 policy_type,
+business_type,
+payment_frequency,
 bonus_score,
 driver_age,
 age_driving_licence,
@@ -392,7 +421,7 @@ total_exposure
 
 ## 3.2 Handling Missing Value
 
-Based on the findings from 2.4 data quality assessment, missing observations were identified in a small number of selected variables. Since the missingness was concentrated rather than widespread across the dataset, targeted treatment approaches were adopted to preserve data completeness and minimise information loss.
+The `replace_na()` function from the tidyr package was used to tackle incomplete observations via specific imputation methods. Since the proportion of missingness was relatively small, simple and easily understandable methods were favored to maintain analytical consistency and reduce unnecessary loss of information.
 
 ```{r}
 missing_treatment <- tibble(
@@ -433,6 +462,8 @@ mutate(
 
 Several categorical variables in the motor insurance dataset are represented using abbreviated coding schemes. According to the data dictionary, these codes represent specific policy and customer characteristics. To improve interpretability and facilitate clearer visualisation, selected variables were recoded into more descriptive labels.
 
+The `recode()` function from the dplyr package was utilized to transform abbreviated coding schemes into clearer descriptive labels. Recoding enhances clarity and aids in more explicit interpretation during subsequent visualization and segmentation analysis.
+
 The following mappings were applied based on definitions provided in the accompanying motor insurance data dictionary:
 
 ::: panel-tabset
@@ -442,17 +473,33 @@ The following mappings were applied based on definitions provided in the accompa
 recode_tbl <- tibble(
 Variable = c(
 "policy_type","policy_type","policy_type","policy_type","policy_type",
+
+"business_type","business_type",
+
+"payment_frequency","payment_frequency","payment_frequency",
+
 "bonus_score","bonus_score","bonus_score",
+
 "fuel_type","fuel_type",
+
 "municipality_type","municipality_type","municipality_type",
+
 "circulation_area","circulation_area"
 ),
 
 Original_Value = c(
 "TP","TPG","CC","COMP_E","COMP_N",
+
+"NB","P",
+
+"A","S","Q",
+
 "G","N","B",
+
 "D","G",
+
 "I","C","IS",
+
 "U","R"
 ),
 
@@ -462,14 +509,25 @@ Recoded_Value = c(
 "Combined Coverage",
 "Comprehensive with Excess",
 "Comprehensive without Excess",
+
+"New business",
+"Portfolio",
+
+"Annual",
+"Semi-annual",
+"Quarterly",
+
 "Favourable history",
 "Neutral history",
 "Poor history",
+
 "Diesel",
 "Gasoline",
+
 "Inland",
 "Coastal",
 "Islands",
+
 "Urban",
 "Rural"
 )
@@ -477,7 +535,7 @@ Recoded_Value = c(
 
 knitr::kable(
 recode_tbl,
-caption = "Recoding scheme based on the motor insurance data dictionary"
+caption="Recoding scheme based on the motor insurance data dictionary"
 )
 ```
 
@@ -486,6 +544,7 @@ caption = "Recoding scheme based on the motor insurance data dictionary"
 ```{r}
 motor_recode <- motor_impute |>
 mutate(
+
 policy_type = recode(
 policy_type,
 "TP" = "Third-party",
@@ -493,6 +552,20 @@ policy_type,
 "CC" = "Combined Coverage",
 "COMP_E" = "Comprehensive with Excess",
 "COMP_N" = "Comprehensive without Excess"
+),
+
+business_type = recode(
+business_type,
+"NB" = "New business",
+"P" = "Portfolio"
+),
+
+payment_frequency = recode(
+payment_frequency,
+"A" = "Annual",
+"S" = "Semi-annual",
+"Q" = "Quarterly",
+.default = as.character(payment_frequency)
 ),
 
 bonus_score = recode(
@@ -531,6 +604,8 @@ Using more detailed labels decreases ambiguity and promotes clearer understandin
 
 Following recoding, selected variables were converted into appropriate data representations to support downstream visual analysis. Variables intended for grouping and segmentation were transformed into categorical forms, while variables possessing natural progression were represented using ordered categories.
 
+The `factor()` function was utilized to transform chosen variables into categorical formats appropriate for grouping, segmentation, and comparative visualization. Ordered categorical encoding was also utilized for variables with a natural order, allowing for better interpretation in subsequent analysis.
+
 ::: panel-tabset
 ### Conversion Summary
 
@@ -538,25 +613,32 @@ Following recoding, selected variables were converted into appropriate data repr
 conversion_summary <- tibble(
   Variable = c(
     "policy_type",
+    "business_type",
+    "payment_frequency",
     "bonus_score",
     "fuel_type",
     "municipality_type",
     "circulation_area"
-  ),
-  Before_Conversion = c(
+),
+    Before_Conversion = c(
+    "Character",
+    "Character",
     "Character",
     "Character",
     "Character",
     "Character",
     "Character"
-  ),
-  After_Conversion = c(
+    ),
+    
+    After_Conversion = c(
+    "Categorical",
+    "Categorical",
     "Categorical",
     "Ordered categorical",
     "Categorical",
     "Categorical",
     "Categorical"
-  )
+    )
 )
 
 knitr::kable(
@@ -573,6 +655,8 @@ The following code was applied to transform selected variables into their corres
 motor_convert <- motor_recode |>
   mutate(
     policy_type = factor(policy_type),
+    business_type = factor(business_type),
+    payment_frequency = factor(payment_frequency),
     fuel_type = factor(fuel_type),
     municipality_type = factor(municipality_type),
     circulation_area = factor(circulation_area),
@@ -595,6 +679,8 @@ The resulting variable structures were subsequently reviewed to verify that the 
 motor_convert |>
   select(
     policy_type,
+    business_type,
+    payment_frequency,
     bonus_score,
     fuel_type,
     municipality_type,
@@ -607,7 +693,7 @@ motor_convert |>
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Findings
 
--   `policy_type`, `fuel_type`, `municipality_type`, and `circulation_area` were converted into categorical representations to facilitate grouping and segmentation.
+-   `policy_type`, `business_type`, `payment_frequency`, `fuel_type`, `municipality_type`, and `circulation_area` were converted into categorical representations to facilitate grouping and segmentation.
 
 -   `bonus_score` was represented as an ordered category because it reflects progression associated with claims and driving history.
 
@@ -625,7 +711,7 @@ The `mutate()`, `case_when()`, and `cut()` functions from the dplyr package were
 ::: panel-tabset
 ### Driving Profile
 
-Variables related to driving were created to estimate the experiences of policyholders and categorize drivers into wider experience groups for segmentation analysis.
+Variables related to driving behaviour were created to estimate policyholder experience and support segmentation analysis across broader driving profiles. Driver-related and vehicle-related features were engineered because prior motor insurance pricing research suggests that driving behaviour and risk characteristics can improve claim frequency modelling and support more refined insurance pricing ([Verbelen et al., 2016](https://doi.org/10.1111/rssc.12283)).
 
 ```{r}
 motor_feature <- motor_convert |>
@@ -646,7 +732,7 @@ motor_feature <- motor_convert |>
 
 ### Insurance Indicators
 
-Exposure-adjusted indicators were created to offer a more accurate depiction of claims and portfolio performance beyond simple counts and financial figures.
+Exposure-adjusted indicators were created to offer a more accurate depiction of claims and portfolio performance beyond simple counts and financial figures. Claim frequency, claim severity, and loss ratio were engineered because claim frequency and severity are widely used in motor insurance analytics to support underwriting, ratemaking and portfolio risk assessment ([Clemente et al., 2023](https://doi.org/10.3390/risks11090163)).
 
 ```{r}
 motor_feature <- motor_feature |>
@@ -801,7 +887,7 @@ The following visualisations examine claim occurrence and loss-related behaviour
 
 ### 4.1.1 Claim Status Composition
 
-Bar charts are useful for representing the frequency of categorical variables because they allow differences across groups to be identified easily. Direct labels are included to improve readability and reduce the need for readers to estimate values from axis scales.
+Bar charts are effective for comparing categorical frequencies because they allow differences across groups to be perceived quickly and clearly through length-based visual encoding ([Beyond ggplot2 Fundamentals – R for Visual Analytics](https://r4va.netlify.app/chap02)). 
 
 The chart below examines whether the portfolio is dominated by policies with reported claims or by claim-free policies.
 
@@ -840,9 +926,9 @@ ggplot(
 aes(
 
 x=
-reorder(
-claim_status,
-n
+  reorder(
+  claim_status,
+  n
 ),
 
 y=n
@@ -853,18 +939,18 @@ y=n
 
 geom_col(
 
-width=.6,
-
-fill="#c7c8cc",
-
-color="#f5f5f5"
+  width=.6,
+  
+  fill="#c7c8cc",
+  
+  color="#f5f5f5"
 
 )+
 
 geom_text(
 
 aes(
-label=label
+  label=label
 ),
 
 hjust=-0.1,
@@ -878,13 +964,13 @@ coord_flip()+
 scale_y_continuous(
 
 labels=
-scales::comma,
+  scales::comma,
 
 expand=
-expansion(
-mult=c(
-0,
-0.15
+  expansion(
+  mult=c(
+  0,
+  0.15
 )
 )
 
@@ -893,15 +979,15 @@ mult=c(
 labs(
 
 title=
-"Most Policies Did Not Report Claims",
+  "Most Policies Did Not Report Claims",
 
 subtitle=
-"Claim status composition across the motor insurance portfolio",
+  "Claim status composition across the motor insurance portfolio",
 
 x=NULL,
 
 y=
-"Number of Policies"
+  "Number of Policies"
 
 )+
 
@@ -912,29 +998,27 @@ theme(
 legend.position="none",
 
 panel.grid.major=
-element_blank(),
+  element_blank(),
 
 panel.grid.minor=
-element_blank(),
+  element_blank(),
 
 plot.background=
-element_rect(
-
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 
 ),
 
 panel.background=
-element_rect(
-
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 
 ),
 
 axis.ticks=
-element_blank()
+  element_blank()
 
 )
 
@@ -944,21 +1028,28 @@ claim_status_plot
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   The portfolio primarily consists of **no-claim policies**, with **303,333 policies (85.7%)** indicating no claims.
+-   The portfolio primarily consists of **no-claim policies**, with **303,333 policies (85.7%)** indicating no claims. This pattern is consistent with motor insurance portfolios where claim occurrences are typically concentrated within a relatively small subset of insured customers.
 
--   Only **50,807 policies (14.3%)** filed claims, showing that claim occurrences are focused on a limited group of policyholders.
+-   Only **50,807 policies (14.3%)** filed claims, indicating that claim activity is concentrated among a minority of policyholders rather than being evenly distributed across the portfolio.
 
--   This underscores the necessity of examining claim frequency and loss ratio independently, as mere raw claim totals might obscure variations in claim severity and financial implications.
+-   Despite representing a relatively small proportion of policies, customers who report claims can still lead to significant portfolio losses if the severity of claims is considerable. As a result, claim frequency by itself may not completely account for portfolio profitability or financial risk.
+
+-   The distribution also suggests potential zero-inflation behaviour commonly observed in insurance claim datasets, where numerous policies report no claims, while a smaller portion yields positive claim results.
+
+-   Future research should explore if incurred losses and loss ratios are equally concentrated among claim-reporting policyholders, as declines in profitability may stem from either frequent low-cost claims or rare high-severity claims.
 
 :::
 
 ### 4.1.2 Premium Distribution Across Policies
 
-Histograms paired with density curves enable the simultaneous examination of frequency patterns and the shapes of overall distributions. Density overlays assist in visualizing areas of concentration and uncovering skewness or long-tail characteristics. A logarithmic scale was utilized due to the significant variation in premium values among policies.
+Histograms combined with density curves are commonly used in statistical graphics to examine distribution shape, skewness, concentration, and long-tail behaviour([Programming Interactive Data Visualisation With R – R for Visual Analytics](https://r4va.netlify.app/chap03). Logarithmic scaling was additionally applied because financial variables in insurance portfolios commonly exhibit right-skewed distributions.
 
 The chart below examines if lower-premium policies dominate the portfolio or if there is significant variability in policy pricing.
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 6
+#| 
 premium_data <- motor_feature |>
   filter(
     !is.na(total_premium),
@@ -970,10 +1061,12 @@ premium_median <- median(
   na.rm = TRUE
 )
 
-premium_plot <- ggplot(
-  premium_data,
-  aes(x = total_premium)
-) +
+premium_plot <- 
+  ggplot(
+    premium_data,
+    aes(x = total_premium)
+  ) +
+  
   geom_histogram(
     aes(y = after_stat(density)),
     bins = 40,
@@ -981,63 +1074,70 @@ premium_plot <- ggplot(
     colour = "#f5f5f5",
     alpha = 0.9
   ) +
+  
   geom_density(
     colour = "#34414E",
     linewidth = 1
   ) +
+  
   geom_vline(
     xintercept = premium_median,
     colour = "#595DE5",
     linewidth = 0.8,
     linetype = "dashed"
   ) +
+  
   annotate(
-    "text",
-    x = premium_median * 1.35,
-    y = 1.72,
-    label = "Median",
-    colour = "#595DE5",
-    hjust = 0,
-    size = 4
-  ) +
-  annotate(
-    "text",
-    x = premium_median,
-    y = -0.18,
-    label = scales::comma(
-      round(premium_median,0)
-    ),
-    colour = "#595DE5",
-    vjust = 1,
-    size = 3.5
+  "text",
+  x = premium_median * 1.08,
+  y = 0.12,
+  label = scales::comma(
+    round(premium_median,0)
+  ),
+  colour = "#595DE5",
+  hjust = 0,
+  size = 3.8
   ) +
   scale_x_log10(
     labels = scales::comma
   ) +
+  
   scale_y_continuous(
     expand = expansion(
-      mult = c(0.12, 0.05)
+      mult = c(0.05,0.08)
     )
   ) +
+  
   labs(
     title = "Premium Distribution Across Policies",
     subtitle = "Log scale applied because premium values are right-skewed",
     x = "Premium (Log Scale)",
     y = "Density"
   ) +
+  
   theme_minimal() +
+  
   theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    plot.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    panel.background = element_rect(
-      fill = "#f5f5f5",
-      colour = "#f5f5f5"
-    ),
-    axis.ticks = element_blank()
+    panel.grid.major =
+      element_blank(),
+    
+    panel.grid.minor =
+      element_blank(),
+    
+    plot.background =
+      element_rect(
+        fill="#f5f5f5",
+        colour="#f5f5f5"
+      ),
+    
+    panel.background =
+      element_rect(
+        fill="#f5f5f5",
+        colour="#f5f5f5"
+      ),
+    
+    axis.ticks =
+      element_blank()
   )
 
 premium_plot
@@ -1069,6 +1169,9 @@ Boxplots along with jittered observations offer insights into both summary stati
 The chart below examines the age distribution of insured drivers and emphasizes the occurrence of possible outlier age groups.
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 6
+
 driver_age_group_plot_data <-
 
   motor_feature |>
@@ -1248,13 +1351,16 @@ driving_exp_plot <-
   data = driving_exp_mean_data,
   aes(
     x = driving_experience_group,
-    y = mean_exp + 4,
+    y = mean_exp,
     label = label
   ),
   colour = "#e0218a",
   size = 3.2,
-  hjust = 0
-  ) +
+  position = position_nudge(x = 0.32),
+  hjust = 0,
+  vjust = 0.4
+) +
+coord_cartesian(clip = "off") +
   labs(
     title = "Driving Experience Profile",
     subtitle = "Boxplot with mean point across driving experience groups",
@@ -1308,6 +1414,9 @@ Treemaps offer a clear visualization of categorical composition by showing categ
 The chart below examines if insurance policies are focused on particular vehicle manufacturers.
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 6
+
 brand_data <-
 
 motor_feature |>
@@ -1346,34 +1455,34 @@ ggplot(
 brand_data,
 
 aes(
-area=n,
-fill=n,
-label=label
+  area=n,
+  fill=n,
+  label=label
 )
 
 )+
 
 treemapify::geom_treemap(
-colour="#f5f5f5",
-linewidth=.8
+  colour="#f5f5f5",
+  linewidth=.8
 )+
 
 treemapify::geom_treemap_text(
-place="centre",
-grow=TRUE,
-reflow=TRUE,
-colour="white",
-min.size=6
+  place="centre",
+  grow=TRUE,
+  reflow=TRUE,
+  colour="white",
+  min.size=6
 )+
 
 scale_fill_gradient(
-low="#d9d9d9",
-high="#5c5c5c"
+  low="#d9d9d9",
+  high="#5c5c5c"
 )+
 
 labs(
-title="Vehicle Brand Portfolio Structure",
-subtitle="Top 10 vehicle brands by portfolio share"
+  title="Vehicle Brand Portfolio Structure",
+  subtitle="Top 10 vehicle brands by portfolio share"
 )+
 
 theme_minimal()+
@@ -1383,15 +1492,15 @@ theme(
 legend.position="none",
 
 plot.background=
-element_rect(
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 ),
 
 panel.background=
-element_rect(
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 )
 
 )
@@ -1419,6 +1528,9 @@ Vehicle value distributions are typically characterized by skewness, with a limi
 The chart below examines if the portfolio mainly includes economy, standard, premium, or luxury vehicle categories.
 
 ```{r}
+#| fig-width: 12
+#| fig-height: 6
+
 motor_feature <-
   motor_feature |>
   mutate(
@@ -1443,16 +1555,16 @@ count(
 mutate(
 
 vehicle_value_segment =
-factor(
+  factor(
 
 vehicle_value_segment,
 
 levels=c(
-"Below 10k",
-"10k–29k",
-"30k–59k",
-"60k–99k",
-"100k and above"
+  "Below 10k",
+  "10k–29k",
+  "30k–59k",
+  "60k–99k",
+  "100k and above"
 )
 
 ),
@@ -1460,12 +1572,12 @@ levels=c(
 pct=n/sum(n),
 
 label=
-paste0(
-scales::comma(n),
-"\n",
-scales::percent(
-pct,
-accuracy=.1
+  paste0(
+  scales::comma(n),
+  "\n",
+  scales::percent(
+  pct,
+  accuracy=.1
 )
 )
 
@@ -1479,26 +1591,26 @@ ggplot(
 vehicle_value_segment_data,
 
 aes(
-x=vehicle_value_segment,
-y=n
+  x=vehicle_value_segment,
+  y=n
 )
 
 )+
 
 geom_col(
 
-width=.7,
-
-fill="#c7c8cc",
-
-color="#f5f5f5"
+  width=.7,
+  
+  fill="#c7c8cc",
+  
+  color="#f5f5f5"
 
 )+
 
 geom_text(
 
 aes(
-label=label
+  label=label
 ),
 
 vjust=-0.3,
@@ -1512,10 +1624,10 @@ scale_y_continuous(
 labels=scales::comma,
 
 expand=
-expansion(
-mult=c(
-0,
-0.15
+  expansion(
+  mult=c(
+  0,
+  0.15
 )
 )
 
@@ -1544,247 +1656,313 @@ theme(
 legend.position="none",
 
 panel.grid.major=
-element_blank(),
+  element_blank(),
 
 panel.grid.minor=
-element_blank(),
+  element_blank(),
 
 plot.background=
-element_rect(
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 ),
 
 panel.background=
-element_rect(
-fill="#f5f5f5",
-colour="#f5f5f5"
+  element_rect(
+  fill="#f5f5f5",
+  colour="#f5f5f5"
 ),
 
 axis.ticks=
-element_blank()
+  element_blank()
 
 )
 
 vehicle_value_segment_plot
 ```
 
-## 4.4 Claim Cost Distribution across Policy Types
+## 4.4 Insurance Risk and Profitability across Policy Types
 
-When exploring motor insurance data, one important target variable is the total incurred claim cost. This represents the total claim cost of each policy, including paid amounts and outstanding reserves.
+Following the assessment of policyholder and vehicle traits, the focus of the analysis now transitions to claims results and risk behaviors at the product level. Insurance products vary in their coverage frameworks and pricing methods, which can affect claim trends and the performance of the portfolio.
 
-However, insurance claim costs are usually highly right-skewed, where many policies have no claims while a small number of policies incur very large losses. Therefore, `log1p(total_incurred)` is used to improve readability while retaining zero-claim policies.
-
-The axis limits are kept consistent across policy types to allow fair comparison when navigating between tabs.
+Instead of only examining the distribution of claim cost, this section evaluates policy types through four essential insurance risk metrics:
 
 ```{r}
-motor_feature <-
+#| fig-width: 12
+#| fig-height: 6
+
+risk_summary <-
   motor_feature |>
   mutate(
-    log_total_incurred = log1p(total_incurred)
-  )
+    claim_flag = if_else(
+      total_claims > 0,
+      "Has Claim",
+      "No Claim"
+    )
+  ) |>
+  group_by(policy_type) |>
+  summarise(
+    total_policies = n(),
+    claim_rate = mean(claim_flag == "Has Claim", na.rm = TRUE),
+    avg_claim_cost = mean(total_incurred, na.rm = TRUE),
+    avg_premium = mean(total_premium, na.rm = TRUE),
+    loss_ratio = sum(total_incurred, na.rm = TRUE) /
+      sum(total_premium, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  arrange(desc(loss_ratio))
 
-plot_policy_incurred <- function(data, selected_policy, chart_title) {
-  
-  plot_data <-
-    data |>
-    filter(
-      policy_type == selected_policy,
-      !is.na(log_total_incurred),
-      is.finite(log_total_incurred),
-      log_total_incurred >= 0
-    )
-  
-  mean_value <- round(mean(plot_data$log_total_incurred, na.rm = TRUE), 2)
-  median_value <- round(median(plot_data$log_total_incurred, na.rm = TRUE), 2)
-  min_value <- round(min(plot_data$log_total_incurred, na.rm = TRUE), 2)
-  max_value <- round(max(plot_data$log_total_incurred, na.rm = TRUE), 2)
-  
-  leftwhisk_value <- round(
-    quantile(plot_data$log_total_incurred, probs = .25, na.rm = TRUE) -
-      1.5 * IQR(plot_data$log_total_incurred, na.rm = TRUE),
-    2
-  )
-  
-  x_upper <- quantile(data$log_total_incurred, 0.99, na.rm = TRUE)
-  
-  hist_plot <-
-    ggplot(plot_data, aes(x = log_total_incurred)) +
-    geom_histogram(
-      bins = 25,
-      color = "#f5f5f5",
-      fill = "#c7c8cc"
-    ) +
-    scale_x_continuous(
-      breaks = scales::pretty_breaks(n = 5),
-      limits = c(0, x_upper)
-    ) +
-    geom_vline(
-      xintercept = median_value,
-      colour = "#595DE5",
-      linewidth = 0.7,
-      linetype = "dashed"
-    ) +
-    annotate(
-      geom = "text",
-      x = median_value,
-      y = Inf,
-      label = paste0("Median = ", median_value),
-      color = "#595DE5",
-      vjust = 2
-    ) +
-    geom_vline(
-      xintercept = mean_value,
-      colour = "#e0218a",
-      linewidth = 0.7,
-      linetype = "dashed"
-    ) +
-    annotate(
-      geom = "text",
-      x = mean_value,
-      y = Inf,
-      label = paste0("Mean = ", mean_value),
-      color = "#e0218a",
-      vjust = 4
-    ) +
-    labs(
-      x = "Log(1 + Total Incurred)",
-      y = NULL
-    ) +
-    theme_minimal() +
-    theme(
-      axis.text.y = element_blank(),
-      panel.grid.major = element_blank(),
-      plot.background = element_rect(
-        fill = "#f5f5f5",
-        colour = "#f5f5f5"
-      )
-    )
-  
-  box_plot <-
-    ggplot(plot_data, aes(y = log_total_incurred, x = "")) +
-    geom_boxplot(
-      fill = "#c7c8cc",
-      outlier.colour = "#d18a7d",
-      outlier.shape = 16,
-      outlier.size = 1,
-      notch = FALSE
-    ) +
-    stat_summary(
-      geom = "point",
-      fun = mean,
-      colour = "#e0218a",
-      size = 4
-    ) +
-    coord_flip() +
-    annotate(
-      geom = "text",
-      x = 0.5,
-      y = min_value,
-      label = paste0(min_value),
-      color = "#d18a7d"
-    ) +
-    annotate(
-      geom = "text",
-      x = 0.5,
-      y = leftwhisk_value,
-      label = paste0(leftwhisk_value),
-      color = "#34414E"
-    ) +
-    annotate(
-      geom = "text",
-      x = 0.5,
-      y = max_value,
-      label = paste0(max_value),
-      color = "#34414E"
-    ) +
-    labs(
-      title = chart_title,
-      y = "",
-      x = ""
-    ) +
-    scale_y_continuous(
-      limits = c(0, x_upper)
-    ) +
-    stat_boxplot(
-      geom = "errorbar",
-      width = 0.5
-    ) +
-    theme_minimal() +
-    theme(
-      axis.text = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major = element_blank(),
-      plot.background = element_rect(
-        fill = "#f5f5f5",
-        colour = "#f5f5f5"
-      )
-    )
-  
-  hbox_plot <-
-    (box_plot / hist_plot) +
-    plot_layout(heights = c(1, 3.5))
-  
-  hbox_plot &
-    theme(
-      plot.background = element_rect(
-        fill = "#f5f5f5",
-        colour = "#f5f5f5"
-      )
-    )
-}
+knitr::kable(
+  risk_summary |>
+    mutate(
+      claim_rate = scales::percent(claim_rate, accuracy = 0.1),
+      loss_ratio = scales::percent(loss_ratio, accuracy = 0.1),
+      avg_claim_cost = round(avg_claim_cost, 0),
+      avg_premium = round(avg_premium, 0)
+    ) |>
+    rename(
+      `Policy Type` = policy_type,
+      `Total Policies` = total_policies,
+      `Claim Rate` = claim_rate,
+      `Average Claim Cost` = avg_claim_cost,
+      `Average Premium` = avg_premium,
+      `Loss Ratio` = loss_ratio
+    ),
+  caption = "Summary of claim indicators across policy types"
+)
+
 ```
 
 ::: panel-tabset
 
-### Third-party
+### Loss Ratio
 
 ```{r}
-plot_policy_incurred(
-  motor_feature,
-  "Third-party",
-  "Distribution of Log Total Incurred for Third-party Policies"
-)
+#| fig-width: 12
+#| fig-height: 6
+
+loss_ratio_plot <-
+  ggplot(
+    risk_summary,
+    aes(
+      x = reorder(policy_type, loss_ratio),
+      y = loss_ratio
+    )
+  ) +
+  geom_col(
+    fill = "#c7c8cc",
+    width = 0.6
+  ) +
+  geom_text(
+    aes(
+      label = scales::percent(
+        loss_ratio,
+        accuracy = 0.1
+      )
+    ),
+    hjust = -0.1,
+    colour = "#e0218a",
+    size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::percent,
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  labs(
+    title = "Loss Ratio across Policy Types",
+    subtitle = "Higher loss ratio indicates greater claim cost relative to premium collected",
+    x = "Policy Type",
+    y = "Loss Ratio"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
+
+loss_ratio_plot
 ```
 
-### Third-party + Glass
+### Claim Rate
 
 ```{r}
-plot_policy_incurred(
-  motor_feature,
-  "Third-party + Glass",
-  "Distribution of Log Total Incurred for Third-party + Glass Policies"
-)
+#| fig-width: 12
+#| fig-height: 6
+
+claim_rate_plot <-
+  ggplot(
+    risk_summary,
+    aes(
+      x = reorder(policy_type, claim_rate),
+      y = claim_rate
+    )
+  ) +
+  geom_col(
+    fill = "#c7c8cc",
+    width = 0.6
+  ) +
+  geom_text(
+    aes(
+      label = scales::percent(
+        claim_rate,
+        accuracy = 0.1
+      )
+    ),
+    hjust = -0.1,
+    colour = "#e0218a",
+    size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::percent,
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  labs(
+    title = "Claim Rate across Policy Types",
+    subtitle = "Percentage of policies with at least one claim",
+    x = "Policy Type",
+    y = "Claim Rate"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
+
+claim_rate_plot
 ```
 
-### Combined Coverage
+### Average Claim Cost
 
 ```{r}
-plot_policy_incurred(
-  motor_feature,
-  "Combined Coverage",
-  "Distribution of Log Total Incurred for Combined Coverage Policies"
-)
+#| fig-width: 12
+#| fig-height: 6
+
+avg_claim_plot <-
+  ggplot(
+    risk_summary,
+    aes(
+      x = reorder(policy_type, avg_claim_cost),
+      y = avg_claim_cost
+    )
+  ) +
+  geom_col(
+    fill = "#c7c8cc",
+    width = 0.6
+  ) +
+  geom_text(
+    aes(
+      label = scales::comma(
+        round(avg_claim_cost, 0)
+      )
+    ),
+    hjust = -0.1,
+    colour = "#e0218a",
+    size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  labs(
+    title = "Average Claim Cost across Policy Types",
+    subtitle = "Average total incurred claim cost per policy",
+    x = "Policy Type",
+    y = "Average Claim Cost"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
+
+avg_claim_plot
 ```
 
-### Comprehensive with Excess
+### Average Premium
 
 ```{r}
-plot_policy_incurred(
-  motor_feature,
-  "Comprehensive with Excess",
-  "Distribution of Log Total Incurred for Comprehensive with Excess Policies"
-)
-```
+#| fig-width: 12
+#| fig-height: 6
 
-### Comprehensive without Excess
+avg_premium_plot <-
+  ggplot(
+    risk_summary,
+    aes(
+      x = reorder(policy_type, avg_premium),
+      y = avg_premium
+    )
+  ) +
+  geom_col(
+    fill = "#c7c8cc",
+    width = 0.6
+  ) +
+  geom_text(
+    aes(
+      label = scales::comma(
+        round(avg_premium, 0)
+      )
+    ),
+    hjust = -0.1,
+    colour = "#e0218a",
+    size = 3.5
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::comma,
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  labs(
+    title = "Average Premium across Policy Types",
+    subtitle = "Average premium collected per policy",
+    x = "Policy Type",
+    y = "Average Premium"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank()
+  )
 
-```{r}
-plot_policy_incurred(
-  motor_feature,
-  "Comprehensive without Excess",
-  "Distribution of Log Total Incurred for Comprehensive without Excess Policies"
-)
+avg_premium_plot
 ```
 
 :::
@@ -1792,37 +1970,779 @@ plot_policy_incurred(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
-- The distribution of incurred claim cost remains right-skewed across policy types, even after logarithmic transformation.
+-   Comprehensive without Excess shows the highest claim rate (31.3%), average claim cost (600), and loss ratio (93.9%), indicating significantly greater portfolio risk.
 
-- Most policies are concentrated at the lower end of incurred cost, indicating that many policyholders recorded no or low claim amounts.
+-   Even with the highest premium rates, Comprehensive without Excess policies face claim expenses that nearly deplete all the premiums collected.
 
-- The mean values are generally higher than the median values, suggesting that a smaller group of higher-cost claims pulls the average upward.
+-   Policies from third parties show reduced claim frequency and severity, leading to the lowest recorded loss ratio.
 
-- Comprehensive policy products appear to show wider spread and more extreme observations, indicating greater claim cost variability.
+-   Analyzing Comprehensive products indicates that adding policy excess might deter minor claims and lower overall claim activity.
 
-- This suggests that policy type is an important factor to consider when analysing claim cost risk and portfolio profitability.
+-   Increased premiums do not automatically lead to better profitability, underscoring the need to simultaneously assess premium and claims behavior.
 
 :::
 
+# 5 **Exploratory Data Analysis**
 
+Exploratory data analysis is carried out to investigate connections among policyholder traits, vehicle features, policy categories, and claim results. In contrast to the earlier univariate section, this part emphasizes the relationships among variables to reveal concealed risk patterns within the motor insurance portfolio.
 
+## 5.1 Do Certain Policy Products Exhibit Higher Claim Exposure?
 
+This part explores the variations in claim occurrences among different policy types. As the type of policy reflects the structure of the insurance product, variations in claim behavior may indicate if specific product designs entail a greater risk exposure.
 
+```{r}
+#| fig-width: 11
+#| fig-height: 6
 
+policy_claim_mix <-
+  motor_feature |>
+  count(
+    policy_type,
+    claim_status
+  ) |>
+  group_by(policy_type) |>
+  mutate(
+    pct = n / sum(n),
+    label = scales::percent(
+      pct,
+      accuracy = 0.1
+    )
+  ) |>
+  ungroup()
 
+policy_claim_order <-
+  policy_claim_mix |>
+  filter(
+    claim_status == "Claim reported"
+  ) |>
+  arrange(
+    pct
+  ) |>
+  pull(
+    policy_type
+  )
 
+policy_claim_mix <-
+  policy_claim_mix |>
+  mutate(
+    policy_type = factor(
+      policy_type,
+      levels = policy_claim_order
+    )
+  )
 
+policy_claim_mix_plot <-
+  ggplot(
+    policy_claim_mix,
+    aes(
+      x = policy_type,
+      y = pct,
+      fill = claim_status
+    )
+  ) +
+  geom_col(
+    width = 0.6,
+    colour = "white",
+    linewidth = 0.3
+  ) +
+  geom_text(
+  aes(label = label),
+  position = position_stack(vjust = 0.5),
+  size = 3.6,
+  fontface = "bold",
+  colour = "black"
+  ) +
 
+scale_colour_manual(
+    values = c(
+      "No claim reported" = "black",
+      "Claim reported" = "white"
+    )
+  ) +
+  coord_flip() +
+  scale_y_continuous(
+    labels = scales::percent,
+    expand = expansion(mult = c(0, 0.02))
+  ) +
+  scale_fill_manual(
+    values = c(
+      "No claim reported" = "#E2E2E2",
+      "Claim reported" = "#E0218A"
+    ),
+    breaks = c(
+      "Claim reported",
+      "No claim reported"
+    )
+  ) +
+  labs(
+    title = "Claim Status Composition by Policy Type",
+    subtitle = "Comprehensive policies exhibit substantially higher claim occurrence rates",
+    x = NULL,
+    y = "Policy Share",
+    fill = "Claim Status"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(
+      colour = "#e8e8e8"
+    ),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    legend.position = "bottom",
+    plot.title = element_text(
+      face = "bold",
+      size = 14
+    ),
+    axis.text.y = element_text(
+      face = "bold"
+    ),
+    axis.ticks = element_blank()
+  )
 
+policy_claim_mix_plot
+```
 
+::: callout-note
+## ![](images/Observation.png){width="31"} Insights
 
+-   Claim occurrence varies significantly among different policy types, suggesting that insurance products are linked to unique risk profiles instead of demonstrating consistent claim behavior..
 
+-   Comprehensive without Excess captures the largest share of claim-reported policies (31.3%), significantly surpassing all other policy types. This indicates that policyholders with more comprehensive coverage plans might be more inclined to submit claims.
 
+-   Third-party policies show the least claim ratio (6.9%), reflecting a relatively lower frequency of claims, even though they offer a more straightforward and cost-effective coverage choice.
+
+-   The difference between Comprehensive without Excess and Third-party policies implies that more extensive insurance coverage might lead to higher claim utilization or attract policyholders with different risk characteristics.
+
+-   The results suggest that the design of policies might significantly influence portfolio risk and could require more thorough underwriting examination and pricing evaluation.
+
+:::
+
+## 5.2 Does Driver Age Influence Claim Risk Differently Across Policy Types?
+
+The driver age is a significant underwriting factor as claims behavior can differ among various age groups. This analysis examines claim rates among different age segments to determine if specific age groups are more linked to claim occurrences.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+age_policy_claim <-
+  motor_feature |>
+  group_by(
+    driver_age_group,
+    policy_type
+  ) |>
+  summarise(
+    total_policies = n(),
+    claim_rate = mean(
+      claim_status == "Claim reported",
+      na.rm = TRUE
+    ),
+    .groups = "drop"
+  ) |>
+  filter(
+    total_policies >= 300
+  ) |>
+  mutate(
+  claim_label =
+    paste0(
+      scales::percent(
+        claim_rate,
+        accuracy = .1
+      ),
+      "\n(n=",
+      total_policies,
+      ")"
+    )
+)
+
+age_policy_claim_plot <-
+  ggplot(
+    age_policy_claim,
+    aes(
+      x = driver_age_group,
+      y = policy_type,
+      fill = claim_rate
+    )
+  ) +
+  geom_tile(
+    colour = "white",
+    linewidth = 0.8
+  ) +
+  geom_text(
+    aes(label = claim_label),
+    colour = "black",
+    size = 3.4,
+    fontface = "bold"
+  ) +
+  scale_fill_gradient(
+    low = "#f2f2f2",
+    high = "#e0218a",
+    labels = scales::percent
+  ) +
+  labs(
+    title = "Claim Rate Heatmap by Driver Age Group and Policy Type",
+    subtitle = "Highlights where claim risk is concentrated across both customer age and insurance product",
+    x = "Driver Age Group",
+    y = "Policy Type",
+    fill = "Claim Rate"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank(),
+    plot.title = element_text(
+      face = "bold",
+      size = 14
+    ),
+    legend.position = "right"
+  )
+
+age_policy_claim_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Insights
+
+-   The risk of claims is affected by both the age of the driver and the structure of the policy, not by age by itself.
+
+-   Comprehensive without Excess consistently reports claim rates exceeding 30%, indicating that more extensive coverage options appeal to higher-risk policyholders regardless of their age group.
+
+-   Drivers in the 18–24 age group show higher claim rates across various policy products, highlighting the significance of age as a factor in underwriting.
+
+-   Products from third parties exhibit comparatively lower claim rates across all age categories, suggesting a more consistent risk exposure.
+
+-   Hence, the relationship between demographic traits and insurance offerings indicates that pricing strategies must consider both customer profiles and policy structures together.
+:::
+
+## 5.3 Relationship Between Vehicle Value and Insurance Product Risk Behaviour
+
+Vehicle value might affect portfolio risk since repair and replacement expenses vary among different vehicle types.Nonetheless, the association might not always be stable among insurance offerings. 
+
+This section examines if vehicle value influences policy design to create varying patterns of claim risk.
+
+### 5.3.1 How Does Claim Severity Distribution Differ Across Vehicle Value Segments?
+
+Vehicle value is an important underwriting factor because higher-value vehicles may involve greater repair or replacement costs. This section examines whether claim severity differs across vehicle value segments among policies with reported claim costs.
+
+A raincloud plot is used to display the distribution shape, boxplot summary, and individual claim observations together. This helps reveal differences in spread, central tendency, and extreme losses that may not be visible from averages alone.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+library(ggdist)
+
+severity_vehicle <-
+  motor_feature |>
+  filter(
+    total_incurred > 0,
+    !is.na(vehicle_value_segment)
+  ) |>
+  mutate(
+    vehicle_value_segment =
+      factor(
+        vehicle_value_segment,
+        levels = c(
+          "Below 10k",
+          "10k–29k",
+          "30k–59k",
+          "60k–99k",
+          "100k and above"
+        )
+      )
+  )
+
+severity_mean <-
+  mean(
+    severity_vehicle$total_incurred,
+    na.rm = TRUE
+  )
+
+severity_vehicle_plot <-
+  ggplot(
+    severity_vehicle,
+    aes(
+    x = vehicle_value_segment,
+    y = log1p(total_incurred)
+  )
+  ) +
+  ggdist::stat_halfeye(
+  fill = "#8FD3C7",
+  adjust = 0.6,
+  width = 0.6,
+  justification = -0.25,
+  point_colour = NA,
+  alpha = 0.55
+  ) + 
+  geom_boxplot(
+    width = 0.16,
+    outlier.shape = NA,
+    colour = "black",
+    fill = "white"
+  ) +
+  geom_jitter(
+    width = 0.08,
+    alpha = 0.05,
+    size = 0.45
+  ) +
+  stat_summary(
+    fun = median,
+    geom = "point",
+    size = 3.5,
+    colour = "#595DE5"
+  ) +
+  geom_hline(
+    yintercept = log1p(severity_mean),
+    linetype = "dashed",
+    colour = "#E0218A",
+    linewidth = 0.7
+  ) +
+  annotate(
+    "text",
+    x = 1.25,
+    y = log1p(severity_mean) + 0.2,
+    label = paste0(
+      "Portfolio Mean = ",
+      scales::comma(
+        round(severity_mean, 0)
+      )
+    ),
+    colour = "#E0218A",
+    size = 3.3,
+    hjust = 0
+  ) +
+  labs(
+    title = "Claim Severity Distribution across Vehicle Value Segments",
+    subtitle = "Raincloud plot reveals spread, concentration and extreme claim costs",
+    x = "Vehicle Value Segment",
+    y = "Log(1 + Total Incurred Cost)"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    panel.background = element_rect(
+      fill = "#f5f5f5",
+      colour = "#f5f5f5"
+    ),
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(
+      angle = 0,
+      hjust = 0.5
+    ),
+    plot.title = element_text(
+      face = "bold",
+      size = 14
+    )
+  )
+
+severity_vehicle_plot
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Insights
+
+-   Higher-value vehicles exhibit relatively higher claim concentration. Policies within the 100k and above category display a slightly higher median claim severity compared with lower vehicle value groups. The central distribution appears shifted upward, suggesting owners of high-value vehicles may incur more expensive repair or replacement costs.
+
+-   Mid-range vehicle categories (10k–59k) exhibit greater claim fluctuations. Although median claim severities remain relatively comparable, the raincloud distributions illustrate wider spreads and more concentrated upper-tail patterns. This implies that policyholders in these categories might display more varied claim behavior. Extreme claim observations are present across several value segments. Large incurred amounts extend far beyond the central distributions, indicating that rare but costly claims are not isolated to expensive vehicles alone. Average values alone could hide this pattern.
+
+-   Furthermore, lower vehicle value does not necessarily imply lower risk. Vehicles in lower value categories still demonstrate notable variability and occasional severe claims. This suggests vehicle value alone may not fully explain insurance outcomes.
+
+-   A more thorough examination could explore if these extreme assertions are linked to particular policy types, automobile brands, or driver characteristics. This could assist in recognizing concealed high-risk customer groups.This insight is important as raincloud plots expose distribution behaviors and extreme claim trends that conventional summary statistics might overlook.
+
+:::
+
+## 5.4 Are Certain Policy Products More Vulnerable to Underpricing?
+
+This section examines if various insurance products display differing degrees of underpricing risk and how they may affect portfolio profitability. Underpricing arises when the costs of claims surpass the premiums collected, which can lead to financial losses. This analysis seeks to pinpoint policy products that may significantly affect portfolio performance and necessitate increased underwriting focus by examining underpricing rates in relation to portfolio exposure.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6.5
+
+profitability <-
+  motor_feature |>
+  group_by(policy_type) |>
+  summarise(
+    underpriced =
+      mean(
+        total_incurred > total_premium,
+        na.rm = TRUE
+      ),
+
+    policies = n(),
+
+    .groups = "drop"
+  ) |>
+  arrange(underpriced)
+
+ggplot(
+  profitability,
+  aes(
+    x = underpriced,
+    y = reorder(policy_type, underpriced),
+    size = policies
+  )
+) +
+
+  geom_segment(
+    aes(
+      x = 0,
+      xend = underpriced,
+      y = policy_type,
+      yend = policy_type
+    ),
+    colour = "grey78",
+    linewidth = 2.2
+  ) +
+
+  geom_point(
+    fill = "#E74C3C",
+    colour = "white",
+    shape = 21,
+    alpha = 0.9
+  ) +
+
+  geom_label(
+    aes(
+      label =
+        scales::percent(
+          underpriced,
+          accuracy = 0.01
+        )
+    ),
+    nudge_x = 0.012,
+    fill = "white",
+    label.size = 0.15,
+    size = 3.2
+  ) +
+
+  scale_x_continuous(
+    labels = scales::percent,
+    expand = expansion(mult = c(0, 0.12))
+  ) +
+
+  scale_size_area(
+    max_size = 16,
+    labels = scales::comma
+  ) +
+
+  labs(
+    title =
+      "Certain Policy Types Display Greater Underpricing Risk",
+
+    subtitle =
+      "Comprehensive products show higher rates of incurred claims exceeding collected premiums",
+
+    x =
+      "Underpricing Rate",
+
+    y = NULL,
+
+    size =
+      "Number of Policies"
+  ) +
+
+  theme_minimal() +
+
+  theme(
+    legend.position = "right",
+
+    plot.title =
+      element_text(
+        face = "bold",
+        size = 15
+      ),
+
+    panel.grid.major.y =
+      element_blank(),
+
+    panel.grid.minor =
+      element_blank()
+  )
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Insights
+
+-   The risk of underpricing differs significantly among policy products, indicating that profitability is not uniformly spread throughout the motor insurance portfolio.
+
+-   Comprehensive without Excess shows the greatest underpricing rate (20.8%), suggesting that nearly one in five policies results in incurred claim costs that surpass collected premiums. In comparison to Third-party policies (4.66%), this indicates a risk of underpricing almost four times higher.
+
+-   While Combined Coverage shows a fairly moderate underpricing rate (7.43%), the significantly larger bubble size indicates substantial portfolio risk. As a result, even a modest risk to profitability can lead to a significant overall financial effect because of the volume of policies released.
+
+-   The relationship between underpricing risk and portfolio exposure highlights that products contributing most to financial risk are not necessarily those with the highest claim imbalance, but rather those combining elevated risk with substantial portfolio presence.
+
+-   These findings indicate that the structure of policies might affect the adequacy of underwriting and the results in profitability. Products showing high underpricing rates alongside significant exposure may require a more thorough pricing assessment, targeted segmentation approaches, or stricter underwriting regulations.
+:::
+
+## 5.5 Which Policy Products Exhibit Greater Tail-Risk Exposure?
+
+This section  explores if various policy types show unique patterns in claim severity and volatility. Employing ridgeline visualization, the examination contrasts the intensity, distribution, and tail characteristics of claims to discern variations in risk profiles that could impact portfolio profitability and underwriting decisions.
+
+```{r}
+#| fig-width: 13
+#| fig-height: 8
+
+vehicle_claim <-
+  motor_feature |>
+  filter(
+    total_incurred > 0
+  )
+
+ggplot(
+  vehicle_claim,
+  aes(
+    x =
+      log1p(total_incurred),
+
+    y =
+      reorder(
+        policy_type,
+        total_incurred,
+        FUN = median
+      ),
+
+    fill = after_stat(x)
+  )
+) +
+
+  ggridges::geom_density_ridges_gradient(
+    scale = 2,
+    rel_min_height = .01,
+
+    quantile_lines = TRUE,
+
+    quantiles = 2,
+
+    alpha = .85
+  ) +
+
+  stat_summary(
+    aes(
+      group = policy_type
+    ),
+
+    fun = median,
+
+    geom = "point",
+
+    shape = 23,
+
+    size = 3.5,
+
+    fill = "white"
+  ) +
+
+  scale_fill_viridis_c(
+    option = "C"
+  ) +
+
+  labs(
+    title = "Policy Types Exhibit Distinct Claim Severity and Tail-Risk Profiles",
+    subtitle = "Ridgelines with median markers reveal claim concentration, volatility and extreme loss behaviour",
+    x = "Log(1 + Total Incurred Cost)",
+    y = NULL
+  ) +
+
+  theme_ridges() +
+
+  theme(
+    legend.position = "none",
+
+    plot.title =
+      element_text(
+        face = "bold",
+        size = 15
+      )
+  )
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Insights
+
+-   The ridgeline distributions indicate significant variations in claim severity concentration and volatility trends among different policy types, implying that policy design could affect portfolio risk traits. **Third-party policies show a distinct and narrow central peak**, suggesting that claim severities are focused within a limited range of values. The distribution features a longer left tail and irregular isolated density patterns, indicating heterogeneous claim behavior and occasional unusual cases.
+
+-   Comprehensive policies (both with and without deductibles) exhibit wider distributions and increased density spread, suggesting more claim variability and heightened uncertainty in anticipated loss results. Broader distributions imply greater variability and indicate that the severity of claims is less foreseeable for these products.
+
+-   The median markers (white diamonds) show that central claim patterns stay quite consistent among different policy types. However, the shape and spread of the distributions differ considerably, implying that volatility is driven more strongly by tail behaviour and dispersion rather than shifts in average claim values.
+
+-   The Third-party + Glass and Combined Coverage categories show moderate concentration with a slight right-tail extension, indicating that while claims typically group within a tighter range, a portion of policyholders still produces comparably high-cost claims.
+
+-   From a portfolio viewpoint, the results indicate that the type of policy serves as a significant segmentation element affecting risk volatility instead of just average claim severity. Policies that have broader distributions and more pronounced tails might require more thorough underwriting assessment, varied pricing models, or enhanced risk management measures to reduce susceptibility to significant losses.
+
+:::
+
+## 5.6 Does Fuel Type Meaningfully Differentiate Claim Severity Behaviour?
+
+This section examines whether different vehicle fuel types exhibit distinct claim severity behaviour. Previous motor insurance studies suggest that vehicle characteristics may influence repair costs and claim outcomes. Therefore, comparing fuel-type profiles may reveal hidden differences in portfolio risk exposure.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+fuel_claim <-
+  motor_feature |>
+  filter(
+    total_incurred > 0
+  ) |>
+  mutate(
+    severity =
+      log1p(total_incurred)
+  )
+
+mean_claim <-
+  mean(
+    fuel_claim$severity
+  )
+
+ggplot(
+  fuel_claim,
+  aes(
+  x=severity,
+  y=fuel_type,
+  colour=fuel_type
+)
+)+
+
+geom_jitter(
+  height=.18,
+  alpha=.08
+)+
+
+geom_vline(
+  xintercept=
+  mean_claim,
+  linetype="dashed",
+  colour="red"
+)+
+
+stat_summary(
+  fun=median,
+  geom="point",
+  size=4,
+  colour="blue"
+)+
+
+labs(
+title=
+"Higher Claim Severity Observed for Certain Fuel Types",
+
+subtitle=
+"Median severity markers and portfolio average reference line reveal risk differences",
+
+x=
+"Log(1 + Total Incurred Cost)",
+
+y=NULL
+)+
+
+theme_minimal()+
+  theme(
+  legend.position="none",
+  plot.title=
+  element_text(
+  face="bold"
+)
+)
+```
+
+## 5.7 Claim Frequency Trend Across Policy Years
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+
+year_claim <-
+motor_feature |>
+group_by(
+year,
+policy_type
+) |>
+summarise(
+claim_rate=
+mean(
+claim_status=="Claim reported"
+)
+)
+
+overall=
+mean(
+year_claim$claim_rate
+)
+
+ggplot(
+year_claim,
+aes(
+x=year,
+y=claim_rate,
+colour=policy_type
+)
+)+
+
+geom_line(
+linewidth=1.3
+)+
+
+geom_point(
+size=3
+)+
+
+geom_hline(
+yintercept=overall,
+linetype="dashed",
+colour="red"
+)+
+
+labs(
+title=
+"Claim Frequency Trends Differ Across Policy Types",
+
+subtitle=
+"Dashed line represents overall portfolio average",
+
+y=
+"Claim Rate",
+
+x=NULL
+)+
+
+theme_minimal()
+```
 
 
 
 
 
 # 6 **References**
+
+Beyond ggplot2 Fundamentals – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap02
+
+Clemente, C., Guerreiro, G. R., & Bravo, J. M. (2023). Modelling motor insurance claim frequency and severity using gradient boosting. Risks, 11(9), 163. https://doi.org/10.3390/risks11090163
+
+Programming Interactive Data Visualisation with R – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap03
+
+Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive power of telematics data in car insurance pricing. Lirias (KU Leuven). https://doi.org/10.1111/rssc.12283
 
 Yip, K. C., & Yau, K. K. (2005b). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. https://doi.org/10.1016/j.insmatheco.2004.11.002
