@@ -877,17 +877,17 @@ glimpse()
 -   Hence, the engineered variables enhance the analytical dataset and create a more robust basis for following univariate and multivariate visual analysis.
 :::
 
-# 4 **Univariate Analysis** 
+# 4 **Univariate Analysis**
 
 Univariate analysis was conducted to understand the characteristics of the motor insurance portfolio prior to examining relationships among variables. The analysis starts with insurance outcomes to establish an overview of portfolio performance, followed by policyholder and vehicle characteristics before concluding with engineered indicators that reveal hidden portfolio risk patterns.
 
-## 4.1 Portolio Composition 
+## 4.1 Portolio Composition
 
 The following visualisations examine claim occurrence and loss-related behaviour to establish an initial understanding of portfolio performance.
 
 ### 4.1.1 Claim Status Composition
 
-Bar charts are effective for comparing categorical frequencies because they allow differences across groups to be perceived quickly and clearly through length-based visual encoding ([Beyond ggplot2 Fundamentals – R for Visual Analytics](https://r4va.netlify.app/chap02)). 
+Bar charts are effective for comparing categorical frequencies because they allow differences across groups to be perceived quickly and clearly through length-based visual encoding ([Beyond ggplot2 Fundamentals – R for Visual Analytics](https://r4va.netlify.app/chap02)).
 
 The chart below examines whether the portfolio is dominated by policies with reported claims or by claim-free policies.
 
@@ -1037,7 +1037,6 @@ claim_status_plot
 -   The distribution also suggests potential zero-inflation behaviour commonly observed in insurance claim datasets, where numerous policies report no claims, while a smaller portion yields positive claim results.
 
 -   Future research should explore if incurred losses and loss ratios are equally concentrated among claim-reporting policyholders, as declines in profitability may stem from either frequent low-cost claims or rare high-severity claims.
-
 :::
 
 ### 4.1.2 Premium Distribution Across Policies
@@ -1153,7 +1152,6 @@ premium_plot
 -   The long-tail behavior indicates that premium distributions are unevenly spread among policyholders.A relatively small subset of policies may thus have an outsized impact on the premium revenue of the portfolio.
 
 -   The skewed structure also suggests that average premium values alone might not sufficiently capture the overall pricing dynamics of the portfolio. As a result, visualizations that focus on the median and distribution are crucial for understanding the characteristics of insurance pricing.
-
 :::
 
 ### 4.1.3 Yearly Portfolio Performance
@@ -1311,12 +1309,11 @@ yearly_performance_plot
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--  All three portfolio risk indicators increased steadily from 2022 to 2024, suggesting worsening underwriting performance and growing profitability pressure over time.
+-   All three portfolio risk indicators increased steadily from 2022 to 2024, suggesting worsening underwriting performance and growing profitability pressure over time.
 
 -   Loss ratio experienced the sharpest increase, rising from 65.6% in 2022 to 74.7% in 2024, indicating that claim costs consumed a larger proportion of collected premiums in 2024.
 
 -   The simultaneous increase in claim rate and underpricing rate suggests that both claim frequency and pricing adequacy may have contributed to the deterioration in portfolio profitability.
-
 :::
 
 ## 4.2 Policyholder Characteristics
@@ -1452,7 +1449,6 @@ driver_age_plot
 -   From a risk management viewpoint, the concentration of policies among seasoned drivers may lead to enhanced portfolio stability as experienced drivers are typically linked to reduced claim frequencies and more consistent driving behavior.
 
 -   However, additional investigation is necessary to assess if claim severity and portfolio profitability vary significantly among different age groups, since age by itself might not entirely clarify insurance risk exposure.
-
 :::
 
 ### 4.2.2 Driving Experience Profile
@@ -1553,7 +1549,6 @@ driving_exp_plot
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
-
 -   Drivers with extensive experience show the highest median driving tenure at approximately 38.6 years and also display the widest distribution range, indicating substantial variability within this policyholder segment.
 
 -   New drivers exhibit a significantly tighter distribution centered around 2.7 years of driving experience, indicating a relatively uniform and immature driving profile.
@@ -1563,7 +1558,6 @@ driving_exp_plot
 -   While seasoned drivers are prevalent in the higher levels of driving experience, the wider distribution suggests that mere driving experience might not consistently lead to reduced insurance risk, since behavioral and vehicle-related elements could still influence claim results. The relatively tight distribution among new drivers indicates reduced variability in exposure traits, which may favor more uniform underwriting approaches for this group.
 
 -   Thus, a deeper analysis could investigate claim frequency and severity patterns among experience groups might yield greater understanding of whether longer driving tenure consistently enhances portfolio profitability and minimizes volatility.
-
 :::
 
 ## 4.3 Vehicle Portfolio Structure
@@ -1681,12 +1675,11 @@ brand_plot
 -   No single manufacturer significantly dominates the portfolio composition, indicating that the insurer’s exposure is reasonably diversified across multiple automotive segments rather than concentrated within a specific brand category. This balanced distribution may reduce vulnerability to manufacturer-specific claim shocks, repair inflation, or model-related defect risks that could disproportionately affect portfolio profitability and claim severity behaviour.
 
 -   Nevertheless, the differing market shares across manufacturers suggest that subsequent analysis should investigate whether claim frequency, claim severity, or profitability behaviour varies across vehicle brands.
-
 :::
 
 ## 4.3.2 Vehicle Value Segments and Claim Severity Behaviour
 
-Vehicle values are commonly associated with repair costs and claim severity in motor insurance portfolios. This section examines if the behavior of claim severity varies among different vehicle value categories. Raincloud plots combine density distributions, boxplots, and raw observations within a single visual. Compared to traditional boxplots, they better reveal clustering behaviour, variability, skewness, and potential tail-risk patterns in the data.([(9 Visualising Distribution – R for Visual Analytics](https://r4va.netlify.app/chap09))  A logarithmic transformation was also applied because of the significant right-skewness often seen in insurance claim amounts.
+Vehicle values are commonly associated with repair costs and claim severity in motor insurance portfolios. This section examines if the behavior of claim severity varies among different vehicle value categories. Raincloud plots combine density distributions, boxplots, and raw observations within a single visual. Compared to traditional boxplots, they better reveal clustering behaviour, variability, skewness, and potential tail-risk patterns in the data.([(9 Visualising Distribution – R for Visual Analytics](https://r4va.netlify.app/chap09)) A logarithmic transformation was also applied because of the significant right-skewness often seen in insurance claim amounts.
 
 ```{r}
 #| fig-width: 13
@@ -1837,7 +1830,6 @@ ggplot(
 -   The varying spread and tail behaviour among vehicle value categories suggest that vehicle value could affect both average claim severity and the volatility and unpredictability of incurred losses.
 
 -   Hence, Higher premiums do not guarantee improved profitability, highlighting the necessity to evaluate both premium and claims patterns together.
-
 :::
 
 ## 4.4 Insurance Risk and Profitability across Policy Types
@@ -1893,7 +1885,6 @@ knitr::kable(
 ```
 
 ::: panel-tabset
-
 ### Loss Ratio
 
 ```{r}
@@ -2263,7 +2254,6 @@ premium_adequacy_plot
 ```
 :::
 
-
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
@@ -2420,7 +2410,6 @@ policy_claim_mix_plot
 -   The substantial gap in claim occurrence between comprehensive and third-party products may also indicate adverse selection behaviour, where higher-risk policyholders preferentially select broader insurance coverage.
 
 -   Overall, the findings suggest that policy structure and coverage design may materially influence portfolio risk exposure and should therefore be carefully considered during underwriting and pricing evaluation.
-
 :::
 
 ## 5.2 Does Driver Age Influence Claim Risk Differently Across Policy Types?
@@ -2683,7 +2672,7 @@ severity_vehicle_plot
 -   A more thorough examination could explore if these extreme assertions are linked to particular policy types, automobile brands, or driver characteristics. This could assist in recognizing concealed high-risk customer groups.This insight is important as raincloud plots expose distribution behaviors and extreme claim trends that conventional summary statistics might overlook.
 :::
 
-## 5.4 Are Certain Policy Products More Vulnerable to Underpricing?
+## 5.4 Are Certain Policy Products More Vulnerable to Underpricing Risk?
 
 This section examines if various insurance products display differing degrees of underpricing risk and how they may affect portfolio profitability. Underpricing arises when the costs of claims surpass the premiums collected, which can lead to financial losses. This analysis seeks to pinpoint policy products that may significantly affect portfolio performance and necessitate increased underwriting focus by examining underpricing rates in relation to portfolio exposure.
 
@@ -2832,7 +2821,7 @@ ggplot(
 
 ## 5.5 Which Policy Products Exhibit Greater Tail-Risk Exposure?
 
-This section  explores if various policy types show unique patterns in claim severity and volatility. Employing ridgeline visualization, the examination contrasts the intensity, distribution, and tail characteristics of claims to discern variations in risk profiles that could impact portfolio profitability and underwriting decisions.
+This section explores if various policy types show unique patterns in claim severity and volatility. Employing ridgeline visualization, the examination contrasts the intensity, distribution, and tail characteristics of claims to discern variations in risk profiles that could impact portfolio profitability and underwriting decisions.
 
 ```{r}
 #| fig-width: 13
@@ -2924,7 +2913,6 @@ ggplot(
 -   The Third-party + Glass and Combined Coverage categories show moderate concentration with a slight right-tail extension, indicating that while claims typically group within a tighter range, a portion of policyholders still produces comparably high-cost claims.
 
 -   From a portfolio viewpoint, the results indicate that the type of policy serves as a significant segmentation element affecting risk volatility instead of just average claim severity. Policies that have broader distributions and more pronounced tails might require more thorough underwriting assessment, varied pricing models, or enhanced risk management measures to reduce susceptibility to significant losses.
-
 :::
 
 ## 5.6 Which Portfolio Variables Are Most Strongly Associated with Profitability and Claim Behaviour?
@@ -3005,7 +2993,7 @@ ggcorrplot(
 
 -   The Power-to-Weight ratio shows moderate negative correlations with Vehicle Value (**ρ = -0.54**) and Premium (**ρ = -0.24**), indicating that features of high-performance vehicles may not directly translate to greater market value or higher pricing.
 
--   Claim Severity displays relatively weak correlations with most individual portfolio variables (generally **ρ < 0.15**), implying that insurance claim behaviour is likely influenced by multiple interacting risk factors rather than a single dominant predictor.
+-   Claim Severity displays relatively weak correlations with most individual portfolio variables (generally **ρ \< 0.15**), implying that insurance claim behaviour is likely influenced by multiple interacting risk factors rather than a single dominant predictor.
 
 -   Overall, the relatively modest correlation strengths across most variables indicate that portfolio profitability and claims behavior continue to be multifaceted, highlighting the necessity of multivariate underwriting evaluation instead of depending solely on individual risk indicators.
 :::
@@ -3030,32 +3018,32 @@ Unlike traditional insurance dashboard reporting that mainly emphasizes descript
 
 -   Correlation analysis showed that most portfolio variables displayed relatively weak direct associations with claim severity and profitability metrics. Apart from the naturally strong association between driver age and driving experience, most underwriting indicators demonstrated low-to-moderate pairwise correlations, suggesting that motor insurance risk is likely influenced by complex interactions among multiple behavioural, pricing, exposure, and operational dimensions rather than a single dominant predictor.
 
-- Overall, the findings suggest that motor insurance profitability is influenced by a complex interaction between policy structure, pricing adequacy, claim severity behaviour, and temporal underwriting conditions rather than by any single dominant risk factor.
+-   Overall, the findings suggest that motor insurance profitability is influenced by a complex interaction between policy structure, pricing adequacy, claim severity behaviour, and temporal underwriting conditions rather than by any single dominant risk factor.
 
 ## Recommendations for Future Research
 
 **Confirmatory Data Analysis:** This study mainly concentrated on exploratory visual analytics and the identification of patterns. Future research might include statistical testing and confirmatory analysis to substantiate the identified connections between claim frequency, claim severity, pricing adequacy, and portfolio profitability.
 
 **Exploring Additional Variables:** A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.
- 
+
 **Longitudinal Analysis:** As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.
- 
+
 **Behavioural Risk Analysis:** Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.[(Xie, 2024)](https://www.mdpi.com/2227-7390/12/19/3150)
 
 Overall, the study demonstrates how exploratory visual analytics can support deeper portfolio understanding by uncovering hidden behavioural patterns, temporal underwriting changes, profitability pressure, and volatility structures within large-scale motor insurance datasets.
- 
+
 # 7 **References**
 
-Beyond ggplot2 Fundamentals – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap02](https://r4va.netlify.app/chap02)
+Beyond ggplot2 Fundamentals – R for Visual Analytics. (n.d.). <https://r4va.netlify.app/chap02>
 
-Clemente, C., Guerreiro, G. R., & Bravo, J. M. (2023). Modelling motor insurance claim frequency and severity using gradient boosting. Risks, 11(9), 163. [https://doi.org/10.3390/risks11090163](https://doi.org/10.3390/risks11090163)
+Clemente, C., Guerreiro, G. R., & Bravo, J. M. (2023). Modelling motor insurance claim frequency and severity using gradient boosting. Risks, 11(9), 163. <https://doi.org/10.3390/risks11090163>
 
-Programming Interactive Data Visualisation with R – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap03](https://r4va.netlify.app/chap03)
+Programming Interactive Data Visualisation with R – R for Visual Analytics. (n.d.). <https://r4va.netlify.app/chap03>
 
-Xie, S. (2024). Analyzing the influence of telematics-based pricing strategies on traditional rating factors in auto insurance rate regulation. Mathematics, 12(19), 3150. [https://doi.org/10.3390/math12193150](https://doi.org/10.3390/math12193150)
+Xie, S. (2024). Analyzing the influence of telematics-based pricing strategies on traditional rating factors in auto insurance rate regulation. Mathematics, 12(19), 3150. <https://doi.org/10.3390/math12193150>
 
-Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive power of telematics data in car insurance pricing. Lirias (KU Leuven). [https://doi.org/10.1111/rssc.12283](https://doi.org/10.1111/rssc.12283)
+Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive power of telematics data in car insurance pricing. Lirias (KU Leuven). <https://doi.org/10.1111/rssc.12283>
 
-Visualising Distribution – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap09](https://r4va.netlify.app/chap09)
+Visualising Distribution – R for Visual Analytics. (n.d.). <https://r4va.netlify.app/chap09>
 
-Yip, K. C., & Yau, K. K. (2005). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. [https://doi.org/10.1016/j.insmatheco.2004.11.002](https://doi.org/10.1016/j.insmatheco.2004.11.002)
+Yip, K. C., & Yau, K. K. (2005). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. <https://doi.org/10.1016/j.insmatheco.2004.11.002>

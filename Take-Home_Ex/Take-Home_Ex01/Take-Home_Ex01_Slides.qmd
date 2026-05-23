@@ -122,7 +122,7 @@ The analysis focuses on understanding portfolio composition, claim behaviour, un
 
 ::: {.column width="48%"}
 
-![](images/Yearly%20Portfolio%20Performance.png){width=100%}
+![](images/Yearly%20Portfolio%20Performance.png)
 
 <div style="margin-top:-0.45em; text-align:center;">
 
@@ -146,7 +146,7 @@ The analysis focuses on understanding portfolio composition, claim behaviour, un
 
 ::: {.column width="48%"}
 
-![](images/Claim%20Severity%20Behaviour.png){width=100%}
+![](images/Claim%20Severity%20Behaviour.png)
 
 <div style="margin-top:0.15em; text-align:center;">
 
