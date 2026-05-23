@@ -2528,7 +2528,7 @@ age_policy_claim_plot
 -   Hence, the relationship between demographic traits and insurance offerings indicates that pricing strategies must consider both customer profiles and policy structures together.
 :::
 
-### 5.3 How Does Claim Severity Distribution Differ Across Vehicle Value Segments?
+## 5.3 How Does Claim Severity Distribution Differ Across Vehicle Value Segments?
 
 Vehicle value is an important underwriting consideration because higher-value vehicles may involve greater repair complexity, replacement costs, and claim severity exposure. However, claim severity behaviour may not increase uniformly across vehicle segments due to differences in vehicle usage patterns, repair practices, and policyholder risk profiles.
 

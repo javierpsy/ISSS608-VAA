@@ -25,10 +25,12 @@
   margin: 0.2em 0;
 }
 
+/* Overall slide font size */
 .reveal .slides section {
   font-size: 0.82em;
 }
 
+/* Contents + Objective slides */
 .contents-slide,
 .objective-slide {
   font-size: 0.88em;
@@ -46,4 +48,23 @@
 .objective-slide ul {
   font-size: 0.88em;
   line-height: 1.35;
+}
+
+/* Smaller subsection titles */
+.reveal h4 {
+  font-size: 0.72em;
+  margin-top: 0.35em;
+  margin-bottom: 0.2em;
+}
+
+.reveal .smaller-bullets ul {
+  font-size: 0.62em;
+  line-height: 1.18;
+}
+
+.reveal .smaller-bullets h4 {
+  text-align: center;
+  font-size: 0.72em;
+  margin-top: 0.25em;
+  margin-bottom: 0.15em;
 }

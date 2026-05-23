@@ -66,7 +66,7 @@ motor_raw <- read_csv(
 This presentation summarizes the exploratory visual analytics performed on a motor insurance portfolio dataset using the IDEA framework. The analysis focuses on portfolio composition, claim behaviour, underwriting profitability, and emerging risk patterns that may influence portfolio sustainability and pricing adequacy.
 :::
 
-## Objective {.objective-slide}
+## Objectives {.objective-slide}
 
 :::: columns
 ::: {.column width="90%"}
@@ -86,7 +86,7 @@ This study applies the IDEA framework to evaluate the motor insurance portfolio 
 
 ## Portfolio Overview
 
-#### Dataset Summary
+### Dataset Summary
 
 -   Years Covered: 2022–2024
 
@@ -96,7 +96,7 @@ This study applies the IDEA framework to evaluate the motor insurance portfolio 
 
 -   Customer, vehicle, claims, and financial variables analysed
 
-#### Key Areas of Analysis
+### Key Areas of Analysis
 
 -   Claim behaviour patterns
 
@@ -114,30 +114,58 @@ This slide provides a high-level overview of the motor insurance portfolio datas
 The analysis focuses on understanding portfolio composition, claim behaviour, underwriting profitability, and identifying high-risk customer segments. Particular attention is given to pricing adequacy and vehicle-related risk exposure, which are important factors affecting insurance profitability and portfolio sustainability.
 :::
 
-## Portfolio Composition Analysis
+## Claim Behaviour Analysis
 
-::::: columns
-::: {.column width="52%"}
-### ![](images/Claim Status Composition-01.png)Claim Status Composition
+::: {.smaller-bullets}
 
--   85.7% of policies did not report claims
+:::: {.columns}
 
--   Claim activity is concentrated within a smaller segment of policyholders
+::: {.column width="48%"}
 
--   A minority of policies contributes disproportionately to portfolio risk exposure
+![](images/Yearly%20Portfolio%20Performance.png){width=100%}
+
+<div style="margin-top:-0.45em; text-align:center;">
+
+#### Yearly Portfolio Performance
+
+</div>
+
+- Portfolio risk indicators increased steadily from 2022 to 2024
+
+- Loss ratio rose significantly, indicating growing profitability pressure
+
+- Claim frequency and underpricing jointly contributed to underwriting deterioration
+
+:::
+
+::: {.column width="4%"}
+
+&nbsp;
+
 :::
 
 ::: {.column width="48%"}
-### ![](images/Premium Distribution.png)Premium Distribution
 
--   Premium values are highly right-skewed across the portfolio
+![](images/Claim%20Severity%20Behaviour.png){width=100%}
 
--   Most policies fall within lower-to-moderate premium ranges
+<div style="margin-top:0.15em; text-align:center;">
 
--   A smaller group of high-premium policies contributes substantially to portfolio revenue
+#### Claim Severity Distribution
+
+</div>
+
+- Claim severity distributions exhibit strong right-skewness
+
+- Severe claims contribute disproportionately to incurred portfolio losses
+
+- Tail-risk behaviour indicates increasing volatility within the portfolio
+
 :::
-:::::
+
+::::
+
+:::
 
 ::: notes
-This slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. This suggests that portfolio risk exposure is unevenly distributed. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges, alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide important context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments.
+This slide examines the evolving claim behaviour and underwriting pressure within the motor insurance portfolio. The yearly portfolio performance chart shows that claim rate, loss ratio, and underpricing risk increased steadily between 2022 and 2024, suggesting worsening underwriting conditions over time. The claim severity distribution further reveals strong right-skewness, where a relatively small number of severe claims contributes disproportionately to incurred losses. Together, these findings indicate rising portfolio volatility and increasing profitability pressure across the insurance portfolio.
 :::
