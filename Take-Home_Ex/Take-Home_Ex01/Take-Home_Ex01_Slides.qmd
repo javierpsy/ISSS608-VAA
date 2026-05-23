@@ -35,7 +35,7 @@ motor_raw <- read_csv(
 ::: title-slide-custom
 <h2>Motor Insurance Executive Summary</h2>
 
-![](images/Motor%20Insurance.png){width="285"}
+![](images/Motor%20Insurance.png){width="324"}
 
 <p>Javier Phang</p>
 
@@ -114,58 +114,182 @@ This slide provides a high-level overview of the motor insurance portfolio datas
 The analysis focuses on understanding portfolio composition, claim behaviour, underwriting profitability, and identifying high-risk customer segments. Particular attention is given to pricing adequacy and vehicle-related risk exposure, which are important factors affecting insurance profitability and portfolio sustainability.
 :::
 
-## Claim Behaviour Analysis
+## Portfolio Composition Analysis
 
-::: {.smaller-bullets}
-
-:::: {.columns}
-
+::::::: smaller-bullets
+:::::: columns
 ::: {.column width="48%"}
+![](images/Claim%20Status%20Composition-02.png){width="100%"}
 
-![](images/Yearly%20Portfolio%20Performance.png)
+<h4 style="text-align:center;">
 
-<div style="margin-top:-0.45em; text-align:center;">
+Claim Status Composition
 
-#### Yearly Portfolio Performance
+</h4>
 
-</div>
+-   85.7% of policies did not report claims
 
-- Portfolio risk indicators increased steadily from 2022 to 2024
+-   Claim activity is concentrated within a smaller segment of policyholders
 
-- Loss ratio rose significantly, indicating growing profitability pressure
-
-- Claim frequency and underpricing jointly contributed to underwriting deterioration
-
+-   A minority of policies contributes disproportionately to portfolio risk exposure
 :::
 
 ::: {.column width="4%"}
-
-&nbsp;
-
+ 
 :::
 
 ::: {.column width="48%"}
+![](images/Premium%20Distribution-01.png){width="100%"}
 
-![](images/Claim%20Severity%20Behaviour.png)
+<h4 style="text-align:center;">
 
-<div style="margin-top:0.15em; text-align:center;">
+Premium Distribution
 
-#### Claim Severity Distribution
+</h4>
 
-</div>
+-   Premium values are highly right-skewed across the portfolio
 
-- Claim severity distributions exhibit strong right-skewness
+-   Most policies fall within lower-to-moderate premium ranges
 
-- Severe claims contribute disproportionately to incurred portfolio losses
-
-- Tail-risk behaviour indicates increasing volatility within the portfolio
-
+-   A smaller group of high-premium policies contributes substantially to portfolio revenue
 :::
-
-::::
-
-:::
+::::::
+:::::::
 
 ::: notes
-This slide examines the evolving claim behaviour and underwriting pressure within the motor insurance portfolio. The yearly portfolio performance chart shows that claim rate, loss ratio, and underpricing risk increased steadily between 2022 and 2024, suggesting worsening underwriting conditions over time. The claim severity distribution further reveals strong right-skewness, where a relatively small number of severe claims contributes disproportionately to incurred losses. Together, these findings indicate rising portfolio volatility and increasing profitability pressure across the insurance portfolio.
+This slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments.
+:::
+
+## Claim Behaviour Analysis
+
+::::::: smaller-bullets
+:::::: columns
+::: {.column width="48%"}
+![](images/Yearly%20Portfolio%20Performance.png){width="100%"}
+
+<h4 style="text-align:center;">
+
+Yearly Portfolio Performance
+
+</h4>
+
+-   Portfolio risk indicators increased steadily from 2022 to 2024
+
+-   Loss ratio rose significantly, indicating growing profitability pressure
+
+-   Claim frequency and underpricing jointly contributed to underwriting deterioration
+:::
+
+::: {.column width="4%"}
+ 
+:::
+
+::: {.column width="48%"}
+![](images/Claim%20Severity%20Behaviour.png){width="100%"}
+
+<h4 style="text-align:center;">
+
+Claim Severity Distribution
+
+</h4>
+
+-   Higher vehicle value segments exhibit wider claim severity distributions
+
+-   Tail-risk exposure is more pronounced among higher-value vehicles
+
+-   Variability in incurred losses suggests uneven financial risk concentration
+:::
+::::::
+:::::::
+
+::: notes
+This slide examines claim behaviour and loss exposure within the motor insurance portfolio. The yearly portfolio performance chart shows that claim rate, loss ratio, and underpricing risk increased steadily from 2022 to 2024, suggesting worsening underwriting conditions over time. The claim severity chart further shows that higher-value vehicle segments exhibit wider incurred-loss distributions and stronger tail-risk behaviour. Together, these findings suggest that portfolio profitability pressure is driven by both rising claim trends over time and uneven claim severity across vehicle value segments.
+:::
+
+## Policyholder Risk Profile Analysis
+
+::::::: smaller-bullets
+:::::: columns
+::: {.column width="48%"}
+![](images/Driver%20Age%20Profile-01.png)
+
+<h4 style="text-align:center;">
+
+Driver Age Composition
+
+</h4>
+
+-   Portfolio exposure is concentrated among middle-aged drivers
+
+-   Drivers aged 40–59 form more than half of insured policyholders
+
+-   Younger drivers represent a smaller share of the portfolio
+:::
+
+::: {.column width="4%"}
+ 
+:::
+
+::: {.column width="48%"}
+![](images/Driver%20Experience%20Profile.png)
+
+<h4 style="text-align:center;">
+
+Driving Experience Profile
+
+</h4>
+
+-   Highly experienced drivers show the widest experience range
+
+-   New drivers have a more uniform and narrow driving profile
+
+-   Experience alone may not fully explain claim volatility
+:::
+::::::
+:::::::
+
+::: notes
+This slide summarises the policyholder risk profile based on age and driving experience. The age composition chart shows that portfolio exposure is concentrated among middle-aged drivers, especially those aged 40 to 59, while younger drivers form a relatively small share of the portfolio. The driving experience chart further indicates that highly experienced drivers have wider variability in driving tenure, while new drivers show a more consistent profile. These findings suggest that although the portfolio is largely made up of mature and experienced drivers, customer risk should still be assessed together with claim behaviour, vehicle characteristics, and policy type.
+:::
+
+## Insurance Product Risk Analysis
+
+:::::: smaller-bullets
+::::: columns
+::: {.column width="48%"}
+![](images/Claim Rate.png)
+
+<h4 style="text-align:center;">
+
+Claim Rate across Policy Types
+
+</h4>
+
+-   Claim frequency differs substantially across insurance products
+
+-   Comprehensive products exhibit relatively higher claim exposure
+
+-   Product structure and coverage design influence portfolio risk levels
+:::
+
+::: {.column width="4%"}
+ ![](images/Profitability.png)
+
+<h4 style="text-align:center;">
+
+Profitability Risk Positioning
+
+</h4>
+
+-   Policy products display differing profitability and risk characteristics
+
+-   Higher premiums do not always correspond to lower portfolio risk
+
+-   Certain products may require closer underwriting and pricing review
+:::
+:::::
+::::::
+
+::: notes
+This slide evaluates insurance product performance across different policy types. The claim rate analysis shows that claim exposure varies significantly between insurance products, particularly among comprehensive coverage products. The profitability risk quadrant further highlights how some policy types combine higher claim costs with elevated premium levels, indicating varying underwriting risk profiles across the portfolio. These findings suggest that pricing adequacy and product design play an important role in portfolio profitability and long-term sustainability.
 :::

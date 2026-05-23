@@ -57,14 +57,13 @@
   margin-bottom: 0.2em;
 }
 
+/* Smaller bullet points for selected slides (TAKE NOTE)*/ 
 .reveal .smaller-bullets ul {
-  font-size: 0.62em;
-  line-height: 1.18;
+  font-size: 0.70em;
+  line-height: 1.2;
 }
 
-.reveal .smaller-bullets h4 {
-  text-align: center;
-  font-size: 0.72em;
-  margin-top: 0.25em;
-  margin-bottom: 0.15em;
+/* Slightly smaller normal bullet lists */
+.reveal ul {
+  line-height: 1.25;
 }
