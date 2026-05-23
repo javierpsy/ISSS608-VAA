@@ -47,7 +47,8 @@ website:
         menu:
           - text: "Take-Home_Ex01"
             href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.qmd"
-            
+          - text: "Take-Home_Ex01_Slides"
+            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.qmd"  
       - icon: people
         text: "Group Project"
         href: "#"

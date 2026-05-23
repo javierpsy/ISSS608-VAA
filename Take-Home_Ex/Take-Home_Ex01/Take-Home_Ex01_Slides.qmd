@@ -1,0 +1,52 @@
+---
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: slide
+    smaller: true
+    incremental: false
+
+execute:
+  eval: true
+  echo: false
+  warning: false
+  message: false
+
+freeze: false
+---
+
+```{r}
+#| include: false
+
+pacman::p_load(tidyverse,ggplot2,scales,patchwork,ggdist,ggridges,ggstatsplot)
+
+```
+
+```{r}
+#| include: false
+
+motor_raw <- read_csv(
+  "Dataset of motor insurance portfolio.csv"
+)
+```
+
+## Motor Insurance Portfolio Analytics {layout-valign="center" layout-align="center"}
+
+### Executive Summary using the IDEA Framework
+
+<br><br>
+
+Javier Phang
+
+ISSS608 Visual Analytics and Applications
+
+Singapore Management University
+
+<br>
+
+16 May 2026
+
+::: notes
+This presentation summarises the key findings from the motor insurance portfolio analysis using the Interactive Data Exploration and Analysis framework. The analysis focuses on claim behaviour, underwriting profitability, portfolio risk exposure, and pricing adequacy across the motor insurance portfolio.
+:::
