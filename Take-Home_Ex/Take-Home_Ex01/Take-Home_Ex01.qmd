@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
 ---
 
 # 1 **Overview**
@@ -3046,16 +3046,16 @@ Overall, the study demonstrates how exploratory visual analytics can support dee
  
 # 7 **References**
 
-Beyond ggplot2 Fundamentals – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap02
+Beyond ggplot2 Fundamentals – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap02](https://r4va.netlify.app/chap02)
 
-Clemente, C., Guerreiro, G. R., & Bravo, J. M. (2023). Modelling motor insurance claim frequency and severity using gradient boosting. Risks, 11(9), 163. https://doi.org/10.3390/risks11090163
+Clemente, C., Guerreiro, G. R., & Bravo, J. M. (2023). Modelling motor insurance claim frequency and severity using gradient boosting. Risks, 11(9), 163. [https://doi.org/10.3390/risks11090163](https://doi.org/10.3390/risks11090163)
 
-Programming Interactive Data Visualisation with R – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap03
+Programming Interactive Data Visualisation with R – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap03](https://r4va.netlify.app/chap03)
 
-Xie, S. (2024). Analyzing the influence of telematics-based pricing strategies on traditional rating factors in auto insurance rate regulation. Mathematics, 12(19), 3150. https://doi.org/10.3390/math12193150
+Xie, S. (2024). Analyzing the influence of telematics-based pricing strategies on traditional rating factors in auto insurance rate regulation. Mathematics, 12(19), 3150. [https://doi.org/10.3390/math12193150](https://doi.org/10.3390/math12193150)
 
-Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive power of telematics data in car insurance pricing. Lirias (KU Leuven). https://doi.org/10.1111/rssc.12283
+Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive power of telematics data in car insurance pricing. Lirias (KU Leuven). [https://doi.org/10.1111/rssc.12283](https://doi.org/10.1111/rssc.12283)
 
-Visualising Distribution – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap09
+Visualising Distribution – R for Visual Analytics. (n.d.). [https://r4va.netlify.app/chap09](https://r4va.netlify.app/chap09)
 
-Yip, K. C., & Yau, K. K. (2005). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. https://doi.org/10.1016/j.insmatheco.2004.11.002
+Yip, K. C., & Yau, K. K. (2005). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. [https://doi.org/10.1016/j.insmatheco.2004.11.002](https://doi.org/10.1016/j.insmatheco.2004.11.002)

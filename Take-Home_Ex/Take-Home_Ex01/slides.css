@@ -1,4 +1,49 @@
-.title-slide-center {
+.reveal .title-slide-custom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
   text-align: center;
-  margin-top: 160px;
+}
+
+.reveal .title-slide-custom h2 {
+  font-size: 1.45em;
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 0.35em;
+}
+
+.reveal .title-slide-custom .author-name {
+  font-size: 0.72em;
+  font-weight: 500;
+  margin-top: 1em;
+}
+
+.reveal .title-slide-custom p {
+  font-size: 0.72em;
+  margin: 0.2em 0;
+}
+
+.reveal .slides section {
+  font-size: 0.82em;
+}
+
+.contents-slide,
+.objective-slide {
+  font-size: 0.88em;
+}
+
+.contents-slide h2,
+.objective-slide h2 {
+  margin-bottom: 0.4em;
+}
+
+.objective-slide h2 {
+  font-size: 1.25em;
+}
+
+.objective-slide ul {
+  font-size: 0.88em;
+  line-height: 1.35;
 }

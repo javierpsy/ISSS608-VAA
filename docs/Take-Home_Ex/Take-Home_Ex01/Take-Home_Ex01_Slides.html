@@ -32,6 +32,7 @@
     }
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="slides.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -129,17 +130,129 @@
     <div class="slides">
 
 
-<section id="motor-insurance-portfolio-analytics" class="slide level2" data-layout-valign="center" data-layout-align="center">
-<h2>Motor Insurance Portfolio Analytics</h2>
-<h3 id="executive-summary-using-the-idea-framework">Executive Summary using the IDEA Framework</h3>
-<p><br><br></p>
-<p>Javier Phang</p>
-<p>ISSS608 Visual Analytics and Applications</p>
-<p>Singapore Management University</p>
-<p><br></p>
-<p>16 May 2026</p>
+<section class="slide level2">
+
+<div class="title-slide-custom">
+<h2>
+Motor Insurance Executive Summary
+</h2>
+<p><img data-src="images/Motor Insurance.png" width="285"></p>
+<p>
+Javier Phang
+</p>
+<p>
+ISSS608 Visual Analytics and Applications
+</p>
+<p>
+Singapore Management University
+</p>
+<p>
+16 May 2026
+</p>
+</div>
+</section>
+<section id="contents" class="slide level2">
+<h2>Contents</h2>
+<ol type="1">
+<li><p>Objectives</p></li>
+<li><p>Portfolio Overview</p></li>
+<li><p>Portfolio Composition and Policy Distribution</p></li>
+<li><p>Claim Behaviour and Risk Patterns</p></li>
+<li><p>Profitability and Underwriting Performance</p></li>
+<li><p>Key Business Insights</p></li>
+<li><p>Recommendations and Future Work</p></li>
+</ol>
 <aside class="notes">
-<p>This presentation summarises the key findings from the motor insurance portfolio analysis using the Interactive Data Exploration and Analysis framework. The analysis focuses on claim behaviour, underwriting profitability, portfolio risk exposure, and pricing adequacy across the motor insurance portfolio.</p>
+<p>This presentation summarizes the exploratory visual analytics performed on a motor insurance portfolio dataset using the IDEA framework. The analysis focuses on portfolio composition, claim behaviour, underwriting profitability, and emerging risk patterns that may influence portfolio sustainability and pricing adequacy.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="objective" class="slide level2 objective-slide">
+<h2>Objective</h2>
+<div class="columns">
+<div class="column" style="width:90%;">
+<ul>
+<li><p>Evaluate the composition and risk distribution of the motor insurance portfolio</p></li>
+<li><p>Analyse claim behaviour and underwriting profitability patterns</p></li>
+<li><p>Identify high-risk customer and vehicle segments associated with higher claim exposure</p></li>
+<li><p>Support data-driven pricing, underwriting, and portfolio management decisions</p></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting inefficiencies, and high-risk policy segments that may impact portfolio sustainability. Through exploratory visual analytics, the study aims to support more informed pricing strategies, portfolio optimisation, and risk management decisions. The IDEA framework provides a structured approach for transforming raw insurance data into actionable business insights for management decision-making.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="portfolio-overview" class="slide level2">
+<h2>Portfolio Overview</h2>
+<h4 id="dataset-summary">Dataset Summary</h4>
+<ul>
+<li><p>Years Covered: 2022–2024</p></li>
+<li><p>Total Policy Records: 354,140</p></li>
+<li><p>Policy-level motor insurance portfolio</p></li>
+<li><p>Customer, vehicle, claims, and financial variables analysed</p></li>
+</ul>
+<h4 id="key-areas-of-analysis">Key Areas of Analysis</h4>
+<ul>
+<li><p>Claim behaviour patterns</p></li>
+<li><p>Underwriting profitability</p></li>
+<li><p>High-risk customer segments</p></li>
+<li><p>Vehicle risk exposure</p></li>
+<li><p>Pricing adequacy evaluation</p></li>
+</ul>
+<aside class="notes">
+<p>This slide provides a high-level overview of the motor insurance portfolio dataset used in the analysis. The dataset contains more than 350,000 policy-level records collected between 2022 and 2024, covering customer, vehicle, claims, and financial-related variables.</p>
+<p>The analysis focuses on understanding portfolio composition, claim behaviour, underwriting profitability, and identifying high-risk customer segments. Particular attention is given to pricing adequacy and vehicle-related risk exposure, which are important factors affecting insurance profitability and portfolio sustainability.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="portfolio-composition-analysis" class="slide level2">
+<h2>Portfolio Composition Analysis</h2>
+<div class="columns">
+<div class="column" style="width:52%;">
+<h3 id="claim-status-composition"><img data-src="images/Claim Status Composition-01.png">Claim Status Composition</h3>
+<ul>
+<li><p>85.7% of policies did not report claims</p></li>
+<li><p>Claim activity is concentrated within a smaller segment of policyholders</p></li>
+<li><p>A minority of policies contributes disproportionately to portfolio risk exposure</p></li>
+</ul>
+</div><div class="column" style="width:48%;">
+<h3 id="premium-distribution"><img data-src="images/Premium Distribution.png">Premium Distribution</h3>
+<ul>
+<li><p>Premium values are highly right-skewed across the portfolio</p></li>
+<li><p>Most policies fall within lower-to-moderate premium ranges</p></li>
+<li><p>A smaller group of high-premium policies contributes substantially to portfolio revenue</p></li>
+</ul>
+</div></div>
+<aside class="notes">
+<p>This slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. This suggests that portfolio risk exposure is unevenly distributed. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges, alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide important context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -369,6 +482,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

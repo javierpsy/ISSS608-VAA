@@ -6,6 +6,7 @@ format:
     transition: slide
     smaller: true
     incremental: false
+    css: slides.css
 
 execute:
   eval: true
@@ -31,22 +32,112 @@ motor_raw <- read_csv(
 )
 ```
 
-## Motor Insurance Portfolio Analytics {layout-valign="center" layout-align="center"}
+::: title-slide-custom
+<h2>Motor Insurance Executive Summary</h2>
 
-### Executive Summary using the IDEA Framework
+![](images/Motor%20Insurance.png){width="285"}
 
-<br><br>
+<p>Javier Phang</p>
 
-Javier Phang
+<p>ISSS608 Visual Analytics and Applications</p>
 
-ISSS608 Visual Analytics and Applications
+<p>Singapore Management University</p>
 
-Singapore Management University
+<p>16 May 2026</p>
+:::
 
-<br>
+## Contents
 
-16 May 2026
+1.  Objectives
+
+2.  Portfolio Overview
+
+3.  Portfolio Composition and Policy Distribution
+
+4.  Claim Behaviour and Risk Patterns
+
+5.  Profitability and Underwriting Performance
+
+6.  Key Business Insights
+
+7.  Recommendations and Future Work
 
 ::: notes
-This presentation summarises the key findings from the motor insurance portfolio analysis using the Interactive Data Exploration and Analysis framework. The analysis focuses on claim behaviour, underwriting profitability, portfolio risk exposure, and pricing adequacy across the motor insurance portfolio.
+This presentation summarizes the exploratory visual analytics performed on a motor insurance portfolio dataset using the IDEA framework. The analysis focuses on portfolio composition, claim behaviour, underwriting profitability, and emerging risk patterns that may influence portfolio sustainability and pricing adequacy.
+:::
+
+## Objective {.objective-slide}
+
+:::: columns
+::: {.column width="90%"}
+-   Evaluate the composition and risk distribution of the motor insurance portfolio
+
+-   Analyse claim behaviour and underwriting profitability patterns
+
+-   Identify high-risk customer and vehicle segments associated with higher claim exposure
+
+-   Support data-driven pricing, underwriting, and portfolio management decisions
+:::
+::::
+
+::: notes
+This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting inefficiencies, and high-risk policy segments that may impact portfolio sustainability. Through exploratory visual analytics, the study aims to support more informed pricing strategies, portfolio optimisation, and risk management decisions. The IDEA framework provides a structured approach for transforming raw insurance data into actionable business insights for management decision-making.
+:::
+
+## Portfolio Overview
+
+#### Dataset Summary
+
+-   Years Covered: 2022–2024
+
+-   Total Policy Records: 354,140
+
+-   Policy-level motor insurance portfolio
+
+-   Customer, vehicle, claims, and financial variables analysed
+
+#### Key Areas of Analysis
+
+-   Claim behaviour patterns
+
+-   Underwriting profitability
+
+-   High-risk customer segments
+
+-   Vehicle risk exposure
+
+-   Pricing adequacy evaluation
+
+::: notes
+This slide provides a high-level overview of the motor insurance portfolio dataset used in the analysis. The dataset contains more than 350,000 policy-level records collected between 2022 and 2024, covering customer, vehicle, claims, and financial-related variables.
+
+The analysis focuses on understanding portfolio composition, claim behaviour, underwriting profitability, and identifying high-risk customer segments. Particular attention is given to pricing adequacy and vehicle-related risk exposure, which are important factors affecting insurance profitability and portfolio sustainability.
+:::
+
+## Portfolio Composition Analysis
+
+::::: columns
+::: {.column width="52%"}
+### ![](images/Claim Status Composition-01.png)Claim Status Composition
+
+-   85.7% of policies did not report claims
+
+-   Claim activity is concentrated within a smaller segment of policyholders
+
+-   A minority of policies contributes disproportionately to portfolio risk exposure
+:::
+
+::: {.column width="48%"}
+### ![](images/Premium Distribution.png)Premium Distribution
+
+-   Premium values are highly right-skewed across the portfolio
+
+-   Most policies fall within lower-to-moderate premium ranges
+
+-   A smaller group of high-premium policies contributes substantially to portfolio revenue
+:::
+:::::
+
+::: notes
+This slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. This suggests that portfolio risk exposure is unevenly distributed. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges, alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide important context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments.
 :::

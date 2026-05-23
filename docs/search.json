@@ -1,10 +1,31 @@
 [
   {
-    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#motor-insurance-portfolio-analytics",
-    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#motor-insurance-portfolio-analytics",
+    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#contents",
+    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#contents",
     "title": "",
-    "section": "Motor Insurance Portfolio Analytics",
-    "text": "Motor Insurance Portfolio Analytics\nExecutive Summary using the IDEA Framework\n\nJavier Phang\nISSS608 Visual Analytics and Applications\nSingapore Management University\n\n16 May 2026\n\nThis presentation summarises the key findings from the motor insurance portfolio analysis using the Interactive Data Exploration and Analysis framework. The analysis focuses on claim behaviour, underwriting profitability, portfolio risk exposure, and pricing adequacy across the motor insurance portfolio."
+    "section": "Contents",
+    "text": "Contents\n\nObjectives\nPortfolio Overview\nPortfolio Composition and Policy Distribution\nClaim Behaviour and Risk Patterns\nProfitability and Underwriting Performance\nKey Business Insights\nRecommendations and Future Work\n\n\nThis presentation summarizes the exploratory visual analytics performed on a motor insurance portfolio dataset using the IDEA framework. The analysis focuses on portfolio composition, claim behaviour, underwriting profitability, and emerging risk patterns that may influence portfolio sustainability and pricing adequacy."
+  },
+  {
+    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#objective",
+    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#objective",
+    "title": "",
+    "section": "Objective",
+    "text": "Objective\n\n\n\nEvaluate the composition and risk distribution of the motor insurance portfolio\nAnalyse claim behaviour and underwriting profitability patterns\nIdentify high-risk customer and vehicle segments associated with higher claim exposure\nSupport data-driven pricing, underwriting, and portfolio management decisions\n\n\n\nThis study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting inefficiencies, and high-risk policy segments that may impact portfolio sustainability. Through exploratory visual analytics, the study aims to support more informed pricing strategies, portfolio optimisation, and risk management decisions. The IDEA framework provides a structured approach for transforming raw insurance data into actionable business insights for management decision-making."
+  },
+  {
+    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#portfolio-overview",
+    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#portfolio-overview",
+    "title": "",
+    "section": "Portfolio Overview",
+    "text": "Portfolio Overview\nDataset Summary\n\nYears Covered: 2022–2024\nTotal Policy Records: 354,140\nPolicy-level motor insurance portfolio\nCustomer, vehicle, claims, and financial variables analysed\n\nKey Areas of Analysis\n\nClaim behaviour patterns\nUnderwriting profitability\nHigh-risk customer segments\nVehicle risk exposure\nPricing adequacy evaluation\n\n\nThis slide provides a high-level overview of the motor insurance portfolio dataset used in the analysis. The dataset contains more than 350,000 policy-level records collected between 2022 and 2024, covering customer, vehicle, claims, and financial-related variables.\nThe analysis focuses on understanding portfolio composition, claim behaviour, underwriting profitability, and identifying high-risk customer segments. Particular attention is given to pricing adequacy and vehicle-related risk exposure, which are important factors affecting insurance profitability and portfolio sustainability."
+  },
+  {
+    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#portfolio-composition-analysis",
+    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html#portfolio-composition-analysis",
+    "title": "",
+    "section": "Portfolio Composition Analysis",
+    "text": "Portfolio Composition Analysis\n\n\nClaim Status Composition\n\n85.7% of policies did not report claims\nClaim activity is concentrated within a smaller segment of policyholders\nA minority of policies contributes disproportionately to portfolio risk exposure\n\n\nPremium Distribution\n\nPremium values are highly right-skewed across the portfolio\nMost policies fall within lower-to-moderate premium ranges\nA smaller group of high-premium policies contributes substantially to portfolio revenue\n\n\n\nThis slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. This suggests that portfolio risk exposure is unevenly distributed. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges, alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide important context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments."
   },
   {
     "objectID": "index.html",
@@ -1034,12 +1055,5 @@
     "title": "Take-home Exercise 1",
     "section": "Recommendations for Future Research",
     "text": "Recommendations for Future Research\nConfirmatory Data Analysis: This study mainly concentrated on exploratory visual analytics and the identification of patterns. Future research might include statistical testing and confirmatory analysis to substantiate the identified connections between claim frequency, claim severity, pricing adequacy, and portfolio profitability.\nExploring Additional Variables: A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.\nLongitudinal Analysis: As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.\nBehavioural Risk Analysis: Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.(Xie, 2024)\nOverall, the study demonstrates how exploratory visual analytics can support deeper portfolio understanding by uncovering hidden behavioural patterns, temporal underwriting changes, profitability pressure, and volatility structures within large-scale motor insurance datasets."
-  },
-  {
-    "objectID": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html",
-    "href": "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html",
-    "title": "",
-    "section": "",
-    "text": "Javier Phang\nISSS608 Visual Analytics and Applications\nSingapore Management University\n\n16 May 2026\n\nThis presentation summarises the key findings from the motor insurance portfolio analysis using the Interactive Data Exploration and Analysis framework. The analysis focuses on claim behaviour, underwriting profitability, portfolio risk exposure, and pricing adequacy across the motor insurance portfolio."
   }
 ]
