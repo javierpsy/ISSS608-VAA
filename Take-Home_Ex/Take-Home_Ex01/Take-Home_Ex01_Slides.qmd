@@ -221,11 +221,9 @@ Yearly Portfolio Performance
 
 <h4 style="text-align:center;">
 
-```{=html}
 <a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#does-claim-severity-distribution-differ-across-vehicle-value-segments" 
 title="View detailed claim severity distribution analysis in the technical report"
 target="_blank">
-```
 
 Claim Severity Distribution
 
