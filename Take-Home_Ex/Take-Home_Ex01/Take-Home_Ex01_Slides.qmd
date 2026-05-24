@@ -257,7 +257,7 @@ This slide summarises the policyholder risk profile based on age and driving exp
 :::::: smaller-bullets
 ::::: columns
 ::: {.column width="48%"}
-![](images/Claim Rate.png)
+![](images/Claim%20Rate.png)
 
 <h4 style="text-align:center;">
 
@@ -273,7 +273,7 @@ Claim Rate across Policy Types
 :::
 
 ::: {.column width="4%"}
- ![](images/Profitability.png)
+ ![](images/Profitability.png){width="1782"}
 
 <h4 style="text-align:center;">
 
