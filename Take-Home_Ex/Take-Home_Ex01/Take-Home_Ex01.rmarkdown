@@ -3110,11 +3110,11 @@ Unlike traditional insurance dashboard reporting that mainly emphasizes descript
 
 1.**Confirmatory Data Analysis:** This study mainly concentrated on exploratory visual analytics and the identification of patterns. Future research might include statistical testing and confirmatory analysis to substantiate the identified connections between claim frequency, claim severity, pricing adequacy, and portfolio profitability.
 
-2.**Exploring Additional Variables:** A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.
+2. **Exploring Additional Variables:** A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.
 
-2.**Longitudinal Analysis:** As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.
+2. **Longitudinal Analysis:** As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.
 
-4.**Behavioural Risk Analysis:** Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.[(Xie, 2024)](https://www.mdpi.com/2227-7390/12/19/3150)
+4. **Behavioural Risk Analysis:** Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.[(Xie, 2024)](https://www.mdpi.com/2227-7390/12/19/3150)
 
 Overall, the study demonstrates how exploratory visual analytics can support deeper portfolio understanding by uncovering hidden behavioural patterns, temporal underwriting changes, profitability pressure, and volatility structures within large-scale motor insurance datasets.
 
@@ -3133,3 +3133,4 @@ Verbelen, R., Antonio, K., & Claeskens, G. (2016). Unraveling the predictive pow
 Visualising Distribution – R for Visual Analytics. (n.d.). <https://r4va.netlify.app/chap09>
 
 Yip, K. C., & Yau, K. K. (2005). On modeling claim frequency data in general insurance with extra zeros. Insurance Mathematics and Economics, 36(2), 153–163. <https://doi.org/10.1016/j.insmatheco.2004.11.002>
+
