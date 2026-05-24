@@ -453,31 +453,44 @@ Furthermore, higher premium levels alone did not guarantee improved underwriting
 ![](images/Conclusion+FutureWork.png){width="48%"}
 :::
 
+::: {.conclusion-columns}
+
 ::::::: columns
+
 :::: {.column width="55%"}
+
 ### Conclusion {.smaller-subheading}
 
 ::: smaller-bullets
- -  Motor insurance profitability is influenced by the combined interaction of claim behaviour, pricing adequacy, policy structure, and vehicle risk exposure
+
+-   Motor insurance profitability is influenced by the combined interaction of claim behaviour, pricing adequacy, policy structure, and vehicle risk exposure
 
 -   Comprehensive insurance products consistently demonstrated higher claim severity, loss ratios, and underpricing pressure across the portfolio
 
 -   Visual analytics revealed meaningful patterns in underwriting profitability, portfolio volatility, and emerging risk concentration segments
+
 :::
+
 ::::
 
 :::: {.column width="45%"}
+
 ### Future Work {.smaller-subheading}
 
 ::: smaller-bullets
+
 -   Extend the analysis using additional behavioural and operational variables such as telematics and fraud indicators
 
 -   Perform confirmatory statistical modelling to validate the exploratory analytical findings
 
 -   Expand longitudinal portfolio analysis to monitor evolving underwriting and profitability trends over time
+
 :::
+
 ::::
 :::::::
+
+:::
 
 ::: notes
 This slide summarizes the overall conclusions and future analytical opportunities derived from the motor insurance portfolio analysis.
