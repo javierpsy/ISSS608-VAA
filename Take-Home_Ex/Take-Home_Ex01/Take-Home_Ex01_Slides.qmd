@@ -445,7 +445,13 @@ The policy product tail-risk analysis further reveals that comprehensive insuran
 ::: {.column width="48%"}
 <h4 style="text-align:center; margin-top:10px;">
 
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#which-portfolio-variables-are-most-strongly-associated-with-profitability-and-claim-behaviour" 
+title="View detailed profitability and claim behaviour relationship analysis in the technical report"
+target="_blank">
+
 Relationship among Key Risk Indicators
+
+</a>
 
 </h4>
 
@@ -463,13 +469,7 @@ Relationship among Key Risk Indicators
 ::: {.column width="48%"}
 <h4 style="text-align:center; margin-top:10px;">
 
-<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#which-portfolio-variables-are-most-strongly-associated-with-profitability-and-claim-behaviour" 
-title="View detailed profitability and claim behaviour relationship analysis in the technical report"
-target="_blank">
-
-Relationship among Key Risk Indicators
-
-</a>
+Key Profitability Insights
 
 </h4>
 
