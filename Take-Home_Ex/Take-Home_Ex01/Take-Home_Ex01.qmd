@@ -1,5 +1,5 @@
 ---
-title: "Take-home Exercise 1 "
+title: "Take Home Exercise 1"
 author: "Javier Phang"
 date: "16 May, 2026"
 date-modified: "last-modified"
@@ -7,9 +7,8 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: false
+  freeze: true
 ---
-
 # 1 **Overview**
 
 ## 1.1 **Background**

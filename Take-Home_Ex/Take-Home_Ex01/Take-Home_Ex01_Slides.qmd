@@ -52,13 +52,13 @@ motor_raw <- read_csv(
 
 2.  Portfolio Overview
 
-3.  Portfolio Composition and Policy Distribution
+3.  Portfolio Composition Analysis
 
 4.  Claim Behaviour and Risk Patterns
 
 5.  Profitability and Underwriting Performance
 
-6.  Key Business Insights
+6.  Key Insights
 
 7.  Recommendations and Future Work
 
@@ -70,18 +70,24 @@ This presentation summarizes the exploratory visual analytics performed on a mot
 
 :::: columns
 ::: {.column width="90%"}
--   Evaluate the composition and risk distribution of the motor insurance portfolio
 
--   Analyse claim behaviour and underwriting profitability patterns
+- Evaluate the composition and risk distribution of the motor insurance portfolio
 
--   Identify high-risk customer and vehicle segments associated with higher claim exposure
+- Analyse claim behaviour and underwriting profitability patterns
 
--   Support data-driven pricing, underwriting, and portfolio management decisions
+- Identify high-risk customer and vehicle segments associated with higher claim exposure
+
+- Support data-driven pricing, underwriting, and portfolio management decisions through visual analytics
+
 :::
 ::::
 
 ::: notes
-This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting inefficiencies, and high-risk policy segments that may impact portfolio sustainability. Through exploratory visual analytics, the study aims to support more informed pricing strategies, portfolio optimisation, and risk management decisions. The IDEA framework provides a structured approach for transforming raw insurance data into actionable business insights for management decision-making.
+This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting profitability dynamics, and high-risk customer and vehicle segments that may contribute to portfolio volatility.
+
+Using exploratory visual analytics techniques, the study examines relationships across policy, customer, vehicle, and claim-related variables to uncover meaningful risk patterns and profitability insights.
+
+The findings aim to support more informed pricing, underwriting, and portfolio management decisions while demonstrating the value of visual analytics in insurance portfolio analysis.
 :::
 
 ## Portfolio Overview
@@ -165,7 +171,7 @@ This slide provides an overview of the portfolio structure and overall claim con
 ::::::: smaller-bullets
 :::::: columns
 ::: {.column width="48%"}
-![](images/Yearly%20Portfolio%20Performance.png){width="100%"}
+![](images/Yearly%20Portfolio%20Performance.png){width="100%" height="260px"}
 
 <h4 style="text-align:center;">
 
@@ -173,11 +179,11 @@ Yearly Portfolio Performance
 
 </h4>
 
--   Portfolio risk indicators increased steadily from 2022 to 2024
+-   Portfolio claim indicators increased progressively from 2022 to 2024
 
--   Loss ratio rose significantly, indicating growing profitability pressure
+-   Loss ratio and underpricing exposure intensified over time, signalling growing profitability pressure
 
--   Claim frequency and underpricing jointly contributed to underwriting deterioration
+-   Rising claim frequency contributed to deteriorating underwriting performance across the portfolio
 :::
 
 ::: {.column width="4%"}
@@ -185,7 +191,7 @@ Yearly Portfolio Performance
 :::
 
 ::: {.column width="48%"}
-![](images/Claim%20Severity%20Behaviour.png){width="100%"}
+![](images/Claim%20Severity%20Behaviour.png){width="100%" height="260px"}
 
 <h4 style="text-align:center;">
 
@@ -193,17 +199,17 @@ Claim Severity Distribution
 
 </h4>
 
--   Higher vehicle value segments exhibit wider claim severity distributions
+-   Higher vehicle value segments demonstrate broader claim severity distributions and stronger tail-risk behaviour
 
--   Tail-risk exposure is more pronounced among higher-value vehicles
+-   Extreme incurred-loss observations are more concentrated among premium vehicle categories
 
--   Variability in incurred losses suggests uneven financial risk concentration
+-   Uneven claim severity patterns suggest differing levels of financial exposure across insured vehicle segments
 :::
 ::::::
 :::::::
 
 ::: notes
-This slide examines claim behaviour and loss exposure within the motor insurance portfolio. The yearly portfolio performance chart shows that claim rate, loss ratio, and underpricing risk increased steadily from 2022 to 2024, suggesting worsening underwriting conditions over time. The claim severity chart further shows that higher-value vehicle segments exhibit wider incurred-loss distributions and stronger tail-risk behaviour. Together, these findings suggest that portfolio profitability pressure is driven by both rising claim trends over time and uneven claim severity across vehicle value segments.
+This slide examines claim behaviour and underwriting risk patterns within the motor insurance portfolio. The yearly portfolio performance chart indicates that claim frequency, loss ratio, and underpricing exposure increased steadily from 2022 to 2024, reflecting worsening underwriting conditions over time. The claim severity distribution further reveals that higher-value vehicle segments exhibit broader loss distributions and stronger tail-risk exposure, indicating greater financial volatility. Together, these findings suggest that portfolio profitability pressure is influenced by both worsening claim trends over time and concentrated high-severity losses among selected vehicle segments.
 :::
 
 ## Policyholder Risk Profile Analysis
@@ -254,26 +260,30 @@ This slide summarises the policyholder risk profile based on age and driving exp
 
 ## Insurance Product Risk Analysis
 
-:::::: smaller-bullets
-::::: columns
+::::::: smaller-bullets
+:::::: columns
 ::: {.column width="48%"}
-![](images/Claim%20Rate.png)
+![](images/Underpricing.png){width="100%" height="260px"}
 
 <h4 style="text-align:center;">
 
-Claim Rate across Policy Types
+Policy Products with Greater Underpricing Risk
 
 </h4>
 
--   Claim frequency differs substantially across insurance products
+-   Certain policy products display substantially higher underpricing exposure
 
--   Comprehensive products exhibit relatively higher claim exposure
+-   Comprehensive products exhibit increased likelihood of claims exceeding collected premiums
 
--   Product structure and coverage design influence portfolio risk levels
+-   Underpricing concentration suggests potential pricing adequacy concerns within selected products
 :::
 
 ::: {.column width="4%"}
- ![](images/Profitability.png){width="1782"}
+ 
+:::
+
+::: {.column width="48%"}
+![](images/Profitability.png){width="100%" height="260px"}
 
 <h4 style="text-align:center;">
 
@@ -281,15 +291,205 @@ Profitability Risk Positioning
 
 </h4>
 
--   Policy products display differing profitability and risk characteristics
+-   Policy products display differing profitability and underwriting risk characteristics
 
--   Higher premiums do not always correspond to lower portfolio risk
+-   Higher premiums do not necessarily correspond to lower portfolio risk exposure
 
 -   Certain products may require closer underwriting and pricing review
 :::
-:::::
+::::::
+:::::::
+
+::: notes
+This slide evaluates insurance product performance and underwriting risk across different policy types. The underpricing risk analysis shows that certain comprehensive insurance products are more likely to experience claim costs exceeding collected premiums, indicating potential pricing adequacy concerns. The profitability risk quadrant further highlights how policy products differ in terms of premium levels and financial risk exposure. Together, these findings suggest that product design, coverage structure, and underwriting strategy play an important role in portfolio profitability and long-term sustainability.
+:::
+
+## High-Risk Segment Analysis
+
+::::::: smaller-bullets
+:::::: columns
+::: {.column width="48%"}
+![](images/Driver%20Age%20Influence%20Claim%20Risk.png){width="100%" height="250px"}
+
+<h4 style="text-align:center;">
+
+Driver Age and Policy Risk Interaction
+
+</h4>
+
+-   Claim risk varies across both driver age groups and policy products
+
+-   Younger drivers exhibit higher claim exposure across several policy types
+
+-   Comprehensive products remain higher-risk even across different age groups
+:::
+
+::: {.column width="4%"}
+ 
+:::
+
+::: {.column width="48%"}
+![](images/Policy%20Product%20Tail-Risk%20Exposure.png){width="100%" height="250px"}
+
+<h4 style="text-align:center;">
+
+Policy Product Tail-Risk Exposure
+
+</h4>
+
+-   Comprehensive policies show wider claim severity distributions
+
+-   Certain policy products exhibit greater exposure to extreme claim events
+
+-   Policy type remains an important segmentation factor for underwriting risk
+:::
+::::::
+:::::::
+
+::: notes
+This slide examines higher-risk portfolio segments from both customer and product perspectives. The driver age interaction analysis shows that claim exposure differs across age groups and policy products, with younger drivers generally demonstrating higher claim risk across several insurance categories. Comprehensive products consistently remain associated with higher underwriting exposure regardless of driver age profile.
+
+The policy product tail-risk analysis further highlights that certain insurance products exhibit broader claim severity distributions and greater exposure to extreme loss events. These findings suggest that underwriting risk is influenced not only by customer demographics but also by product structure and claim severity behaviour. Together, the analyses support the importance of risk-based segmentation and targeted underwriting strategies to improve portfolio sustainability and pricing adequacy.
+:::
+
+## Profitability and Risk Analysis
+
+::: {style="text-align:center;"}
+![](images/Correlogram.png){width="38%"}
+:::
+
+::::::: smaller-bullets
+:::::: columns
+::: {.column width="48%"}
+<h4 style="text-align:center; margin-top:10px;">
+
+Relationship among Key Risk Indicators
+
+</h4>
+
+-   Strong relationships exist among claim cost, premium, and profitability measures
+
+-   Loss ratio and incurred claims demonstrate close association with underwriting performance
+
+-   Multiple portfolio indicators interact jointly to influence insurer profitability
+:::
+
+::: {.column width="4%"}
+ 
+:::
+
+::: {.column width="48%"}
+<h4 style="text-align:center; margin-top:10px;">
+
+Key Profitability Insights
+
+</h4>
+
+-   Profitability is influenced by both claim frequency and claim severity dynamics
+
+-   Higher premium products do not necessarily correspond to lower financial risk exposure
+
+-   Product structure, customer characteristics, and claim behaviour jointly contribute to risk concentration
+:::
+::::::
+:::::::
+
+::: notes
+This slide summarizes the relationships among key insurance risk and profitability indicators within the portfolio. The correlogram highlights strong associations between claim-related variables, premium levels, and underwriting performance measures, suggesting that portfolio profitability is influenced by multiple interacting risk dimensions rather than isolated factors alone.
+
+The overall findings indicate that underwriting profitability depends not only on pricing levels, but also on customer risk profiles, claim severity behaviour, and product structure. These results reinforce the importance of adopting integrated pricing, underwriting, and portfolio monitoring strategies to maintain long-term portfolio sustainability.
+:::
+
+## Key Insights
+
+:::::: columns
+::: {.column width="34%"}
+<br>
+
+![](images/Key%20Insights-01.png){fig-align="center"}
+:::
+
+:::: {.column width="66%"}
+### Insights {.smaller-heading}
+
+::: smaller-bullets
+-   Most policies did not report claims, suggesting that portfolio risk exposure is concentrated within a smaller subset of policyholders
+
+-   Comprehensive insurance products consistently demonstrated higher claim frequency, claim severity, loss ratios, and underpricing pressure
+
+-   Claim behaviour and underwriting profitability varied substantially across policy structures and customer segments
+
+-   Premium adequacy alone does not fully determine profitability, as higher-premium products may still experience elevated claim costs
+
+-   Vehicle characteristics, pricing structure, and customer risk exposure jointly contribute to underwriting volatility and portfolio sustainability
+:::
+::::
 ::::::
 
 ::: notes
-This slide evaluates insurance product performance across different policy types. The claim rate analysis shows that claim exposure varies significantly between insurance products, particularly among comprehensive coverage products. The profitability risk quadrant further highlights how some policy types combine higher claim costs with elevated premium levels, indicating varying underwriting risk profiles across the portfolio. These findings suggest that pricing adequacy and product design play an important role in portfolio profitability and long-term sustainability.
+This section summarizes the major findings derived from the exploratory visual analytics conducted on the motor insurance portfolio dataset.
+
+The analysis revealed that although most policyholders did not submit claims, profitability pressure is concentrated within a smaller high-risk segment of the portfolio.
+
+Comprehensive insurance products consistently displayed higher claim frequency, higher claim severity, and greater underpricing pressure compared to other policy types.
+
+The findings also demonstrate that premium adequacy alone does not guarantee underwriting profitability, as certain high-premium products continue to experience elevated claim costs and financial pressure.
+
+Overall, portfolio profitability appears to be influenced by the combined interaction of customer risk exposure, policy structure, vehicle characteristics, and claim behaviour dynamics.
+:::
+
+## Conclusion & Future Work
+
+<div style="text-align:center; margin-top:-18px; margin-bottom:-18px;">
+
+![](images/Conclusion+FutureWork.png){width="48%"}
+
+</div>
+
+:::::::::: columns
+
+::::: {.column width="55%"}
+
+### Conclusion {.smaller-subheading}
+
+::: {.smaller-bullets}
+
+- Motor insurance profitability is shaped by claim behaviour, pricing adequacy, policy structure, and vehicle risk exposure
+
+- Comprehensive products consistently showed higher claim severity, loss ratios, and underpricing pressure
+
+- Visual analytics revealed meaningful patterns in underwriting profitability, portfolio volatility, and risk concentration
+
+:::
+
+:::::
+
+::::: {.column width="45%"}
+
+### Future Work {.smaller-subheading}
+
+::: {.smaller-bullets}
+
+- Extend the analysis using additional behavioural and operational variables such as telematics and fraud indicators
+
+- Perform confirmatory statistical analysis to validate the exploratory findings
+
+- Expand longitudinal analysis to monitor evolving underwriting and profitability trends
+
+:::
+
+:::::
+
+::::::::::
+
+::: notes
+This final slide summarizes the overall conclusions and future analytical opportunities.
+
+The study shows that motor insurance profitability is influenced by multiple interacting factors, including claim behaviour, pricing adequacy, policy structure, and vehicle risk exposure.
+
+Comprehensive insurance products consistently demonstrated higher claim severity, higher loss ratios, and stronger underpricing pressure.
+
+The analysis also highlights how visual analytics can support deeper understanding of underwriting profitability, portfolio volatility, and emerging risk concentration patterns.
+
+Future work could extend the analysis using additional behavioural and operational variables such as telematics, fraud indicators, and longer-term underwriting trends.
 :::

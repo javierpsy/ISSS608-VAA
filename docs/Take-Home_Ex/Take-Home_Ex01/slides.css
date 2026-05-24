@@ -50,6 +50,11 @@
   line-height: 1.35;
 }
 
+/* Smaller h3 subheaders only when explicitly applied */
+.reveal .smaller-subheading {
+  font-size: 0.74em;
+  margin-bottom: 0.12em;
+}
 /* Smaller subsection titles */
 .reveal h4 {
   font-size: 0.72em;
@@ -59,8 +64,8 @@
 
 /* Smaller bullet points for selected slides (TAKE NOTE)*/ 
 .reveal .smaller-bullets ul {
-  font-size: 0.70em;
-  line-height: 1.2;
+  font-size: 0.66em;
+  line-height: 1.25;
 }
 
 /* Slightly smaller normal bullet lists */
