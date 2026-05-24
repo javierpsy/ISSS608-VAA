@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
 ---
 # 1 **Overview**
 
@@ -2345,6 +2345,8 @@ premium_adequacy_plot
 
 -   The loss ratio chart shows that Comprehensive without Excess policies are approaching the underwriting break-even threshold,implying that premium revenues are almost entirely balanced by claims incurred.
 
+-   The underpricing analysis indicates that Comprehensive without Excess products face significantly greater pricing adequacy pressure, with 20.8% of policies experiencing incurred claims exceeding collected premiums, highlighting elevated underwriting and profitability risk.
+
 -   The charts depicting claim frequency and average claim cost indicate that the decline in profitability results from both high claim occurrence rates and increased claim severity, emphasizing the need to examine both factors together.
 
 -   The profitability risk quadrant bubble chart supports these conclusions by placing Comprehensive without Excess in the portfolio's highest-risk area, where claim activity and profitability pressure are significantly increased. In comparison, Third-party policies show relatively reduced claim frequency, claim severity, and loss ratio, indicating a more consistent underwriting performance and diminished portfolio volatility.
@@ -3106,13 +3108,13 @@ Unlike traditional insurance dashboard reporting that mainly emphasizes descript
 
 ## Recommendations for Future Research
 
-**Confirmatory Data Analysis:** This study mainly concentrated on exploratory visual analytics and the identification of patterns. Future research might include statistical testing and confirmatory analysis to substantiate the identified connections between claim frequency, claim severity, pricing adequacy, and portfolio profitability.
+1.**Confirmatory Data Analysis:** This study mainly concentrated on exploratory visual analytics and the identification of patterns. Future research might include statistical testing and confirmatory analysis to substantiate the identified connections between claim frequency, claim severity, pricing adequacy, and portfolio profitability.
 
-**Exploring Additional Variables:** A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.
+2. **Exploring Additional Variables:** A broader examination that includes further operational and behavioral variables might yield greater understanding of motor insurance risk behavior. Factors like accident history, geographic exposure, weather patterns, repair cost inflation, fraud indicators, and telematics data could enhance insights into claim severity and underwriting fluctuations.
 
-**Longitudinal Analysis:** As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.
+2. **Longitudinal Analysis:** As the present study analyzed underwriting data from 2022 to 2024, subsequent research extending the temporal scope may offer greater insight into the changing patterns of claims, underwriting cycle fluctuations, pricing sufficiency, and shifts in profitability over time.
 
-**Behavioural Risk Analysis:** Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.[(Xie, 2024)](https://www.mdpi.com/2227-7390/12/19/3150)
+4. **Behavioural Risk Analysis:** Additional studies could explore policyholder behavioural tendencies more comprehensively, especially in relation to adverse selection actions and variances in claim usage among different insurance product frameworks. This could offer greater insight into how policy design and customer risk traits interact in motor insurance portfolios.[(Xie, 2024)](https://www.mdpi.com/2227-7390/12/19/3150)
 
 Overall, the study demonstrates how exploratory visual analytics can support deeper portfolio understanding by uncovering hidden behavioural patterns, temporal underwriting changes, profitability pressure, and volatility structures within large-scale motor insurance datasets.
 

@@ -156,10 +156,10 @@ Singapore Management University
 <ol type="1">
 <li><p>Objectives</p></li>
 <li><p>Portfolio Overview</p></li>
-<li><p>Portfolio Composition and Policy Distribution</p></li>
+<li><p>Portfolio Composition Analysis</p></li>
 <li><p>Claim Behaviour and Risk Patterns</p></li>
 <li><p>Profitability and Underwriting Performance</p></li>
-<li><p>Key Business Insights</p></li>
+<li><p>Key Insights</p></li>
 <li><p>Recommendations and Future Work</p></li>
 </ol>
 <aside class="notes">
@@ -184,11 +184,13 @@ Singapore Management University
 <li><p>Evaluate the composition and risk distribution of the motor insurance portfolio</p></li>
 <li><p>Analyse claim behaviour and underwriting profitability patterns</p></li>
 <li><p>Identify high-risk customer and vehicle segments associated with higher claim exposure</p></li>
-<li><p>Support data-driven pricing, underwriting, and portfolio management decisions</p></li>
+<li><p>Support data-driven pricing, underwriting, and portfolio management decisions through visual analytics</p></li>
 </ul>
 </div></div>
 <aside class="notes">
-<p>This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting inefficiencies, and high-risk policy segments that may impact portfolio sustainability. Through exploratory visual analytics, the study aims to support more informed pricing strategies, portfolio optimisation, and risk management decisions. The IDEA framework provides a structured approach for transforming raw insurance data into actionable business insights for management decision-making.</p>
+<p>This study applies the IDEA framework to evaluate the motor insurance portfolio from both risk and profitability perspectives. The analysis focuses on identifying claim behaviour patterns, underwriting profitability dynamics, and high-risk customer and vehicle segments that may contribute to portfolio volatility.</p>
+<p>Using exploratory visual analytics techniques, the study examines relationships across policy, customer, vehicle, and claim-related variables to uncover meaningful risk patterns and profitability insights.</p>
+<p>The findings aim to support more informed pricing, underwriting, and portfolio management decisions while demonstrating the value of visual analytics in insurance portfolio analysis.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -243,9 +245,9 @@ Singapore Management University
 <p>Claim Status Composition</p>
 </h4>
 <ul>
-<li><p>85.7% of policies did not report claims</p></li>
-<li><p>Claim activity is concentrated within a smaller segment of policyholders</p></li>
-<li><p>A minority of policies contributes disproportionately to portfolio risk exposure</p></li>
+<li><p>Approximately 85.7% of policies remained claim-free, while only 14.3% reported claims</p></li>
+<li><p>Claim activity is concentrated within a relatively small proportion of policyholders, indicating uneven portfolio risk exposure</p></li>
+<li><p>Although claim-reporting policies form a minority segment, they may contribute disproportionately to underwriting volatility and incurred claim costs</p></li>
 </ul>
 </div><div class="column" style="width:4%;">
 <p>&nbsp;</p>
@@ -255,14 +257,16 @@ Singapore Management University
 <p>Premium Distribution</p>
 </h4>
 <ul>
-<li><p>Premium values are highly right-skewed across the portfolio</p></li>
-<li><p>Most policies fall within lower-to-moderate premium ranges</p></li>
-<li><p>A smaller group of high-premium policies contributes substantially to portfolio revenue</p></li>
+<li><p>Premium values exhibit strong right-skewness, reflecting substantial variation in pricing levels across policyholders</p></li>
+<li><p>The median premium is concentrated within lower-to-moderate premium ranges, suggesting a predominantly standard-risk portfolio</p></li>
+<li><p>A smaller group of high-premium policies forms the long right tail and may contribute disproportionately to portfolio revenue and risk exposure</p></li>
 </ul>
 </div></div>
 </div>
 <aside class="notes">
-<p>This slide provides an overview of the portfolio structure and overall claim concentration. The claim status distribution shows that most policies remain claim-free, while claims are concentrated within a smaller proportion of policyholders. The premium distribution further highlights strong right-skewness, where most policies are concentrated within lower-to-moderate premium ranges alongside a smaller segment of high-premium policies. These findings indicate varying customer risk profiles and provide context for the subsequent analysis on profitability, underwriting performance, and high-risk portfolio segments.</p>
+<p>This slide provides an overview of the portfolio composition and premium structure within the motor insurance portfolio. Approximately 85.7% of policies remained claim-free, while only 14.3% reported claims. This suggests that underwriting risk exposure is concentrated within a relatively smaller group of policyholders rather than being evenly distributed across the portfolio.</p>
+<p>The premium distribution exhibits strong right-skewness, where most policies fall within lower-to-moderate premium ranges, while a smaller group of high-premium policies forms the long right tail of the distribution. The median premium line further indicates that the typical policyholder belongs to a standard-risk segment.</p>
+<p>Together, these findings provide important context for understanding portfolio risk concentration, pricing variation, and subsequent analyses on claim behaviour, underwriting profitability, and high-risk customer segments.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -285,9 +289,9 @@ Singapore Management University
 <p>Yearly Portfolio Performance</p>
 </h4>
 <ul>
-<li><p>Portfolio claim indicators increased progressively from 2022 to 2024</p></li>
-<li><p>Loss ratio and underpricing exposure intensified over time, signalling growing profitability pressure</p></li>
-<li><p>Rising claim frequency contributed to deteriorating underwriting performance across the portfolio</p></li>
+<li><p>Claim rate increased from 13.0% in 2022 to 15.1% in 2024, indicating progressively higher claim occurrence across the portfolio</p></li>
+<li><p>Loss ratio rose substantially from 65.6% to 74.7%, reflecting worsening underwriting profitability over time</p></li>
+<li><p>Underpricing exposure also increased from 8.0% to 9.7%, suggesting growing profitability pressure and portfolio instability</p></li>
 </ul>
 </div><div class="column" style="width:4%;">
 <p>&nbsp;</p>
@@ -297,14 +301,16 @@ Singapore Management University
 <p>Claim Severity Distribution</p>
 </h4>
 <ul>
-<li><p>Higher vehicle value segments demonstrate broader claim severity distributions and stronger tail-risk behaviour</p></li>
-<li><p>Extreme incurred-loss observations are more concentrated among premium vehicle categories</p></li>
-<li><p>Uneven claim severity patterns suggest differing levels of financial exposure across insured vehicle segments</p></li>
+<li><p>Higher vehicle value segments exhibit broader claim severity distributions and stronger tail-risk behaviour</p></li>
+<li><p>Premium vehicle categories demonstrate wider variability and more extreme incurred-loss observations compared to lower-value segments</p></li>
+<li><p>Uneven claim severity distributions suggest differing levels of financial exposure and underwriting volatility across insured vehicle groups</p></li>
 </ul>
 </div></div>
 </div>
 <aside class="notes">
-<p>This slide examines claim behaviour and underwriting risk patterns within the motor insurance portfolio. The yearly portfolio performance chart indicates that claim frequency, loss ratio, and underpricing exposure increased steadily from 2022 to 2024, reflecting worsening underwriting conditions over time. The claim severity distribution further reveals that higher-value vehicle segments exhibit broader loss distributions and stronger tail-risk exposure, indicating greater financial volatility. Together, these findings suggest that portfolio profitability pressure is influenced by both worsening claim trends over time and concentrated high-severity losses among selected vehicle segments.</p>
+<p>This slide examines claim behaviour and underwriting risk patterns within the motor insurance portfolio. The yearly portfolio performance chart indicates that claim rate increased from 13.0% in 2022 to 15.1% in 2024, while the loss ratio rose from 65.6% to 74.7% over the same period. Underpricing exposure also increased from 8.0% to 9.7%, suggesting progressively worsening underwriting profitability and growing portfolio pressure over time.</p>
+<p>The claim severity distribution further reveals that higher-value vehicle segments exhibit broader incurred-loss distributions, stronger tail-risk behaviour, and greater variability in claim severity. Premium vehicle categories also demonstrate more extreme loss observations compared to lower-value vehicle groups.</p>
+<p>Together, these findings suggest that portfolio profitability pressure is influenced by both worsening claim trends over time and concentrated high-severity losses among premium vehicle segments.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
