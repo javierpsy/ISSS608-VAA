@@ -127,7 +127,15 @@ The analysis focuses on understanding portfolio composition, claim behaviour, un
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#claim-status-composition" 
+title="View detailed claim status composition analysis in the technical report"
+target="_blank">
+```
+
 Claim Status Composition
+
+</a>
 
 </h4>
 
@@ -147,7 +155,15 @@ Claim Status Composition
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#premium-distribution-across-policies" 
+title="View detailed premium distribution analysis in the technical report"
+target="_blank">
+```
+
 Premium Distribution
+
+</a>
 
 </h4>
 
@@ -177,7 +193,15 @@ In short, these findings provide important context for understanding portfolio r
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#yearly-portfolio-performance" 
+title="View detailed yearly portfolio performance analysis in the technical report"
+target="_blank">
+```
+
 Yearly Portfolio Performance
+
+</a>
 
 </h4>
 
@@ -197,7 +221,15 @@ Yearly Portfolio Performance
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#does-claim-severity-distribution-differ-across-vehicle-value-segments" 
+title="View detailed claim severity distribution analysis in the technical report"
+target="_blank">
+```
+
 Claim Severity Distribution
+
+</a>
 
 </h4>
 
@@ -227,7 +259,13 @@ Overall, these findings suggest that portfolio profitability pressure is influen
 
 <h4 style="text-align:center;">
 
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#driver-age-profile" 
+title="View detailed driver age profile analysis in the technical report"
+target="_blank">
+
 Driver Age Composition
+
+</a>
 
 </h4>
 
@@ -247,7 +285,13 @@ Driver Age Composition
 
 <h4 style="text-align:center;">
 
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#driving-experience-profile" 
+title="View detailed driving experience profile analysis in the technical report"
+target="_blank">
+
 Driving Experience Profile
+
+</a>
 
 </h4>
 
@@ -275,7 +319,13 @@ The driving experience profile further reveals that highly experienced drivers e
 
 <h4 style="text-align:center;">
 
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#insurance-risk-and-profitability-across-policy-types" 
+title="View detailed insurance risk and profitability analysis in the technical report"
+target="_blank">
+
 Policy Products with Greater Underpricing Risk
+
+</a>
 
 </h4>
 
@@ -295,7 +345,13 @@ Policy Products with Greater Underpricing Risk
 
 <h4 style="text-align:center;">
 
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#insurance-risk-and-profitability-across-policy-types" 
+title="View detailed profitability risk positioning analysis in the technical report"
+target="_blank">
+
 Profitability Risk Positioning
+
+</a>
 
 </h4>
 
@@ -323,7 +379,15 @@ The profitability risk positioning chart further reveals that Comprehensive with
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#does-driver-age-influence-claim-risk-differently-across-policy-types" 
+title="View detailed technical analysis section in the technical report"
+target="_blank">
+```
+
 Driver Age and Policy Risk Relationship
+
+</a>
 
 </h4>
 
@@ -332,7 +396,6 @@ Driver Age and Policy Risk Relationship
 -   Drivers aged 18–24 exhibited elevated claim exposure across multiple policy products, including a 21.1% claim rate under Combined Coverage policies
 
 -   Third-party products maintained comparatively lower claim rates across age groups, generally remaining below 13%
-
 :::
 
 ::: {.column width="4%"}
@@ -344,7 +407,15 @@ Driver Age and Policy Risk Relationship
 
 <h4 style="text-align:center;">
 
+```{=html}
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#which-policy-products-exhibit-greater-tail-risk-exposure" 
+title="View detailed tail-risk exposure analysis in the technical report"
+target="_blank">
+```
+
 Policy Product Tail-Risk Exposure
+
+</a>
 
 </h4>
 
@@ -353,7 +424,6 @@ Policy Product Tail-Risk Exposure
 -   Third-party policies exhibit narrower severity concentration, suggesting lower underwriting volatility and more stable claim behaviour
 
 -   The wider dispersion observed among comprehensive products indicates greater exposure to extreme incurred-loss events and profitability pressure
-
 :::
 ::::::
 :::::::
@@ -393,7 +463,13 @@ Relationship among Key Risk Indicators
 ::: {.column width="48%"}
 <h4 style="text-align:center; margin-top:10px;">
 
-Key Profitability Insights
+<a href="https://javierphangsy.vercel.app/Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html#which-portfolio-variables-are-most-strongly-associated-with-profitability-and-claim-behaviour" 
+title="View detailed profitability and claim behaviour relationship analysis in the technical report"
+target="_blank">
+
+Relationship among Key Risk Indicators
+
+</a>
 
 </h4>
 
@@ -402,7 +478,6 @@ Key Profitability Insights
 -   Higher premium products do not necessarily correspond to lower underwriting risk, as some comprehensive products also exhibit elevated loss ratios and underpricing exposure
 
 -   Customer characteristics, product structure, and claim behaviour collectively contribute to portfolio volatility and profitability pressure
-
 :::
 ::::::
 :::::::
@@ -453,44 +528,33 @@ Furthermore, higher premium levels alone did not guarantee improved underwriting
 ![](images/Conclusion+FutureWork.png){width="48%"}
 :::
 
-::: {.conclusion-columns}
-
+:::::::: conclusion-columns
 ::::::: columns
-
 :::: {.column width="55%"}
-
 ### Conclusion {.smaller-subheading}
 
 ::: smaller-bullets
-
 -   Motor insurance profitability is influenced by the combined interaction of claim behaviour, pricing adequacy, policy structure, and vehicle risk exposure
 
 -   Comprehensive insurance products consistently demonstrated higher claim severity, loss ratios, and underpricing pressure across the portfolio
 
 -   Visual analytics revealed meaningful patterns in underwriting profitability, portfolio volatility, and emerging risk concentration segments
-
 :::
-
 ::::
 
 :::: {.column width="45%"}
-
 ### Future Work {.smaller-subheading}
 
 ::: smaller-bullets
-
 -   Extend the analysis using additional behavioural and operational variables such as telematics and fraud indicators
 
 -   Perform confirmatory statistical modelling to validate the exploratory analytical findings
 
 -   Expand longitudinal portfolio analysis to monitor evolving underwriting and profitability trends over time
-
 :::
-
 ::::
 :::::::
-
-:::
+::::::::
 
 ::: notes
 This slide summarizes the overall conclusions and future analytical opportunities derived from the motor insurance portfolio analysis.
