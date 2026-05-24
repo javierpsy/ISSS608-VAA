@@ -72,7 +72,7 @@ This presentation summarizes the exploratory visual analytics performed on a mot
 ::: {.column width="90%"}
 -   Evaluate the composition and risk distribution of the motor insurance portfolio
 
--   Analyse claim behaviour and underwriting profitability patterns
+-   Examine claim behaviour, probability patterns and emerging underwriting risks
 
 -   Identify high-risk customer and vehicle segments associated with higher claim exposure
 
@@ -169,7 +169,8 @@ Premium Distribution
 
 -   Premium values exhibit strong right-skewness, reflecting substantial variation in pricing levels across policyholders
 
--   The median premium is concentrated within lower-to-moderate premium ranges, suggesting a predominantly standard-risk portfolio
+-   The median premium is concentrated around approximately 258, suggesting that most policyholders belong to lower-to-moderate premium segments
+
 
 -   A smaller group of high-premium policies forms the long right tail and may contribute disproportionately to portfolio revenue and risk exposure
 :::
@@ -297,7 +298,7 @@ Driving Experience Profile
 
 -   Less experienced drivers display narrower and more concentrated driving experience distributions
 
--   Driving experience alone may not fully explain underwriting risk, as claim volatility can still vary across customer and vehicle segments
+-    Although the portfolio appears relatively mature, driving experience alone may not fully explain underwriting risk variability across customer segments
 :::
 ::::::
 :::::::
@@ -455,9 +456,9 @@ Relationship among Key Risk Indicators
 
 -   Strong positive relationships are observed between incurred claims, claim severity, loss ratio, and underpricing exposure
 
--   Premium levels demonstrate moderate association with claim severity, indicating that higher-priced products may also experience higher financial exposure
+-   Premium-related variables demonstrate moderate relationships with claim severity, suggesting that higher-priced products may also experience greater financial exposure
 
--   The correlogram suggests that underwriting profitability is influenced by multiple interrelated portfolio risk indicators rather than isolated variables
+-   The correlogram indicates that underwriting profitability is jointly influenced by pricing structure, claim frequency, and claim severity dynamics
 :::
 
 ::: {.column width="4%"}
@@ -517,7 +518,7 @@ This slide consolidates the major findings derived from the exploratory visual a
 
 Comprehensive insurance products consistently demonstrated higher claim frequency, greater claim severity, elevated loss ratios, and stronger underpricing exposure relative to other policy categories. The analysis also revealed that profitability patterns varied considerably across customer demographics, vehicle characteristics, and insurance product structures.
 
-Furthermore, higher premium levels alone did not guarantee improved underwriting outcomes, as several high-premium products continued to experience elevated claim costs and financial pressure. Overall, the findings suggest that portfolio sustainability depends on the combined interaction of pricing adequacy, claim behaviour, customer segmentation, and underwriting risk management strategies.
+Furthermore, higher premium levels alone did not guarantee improved underwriting outcomes, as several high-premium products continued to experience elevated claim costs and financial pressure. Overall, the findings suggest that portfolio sustainability depends on the combined influence of pricing adequacy, claim behaviour, customer segmentation, and underwriting risk management strategies.
 :::
 
 ## Conclusion & Future Work
