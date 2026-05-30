@@ -1,0 +1,79 @@
+---
+title: "kickstarter"
+---
+
+For the purpose of this exercise, three R packages will be used. They are tidyverse, jsonlite and SmartEDA.
+
+::: callout-note
+You are required to install the R packages above, if necessary, before continue to the next step
+:::
+
+In the code chunk below, p_load() of pacman package is used to load the R packages into R environment
+
+```{r}
+pacman:: p_load(tidyverse, jsonlite, tidygraph, ggraph)
+```
+
+## Importing Graph Data
+
+For the purpose of this exercise, *mc.json* file will be used. Before getting started, you should have the data set in the *data* sub-folder
+
+::: Callout-warning
+This is a large data set. Please ensure that you have added a line `data/` un the *.gitignore* file.
+:::
+
+In the code chunk below, fromJSON() of jsonlite package is used to import mc2.json file into R and save the output object
+
+```{r}
+write_rds
+mcl_data <- fromJSON("VAST_Challenge_2026_MC1/MC1_final_00.json")
+```
+
+```{r}
+write_rds(mc1_data, "data/MC1/mc1_data.rds")
+```
+
+```{r}
+mc_data <- fromJSON("VAST_Challenge_2026_MC2/MC2 data.json")
+org_chart <- fromJSON("VAST_Challenge_2026_MC2/org_chart.json")
+
+```
+
+```{r}
+mc2_df <- as.data.frame(mc2_data$events)
+```
+
+```{r}
+write_rds(mc2_df, "data/mc2_df.rds")
+
+```
+
+```{r}
+write_rds(FILAH, "data/MC2/FILAH.rds")
+write_rds(journalist, "data/MC2/journalist.rds")
+write_rds(road_map, "data/MC2/road_map.rds")
+write_rds(TROUT, "data/MC2/TROUT.rds")
+```
+
+```{r}
+MC3_graph <- fromJSON("MC3_release/MC3_graph.json")
+MC3_schema <- fromJSON("MC3_release/MC3_schema.json")
+```
+
+The 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

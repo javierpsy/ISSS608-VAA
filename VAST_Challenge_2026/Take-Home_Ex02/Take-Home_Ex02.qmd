@@ -1,0 +1,264 @@
+---
+title: "Take Home Exercise 2: VAST Challenge 2026 Mini-Challenge 1"
+author: "Javier Phang"
+date: "25 May, 2026"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# 1 **Overview**
+
+In this exercise, we will be tackling [Mini-case 1](https://vast-challenge.github.io/2026/MC1.html) of [VAST Challenge 2026.](https://vast-challenge.github.io/2026/index.html)
+
+## 1.1 **Background**
+
+TenantThread is a property technology company that uses AI-powered systems to manage tenant engagement and communication processes. During a confidential merger project known as Project HarborCrest, strict embargo controls were implemented to prevent sensitive information from being released before the official announcement.
+
+However, confidential merger-related information was leaked through AI-assisted communication channels prior to the embargo deadline. This raised concerns about whether the release was caused by deliberate actions, abnormal agent behaviour, or failures in the automated compliance system.
+
+This mini-challenge focuses on analysing communication logs, agent interactions, and environmental events to reconstruct the sequence of events leading to the embargo breach.
+
+## 1.2 **Objectives**
+
+This analysis aims to:
+
+1.  Reconstruct the sequence of events leading to the inappropriate release of confidential merger information by identifying key actions, causal relationships, communication patterns, and decision points involved in the embargo breach. 2, Examine the behaviours and interactions of the systems, agents, and individuals involved to understand how the release bypassed the embargo enforcement mechanisms.
+2.  Compare the behaviours leading to the release against prior historical behaviours to identify abnormal or unusual patterns.
+3.  Detect potential leading indicators and prior instances where agents or systems behaved differently from their expected behaviours.
+4.  Identify whether similar behavioural patterns had previously occurred and investigate why earlier incidents did not result in noticeable intervention or corrective action.
+5.  Evaluate whether the inappropriate release was primarily caused by deliberate actions, abnormal agent behaviour, or weaknesses within the automated compliance and communication systems.
+
+# 2 **Data Preparation and Initial Exploration**
+
+This section examines the Mini-Challenge 1 dataset and outlines the data preparation and exploratory steps performed prior to the visual analytics process.
+
+The raw JSON files were imported and transformed into structured tabular datasets to support downstream temporal, behavioural and network-based analysis. A preliminary exploratory analysis was carried out to gain a clearer understanding of the dataset's structure and relationships before moving on to a more in-depth investigation.
+
+## 2.1 **Loading Packages**
+
+The analysis primarily uses packages from the *tidyverse ecosystem* for data preprocessing, transformation, and exploratory analysis. Additional visual analytics libraries are incorporated to support network visualisation, temporal analysis, and interactive graphical exploration.
+
+::: callout-note
+You are required to install the R packages above, if necessary, before proceeding to the next step.
+:::
+
+In the code chunk below, *p_load()* of *pacman* package is used to load the R packages into R environment
+
+```{r}
+pacman::p_load(
+  tidyverse, jsonlite, tidygraph, ggraph,
+  knitr, lubridate, patchwork,
+  igraph, ggiraph, readr
+)
+```
+
+### 2.1.1 **Visual Analytics and Functions**
+
+In addition to regular data wrangling packages, various specialized visual analytics libraries are included to facilitate network analysis, temporal investigation, and interactive visualization of the Mini-Challenge 1 dataset.
+
+The `tidygraph`, `ggraph`, and `igraph` packages are mainly utilized for analyzing communication networks and visualizing relationships among agents and systems related to the embargo breach.
+
+The lubridate library facilitates temporal analysis by handling timestamps, while `ggiraph` boosts interactivity in graphical results. The `patchwork` package serves to merge various visualizations into cohesive analytical layouts. Thus, these libraries enable exploratory analysis and visual storytelling to reveal behavioral trends and communication dynamics in the AI-supported business setting.
+
+```{r}
+packages <- tribble(
+  ~Library, ~Description,
+  "tidyverse", "Data preprocessing and wrangling.",
+  "jsonlite", "Importing and parsing JSON datasets.",
+  "tidygraph", "Graph and network analysis.",
+  "ggraph", "Network visualisation.",
+  "igraph", "Graph analytics and relationship analysis.",
+  "lubridate", "Date-time and temporal analysis.",
+  "patchwork", "Combining multiple visualisations.",
+  "ggiraph", "Interactive graphical visualisations.",
+  "knitr", "Dynamic report generation in Quarto."
+)
+
+knitr::kable(packages)
+```
+
+## 2.2 **Importing and Preparing MC1 Data**
+
+For this exercise, the `MC1_final_00.json` dataset from Mini-Challenge 1 is used. Before getting started, the dataset should be stored in the `data/MC1/` sub-folder.
+
+::: Callout-warning
+This is a large data set. Please ensure that \`data/\` has been added into the \`.gitignore\` file.
+:::
+
+In the code chunk below, `fromJSON()` from the `jsonlite` package is used to import the MC1 dataset into the R environment.
+
+```{r}
+mc1_data <- jsonlite::read_json(
+  "VAST_Challenge_2026/VAST_Challenge_2026_MC1/MC1_final_00.json",
+  simplifyVector = FALSE
+)
+```
+
+The imported JSON object is then saved as an `.rds` file to improve loading efficiency for subsequent analysis.
+
+```{r}
+dir.create("data/MC1", recursive = TRUE, showWarnings = FALSE)
+
+write_rds(mc1_data, "data/MC1/mc1_data.rds")
+```
+
+The nested communication records were subsequently extracted and transformed into a structured tabular dataset suitable for downstream exploratory and visual analytics.
+
+```{r}
+communications <- map_dfr(mc1_data$rounds, function(round) {
+  
+  map_dfr(round$communications, function(msg) {
+    
+    tibble(
+      round_hour = round$hour,
+      message_id = msg$message_id,
+      agent_id = msg$agent_id,
+      agent_role = msg$agent_role,
+      channel = msg$channel,
+      message_type = msg$message_type,
+      recipients = paste(msg$recipients, collapse = ", "),
+      content = msg$content,
+      timestamp = msg$timestamp
+    )
+  })
+})
+```
+
+## 2.3 **Dataset Overview**
+
+Before conducting visual analytics, an initial exploration of the transformed communication dataset was performed to understand its structure, dimensions, and variable composition. This helps identify the key fields available for analysing communication behaviour, agent interactions, and temporal activity patterns.
+
+### Glimpse of Communication Dataset
+
+The `glimpse()` function is used to provide a compact overview of the transformed communication dataset.
+
+```{r}
+glimpse(communications)
+```
+
+### Dataset Dimensions
+
+```{r}
+dataset_summary <- tibble(
+  Measure = c("Number of communication records", 
+              "Number of variables",
+              "Number of unique agents",
+              "Number of communication channels",
+              "Number of simulation rounds"),
+  Value = c(
+    nrow(communications),
+    ncol(communications),
+    n_distinct(communications$agent_id),
+    n_distinct(communications$channel),
+    n_distinct(communications$round_hour)
+  )
+)
+
+knitr::kable(dataset_summary)
+```
+
+::: callout-note
+The transformed communication dataset contains message-level records extracted from the MC1 JSON file. Each row represents one communication event, including the sender, channel, message type, timestamp, and message content.
+:::
+
+## 2.4 **Data Quality Assessment**
+
+An initial assessment of data quality was carried out to identify missing values and verify the completeness of the transformed communication dataset prior to executing subsequent visual analytics.
+
+```{r}
+missing_summary <- communications %>%
+  summarise(across(everything(), ~sum(is.na(.)))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "Variable",
+    values_to = "Missing_Count"
+  )
+
+knitr::kable(missing_summary)
+```
+
+::: callout-note
+The transformed communication dataset does not contain substantial missing values and is sufficiently complete for downstream temporal, behavioural, and network-based analysis.
+:::
+
+# 3 Data Wrangling and Communication Engineering
+
+This section engineers additional variables required to reconstruct the sequence of events, examine communication relationships, and identify behavioural indicators that may have contributed to the embargo breach. The engineered features are designed to support temporal, behavioural, and network-based visual analytics.
+
+## 3.1 Engineering Temporal Communication Features
+
+To reconstruct how the embargo breach unfolded, additional time-based variables were engineered from the original communication timestamps. These variables support event sequencing, communication timeline analysis, and identification of activity patterns before the inappropriate release.
+
+```{r}
+communications_clean <- communications %>%
+  mutate(
+    timestamp = ymd_hms(timestamp),
+    round_hour = ymd_hms(round_hour),
+    communication_date = as_date(timestamp),
+    communication_hour = hour(timestamp),
+    communication_day = wday(timestamp, label = TRUE),
+    days_before_embargo_breach = as.numeric(as_date("2046-06-05") - communication_date),
+    message_sequence = row_number()
+  )
+```
+
+The engineered temporal variables are verified below.
+
+```{r}
+communications_clean %>%
+  select(
+    timestamp,
+    communication_date,
+    communication_hour,
+    communication_day,
+    days_before_embargo_breach,
+    message_sequence
+  ) %>%
+  head()
+```
+
+::: callout-note 
+The `days_before_embargo_breach` variable ties the communication timeline to the breach date of June 5, 2046, facilitating subsequent analysis to contrast typical communication patterns with actions nearer to the embargo violation.
+:::
+
+## 3.2 Classifying Communication Scope and Exposure Risk
+
+To investigate how embargoed information may have propagated across different communication environments, communication channels were grouped into broader communication scopes based on their risk of exposure.
+
+The classification distinguishes between public-facing communication, private exchanges, internal coordination discussions, and side-channel interactions. This supports downstream analysis of whether sensitive information gradually transitioned from internal discussions into externally visible communication channels prior to the embargo breach.
+
+The unique communication channels are first examined to understand the types of communication environments present in the dataset before defining broader communication scope categories.
+
+```{r}
+communications_clean %>%
+  distinct(channel) %>%
+  arrange(channel) %>%
+  knitr::kable()
+```
+
+```{r}
+communications_clean <- communications_clean %>%
+  mutate(
+    communication_scope = case_when(
+      channel %in% c("official_post", "personal_post") ~ "Public",
+      channel %in% c("one_on_one_chat") ~ "Private",
+      channel %in% c("side_huddle") ~ "Side-channel",
+      channel %in% c("comms_huddle") ~ "Internal Group",
+      TRUE ~ "Other"
+    )
+  )
+```
+
+The communication scope classifications are verified below.
+
+```{r}
+communications_clean %>% 
+  count(channel, communication_scope) %>% 
+  arrange(desc(n)) %>% 
+  knitr::kable()
+```
+

@@ -41,14 +41,21 @@ website:
           - text: "In-Class Exercise 5B"
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex05B_17789166791910/AnalysisofTreemapofRegionStateandCity"  
             
-            
       - icon: clipboard-data
         text: "Take-home Exercise"
         menu:
           - text: "Take-Home_Ex01"
             href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.qmd"
           - text: "Take-Home_Ex01_Slides"
-            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.qmd"  
+            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.qmd"
+          
+      - icon: diagram-3
+        text: "VAST-Challenge"
+        menu:
+          - text: "Take-Home_Ex02"
+            href: "VAST_Challenge_2026/Take-Home_Ex02/Take-Home_Ex02.qmd"
+      
+          
       - icon: people
         text: "Group Project"
         href: "#"
