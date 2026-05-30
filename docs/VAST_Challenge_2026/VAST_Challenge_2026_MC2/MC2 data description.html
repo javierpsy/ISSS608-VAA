@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ISSS608-Visual Analytics and Applications</title>
+<title>mc2-data-description</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -23,28 +23,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-52e90109c9fd1ab1ecaf05b4af9305f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-52e90109c9fd1ab1ecaf05b4af9305f2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,67 +105,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-hands-on-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-hands-on-listings'] = new List('listing-hands-on-listings', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -142,9 +117,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/Icon1.png" alt="" class="navbar-logo light-content">
-    <img src="./images/Icon1.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/Icon1.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -161,23 +136,23 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1 (Introduction to Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2 (Designing Graphs to Enlighten)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
  <span class="dropdown-text">Hands-on Exercise 3 (Interactivity in Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
  <span class="dropdown-text">Hands-on Exercise 4 (Fundamentals of Visual Analytics)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
+    <a class="dropdown-item" href="../../Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
  <span class="dropdown-text">Hands-on Exercise 5 (Visual Multivariate Analysis)</span></a>
   </li>  
     </ul>
@@ -227,11 +202,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="./Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html">
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.html">
  <span class="dropdown-text">Take-Home_Ex01</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html">
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01_Slides.html">
  <span class="dropdown-text">Take-Home_Ex01_Slides</span></a>
   </li>  
     </ul>
@@ -244,25 +219,25 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-vast-challenge">    
         <li>
-    <a class="dropdown-item" href="./VAST_Challenge_2026/Take-Home_Ex02/Take-Home_Ex02.html">
+    <a class="dropdown-item" href="../../VAST_Challenge_2026/Take-Home_Ex02/Take-Home_Ex02.html">
  <span class="dropdown-text">Take-Home_Ex02</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./#"> <i class="bi bi-people" role="img">
+    <a class="nav-link" href="../../#"> <i class="bi bi-people" role="img">
 </i> 
 <span class="menu-text">Group Project</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-house-fill" role="img">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-fill" role="img">
 </i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> <i class="bi bi-person-circle" role="img">
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person-circle" role="img">
 </i> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -282,152 +257,57 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#about-this-website" id="toc-about-this-website" class="nav-link active" data-scroll-target="#about-this-website">About This Website</a></li>
-  <li><a href="#hands-on-exercise" id="toc-hands-on-exercise" class="nav-link" data-scroll-target="#hands-on-exercise">Hands on Exercise</a></li>
+  <li><a href="#mc2-data-description" id="toc-mc2-data-description" class="nav-link active" data-scroll-target="#mc2-data-description">MC2 Data description</a>
+  <ul class="collapse">
+  <li><a href="#key-event" id="toc-key-event" class="nav-link" data-scroll-target="#key-event">Key event:</a></li>
+  <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a></li>
+  <li><a href="#schema" id="toc-schema" class="nav-link" data-scroll-target="#schema">Schema</a></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">ISSS608-Visual Analytics and Applications</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>Welcome to <strong>ISSS608 Visual Analytics and Application</strong> homepage<strong>.</strong> This site showcases my coursework, hands-on exercises, and project work completed for the course taught by <strong>Prof Kam Tin Seong</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/data_analytics_robot.png" class="img-fluid figure-img" style="width:94.0%"></p>
-<figcaption>Overview:</figcaption>
-</figure>
-</div>
-<section id="about-this-website" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-website">About This Website</h2>
-<p>This website serves as a portfolio of my learning journey in visual analytics.<br>
-It contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course.</p>
+<section id="mc2-data-description" class="level1">
+<h1>MC2 Data description</h1>
+<p>This folder contains the data for the anomalous postings originating from Tenant Thread.</p>
+<p>This data is based on the actions taken by the employees and personal agents inside of Tenant Thread.</p>
+<section id="key-event" class="level2">
+<h2 class="anchored" data-anchor-id="key-event">Key event:</h2>
+<p>The anomalous posting is sent to SaidIt by John Windward on May 17, 2046 at 4:21am.</p>
 </section>
-<section id="hands-on-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-exercise">Hands on Exercise</h2>
-<div id="listing-hands-on-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1776182400000" data-listing-file-modified-sort="1777305799901" data-listing-date-modified-sort="1777305799000" data-listing-reading-time-sort="15" data-listing-word-count-sort="2988">
-<a href="./Hands-On_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./Hands-On_Ex/Hands-on_Ex01/Thumbnail.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 1 - A Layered Grammar of Graphics: ggplot2 methods
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-Apr 15, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1776614400000" data-listing-file-modified-sort="1777476802259" data-listing-date-modified-sort="1777476802000" data-listing-reading-time-sort="13" data-listing-word-count-sort="2488">
-<a href="./Hands-On_Ex/Hands-on_Ex02/Hands-on_Ex02.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex02\Hands-on_Ex02_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 2 - Beyond ggplot2 Fundamentals
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-Apr 20, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1777219200000" data-listing-file-modified-sort="1778079222549" data-listing-date-modified-sort="1778079222000" data-listing-reading-time-sort="38" data-listing-word-count-sort="7541">
-<a href="./Hands-On_Ex/Hands-on_Ex03/Hands-on_Ex03.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex03\Image1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 3 - Programming Interactive Data Visualisation with R
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-Apr 27, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-date-sort="1777824000000" data-listing-file-modified-sort="1778297564866" data-listing-date-modified-sort="1778297564000" data-listing-reading-time-sort="49" data-listing-word-count-sort="9727">
-<a href="./Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex04\Hands-on_Ex04_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4 - Fundamentals of Visual Analytics
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-May 4, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-date-sort="1778428800000" data-listing-file-modified-sort="1778940958723" data-listing-date-modified-sort="1778940958000" data-listing-reading-time-sort="51" data-listing-word-count-sort="10030">
-<a href="./Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex05\Hands-on_Ex05_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 5 - Visual Multivariate Analysis
-</h5>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-Javier Phang
-</div>
-<div class="listing-date">
-May 11, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
+<section id="files" class="level2">
+<h2 class="anchored" data-anchor-id="files">Files</h2>
+<p>MC2_Data.json – A timeline of events gathered by the internal systems. org_chart.json – The organization chart of Tenant Thread including people and departments. Compatible with networkX node_link_graph.</p>
+</section>
+<section id="schema" class="level2">
+<h2 class="anchored" data-anchor-id="schema">Schema</h2>
+<p>Derived from data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   <span class="dt">"description"</span><span class="fu">:</span> <span class="st">"string"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="dt">"events"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>         <span class="dt">"short_name"</span><span class="fu">:</span> <span class="st">"string"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="dt">"parties"</span><span class="fu">:</span> <span class="st">"array"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         <span class="dt">"when"</span><span class="fu">:</span> <span class="st">"float"</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         <span class="dt">"details"</span><span class="fu">:</span> <span class="st">"object"</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         <span class="dt">"id"</span><span class="fu">:</span> <span class="st">"int"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>   <span class="ot">]</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<p>The data is structured as a timeline. The events are ordered and indicate the operations performed by people, autonomous agents and office systems.</p>
+<p>Field meanings: - short_name: The action taken - parties: Which people/agents/systems were involved. - when: Unix timestamp. The challenge occurs in May 2046, and timestamps should be in that month. - details: Additional information about the action taken. The contents vary by the contents of short_name. - id: A unique id for each record.</p>
 
 
-
+</section>
 </section>
 
 </main> <!-- /main -->

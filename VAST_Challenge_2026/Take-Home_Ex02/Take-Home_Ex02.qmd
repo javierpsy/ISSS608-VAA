@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
 ---
 
 # 1 **Overview**
@@ -26,11 +26,12 @@ This mini-challenge focuses on analysing communication logs, agent interactions,
 
 This analysis aims to:
 
-1.  Reconstruct the sequence of events leading to the inappropriate release of confidential merger information by identifying key actions, causal relationships, communication patterns, and decision points involved in the embargo breach. 2, Examine the behaviours and interactions of the systems, agents, and individuals involved to understand how the release bypassed the embargo enforcement mechanisms.
-2.  Compare the behaviours leading to the release against prior historical behaviours to identify abnormal or unusual patterns.
-3.  Detect potential leading indicators and prior instances where agents or systems behaved differently from their expected behaviours.
-4.  Identify whether similar behavioural patterns had previously occurred and investigate why earlier incidents did not result in noticeable intervention or corrective action.
-5.  Evaluate whether the inappropriate release was primarily caused by deliberate actions, abnormal agent behaviour, or weaknesses within the automated compliance and communication systems.
+1.  Reconstruct the sequence of events leading to the inappropriate release of confidential merger information by identifying key actions, causal relationships, communication patterns, and decision points involved in the embargo breach.
+2.  Examine the behaviours and interactions of the systems, agents, and individuals involved to understand how the release bypassed the embargo enforcement mechanisms.
+3.  Compare the behaviours leading to the release against prior historical behaviours to identify abnormal or unusual patterns.
+4.  Detect potential leading indicators and prior instances where agents or systems behaved differently from their expected behaviours.
+5.  Identify whether similar behavioural patterns had previously occurred and investigate why earlier incidents did not result in noticeable intervention or corrective action.
+6.  Evaluate whether the inappropriate release was primarily caused by deliberate actions, abnormal agent behaviour, or weaknesses within the automated compliance and communication systems.
 
 # 2 **Data Preparation and Initial Exploration**
 
@@ -93,7 +94,7 @@ In the code chunk below, `fromJSON()` from the `jsonlite` package is used to imp
 
 ```{r}
 mc1_data <- jsonlite::read_json(
-  "VAST_Challenge_2026/VAST_Challenge_2026_MC1/MC1_final_00.json",
+  "MC1_final_00.json",
   simplifyVector = FALSE
 )
 ```
@@ -103,7 +104,7 @@ The imported JSON object is then saved as an `.rds` file to improve loading effi
 ```{r}
 dir.create("data/MC1", recursive = TRUE, showWarnings = FALSE)
 
-write_rds(mc1_data, "data/MC1/mc1_data.rds")
+readr::write_rds(mc1_data, "data/MC1/mc1_data.rds")
 ```
 
 The nested communication records were subsequently extracted and transformed into a structured tabular dataset suitable for downstream exploratory and visual analytics.
@@ -221,7 +222,7 @@ communications_clean %>%
   head()
 ```
 
-::: callout-note 
+::: callout-note
 The `days_before_embargo_breach` variable ties the communication timeline to the breach date of June 5, 2046, facilitating subsequent analysis to contrast typical communication patterns with actions nearer to the embargo violation.
 :::
 
@@ -261,4 +262,69 @@ communications_clean %>%
   arrange(desc(n)) %>% 
   knitr::kable()
 ```
+
+::: callout-note
+The engineered communication scope categories support downstream investigation of how merger-related information may have propagated across communication environments with different levels of exposure risk prior to the embargo breach.
+:::
+
+## 3.3 Engineering Embargo and Merger-related Communication Indicators
+
+To support downstream behavioural and anomaly analysis, further text-based indicators were developed to pinpoint communication records possibly linked to merger talks, embargo-related issues, and governance risks. 
+
+Keyword-based indicators were created to identify mentions concerning Project HarborCrest, CivicLoom, enforcement of embargoes, discussions on compliance, and potential information leakage behaviour.
+
+```{r}
+communications_clean <- communications_clean %>%
+  mutate(
+    content_lower = str_to_lower(content),
+
+    contains_project_terms = str_detect(
+      content_lower,
+      "harborcrest|civicloom|merger|rebrand|capital|deal"
+    ),
+
+    contains_embargo_terms = str_detect(
+      content_lower,
+      "embargo|judge|compliance|approved|blocked|deadline"
+    ),
+
+    contains_public_exposure_terms = str_detect(
+      content_lower,
+      "public|post|fle?x|release|leak|disclose|announcement"
+    ),
+
+    contains_pressure_terms = str_detect(
+      content_lower,
+      "pressure|urgent|concern|risk|legal|scrutiny|journal|algorithmiceviction"
+    ),
+
+    message_length = str_length(content),
+    word_count = str_count(content, "\\S+"),
+
+    risk_signal_score =
+      as.integer(contains_project_terms) +
+      as.integer(contains_embargo_terms) +
+      as.integer(contains_public_exposure_terms) +
+      as.integer(contains_pressure_terms),
+
+    risk_signal_group = case_when(
+      risk_signal_score >= 3 ~ "High signal",
+      risk_signal_score == 2 ~ "Moderate signal",
+      risk_signal_score == 1 ~ "Low signal",
+      TRUE ~ "No signal"
+    )
+  )
+```
+
+```{r}
+communications_clean %>%
+  count(risk_signal_group) %>%
+  arrange(desc(n)) %>%
+  knitr::kable()
+```
+
+::: callout-note
+The `risk_signal_score` consolidates multiple case-specific indicators into a single behavioural signal. This supports downstream analysis of whether merger-related, embargo-related, public exposure, and pressure-related communication increased closer to the breach.
+:::
+
 
