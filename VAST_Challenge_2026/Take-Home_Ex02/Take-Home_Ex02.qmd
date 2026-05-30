@@ -87,7 +87,7 @@ knitr::kable(packages)
 For this exercise, the `MC1_final_00.json` dataset from Mini-Challenge 1 is used. Before getting started, the dataset should be stored in the `data/MC1/` sub-folder.
 
 ::: Callout-warning
-This is a large data set. Please ensure that \`data/\` has been added into the \`.gitignore\` file.
+This is a large data set. Please ensure that `data` has been added into the `.gitignore` file.
 :::
 
 In the code chunk below, `fromJSON()` from the `jsonlite` package is used to import the MC1 dataset into the R environment.
@@ -199,10 +199,27 @@ communications_clean <- communications %>%
   mutate(
     timestamp = ymd_hms(timestamp),
     round_hour = ymd_hms(round_hour),
+
     communication_date = as_date(timestamp),
     communication_hour = hour(timestamp),
     communication_day = wday(timestamp, label = TRUE),
-    days_before_embargo_breach = as.numeric(as_date("2046-06-05") - communication_date),
+
+    communication_period = case_when(
+      communication_hour >= 6 & communication_hour < 12 ~ "Morning",
+      communication_hour >= 12 & communication_hour < 18 ~ "Afternoon",
+      communication_hour >= 18 & communication_hour < 24 ~ "Evening",
+      TRUE ~ "Late Night"
+    ),
+
+    days_before_embargo_breach =
+      as.numeric(as_date("2046-06-05") - communication_date),
+
+    near_breach_window = case_when(
+      days_before_embargo_breach <= 2 ~ "Critical Period",
+      days_before_embargo_breach <= 5 ~ "Escalation Period",
+      TRUE ~ "Normal Period"
+    ),
+
     message_sequence = row_number()
   )
 ```
@@ -216,7 +233,9 @@ communications_clean %>%
     communication_date,
     communication_hour,
     communication_day,
+    communication_period,
     days_before_embargo_breach,
+    near_breach_window,
     message_sequence
   ) %>%
   head()
@@ -250,7 +269,17 @@ communications_clean <- communications_clean %>%
       channel %in% c("side_huddle") ~ "Side-channel",
       channel %in% c("comms_huddle") ~ "Internal Group",
       TRUE ~ "Other"
-    )
+    ),
+
+    exposure_risk_level = case_when(
+      communication_scope == "Public" ~ "High Exposure",
+      communication_scope == "Side-channel" ~ "Moderate Exposure",
+      communication_scope == "Private" ~ "Low Exposure",
+      communication_scope == "Internal Group" ~ "Controlled Exposure",
+      TRUE ~ "Unknown"
+    ),
+
+    is_public_channel = communication_scope == "Public"
   )
 ```
 
@@ -258,7 +287,11 @@ The communication scope classifications are verified below.
 
 ```{r}
 communications_clean %>% 
-  count(channel, communication_scope) %>% 
+  count(
+    channel,
+    communication_scope,
+    exposure_risk_level
+  ) %>% 
   arrange(desc(n)) %>% 
   knitr::kable()
 ```
@@ -323,8 +356,193 @@ communications_clean %>%
   knitr::kable()
 ```
 
+## 3.3 Engineering Embargo and Merger-related Communication Indicators
+
+To support downstream behavioural and anomaly analysis, further text-based indicators were developed to pinpoint communication records possibly linked to merger talks, embargo-related issues, and governance risks. 
+
+Keyword-based indicators were created to identify mentions concerning Project HarborCrest, CivicLoom, enforcement of embargoes, discussions on compliance, and potential information leakage behaviour.
+
+```{r}
+communications_clean <- communications_clean %>%
+  mutate(
+    content_lower = str_to_lower(content),
+
+    contains_project_terms = str_detect(
+      content_lower,
+      "harborcrest|civicloom|merger|rebrand|capital|deal"
+    ),
+
+    contains_embargo_terms = str_detect(
+      content_lower,
+      "embargo|judge|compliance|approved|blocked|deadline"
+    ),
+
+    contains_public_exposure_terms = str_detect(
+      content_lower,
+      "public|post|fle?x|release|leak|disclose|announcement"
+    ),
+
+    contains_pressure_terms = str_detect(
+      content_lower,
+      "pressure|urgent|concern|risk|legal|scrutiny|journal|algorithmiceviction"
+    ),
+
+    message_length = str_length(content),
+    word_count = str_count(content, "\\S+"),
+
+    risk_signal_score =
+      as.integer(contains_project_terms) +
+      as.integer(contains_embargo_terms) +
+      as.integer(contains_public_exposure_terms) +
+      as.integer(contains_pressure_terms),
+
+    risk_signal_group = case_when(
+      risk_signal_score >= 3 ~ "High signal",
+      risk_signal_score == 2 ~ "Moderate signal",
+      risk_signal_score == 1 ~ "Low signal",
+      TRUE ~ "No signal"
+    )
+  )
+```
+
+```{r}
+communications_clean %>%
+  count(risk_signal_group) %>%
+  arrange(desc(n)) %>%
+  knitr::kable()
+```
+
 ::: callout-note
 The `risk_signal_score` consolidates multiple case-specific indicators into a single behavioural signal. This supports downstream analysis of whether merger-related, embargo-related, public exposure, and pressure-related communication increased closer to the breach.
 :::
 
+## 3.4 **Preparing Communication Nodes and Edges**
 
+To facilitate downstream network-oriented visual analytics, the transformed communication records were reshaped into node and edge formats appropriate for graph analysis.
+
+The node table illustrates the participants involved in communication within the simulation environment, whereas the edge table records the directional relationships between senders and receivers through various communication channels.
+
+```{r}
+communication_nodes <- communications_clean %>%
+  distinct(agent_id, agent_role) %>%
+  rename(
+    node_id = agent_id,
+    role = agent_role
+  )
+```
+
+The structure of the communication nodes can be examined below.
+
+```{r}
+glimpse(communication_nodes)
+```
+
+### Preparing Communication Edges
+
+The communication recipients were subsequently separated to construct directional sender-recipient relationships suitable for network analysis.
+
+```{r}
+communication_edges <- communications_clean %>%
+  separate_rows(recipients, sep = ", ") %>%
+  filter(recipients != "ALL") %>%
+  transmute(
+    source = agent_id,
+    target = recipients,
+    channel,
+    communication_scope,
+    exposure_risk_level,
+    risk_signal_group,
+    timestamp
+  )
+```
+
+The structure of the communication edges is examined below.
+
+```{r}
+glimpse(communication_edges)
+```
+
+### Preparing Weighted Communication Edges
+
+The communication relationships were aggregated to calculate interaction intensity between sender-recipient pairs.
+
+```{r}
+communication_edges_weighted <- communication_edges %>%
+  count(
+    source,
+    target,
+    communication_scope,
+    exposure_risk_level,
+    risk_signal_group,
+    name = "weight"
+  ) %>%
+  mutate(
+    interaction_intensity = case_when(
+      weight >= 10 ~ "High Interaction",
+      weight >= 5 ~ "Moderate Interaction",
+      TRUE ~ "Low Interaction"
+    )
+  )
+```
+
+The weighted communication edges are verified below.
+
+```{r}
+head(communication_edges_weighted)
+```
+
+The relationship between interaction intensity and behavioural risk signals is further examined below.
+
+```{r}
+communication_edges_weighted %>%
+  count(
+    interaction_intensity,
+    risk_signal_group
+  ) %>%
+  arrange(desc(n)) %>%
+  knitr::kable()
+```
+
+```{r}
+tibble(
+  Measure = c(
+    "Number of communication nodes",
+    "Number of communication edges",
+    "Number of weighted communication edges"
+  ),
+  Value = c(
+    nrow(communication_nodes),
+    nrow(communication_edges),
+    nrow(communication_edges_weighted)
+  )
+) %>%
+  knitr::kable()
+```
+
+::: callout-note
+The engineered node and edge structures support downstream investigation of communication flow, interaction intensity, and potential information propagation pathways associated with the embargo breach.
+:::
+
+## 3.5 **Constructing the Communication Network**
+
+The prepared communication nodes and edges were subsequently combined into a directed communication network suitable for downstream graph visualization and network analysis.
+
+The communication network records the directional flow of information among participants and enables further examination of communication trends, interaction strength, and possible pathways of information dissemination linked to the embargo violation.
+
+```{r}
+communication_network <- tbl_graph(
+  nodes = communication_nodes,
+  edges = communication_edges_weighted,
+  directed = TRUE
+)
+```
+
+The structure of the constructed communication network is examined below.
+
+```{r}
+communication_network
+```
+
+::: callout-note
+The constructed communication network serves as the foundation for subsequent visual analytics involving communication flow, network centrality, behavioural escalation, and potential dissemination pathways related to the inappropriate release.
+:::
