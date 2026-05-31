@@ -341,67 +341,11 @@ communications_clean <- communications_clean %>%
       as.integer(contains_pressure_terms),
 
     risk_signal_group = case_when(
-      risk_signal_score >= 3 ~ "High signal",
-      risk_signal_score == 2 ~ "Moderate signal",
-      risk_signal_score == 1 ~ "Low signal",
-      TRUE ~ "No signal"
-    )
-  )
-```
-
-```{r}
-communications_clean %>%
-  count(risk_signal_group) %>%
-  arrange(desc(n)) %>%
-  knitr::kable()
-```
-
-## 3.3 Engineering Embargo and Merger-related Communication Indicators
-
-To support downstream behavioural and anomaly analysis, further text-based indicators were developed to pinpoint communication records possibly linked to merger talks, embargo-related issues, and governance risks. 
-
-Keyword-based indicators were created to identify mentions concerning Project HarborCrest, CivicLoom, enforcement of embargoes, discussions on compliance, and potential information leakage behaviour.
-
-```{r}
-communications_clean <- communications_clean %>%
-  mutate(
-    content_lower = str_to_lower(content),
-
-    contains_project_terms = str_detect(
-      content_lower,
-      "harborcrest|civicloom|merger|rebrand|capital|deal"
-    ),
-
-    contains_embargo_terms = str_detect(
-      content_lower,
-      "embargo|judge|compliance|approved|blocked|deadline"
-    ),
-
-    contains_public_exposure_terms = str_detect(
-      content_lower,
-      "public|post|fle?x|release|leak|disclose|announcement"
-    ),
-
-    contains_pressure_terms = str_detect(
-      content_lower,
-      "pressure|urgent|concern|risk|legal|scrutiny|journal|algorithmiceviction"
-    ),
-
-    message_length = str_length(content),
-    word_count = str_count(content, "\\S+"),
-
-    risk_signal_score =
-      as.integer(contains_project_terms) +
-      as.integer(contains_embargo_terms) +
-      as.integer(contains_public_exposure_terms) +
-      as.integer(contains_pressure_terms),
-
-    risk_signal_group = case_when(
-      risk_signal_score >= 3 ~ "High signal",
-      risk_signal_score == 2 ~ "Moderate signal",
-      risk_signal_score == 1 ~ "Low signal",
-      TRUE ~ "No signal"
-    )
+      risk_signal_score >= 3 ~ "High Signal",
+      risk_signal_score == 2 ~ "Moderate Signal",
+      risk_signal_score == 1 ~ "Low Signal",
+      TRUE ~ "No Signal"
+)
   )
 ```
 
@@ -420,22 +364,7 @@ The `risk_signal_score` consolidates multiple case-specific indicators into a si
 
 To facilitate downstream network-oriented visual analytics, the transformed communication records were reshaped into node and edge formats appropriate for graph analysis.
 
-The node table illustrates the participants involved in communication within the simulation environment, whereas the edge table records the directional relationships between senders and receivers through various communication channels.
-
-```{r}
-communication_nodes <- communications_clean %>%
-  distinct(agent_id, agent_role) %>%
-  rename(
-    node_id = agent_id,
-    role = agent_role
-  )
-```
-
-The structure of the communication nodes can be examined below.
-
-```{r}
-glimpse(communication_nodes)
-```
+The node table represents the communication participants within the simulation environment, whereas the edge table records the directional relationships between senders and receivers through various communication channels.
 
 ### Preparing Communication Edges
 
@@ -444,10 +373,20 @@ The communication recipients were subsequently separated to construct directiona
 ```{r}
 communication_edges <- communications_clean %>%
   separate_rows(recipients, sep = ", ") %>%
-  filter(recipients != "ALL") %>%
+  mutate(
+    source = str_trim(agent_id),
+    target = str_trim(recipients)
+  ) %>%
+  filter(
+    !is.na(source),
+    !is.na(target),
+    source != "",
+    target != "",
+    target != "ALL"
+  ) %>%
   transmute(
-    source = agent_id,
-    target = recipients,
+    source,
+    target,
     channel,
     communication_scope,
     exposure_risk_level,
@@ -460,6 +399,34 @@ The structure of the communication edges is examined below.
 
 ```{r}
 glimpse(communication_edges)
+```
+
+### Preparing Communication Nodes
+
+The communication relationships were aggregated from both senders and recipients to ensure that all participants appearing in the edge table are represented in the network.
+
+```{r}
+communication_nodes <- tibble(
+  node_id = unique(c(
+    communication_edges$source,
+    communication_edges$target
+  ))
+) %>%
+  left_join(
+    communications_clean %>%
+      distinct(agent_id, agent_role) %>%
+      rename(node_id = agent_id, role = agent_role),
+    by = "node_id"
+  ) %>%
+  mutate(
+    role = replace_na(role, "Recipient / System")
+  )
+```
+
+The structure of the communication nodes is examined below..
+
+```{r}
+glimpse(communication_nodes)
 ```
 
 ### Preparing Weighted Communication Edges
@@ -485,8 +452,6 @@ communication_edges_weighted <- communication_edges %>%
   )
 ```
 
-The weighted communication edges are verified below.
-
 ```{r}
 head(communication_edges_weighted)
 ```
@@ -502,6 +467,8 @@ communication_edges_weighted %>%
   arrange(desc(n)) %>%
   knitr::kable()
 ```
+
+The overall size of the prepared network components is summarised below.
 
 ```{r}
 tibble(
@@ -546,3 +513,156 @@ communication_network
 ::: callout-note
 The constructed communication network serves as the foundation for subsequent visual analytics involving communication flow, network centrality, behavioural escalation, and potential dissemination pathways related to the inappropriate release.
 :::
+
+# 4 **Exploratory Communication and Behaviour Analysis**
+
+## 4.1 Are There Signs of Escalating Communication Before the Breach?
+
+This section investigates whether communication activity exhibited unusual escalation patterns approaching the embargo breach on June 5, 2046.
+
+The analysis focuses on identifying:
+-   increases in communication activity,
+-   focused interaction intervals,
+-   increase in behavioral risk indicators,
+-   and possible warning signs preceding the improper release.
+
+These patterns might indicate early signs of communication instability, coordination stress, or declining embargo controls before the breach occurs.
+
+::: panel-tabset
+
+### Daily Communication Activity 
+
+```{r}
+communication_daily <- communications_clean %>%
+  count(communication_date)
+
+ggplot(
+  communication_daily,
+  aes(x = communication_date, y = n)
+) +
+  
+  annotate(
+    "rect",
+    xmin = as.Date("2046-06-03"),
+    xmax = as.Date("2046-06-05"),
+    ymin = -Inf,
+    ymax = Inf,
+    alpha = 0.1,
+    fill = "red"
+  ) +
+  
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.5) +
+  
+  geom_vline(
+    xintercept = as.Date("2046-06-05"),
+    linetype = "dashed",
+    colour = "red"
+  ) +
+  
+  annotate(
+    "text",
+    x = as.Date("2046-06-05"),
+    y = max(communication_daily$n, na.rm = TRUE),
+    label = "Embargo Breach",
+    hjust = 1.05,
+    colour = "red"
+  ) +
+  
+  scale_y_log10() +
+  
+  labs(
+    title = "Daily Communication Activity Prior to the Embargo Breach",
+    x = "Communication Date",
+    y = "Number of Communications (Log Scale)"
+  ) +
+  
+  theme_minimal()
+```
+
+The timeline provides an overview of how communication activity changed across the investigation period. Any increase in communication volume closer to the breach may indicate growing coordination pressure or operational escalation.
+
+
+### Hourly Communication Distribution Across Breach Windows
+
+```{r}
+communication_hourly <- communications_clean %>%
+  count(
+    near_breach_window,
+    communication_hour
+  )
+
+ggplot(
+  communication_hourly,
+  aes(
+    x = communication_hour,
+    y = n,
+    group = near_breach_window,
+    colour = near_breach_window
+  )
+) +
+  
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 2.5) +
+  
+  facet_wrap(~ near_breach_window) +
+  
+  labs(
+    title = "Hourly Communication Distribution Across Breach Windows",
+    subtitle = "Comparing communication timing before the embargo breach",
+    x = "Hour of Day",
+    y = "Number of Communications",
+    colour = "Breach Window"
+  ) +
+  
+  theme_minimal()
+```
+
+The hourly heatmap highlights when communication activity was most concentrated. This helps identify whether communication behaviour was clustered within specific time windows prior to the embargo breach.
+
+### Behavioural Risk Signals Over Time
+
+```{r}
+risk_signal_timeline <- communications_clean %>%
+  count(
+    communication_date,
+    risk_signal_group
+  )
+
+ggplot(
+  risk_signal_timeline,
+  aes(
+    x = communication_date,
+    y = n,
+    fill = risk_signal_group
+  )
+) +
+  annotate(
+    "rect",
+    xmin = as.Date("2046-06-03"),
+    xmax = as.Date("2046-06-05"),
+    ymin = -Inf,
+    ymax = Inf,
+    alpha = 0.1,
+    fill = "red"
+  ) +
+  geom_col(position = "stack") +
+  geom_vline(
+    xintercept = as.Date("2046-06-05"),
+    linetype = "dashed",
+    colour = "red"
+  ) +
+  labs(
+    title = "Behavioural Risk Signals Leading Up to the Embargo Breach",
+    subtitle = "Stacked daily risk signals highlight escalation before the inappropriate release",
+    x = "Communication Date",
+    y = "Number of Communications",
+    fill = "Risk Signal"
+  ) +
+  theme_minimal()
+```
+
+::: callout-note
+This section helps identify whether communication activity and behavioural risk signals intensified before the embargo breach. These patterns provide early evidence for assessing whether the inappropriate release was preceded by measurable warning signs.
+:::
+
