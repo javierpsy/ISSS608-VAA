@@ -582,44 +582,6 @@ ggplot(
 
 The timeline provides an overview of how communication activity changed across the investigation period. Any increase in communication volume closer to the breach may indicate growing coordination pressure or operational escalation.
 
-
-### Hourly Communication Distribution Across Breach Windows
-
-```{r}
-communication_hourly <- communications_clean %>%
-  count(
-    near_breach_window,
-    communication_hour
-  )
-
-ggplot(
-  communication_hourly,
-  aes(
-    x = communication_hour,
-    y = n,
-    group = near_breach_window,
-    colour = near_breach_window
-  )
-) +
-  
-  geom_line(linewidth = 1.2) +
-  geom_point(size = 2.5) +
-  
-  facet_wrap(~ near_breach_window) +
-  
-  labs(
-    title = "Hourly Communication Distribution Across Breach Windows",
-    subtitle = "Comparing communication timing before the embargo breach",
-    x = "Hour of Day",
-    y = "Number of Communications",
-    colour = "Breach Window"
-  ) +
-  
-  theme_minimal()
-```
-
-The hourly heatmap highlights when communication activity was most concentrated. This helps identify whether communication behaviour was clustered within specific time windows prior to the embargo breach.
-
 ### Behavioural Risk Signals Over Time
 
 ```{r}
@@ -665,4 +627,112 @@ ggplot(
 ::: callout-note
 This section helps identify whether communication activity and behavioural risk signals intensified before the embargo breach. These patterns provide early evidence for assessing whether the inappropriate release was preceded by measurable warning signs.
 :::
+
+:::
+
+## 4.2 How Did Communication Behaviour Shift Across Communication Environments?
+
+This section investigates whether communication behaviour progressively shifted across different communication environments prior to the embargo breach on June 5, 2046.
+
+The analysis focuses on examining changes in communication scope, exposure-risk escalation, and the potential breakdown of communication containment surrounding embargo-sensitive information.
+
+### Communication Environment Distribution
+
+```{r}
+communication_scope_distribution <- communications_clean %>%
+  count(
+    near_breach_window,
+    communication_scope
+  ) %>%
+  group_by(near_breach_window) %>%
+  mutate(
+    percentage = n / sum(n)
+  )
+
+ggplot(
+  communication_scope_distribution,
+  aes(
+    x = near_breach_window,
+    y = percentage,
+    fill = communication_scope
+  )
+) +
+  
+  geom_col(
+    position = "fill",
+    width = 0.7
+  ) +
+  
+  scale_y_continuous(
+    labels = scales::percent
+  ) +
+  
+  labs(
+    title = "Communication Environment Distribution Across Breach Windows",
+    subtitle = "Comparing communication environments before the embargo breach",
+    x = "Breach Window",
+    y = "Percentage of Communications",
+    fill = "Communication Scope"
+  ) +
+  
+  theme_minimal() +
+  
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "bottom"
+  )
+```
+
+The proportional communication scope distribution illustrates how communication environments evolved across different breach windows. Increasing concentrations of public-facing or side-channel communication closer to the embargo breach may indicate weakening containment surrounding sensitive merger-related discussions.
+
+### Exposure-risk Communication Behaviour
+
+```{r}
+exposure_risk_heatmap <- communications_clean %>%
+  count(
+    near_breach_window,
+    exposure_risk_level
+  )
+
+ggplot(
+  exposure_risk_heatmap,
+  aes(
+    x = near_breach_window,
+    y = exposure_risk_level,
+    fill = n
+  )
+) +
+  
+  geom_tile(
+    colour = "white",
+    linewidth = 0.5
+  ) +
+  
+  geom_text(
+    aes(label = n),
+    size = 4
+  ) +
+  
+  scale_fill_gradient(
+    low = "#dbe9f6",
+    high = "#08306b"
+  ) +
+  
+  labs(
+    title = "Exposure-risk Communication Across Breach Windows",
+    subtitle = "Comparing communication exposure levels before the embargo breach",
+    x = "Breach Window",
+    y = "Exposure-risk Level",
+    fill = "Messages"
+  ) +
+  
+  theme_minimal() +
+  
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  )
+```
+
+The exposure-risk comparison highlights whether higher-risk communication environments became increasingly prevalent during the escalation and critical breach periods. Such behavioural changes may suggest weakening communication controls and increased exposure vulnerability prior to the embargo violation.
 
