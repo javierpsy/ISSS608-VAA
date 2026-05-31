@@ -302,7 +302,7 @@ The engineered communication scope categories support downstream investigation o
 
 ## 3.3 Engineering Embargo and Merger-related Communication Indicators
 
-To support downstream behavioural and anomaly analysis, further text-based indicators were developed to pinpoint communication records possibly linked to merger talks, embargo-related issues, and governance risks. 
+To support downstream behavioural and anomaly analysis, further text-based indicators were developed to pinpoint communication records possibly linked to merger talks, embargo-related issues, and governance risks.
 
 Keyword-based indicators were created to identify mentions concerning Project HarborCrest, CivicLoom, enforcement of embargoes, discussions on compliance, and potential information leakage behaviour.
 
@@ -520,17 +520,12 @@ The constructed communication network serves as the foundation for subsequent vi
 
 This section investigates whether communication activity exhibited unusual escalation patterns approaching the embargo breach on June 5, 2046.
 
-The analysis focuses on identifying:
--   increases in communication activity,
--   focused interaction intervals,
--   increase in behavioral risk indicators,
--   and possible warning signs preceding the improper release.
+The analysis focuses on identifying: - increases in communication activity, - focused interaction intervals, - increase in behavioral risk indicators, - and possible warning signs preceding the improper release.
 
 These patterns might indicate early signs of communication instability, coordination stress, or declining embargo controls before the breach occurs.
 
 ::: panel-tabset
-
-### Daily Communication Activity 
+### Daily Communication Activity
 
 ```{r}
 communication_daily <- communications_clean %>%
@@ -580,7 +575,17 @@ ggplot(
   theme_minimal()
 ```
 
-The timeline provides an overview of how communication activity changed across the investigation period. Any increase in communication volume closer to the breach may indicate growing coordination pressure or operational escalation.
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   Communication activity remained relatively stable at approximately 25–40 messages per day across most of the investigation period before increasing sharply to more than 500 communications on June 5, 2046.
+
+-   The abrupt escalation near the embargo breach suggests a sudden increase in coordination activity immediately prior to the inappropriate release.
+
+-   Earlier communication behaviour appeared seemed relatively regulated and consistently operational, suggesting that the communication surge noted during the critical period significantly diverged from earlier behavioral trends.
+
+-   The concentration of communication activity near the breach timeframe may serve as a possible early signal of deteriorating communication controls regarding embargo-sensitive data.
+:::
 
 ### Behavioural Risk Signals Over Time
 
@@ -625,7 +630,17 @@ ggplot(
 ```
 
 ::: callout-note
-This section helps identify whether communication activity and behavioural risk signals intensified before the embargo breach. These patterns provide early evidence for assessing whether the inappropriate release was preceded by measurable warning signs.
+## ![](images/Observation.png){width="31"} Observations
+
+-   Communication activity during the earlier investigation period remained relatively stable, with most daily interactions consisting mainly of low-risk or routine communication behaviour.
+
+-   A noticeable shift emerged during the critical breach window on June 5, 2046, where overall communication activity increased sharply to nearly 500 messages.
+
+-   The proportion of moderate-risk and high-risk communication signals also increased substantially during the critical period, suggesting that communication behaviour became increasingly abnormal closer to the inappropriate release.
+
+-   Earlier communication patterns appeared comparatively controlled and operationally consistent, whereas the critical breach period exhibited a clear escalation in potentially sensitive or higher-risk interactions.
+
+-   The concentration of elevated behavioural risk signals near the embargo breach may indicate that the inappropriate release was preceded by observable warning signs rather than occurring unexpectedly.
 :::
 
 :::
@@ -735,4 +750,3 @@ ggplot(
 ```
 
 The exposure-risk comparison highlights whether higher-risk communication environments became increasingly prevalent during the escalation and critical breach periods. Such behavioural changes may suggest weakening communication controls and increased exposure vulnerability prior to the embargo violation.
-
