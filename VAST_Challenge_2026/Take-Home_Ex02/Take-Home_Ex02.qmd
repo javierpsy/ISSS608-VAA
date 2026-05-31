@@ -520,7 +520,12 @@ The constructed communication network serves as the foundation for subsequent vi
 
 This section investigates whether communication activity exhibited unusual escalation patterns approaching the embargo breach on June 5, 2046.
 
-The analysis focuses on identifying: - increases in communication activity, - focused interaction intervals, - increase in behavioral risk indicators, - and possible warning signs preceding the improper release.
+The analysis focuses on identifying: 
+
+-   increases in communication activity, 
+-   focused interaction intervals, 
+-   increase in behavioral risk indicators, 
+-   and possible warning signs preceding the improper release.
 
 These patterns might indicate early signs of communication instability, coordination stress, or declining embargo controls before the breach occurs.
 
@@ -638,7 +643,7 @@ ggplot(
 
 -   The proportion of moderate-risk and high-risk communication signals also increased substantially during the critical period, suggesting that communication behaviour became increasingly abnormal closer to the inappropriate release.
 
--   Earlier communication patterns appeared comparatively controlled and operationally consistent, whereas the critical breach period exhibited a clear escalation in potentially sensitive or higher-risk interactions.
+-   Earlier communication behaviour appeared relatively controlled and operationally consistent, suggesting that the communication surge observed during the critical period deviated substantially from earlier behavioural patterns.
 
 -   The concentration of elevated behavioural risk signals near the embargo breach may indicate that the inappropriate release was preceded by observable warning signs rather than occurring unexpectedly.
 :::
