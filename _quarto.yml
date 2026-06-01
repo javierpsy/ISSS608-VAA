@@ -22,6 +22,8 @@ website:
             href: Hands-On_Ex/Hands-on_Ex04/Hands-on_Ex04.qmd 
           - text: "Hands-on Exercise 5 (Visual Multivariate Analysis)"
             href: Hands-On_Ex/Hands-on_Ex05/Hands-on_Ex05.qmd 
+          - text: "Hands-on Exercise 7 (Visualising and Analysing Network & Text Data)"
+            href: Hands-On_Ex/Hands-on_Ex07/Hands-on_Ex07.qmd
           
       - icon: graph-up
         text: "In-class Exercise"

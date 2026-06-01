@@ -19,7 +19,7 @@ Welcome to **ISSS608 Visual Analytics and Application** homepage**.** This site 
 
 ## About This Website
 
-This website serves as a portfolio of my learning journey in visual analytics.  
+This website serves as a portfolio of my learning journey in visual analytics.\
 It contains hands-on exercises, in-class work, take-home assignments, and group project materials developed throughout the course.
 
 ## Hands on Exercise
