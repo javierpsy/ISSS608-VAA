@@ -62,8 +62,8 @@ The data sets used in this hands-on exercise is from an oil exploration and extr
 In this step, you will import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using `read_csv()` of **readr** package.
 
 ```{r}
-GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
-GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+GAStech_nodes <- read_csv("GAStech_email_node.csv")
+GAStech_edges <- read_csv("GAStech_email_edge-v2.csv")
 ```
 
 ### **27.3.4 Reviewing the imported data**
@@ -658,6 +658,84 @@ Visit [Option](http://datastorm-open.github.io/visNetwork/options.html) to find 
 
 [28  R for Data Science: Tidyverse principles and methods](https://r4va.netlify.app/chap28)
 
+# Additional Analysis
+
+## Additional Analysis 1 - Insurance Fraud Ring Detection Network
+
+**Objective:** To identify suspicious claim relationship clusters by analysing repeated interactions between policyholders, workshops, and claim agents.
+
+```{r}
+set.seed(123)
+
+# Create node dataset
+fraud_nodes <- tibble(
+  id = 1:25,
+  label = paste0("Actor_", 1:25),
+  Type = sample(
+    c("Policyholder", "Workshop", "Claim Agent"),
+    25,
+    replace = TRUE
+  )
+)
+
+# Create denser edge dataset
+fraud_edges <- tibble(
+  source = sample(1:25, 180, replace = TRUE),
+  target = sample(1:25, 180, replace = TRUE)
+) %>%
+  filter(source != target) %>%
+  group_by(source, target) %>%
+  summarise(
+    Weight = n(),
+    .groups = "drop"
+  ) %>%
+  filter(Weight >= 2)
+
+# Create graph object
+fraud_graph <- tbl_graph(
+  nodes = fraud_nodes,
+  edges = fraud_edges,
+  directed = TRUE
+)
+
+# Plot network graph
+g <- fraud_graph %>%
+  activate(nodes) %>%
+  mutate(
+    degree_score = centrality_degree()
+  ) %>%
+  ggraph(layout = "fr") +
+  
+  geom_edge_link(
+    aes(width = Weight),
+    alpha = 0.25,
+    colour = "grey60"
+  ) +
+  
+  scale_edge_width(range = c(0.3, 2.5)) +
+  
+  geom_node_point(
+    aes(
+      fill = Type,
+      size = degree_score
+    ),
+    shape = 21,
+    colour = "black"
+  ) +
+  
+  geom_node_text(
+    aes(label = label),
+    repel = TRUE,
+    size = 2.8
+  )
+
+g +
+  theme_graph() +
+  labs(title = "Insurance Fraud Ring Detection Network")
+```
+
+**Insight:** This analysis highlights actors with many claim-related connections. Larger nodes represent actors with higher degree centrality, meaning they interact with more policyholders, workshops, or claim agents. In a real insurance investigation, these highly connected actors may be useful starting points for detecting unusual claim behaviour or potential fraud networks.
+
 ## 29.1 **Learning Outcome**
 
 In this hands-on exercise, you will learn how to visualise and analyse text data using R.
@@ -1115,4 +1193,4 @@ ggraph(bigram_graph,
 
     -   [widyr: Widen, process, and re-tidy a dataset](https://cran.r-project.org/web/packages/widyr/vignettes/intro.html)
 
-    -   [United Nations Voting Correlations](https://cran.r-project.org/web/packages/widyr/vignettes/united_nations.html) :::::::
+    -   [United Nations Voting Correlations](https://cran.r-project.org/web/packages/widyr/vignettes/united_nations.html)
