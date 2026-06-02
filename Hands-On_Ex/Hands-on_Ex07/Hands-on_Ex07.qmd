@@ -667,74 +667,97 @@ Visit [Option](http://datastorm-open.github.io/visNetwork/options.html) to find 
 ```{r}
 set.seed(123)
 
-# Create node dataset
 fraud_nodes <- tibble(
-  id = 1:25,
-  label = paste0("Actor_", 1:25),
-  Type = sample(
-    c("Policyholder", "Workshop", "Claim Agent"),
-    25,
-    replace = TRUE
-  )
+  id = 1:45,
+  label = paste0("Actor_", 1:45),
+  Type = rep(c("Policyholder", "Workshop", "Claim Agent"), length.out = 45)
 )
 
-# Create denser edge dataset
-fraud_edges <- tibble(
-  source = sample(1:25, 180, replace = TRUE),
-  target = sample(1:25, 180, replace = TRUE)
+fraud_edges <- bind_rows(
+  expand_grid(source = 1:12, target = 1:12),
+  expand_grid(source = 13:27, target = 13:27),
+  expand_grid(source = 28:45, target = 28:45),
+  tibble(
+    source = sample(c(5, 18, 32), 80, replace = TRUE),
+    target = sample(1:45, 80, replace = TRUE)
+  )
 ) %>%
   filter(source != target) %>%
-  group_by(source, target) %>%
-  summarise(
-    Weight = n(),
-    .groups = "drop"
+  mutate(
+    Weight = sample(1:8, n(), replace = TRUE)
   ) %>%
-  filter(Weight >= 2)
+  group_by(source, target) %>%
+  summarise(Weight = sum(Weight), .groups = "drop") %>%
+  filter(Weight >= 3)
 
-# Create graph object
 fraud_graph <- tbl_graph(
   nodes = fraud_nodes,
   edges = fraud_edges,
+  directed = FALSE
+)
+
+fraud_graph %>%
+  activate(nodes) %>%
+  mutate(
+    degree_score = centrality_degree(),
+    community = as.factor(group_louvain())
+  ) %>%
+  ggraph(layout = "fr") +
+  geom_edge_link(
+    aes(width = Weight),
+    alpha = 0.25,
+    colour = "grey40"
+  ) +
+  scale_edge_width(range = c(0.2, 3)) +
+  geom_node_point(
+    aes(colour = community,
+        size = degree_score)
+  ) +
+  theme_graph() +
+  labs(title = "Insurance Fraud Ring Detection Network")
+```
+
+**Insight:** This analysis highlights suspicious claim relationship groups. Nodes with larger sizes represent actors with more connections, while the colours represent possible communities within the fraud network. Dense clusters may suggest groups of policyholders, workshops, and claim agents that interact repeatedly, which could be useful for further fraud investigation.
+
+## Additional Analysis 2 - Non-Work Email Communication Network
+
+**Objective:** To examine informal or non-work-related communication patterns among GAStech employees.
+
+```{r}
+nonwork_edges <- GAStech_edges %>%
+  filter(MainSubject != "Work related") %>%
+  group_by(source, target) %>%
+  summarise(Weight = n(), .groups = "drop") %>%
+  filter(source != target) %>%
+  filter(Weight > 1)
+
+nonwork_graph <- tbl_graph(
+  nodes = GAStech_nodes,
+  edges = nonwork_edges,
   directed = TRUE
 )
 
-# Plot network graph
-g <- fraud_graph %>%
+nonwork_graph %>%
   activate(nodes) %>%
   mutate(
     degree_score = centrality_degree()
   ) %>%
   ggraph(layout = "fr") +
-  
   geom_edge_link(
     aes(width = Weight),
     alpha = 0.25,
-    colour = "grey60"
+    colour = "grey50"
   ) +
-  
-  scale_edge_width(range = c(0.3, 2.5)) +
-  
+  scale_edge_width(range = c(0.2, 2.5)) +
   geom_node_point(
-    aes(
-      fill = Type,
-      size = degree_score
-    ),
-    shape = 21,
-    colour = "black"
+    aes(colour = Department,
+        size = degree_score)
   ) +
-  
-  geom_node_text(
-    aes(label = label),
-    repel = TRUE,
-    size = 2.8
-  )
-
-g +
   theme_graph() +
-  labs(title = "Insurance Fraud Ring Detection Network")
+  labs(title = "Non-Work Email Communication Network")
 ```
 
-**Insight:** This analysis highlights actors with many claim-related connections. Larger nodes represent actors with higher degree centrality, meaning they interact with more policyholders, workshops, or claim agents. In a real insurance investigation, these highly connected actors may be useful starting points for detecting unusual claim behaviour or potential fraud networks.
+**Insight:** This analysis focuses on non-work-related email interactions within GAStech. Larger nodes represent employees with more informal communication connections, while node colours show their departments. This helps reveal whether informal communication is concentrated within departments or spread across different departments.
 
 ## 29.1 **Learning Outcome**
 
