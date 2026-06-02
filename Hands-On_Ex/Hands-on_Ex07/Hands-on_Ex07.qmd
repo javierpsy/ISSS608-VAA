@@ -724,6 +724,9 @@ fraud_graph %>%
 **Objective:** To examine informal or non-work-related communication patterns among GAStech employees.
 
 ```{r}
+nonwork_nodes <- GAStech_nodes %>%
+  mutate(NodeGroup = ifelse("Department" %in% names(.), Department, group))
+
 nonwork_edges <- GAStech_edges %>%
   filter(MainSubject != "Work related") %>%
   group_by(source, target) %>%
@@ -732,7 +735,7 @@ nonwork_edges <- GAStech_edges %>%
   filter(Weight > 1)
 
 nonwork_graph <- tbl_graph(
-  nodes = GAStech_nodes,
+  nodes = nonwork_nodes,
   edges = nonwork_edges,
   directed = TRUE
 )
@@ -750,7 +753,7 @@ nonwork_graph %>%
   ) +
   scale_edge_width(range = c(0.2, 2.5)) +
   geom_node_point(
-    aes(colour = Department,
+    aes(colour = NodeGroup,
         size = degree_score)
   ) +
   theme_graph() +
