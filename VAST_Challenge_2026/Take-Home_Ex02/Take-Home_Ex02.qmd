@@ -522,14 +522,14 @@ This section investigates whether communication activity exhibited unusual escal
 
 The analysis focuses on identifying:
 
--  increases in communication activity,
--  escalation in behavioural risk indicators,
--  abnormal communication behaviour,
--  and potential warning signs preceding the inappropriate release.
+-   increases in communication activity,
+-   escalation in behavioural risk indicators,
+-   abnormal communication behaviour,
+-   and potential warning signs preceding the inappropriate release.
 
 These behavioural patterns may provide early evidence of communication instability, coordination stress, or weakening embargo controls prior to the breach.
 
-::: panel-tabset
+::::: panel-tabset
 ### Daily Communication Activity
 
 ```{r}
@@ -657,8 +657,7 @@ ggplot(
 
 -   The concentration of elevated behavioural risk signals near the embargo breach may indicate that the inappropriate release was preceded by observable warning signs rather than occurring unexpectedly.
 :::
-
-:::
+:::::
 
 ## 4.2 How Did Communication Behaviour Shift Across Communication Environments?
 
@@ -737,7 +736,6 @@ ggplot(
 -   In particular, side-channel communication increased substantially from approximately 4% during the normal period to nearly 20% during the critical breach period, suggesting that communication behaviour became less contained closer to the inappropriate release.
 
 -   The increasing presence of communication activity across higher-exposure environments near the breach may indicate weakening communication containment surrounding sensitive merger-related discussions.
-
 :::
 
 ### Exposure-risk Communication Behaviour
@@ -809,16 +807,15 @@ ggplot(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--  Controlled exposure communication accounted for the largest communication volume across both the normal and critical periods, increasing from 201 messages during the normal period to 237 messages during the critical breach period.
+-   Controlled exposure communication accounted for the largest communication volume across both the normal and critical periods, increasing from 201 messages during the normal period to 237 messages during the critical breach period.
 
--  Low exposure communication activity also increased noticeably during the critical period, rising from 90 messages in the normal period to 138 messages near the breach.
+-   Low exposure communication activity also increased noticeably during the critical period, rising from 90 messages in the normal period to 138 messages near the breach.
 
--  Although high exposure communication represented a smaller proportion of total communication activity, it remained consistently present across all breach windows, with 29 messages recorded during the normal period and 33 messages during the critical period.
+-   Although high exposure communication represented a smaller proportion of total communication activity, it remained consistently present across all breach windows, with 29 messages recorded during the normal period and 33 messages during the critical period.
 
--  The critical breach period exhibited higher communication activity across most exposure-risk categories, suggesting that the inappropriate release was preceded by broader communication escalation rather than a single isolated high-risk interaction.
+-   The critical breach period exhibited higher communication activity across most exposure-risk categories, suggesting that the inappropriate release was preceded by broader communication escalation rather than a single isolated high-risk interaction.
 
 -   Moderate and high exposure communication behaviour was already observable before the critical breach window, which may indicate that earlier warning signs existed but were not sufficiently escalated into preventive action.
-
 :::
 
 ## 4.3 Which Communication Relationships Became More Concentrated Near the Breach?
@@ -898,7 +895,6 @@ ggplot(
 -   The repeated high-risk interaction patterns observed among a limited group of participants suggest that the inappropriate release was likely preceded by ongoing coordination behaviour rather than isolated one-off communication events.
 
 -   The growing concentration of elevated-risk communication pathways prior to the embargo breach may indicate weakening communication controls and increasing vulnerability within the broader communication environment.
-
 :::
 
 ## 4.4 How Did the Critical-period High-risk Communication Network Form?
@@ -1001,7 +997,6 @@ visNetwork(
 -   Communication participants such as Intern and Judge remained comparatively less connected to the central high-risk communication cluster,indicating that the elevated-risk communication behavior was primarily focused within a more limited group of operationally engaged participants rather than across the wider communication system.
 
 -   The dense concentration of repeated high-risk communication pathways during the critical breach period suggests that communication containment might have deteriorated slowly, enabling embargo-sensitive information to flow through more interconnected communication networks.
-
 :::
 
 ## 4.5 Did Earlier Elevated-risk Communication Patterns Exist Before the Critical Breach Period?
@@ -1181,7 +1176,7 @@ warning_escalation_summary %>%
 
 -   Prior elevated-risk communication patterns existed before the critical breach timeframe, with 49 moderate-to-high risk communications recorded before June 3, 2046. This suggests that warning signs existed earlier, but at a much lower level.
 
--   The critical period demonstrated a significant rise in elevated-risk communication, jumping from 49 to 337 moderate-to-high risk communications. This signifies a 6.9 times increase, showing that risk signals became significantly more apparent close to the breach.  
+-   The critical period demonstrated a significant rise in elevated-risk communication, jumping from 49 to 337 moderate-to-high risk communications. This signifies a 6.9 times increase, showing that risk signals became significantly more apparent close to the breach.
 
 -   High-risk communication showed the strongest increase, rising from 9 earlier high-risk communications to 193 during the critical period. This 21.4 times increase suggests that severe communication risk intensified rapidly close to the inappropriate release.
 

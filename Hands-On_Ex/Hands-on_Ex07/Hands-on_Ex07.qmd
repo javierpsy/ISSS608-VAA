@@ -1220,3 +1220,71 @@ ggraph(bigram_graph,
     -   [widyr: Widen, process, and re-tidy a dataset](https://cran.r-project.org/web/packages/widyr/vignettes/intro.html)
 
     -   [United Nations Voting Correlations](https://cran.r-project.org/web/packages/widyr/vignettes/united_nations.html)
+
+# Additional Analysis
+
+## Additional Analysis 3 - Newsgroup Correlation Network
+
+**Objective:** To identify which newsgroups are closely related based on shared word usage patterns.
+
+```{r}
+newsgroup_cors <- words_by_newsgroup %>%
+  pairwise_cor(
+    newsgroup,
+    word,
+    n,
+    sort = TRUE
+  )
+
+set.seed(2017)
+
+newsgroup_cors %>%
+  filter(correlation > .025) %>%
+  graph_from_data_frame() %>%
+  ggraph(layout = "fr") +
+  
+  geom_edge_link(
+    aes(alpha = correlation,
+        width = correlation),
+    colour = "grey60"
+  ) +
+  
+  geom_node_point(
+    size = 6,
+    colour = "lightblue"
+  ) +
+  
+  geom_node_text(
+    aes(label = name),
+    colour = "red",
+    repel = TRUE
+  ) +
+  
+  theme_void() +
+  labs(title = "Newsgroup Correlation Network")
+```
+
+**Insight:** This analysis visualises relationships between newsgroups based on shared word usage. Stronger connections indicate greater similarity in discussion vocabulary, suggesting that certain discussion groups may cover related themes or overlapping topics.
+
+## Additional Analysis 4 - Top Distinctive Terms by Newsgroup
+
+**Objective:** To identify the most distinctive words that characterise each selected newsgroup.
+
+```{r}
+tf_idf %>%
+  group_by(newsgroup) %>%
+  slice_max(tf_idf, n = 8, with_ties = FALSE) %>%
+  ungroup() %>%
+  mutate(word = reorder_within(word, tf_idf, newsgroup)) %>%
+  ggplot(aes(tf_idf, word, fill = newsgroup)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~newsgroup, scales = "free") +
+  scale_y_reordered() +
+  labs(
+    title = "Top Distinctive Terms by Newsgroup",
+    x = "TF-IDF",
+    y = NULL
+  )
+```
+
+**Insight:** This analysis identifies words that are highly distinctive to each newsgroup. Unlike simple word frequency, TF-IDF highlights terms that are important within one group but less common across the full dataset, making it useful for comparing topic-specific vocabulary.
