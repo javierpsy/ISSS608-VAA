@@ -322,6 +322,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#interim-finding" id="toc-interim-finding" class="nav-link" data-scroll-target="#interim-finding">Interim finding</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#reconstructing-the-embargo-breach-through-communication-networks-and-text-evidence" id="toc-reconstructing-the-embargo-breach-through-communication-networks-and-text-evidence" class="nav-link" data-scroll-target="#reconstructing-the-embargo-breach-through-communication-networks-and-text-evidence">5 Reconstructing the Embargo Breach Through Communication Networks and Text Evidence</a>
+  <ul class="collapse">
+  <li><a href="#which-participant-anchored-the-breach-period-communication-network" id="toc-which-participant-anchored-the-breach-period-communication-network" class="nav-link" data-scroll-target="#which-participant-anchored-the-breach-period-communication-network">5.1 Which Participant Anchored the Breach-period Communication Network?</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -354,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 2, 2026</p>
+      <p class="date-modified">June 4, 2026</p>
     </div>
   </div>
     
@@ -414,7 +418,7 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  tidyverse, jsonlite, tidygraph, ggraph,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  knitr, lubridate, patchwork,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  igraph, ggiraph, readr, ggalluvial, visNetwork, gt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  igraph, ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
@@ -436,13 +440,21 @@ Note
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"lubridate"</span>, <span class="st">"Date-time and temporal analysis."</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"patchwork"</span>, <span class="st">"Combining multiple visualisations."</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggiraph"</span>, <span class="st">"Interactive graphical visualisations."</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"knitr"</span>, <span class="st">"Dynamic report generation in Quarto."</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(packages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"readr"</span>, <span class="st">"Efficient import of structured communication datasets."</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggalluvial"</span>, <span class="st">"Visualising communication flow transitions and pathway structures."</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"visNetwork"</span>, <span class="st">"Interactive network and ego-network visualisations."</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gt"</span>, <span class="st">"Formatting analytical summary tables and evidence matrices."</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"knitr"</span>, <span class="st">"Dynamic report generation in Quarto."</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(packages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 85%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Library</th>
@@ -481,6 +493,22 @@ Note
 <tr class="even">
 <td style="text-align: left;">ggiraph</td>
 <td style="text-align: left;">Interactive graphical visualisations.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">readr</td>
+<td style="text-align: left;">Efficient import of structured communication datasets.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ggalluvial</td>
+<td style="text-align: left;">Visualising communication flow transitions and pathway structures.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">visNetwork</td>
+<td style="text-align: left;">Interactive network and ego-network visualisations.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gt</td>
+<td style="text-align: left;">Formatting analytical summary tables and evidence matrices.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">knitr</td>
@@ -1918,8 +1946,8 @@ Note
 <span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">608</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-1fbf64af66e92c2eb370" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1fbf64af66e92c2eb370">{"x":{"nodes":{"id":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"label":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"group":["Social Media","Legal","Other","PR","PR","Other","Social Media","Platform Trust","Other"],"value":[20,20,20,20,20,20,20,20,20]},"edges":{"from":["Social Media","Legal","Social Media","Legal","Legal","Social Media","Quality","Quality","Quality","Pr","Pr","Pr","Legal","Pr Intern","Social Media","Pr Intern","Quality","Judge","Legal","Pr","Pr Intern"],"to":["Legal","Pr","Pr","Social Manager","Platform Trust","Platform Trust","Pr","Social Manager","Legal","Legal","Platform Trust","Social Manager","Pr Intern","Social Manager","Pr Intern","Pr","Pr Intern","Legal","Judge","Intern","Intern"],"value":[38,36,36,35,33,33,10,8,7,5,5,5,4,4,4,3,2,1,1,1,1],"title":["Interaction Frequency: 38","Interaction Frequency: 36","Interaction Frequency: 36","Interaction Frequency: 35","Interaction Frequency: 33","Interaction Frequency: 33","Interaction Frequency: 10","Interaction Frequency: 8","Interaction Frequency: 7","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 3","Interaction Frequency: 2","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"groups":{"Legal":{"color":"#fb8072"},"Social Media":{"color":"#80b1d3"},"PR":{"color":"#b3de69"},"Platform Trust":{"color":"#bebada"},"useDefaultGroups":true,"Other":{"color":"#d9d9d9"}},"edges":{"color":{"color":"#cb181d","opacity":0.55},"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"layout":{"randomSeed":608}},"groups":["Social Media","Legal","Other","PR","Platform Trust"],"width":"100%","height":"600px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1a7a829d978ae8c1ca4d" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1a7a829d978ae8c1ca4d">{"x":{"nodes":{"id":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"label":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"group":["Social Media","Legal","Other","PR","PR","Other","Social Media","Platform Trust","Other"],"value":[20,20,20,20,20,20,20,20,20]},"edges":{"from":["Social Media","Legal","Social Media","Legal","Legal","Social Media","Quality","Quality","Quality","Pr","Pr","Pr","Legal","Pr Intern","Social Media","Pr Intern","Quality","Judge","Legal","Pr","Pr Intern"],"to":["Legal","Pr","Pr","Social Manager","Platform Trust","Platform Trust","Pr","Social Manager","Legal","Legal","Platform Trust","Social Manager","Pr Intern","Social Manager","Pr Intern","Pr","Pr Intern","Legal","Judge","Intern","Intern"],"value":[38,36,36,35,33,33,10,8,7,5,5,5,4,4,4,3,2,1,1,1,1],"title":["Interaction Frequency: 38","Interaction Frequency: 36","Interaction Frequency: 36","Interaction Frequency: 35","Interaction Frequency: 33","Interaction Frequency: 33","Interaction Frequency: 10","Interaction Frequency: 8","Interaction Frequency: 7","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 3","Interaction Frequency: 2","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"groups":{"Legal":{"color":"#fb8072"},"Social Media":{"color":"#80b1d3"},"PR":{"color":"#b3de69"},"Platform Trust":{"color":"#bebada"},"useDefaultGroups":true,"Other":{"color":"#d9d9d9"}},"edges":{"color":{"color":"#cb181d","opacity":0.55},"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"layout":{"randomSeed":608}},"groups":["Social Media","Legal","Other","PR","Platform Trust"],"width":"100%","height":"600px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -2202,7 +2230,7 @@ Note
 </section>
 <section id="what-warning-evidence-emerged-before-the-network-reconstruction" class="level2">
 <h2 class="anchored" data-anchor-id="what-warning-evidence-emerged-before-the-network-reconstruction">4.6 What Warning Evidence Emerged Before the Network Reconstruction?</h2>
-<p>This section consolidates the key behavioural and communication warning evidence identified from the exploratory analysis. Instead of presenting an additional independent visual, the analysis summarises how communication activity, behavioural risk signals, communication environments, high-risk pathways, and warning indicators changed prior to the embargo breach.</p>
+<p>This section summarizes the key behavioural and communication warning evidence discovered through the exploratory analysis. Instead of presenting an additional independent visual, the analysis encapsulates the changes in communication activities, behavioural risk signals, communication environments, high-risk pathways, and warning indicators that occurred before the embargo breach.</p>
 <p>This provides an interim evidence base before moving into the detailed network reconstruction in Section 5.</p>
 <div class="cell">
 <details class="code-fold">
@@ -2219,19 +2247,19 @@ Note
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Key Evidence from Section 4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Daily communication activity remained relatively stable at around 25–40 messages per day before rising sharply to more than 500 communications on June 5, 2046."</span>,</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Daily communication activity remained relatively stable at around 25–40 messages daily until they surged to over 500 messages on June 5, 2046."</span>,</span>
 <span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate-risk and high-risk communication signals increased substantially during the critical breach period, suggesting that communication behaviour became more abnormal near the inappropriate release."</span>,</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate-risk and high-risk communication signals  increased significantly during the critical breach period, indicating that communication behavior grew more unusual close to the inappropriate release."</span>,</span>
 <span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Internal group communication remained dominant, but its share declined from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%."</span>,</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Internal group communication remained dominant, but its share dropped from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%."</span>,</span>
 <span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Controlled exposure and low exposure communications increased during the critical period, while moderate and high exposure behaviour was already observable before the breach window."</span>,</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Controlled and low-exposure communication activity became more prominent during the critical period, while moderate and high exposure behaviours were already observable before the breach window."</span>,</span>
 <span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Repeated high-risk sender-recipient pathways became concentrated among a smaller number of communication routes, particularly involving Legal, Social Media, PR, and Platform Trust."</span>,</span>
 <span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The critical-period network showed a dense high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows suggesting repeated coordination behaviour."</span>,</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The critical-period network revealed a tightly connected high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows indicating repeated coordination behaviour."</span>,</span>
 <span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Earlier warning indicators existed before June 3, 2046, but were much weaker. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period."</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Earlier warning indicators existed before June 3, 2046, but appeared at lower intensity. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period."</span></span>
 <span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  ),</span>
 <span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">How It Supports the MC1 Investigation</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
@@ -2274,22 +2302,22 @@ Note
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Communication escalation</td>
-<td style="text-align: left;">Daily communication activity remained relatively stable at around 25–40 messages per day before rising sharply to more than 500 communications on June 5, 2046.</td>
+<td style="text-align: left;">Daily communication activity remained relatively stable at around 25–40 messages daily until they surged to over 500 messages on June 5, 2046.</td>
 <td style="text-align: left;">Supports the presence of abnormal communication escalation before the embargo breach.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Behavioural risk escalation</td>
-<td style="text-align: left;">Moderate-risk and high-risk communication signals increased substantially during the critical breach period, suggesting that communication behaviour became more abnormal near the inappropriate release.</td>
+<td style="text-align: left;">Moderate-risk and high-risk communication signals increased significantly during the critical breach period, indicating that communication behavior grew more unusual close to the inappropriate release.</td>
 <td style="text-align: left;">Provides evidence that the inappropriate release was preceded by observable behavioural warning signals.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Communication environment shift</td>
-<td style="text-align: left;">Internal group communication remained dominant, but its share declined from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%.</td>
+<td style="text-align: left;">Internal group communication remained dominant, but its share dropped from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%.</td>
 <td style="text-align: left;">Suggests weakening communication containment as activity became more distributed across less-contained communication environments.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Exposure-risk behaviour</td>
-<td style="text-align: left;">Controlled exposure and low exposure communications increased during the critical period, while moderate and high exposure behaviour was already observable before the breach window.</td>
+<td style="text-align: left;">Controlled and low-exposure communication activity became more prominent during the critical period, while moderate and high exposure behaviours were already observable before the breach window.</td>
 <td style="text-align: left;">Indicates that exposure-related communication risk was not entirely new, but became more pronounced close to the breach.</td>
 </tr>
 <tr class="odd">
@@ -2299,12 +2327,12 @@ Note
 </tr>
 <tr class="even">
 <td style="text-align: left;">Critical-period high-risk network</td>
-<td style="text-align: left;">The critical-period network showed a dense high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows suggesting repeated coordination behaviour.</td>
+<td style="text-align: left;">The critical-period network revealed a tightly connected high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows indicating repeated coordination behaviour.</td>
 <td style="text-align: left;">Highlights the key communication cluster that should be examined more closely in the Section 5 network reconstruction.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Earlier warning indicators</td>
-<td style="text-align: left;">Earlier warning indicators existed before June 3, 2046, but were much weaker. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period.</td>
+<td style="text-align: left;">Earlier warning indicators existed before June 3, 2046, but appeared at lower intensity. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period.</td>
 <td style="text-align: left;">Helps explain why prior warning signs may not have triggered action: earlier signals existed, but appeared less severe than the critical-period escalation.</td>
 </tr>
 </tbody>
@@ -2324,15 +2352,207 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>The exploratory analysis suggests that the inappropriate release was not preceded by a single isolated signal. Instead, several warning patterns emerged across communication volume, behavioural risk signals, communication environments, high-risk pathways, and earlier warning indicators.</p></li>
-<li><p>However, the earlier warning signs appeared weaker and less concentrated than the escalation observed during the critical breach period. This may explain why prior occasions did not result in stronger intervention or containment action.</p></li>
+<li><p>The exploratory analysis indicates that the inappropriate release was not preceded by a single isolated signal. Instead, several warning patterns gradually emerged across communication volume, behavioural risk signals, communication environments, high-risk pathways, and earlier warning indicators.</p></li>
+<li><p>Although, the earlier warning signs appeared weaker and less concentrated compared to the escalation observed during the critical breach period. This may explain why prior occasions did not result in stronger intervention or containment action.</p></li>
 <li><p>The next section therefore moves from behavioural evidence into network reconstruction to examine how communication relationships and pathways may have contributed to the embargo-sensitive post bypassing enforcement controls.</p></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="reconstructing-the-embargo-breach-through-communication-networks-and-text-evidence" class="level1">
+<h1>5 Reconstructing the Embargo Breach Through Communication Networks and Text Evidence</h1>
+<section id="which-participant-anchored-the-breach-period-communication-network" class="level2">
+<h2 class="anchored" data-anchor-id="which-participant-anchored-the-breach-period-communication-network">5.1 Which Participant Anchored the Breach-period Communication Network?</h2>
+<p>This section identifies the participant most actively connected within elevated-risk communication during the critical breach period.</p>
+<p>Rather than showing the full communication network, the analysis focuses on the direct ego network of the most active participant. This helps reveal the immediate communication relationships surrounding the breach-related evidence trail.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>clean_actor <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">"_agent"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_replace_all</span>(<span class="st">"_"</span>, <span class="st">" "</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_squish</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_to_title</span>()</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>breach_edges <span class="ot">&lt;-</span> communication_edges <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">communication_date =</span> <span class="fu">as.Date</span>(timestamp),</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">clean_actor</span>(source),</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">target =</span> <span class="fu">clean_actor</span>(target)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    communication_date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2046-06-03"</span>),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    risk_signal_group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Moderate Signal"</span>, <span class="st">"High Signal"</span>),</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(source),</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(target),</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>    source <span class="sc">!=</span> <span class="st">""</span>,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>    target <span class="sc">!=</span> <span class="st">""</span>,</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>    source <span class="sc">!=</span> target</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>    source,</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>    target,</span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>    risk_signal_group,</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"weight"</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source, target) <span class="sc">%&gt;%</span></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> <span class="fu">sum</span>(weight),</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">high_signal_weight =</span> <span class="fu">sum</span>(weight[risk_signal_group <span class="sc">==</span> <span class="st">"High Signal"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderate_signal_weight =</span> <span class="fu">sum</span>(weight[risk_signal_group <span class="sc">==</span> <span class="st">"Moderate Signal"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">dominant_risk_signal =</span> <span class="fu">if_else</span>(</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>      high_signal_weight <span class="sc">&gt;=</span> moderate_signal_weight,</span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High Signal"</span>,</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Moderate Signal"</span></span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>node_activity <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>  breach_edges <span class="sc">%&gt;%</span></span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(<span class="at">id =</span> source, <span class="at">activity =</span> weight),</span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>  breach_edges <span class="sc">%&gt;%</span></span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(<span class="at">id =</span> target, <span class="at">activity =</span> weight)</span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_activity =</span> <span class="fu">sum</span>(activity),</span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>anchor_actor <span class="ot">&lt;-</span> node_activity <span class="sc">%&gt;%</span></span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_activity)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(id)</span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a>ego_edges <span class="ot">&lt;-</span> breach_edges <span class="sc">%&gt;%</span></span>
+<span id="cb41-62"><a href="#cb41-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a>    source <span class="sc">==</span> anchor_actor <span class="sc">|</span></span>
+<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a>      target <span class="sc">==</span> anchor_actor</span>
+<span id="cb41-65"><a href="#cb41-65" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-66"><a href="#cb41-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-67"><a href="#cb41-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">8</span>)</span>
+<span id="cb41-68"><a href="#cb41-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-69"><a href="#cb41-69" aria-hidden="true" tabindex="-1"></a>ego_nodes <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb41-70"><a href="#cb41-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">unique</span>(<span class="fu">c</span>(ego_edges<span class="sc">$</span>source, ego_edges<span class="sc">$</span>target))</span>
+<span id="cb41-71"><a href="#cb41-71" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-72"><a href="#cb41-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb41-73"><a href="#cb41-73" aria-hidden="true" tabindex="-1"></a>    node_activity,</span>
+<span id="cb41-74"><a href="#cb41-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"id"</span></span>
+<span id="cb41-75"><a href="#cb41-75" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-76"><a href="#cb41-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-77"><a href="#cb41-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> id,</span>
+<span id="cb41-78"><a href="#cb41-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> total_activity,</span>
+<span id="cb41-79"><a href="#cb41-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb41-80"><a href="#cb41-80" aria-hidden="true" tabindex="-1"></a>      id <span class="sc">==</span> anchor_actor <span class="sc">~</span> <span class="st">"Anchor Participant"</span>,</span>
+<span id="cb41-81"><a href="#cb41-81" aria-hidden="true" tabindex="-1"></a>      id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Legal"</span>, <span class="st">"PR"</span>, <span class="st">"Social Media"</span>, <span class="st">"Platform Trust"</span>) <span class="sc">~</span> <span class="st">"Core Participant"</span>,</span>
+<span id="cb41-82"><a href="#cb41-82" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Peripheral Participant"</span></span>
+<span id="cb41-83"><a href="#cb41-83" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb41-84"><a href="#cb41-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-85"><a href="#cb41-85" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;b&gt;"</span>, id, <span class="st">"&lt;/b&gt;&lt;br&gt;"</span>,</span>
+<span id="cb41-86"><a href="#cb41-86" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Total weighted activity: "</span>, total_activity</span>
+<span id="cb41-87"><a href="#cb41-87" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb41-88"><a href="#cb41-88" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-89"><a href="#cb41-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-90"><a href="#cb41-90" aria-hidden="true" tabindex="-1"></a>ego_edges_vis <span class="ot">&lt;-</span> ego_edges <span class="sc">%&gt;%</span></span>
+<span id="cb41-91"><a href="#cb41-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
+<span id="cb41-92"><a href="#cb41-92" aria-hidden="true" tabindex="-1"></a>    <span class="at">from =</span> source,</span>
+<span id="cb41-93"><a href="#cb41-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> target,</span>
+<span id="cb41-94"><a href="#cb41-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> weight,</span>
+<span id="cb41-95"><a href="#cb41-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrows =</span> <span class="st">"to"</span>,</span>
+<span id="cb41-96"><a href="#cb41-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-97"><a href="#cb41-97" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Interaction frequency: "</span>, weight,</span>
+<span id="cb41-98"><a href="#cb41-98" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;High-signal interactions: "</span>, high_signal_weight,</span>
+<span id="cb41-99"><a href="#cb41-99" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;br&gt;Moderate-signal interactions: "</span>, moderate_signal_weight</span>
+<span id="cb41-100"><a href="#cb41-100" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb41-101"><a href="#cb41-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">if_else</span>(</span>
+<span id="cb41-102"><a href="#cb41-102" aria-hidden="true" tabindex="-1"></a>      dominant_risk_signal <span class="sc">==</span> <span class="st">"High Signal"</span>,</span>
+<span id="cb41-103"><a href="#cb41-103" aria-hidden="true" tabindex="-1"></a>      <span class="st">"#cb181d"</span>,</span>
+<span id="cb41-104"><a href="#cb41-104" aria-hidden="true" tabindex="-1"></a>      <span class="st">"#fdae6b"</span></span>
+<span id="cb41-105"><a href="#cb41-105" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb41-106"><a href="#cb41-106" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-107"><a href="#cb41-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-108"><a href="#cb41-108" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(</span>
+<span id="cb41-109"><a href="#cb41-109" aria-hidden="true" tabindex="-1"></a>  ego_nodes,</span>
+<span id="cb41-110"><a href="#cb41-110" aria-hidden="true" tabindex="-1"></a>  ego_edges_vis,</span>
+<span id="cb41-111"><a href="#cb41-111" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="st">"760px"</span>,</span>
+<span id="cb41-112"><a href="#cb41-112" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="st">"100%"</span>,</span>
+<span id="cb41-113"><a href="#cb41-113" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="fu">paste0</span>(</span>
+<span id="cb41-114"><a href="#cb41-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Breach-period Ego Network Anchored on "</span>,</span>
+<span id="cb41-115"><a href="#cb41-115" aria-hidden="true" tabindex="-1"></a>    anchor_actor</span>
+<span id="cb41-116"><a href="#cb41-116" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-117"><a href="#cb41-117" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-118"><a href="#cb41-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visGroups</span>(</span>
+<span id="cb41-119"><a href="#cb41-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">groupname =</span> <span class="st">"Anchor Participant"</span>,</span>
+<span id="cb41-120"><a href="#cb41-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">list</span>(<span class="at">background =</span> <span class="st">"#cb181d"</span>, <span class="at">border =</span> <span class="st">"#99000d"</span>)</span>
+<span id="cb41-121"><a href="#cb41-121" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-122"><a href="#cb41-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visGroups</span>(</span>
+<span id="cb41-123"><a href="#cb41-123" aria-hidden="true" tabindex="-1"></a>    <span class="at">groupname =</span> <span class="st">"Core Participant"</span>,</span>
+<span id="cb41-124"><a href="#cb41-124" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">list</span>(<span class="at">background =</span> <span class="st">"#6baed6"</span>, <span class="at">border =</span> <span class="st">"#2171b5"</span>)</span>
+<span id="cb41-125"><a href="#cb41-125" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-126"><a href="#cb41-126" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visGroups</span>(</span>
+<span id="cb41-127"><a href="#cb41-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">groupname =</span> <span class="st">"Peripheral Participant"</span>,</span>
+<span id="cb41-128"><a href="#cb41-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">list</span>(<span class="at">background =</span> <span class="st">"#d9d9d9"</span>, <span class="at">border =</span> <span class="st">"#969696"</span>)</span>
+<span id="cb41-129"><a href="#cb41-129" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-130"><a href="#cb41-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visEdges</span>(</span>
+<span id="cb41-131"><a href="#cb41-131" aria-hidden="true" tabindex="-1"></a>    <span class="at">smooth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-132"><a href="#cb41-132" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="fu">list</span>(<span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">10</span>)</span>
+<span id="cb41-133"><a href="#cb41-133" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-134"><a href="#cb41-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visNodes</span>(</span>
+<span id="cb41-135"><a href="#cb41-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"dot"</span>,</span>
+<span id="cb41-136"><a href="#cb41-136" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="fu">list</span>(<span class="at">min =</span> <span class="dv">28</span>, <span class="at">max =</span> <span class="dv">70</span>),</span>
+<span id="cb41-137"><a href="#cb41-137" aria-hidden="true" tabindex="-1"></a>    <span class="at">font =</span> <span class="fu">list</span>(</span>
+<span id="cb41-138"><a href="#cb41-138" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">26</span>,</span>
+<span id="cb41-139"><a href="#cb41-139" aria-hidden="true" tabindex="-1"></a>      <span class="at">face =</span> <span class="st">"bold"</span></span>
+<span id="cb41-140"><a href="#cb41-140" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb41-141"><a href="#cb41-141" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-142"><a href="#cb41-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(</span>
+<span id="cb41-143"><a href="#cb41-143" aria-hidden="true" tabindex="-1"></a>    <span class="at">highlightNearest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-144"><a href="#cb41-144" aria-hidden="true" tabindex="-1"></a>    <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span></span>
+<span id="cb41-145"><a href="#cb41-145" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-146"><a href="#cb41-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visInteraction</span>(</span>
+<span id="cb41-147"><a href="#cb41-147" aria-hidden="true" tabindex="-1"></a>    <span class="at">navigationButtons =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-148"><a href="#cb41-148" aria-hidden="true" tabindex="-1"></a>    <span class="at">dragNodes =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-149"><a href="#cb41-149" aria-hidden="true" tabindex="-1"></a>    <span class="at">zoomView =</span> <span class="cn">TRUE</span></span>
+<span id="cb41-150"><a href="#cb41-150" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-151"><a href="#cb41-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visPhysics</span>(</span>
+<span id="cb41-152"><a href="#cb41-152" aria-hidden="true" tabindex="-1"></a>    <span class="at">solver =</span> <span class="st">"forceAtlas2Based"</span>,</span>
+<span id="cb41-153"><a href="#cb41-153" aria-hidden="true" tabindex="-1"></a>    <span class="at">stabilization =</span> <span class="cn">TRUE</span></span>
+<span id="cb41-154"><a href="#cb41-154" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-155"><a href="#cb41-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(</span>
+<span id="cb41-156"><a href="#cb41-156" aria-hidden="true" tabindex="-1"></a>    <span class="at">randomSeed =</span> <span class="dv">608</span></span>
+<span id="cb41-157"><a href="#cb41-157" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="htmlwidget-7cf2e22c4e82fdc8a607" style="width:100%;height:760px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7cf2e22c4e82fdc8a607">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"total_activity":[216,124,44,154,34,71,85],"label":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[216,124,44,154,34,71,85],"group":["Anchor Participant","Core Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Core Participant"],"title":["<b>Legal<\/b><br>Total weighted activity: 216","<b>Social Media<\/b><br>Total weighted activity: 124","<b>Quality<\/b><br>Total weighted activity: 44","<b>Pr<\/b><br>Total weighted activity: 154","<b>Pr Intern<\/b><br>Total weighted activity: 34","<b>Social Manager<\/b><br>Total weighted activity: 71","<b>Platform Trust<\/b><br>Total weighted activity: 85"]},"edges":{"from":["Legal","Legal","Legal","Social Media","Quality","Pr","Legal","Pr Intern"],"to":["Pr","Social Manager","Platform Trust","Legal","Legal","Legal","Pr Intern","Legal"],"value":[58,47,42,39,10,7,6,5],"arrows":["to","to","to","to","to","to","to","to"],"title":["Interaction frequency: 58<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","Interaction frequency: 47<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","Interaction frequency: 42<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","Interaction frequency: 39<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","Interaction frequency: 10<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","Interaction frequency: 7<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","Interaction frequency: 6<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","Interaction frequency: 5<br>High-signal interactions: 0<br>Moderate-signal interactions: 5"],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":26,"face":"bold"},"scaling":{"min":28,"max":70}},"manipulation":{"enabled":false},"groups":{"Anchor Participant":{"color":{"background":"#cb181d","border":"#99000d"}},"Core Participant":{"color":{"background":"#6baed6","border":"#2171b5"}},"useDefaultGroups":true,"Peripheral Participant":{"color":{"background":"#d9d9d9","border":"#969696"}}},"edges":{"smooth":true,"scaling":{"min":1,"max":10}},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":["Anchor Participant","Core Participant","Peripheral Participant"],"width":"100%","height":"760px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Breach-period Ego Network Anchored on Legal","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><img src="images/Observation.png" class="img-fluid" width="31"> Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The ego network highlights Legal as the most actively connected participant within elevated-risk communication during the critical period.</p></li>
+<li><p>The strongest breach-period links connect Legal with PR, Social Media, and Platform Trust, suggesting that the communication evidence trail was concentrated around a core operational group.</p></li>
+<li><p>Thicker links represent repeated elevated-risk communication, while red links indicate pathways dominated by high-risk signals.</p></li>
+<li><p>This provides a focused starting point for examining whether these participants acted as senders, receivers, or coordination hubs in the next section.</p></li>
 </ul>
 </div>
 </div>
 
 
-</section>
 </section>
 </section>
 

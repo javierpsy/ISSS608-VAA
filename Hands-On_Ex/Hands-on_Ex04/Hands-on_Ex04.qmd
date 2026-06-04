@@ -16,8 +16,7 @@ execute:
 
 **What is Funnel plot?**
 
-Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets.
-In this hands-on Exercise, we'll gain hands-on experience on:
+Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets. In this hands-on Exercise, we'll gain hands-on experience on:
 
 -   plotting funnel plots by using **funnelPlotR** package,
 -   plotting static funnel plot by using ggplot2 package, and
@@ -263,7 +262,6 @@ ggplot(covid19_city_rate,
 ```
 
 **Insights:** Some cities exhibit higher and more variable fatality rates across sub-districts, indicating differences in COVID-19 impact and healthcare burden.
-
 
 ## 8.7.2 Additional Analysis 2: Relationship Between Positive Cases and Deaths
 
@@ -1295,7 +1293,7 @@ Note: You only need to perform this step once.
 
 ```{r}
 library(ungeviz)
-``` 
+```
 
 ### 11.5.3 **Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
