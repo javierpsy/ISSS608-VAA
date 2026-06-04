@@ -52,8 +52,8 @@ In the code chunk below, *p_load()* of *pacman* package is used to load the R pa
 ```{r}
 pacman::p_load(
   tidyverse, jsonlite, tidygraph, ggraph,
-  knitr, lubridate, patchwork,
-  igraph, ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork
+  knitr, lubridate, patchwork, igraph, 
+  ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork, tidytext
 )
 ```
 
@@ -1440,4 +1440,430 @@ visNetwork(
 - Thicker links represent repeated elevated-risk communication, while red links indicate pathways dominated by high-risk signals.
 
 - This provides a focused starting point for examining whether these participants acted as senders, receivers, or coordination hubs in the next section.
+:::
+
+While the ego network identifies the participants most closely connected to Legal, it does not explain how these participants contributed to breach-period communication. The next section therefore examines whether these participants acted as coordinators, broadcasters, receivers, or peripheral actors within the elevated-risk communication network.
+
+## 5.2 What Communication Roles Did Participants Play During the Breach Period?
+
+This section examines how participants contributed to elevated-risk communication during the critical breach period.
+
+While Section 5.1 identified the key participants connected to the breach-period network, this analysis focuses on the function each participant performed within that network. Participants are classified according to their communication behaviour, allowing the analysis to distinguish between those who coordinated information flows, those who primarily disseminated information, and those who mainly received communications.
+
+Examining these communication roles provides a clearer understanding of how information moved through the network and helps identify the actors who may have played an important part in allowing embargo-sensitive information to circulate prior to the inappropriate release.
+
+```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+
+clean_actor <- function(x) {
+  x %>%
+    str_replace_all("_agent", "") %>%
+    str_replace_all("_", " ") %>%
+    str_squish() %>%
+    str_to_title()
+}
+
+role_edges <- communication_edges %>%
+  mutate(
+    communication_date = as.Date(timestamp),
+    source = clean_actor(source),
+    target = clean_actor(target)
+  ) %>%
+  filter(
+    communication_date >= as.Date("2046-06-03"),
+    risk_signal_group %in% c("Moderate Signal", "High Signal"),
+    !is.na(source),
+    !is.na(target),
+    source != "",
+    target != "",
+    source != target
+  ) %>%
+  count(source, target, risk_signal_group, name = "weight") %>%
+  group_by(source, target) %>%
+  summarise(
+    weight = sum(weight),
+    high_signal_weight = sum(weight[risk_signal_group == "High Signal"], na.rm = TRUE),
+    moderate_signal_weight = sum(weight[risk_signal_group == "Moderate Signal"], na.rm = TRUE),
+    dominant_risk_signal = if_else(
+      high_signal_weight >= moderate_signal_weight,
+      "High Signal",
+      "Moderate Signal"
+    ),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(weight)) %>%
+  slice_head(n = 18)
+
+outgoing_activity <- role_edges %>%
+  group_by(source) %>%
+  summarise(outgoing_weight = sum(weight), .groups = "drop") %>%
+  rename(id = source)
+
+incoming_activity <- role_edges %>%
+  group_by(target) %>%
+  summarise(incoming_weight = sum(weight), .groups = "drop") %>%
+  rename(id = target)
+
+role_nodes <- tibble(
+  id = unique(c(role_edges$source, role_edges$target))
+) %>%
+  left_join(outgoing_activity, by = "id") %>%
+  left_join(incoming_activity, by = "id") %>%
+  mutate(
+    outgoing_weight = replace_na(outgoing_weight, 0),
+    incoming_weight = replace_na(incoming_weight, 0),
+    total_activity = outgoing_weight + incoming_weight,
+    
+    communication_role = case_when(
+      outgoing_weight >= median(outgoing_weight, na.rm = TRUE) &
+        incoming_weight >= median(incoming_weight, na.rm = TRUE) ~ "Coordinator",
+      outgoing_weight >= median(outgoing_weight, na.rm = TRUE) &
+        incoming_weight < median(incoming_weight, na.rm = TRUE) ~ "Broadcaster",
+      outgoing_weight < median(outgoing_weight, na.rm = TRUE) &
+        incoming_weight >= median(incoming_weight, na.rm = TRUE) ~ "Receiver",
+      TRUE ~ "Peripheral"
+    ),
+    
+    label = id,
+    value = total_activity,
+    group = communication_role,
+    title = paste0(
+      "<b>", id, "</b><br>",
+      "Role: ", communication_role, "<br>",
+      "Outgoing elevated-risk activity: ", outgoing_weight, "<br>",
+      "Incoming elevated-risk activity: ", incoming_weight, "<br>",
+      "Total weighted activity: ", total_activity
+    )
+  )
+
+role_edges_vis <- role_edges %>%
+  transmute(
+    from = source,
+    to = target,
+    value = weight,
+    arrows = "to",
+    width = scales::rescale(weight, to = c(1, 8)),
+    title = paste0(
+      "<b>", source, " → ", target, "</b><br>",
+      "Interaction frequency: ", weight, "<br>",
+      "Dominant risk signal: ", dominant_risk_signal, "<br>",
+      "High-signal interactions: ", high_signal_weight, "<br>",
+      "Moderate-signal interactions: ", moderate_signal_weight
+    ),
+    color = if_else(
+      dominant_risk_signal == "High Signal",
+      "#cb181d",
+      "#fdae6b"
+    )
+  )
+
+visNetwork(
+  role_nodes,
+  role_edges_vis,
+  height = "500px",
+  width = "100%",
+  main = "Breach-period Communication Roles and Information Flow"
+) %>%
+  visGroups(
+    groupname = "Coordinator",
+    color = list(background = "#cb181d", border = "#99000d"),
+    shape = "star"
+  ) %>%
+  visGroups(
+    groupname = "Broadcaster",
+    color = list(background = "#fb6a4a", border = "#cb181d"),
+    shape = "triangle"
+  ) %>%
+  visGroups(
+    groupname = "Receiver",
+    color = list(background = "#6baed6", border = "#2171b5"),
+    shape = "dot"
+  ) %>%
+  visGroups(
+    groupname = "Peripheral",
+    color = list(background = "#d9d9d9", border = "#969696"),
+    shape = "square"
+  ) %>%
+  visEdges(smooth = TRUE) %>%
+  visNodes(
+    scaling = list(min = 12, max = 34),
+    font = list(size = 16, face = "bold")
+  ) %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 1),
+    nodesIdSelection = FALSE
+  ) %>%
+  visInteraction(
+    navigationButtons = FALSE,
+    dragNodes = TRUE,
+    zoomView = TRUE
+  ) %>%
+  visPhysics(
+    solver = "forceAtlas2Based",
+    stabilization = TRUE
+  ) %>%
+  visLayout(randomSeed = 608)
+```
+
+**Role encoding:** star = Coordinator, triangle = Broadcaster, circle = Receiver, square = Peripheral.  
+**Edge encoding:** red arrows = high-risk dominant pathways; orange arrows = moderate-risk dominant pathways. Thicker arrows indicate more repeated communication.
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that the circulation of embargo-sensitive information was driven by a focused operational cluster.
+
+-   Legal and PR functioned as coordinators, exhibiting both high incoming and outgoing communication activity. Their positions within the network indicate that they acted as intermediaries connecting multiple communication pathways.
+
+-   Social Media displayed broadcaster characteristics, contributing a larger proportion of outgoing communication relative to incoming communication. This role is relevant given the eventual public release of embargoed information.
+
+-   Platform Trust and Social Manager appeared more receiver-oriented, indicating that they were more frequently involved in receiving elevated-risk communications than initiating them, suggesting downstream involvement in the communication flow.
+
+-   The concentration of communication activity around Legal, PR, Social Media, Platform Trust, and Social Manager highlights a potential pathway through which embargo-sensitive information could have propagated prior to the inappropriate release.
+:::
+
+## 5.3 What Communication Patterns Emerged Prior to the Inappropriate Release?
+
+This section examines if communication behavior shifted before the improper disclosure of restricted information. Instead of concentrating on specific actors, the analysis looks at communication content to detect emerging patterns that could have acted as early warning indicators prior to the breach happening.
+
+Using text mining techniques, communication logs are analyzed across the Normal Period, Escalation Period, and Critical Period. The aim is to assess if the communication content became more concentrated on particular subjects or displayed atypical traits as the release date neared.
+
+This analysis offers evidence of whether the inappropriate release was foreshadowed by noticeable changes in communication behavior, rather than happening as a singular incident, through the identification of unique terms and communication patterns.
+
+### Emerging Communication Topics Prior to the Release
+
+```{r}
+#| label: fig-5-3-tfidf
+#| fig-width: 11
+#| fig-height: 6
+#| out-width: "100%"
+#| message: false
+#| warning: false
+
+custom_stopwords <- tibble(
+  word = c(
+    "message", "thread", "reply", "forward",
+    "thanks", "thank", "okay", "please",
+    "team", "hi", "hello"
+  )
+)
+
+tokens_53 <- communications_clean %>%
+  mutate(
+    breach_window = factor(
+      near_breach_window,
+      levels = c(
+        "Normal Period",
+        "Escalation Period",
+        "Critical Period"
+      )
+    )
+  ) %>%
+  filter(!is.na(content)) %>%
+  unnest_tokens(word, content) %>%
+  anti_join(stop_words, by = "word") %>%
+  anti_join(custom_stopwords, by = "word") %>%
+  filter(
+    str_length(word) > 2,
+    !str_detect(word, "^[0-9]+$")
+  )
+
+tfidf_terms_53 <- tokens_53 %>%
+  count(
+    breach_window,
+    word,
+    sort = TRUE
+  ) %>%
+  bind_tf_idf(
+    term = word,
+    document = breach_window,
+    n = n
+  ) %>%
+  group_by(breach_window) %>%
+  slice_max(
+    order_by = tf_idf,
+    n = 10,
+    with_ties = FALSE
+  ) %>%
+  ungroup()
+
+ggplot(
+  tfidf_terms_53,
+  aes(
+    x = reorder_within(word, tf_idf, breach_window),
+    y = tf_idf,
+    fill = breach_window
+  )
+) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  facet_wrap(
+    ~ breach_window,
+    scales = "free_y"
+  ) +
+  scale_x_reordered() +
+  labs(
+    title = "Emerging Communication Topics Prior to the Release",
+    subtitle = "Higher TF-IDF scores indicate terms that were more distinctive within each communication period",
+    x = NULL,
+    y = "TF-IDF Score"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    strip.text = element_text(face = "bold")
+  )
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+- Communication topics significantly changed throughout the three communicatio periods. While the Normal and Escalation Periods were characterised by operational and procedural discussions, the Critical Period introduced several terms associated with governance, platform trust, social media management, and the HarborCrest–CivicLoom context.
+
+- The emergence of terms like **platform_trust**, **governance**, **social_manager**, **HarborCrest**, and **CivicLoom** as prominent Critical Period terms indicates that communication increasingly centered on topics pertinent to the forthcoming disclosure.
+
+- These terms were not among the dominant topics observed during earlier periods, indicating that the communication environment changed as the release approached.
+
+- The emergence of governance- and release-related topics pbefore the breach indicates possible early signs that the communication context was turning more sensitive and more linked to the restricted information.
+
+- Overall, the TF-IDF analysis suggests that the inappropriate release was preceded by a measurable shift in communication content rather than occurring as a completely isolated event.
+:::
+
+## 5.4 What Relationships Emerged Among Key Communication Topics?
+
+This section examines how key communication topics were connected during the Critical Period. While Section 5.3 identified distinctive terms, this section uses bigram analysis to identify word-pair relationships that appeared repeatedly in communications.
+
+### 5.4.1 Generate bigrams
+
+```{r}
+bigrams_54 <- communications_clean %>%
+  filter(
+    near_breach_window == "Critical Period",
+    !is.na(content)
+  ) %>%
+  unnest_tokens(
+    bigram,
+    content,
+    token = "ngrams",
+    n = 2
+  )
+
+bigrams_54 %>%
+  head(10)
+```
+
+### 5.4.2 Separate bigrams
+
+```{r}
+bigrams_separated_54 <- bigrams_54 %>%
+  separate(
+    bigram,
+    into = c("word1", "word2"),
+    sep = " "
+  )
+
+bigrams_separated_54 %>%
+  head(10)
+```
+
+### 5.4.3 Remove stop words
+
+```{r}
+bigrams_filtered_54 <- bigrams_separated_54 %>%
+  filter(
+    !word1 %in% stop_words$word,
+    !word2 %in% stop_words$word,
+    str_length(word1) > 2,
+    str_length(word2) > 2,
+    !str_detect(word1, "^[0-9]+$"),
+    !str_detect(word2, "^[0-9]+$")
+  )
+
+bigrams_filtered_54 %>%
+  head(10)
+```
+
+### 5.4.4 Count bigrams
+```{r}
+bigram_counts_54 <- bigrams_filtered_54 %>%
+  count(word1, word2, sort = TRUE)
+
+bigram_counts_54 %>%
+  head(20) %>%
+  knitr::kable(
+    caption = "Top recurring bigrams during the Critical Period"
+  )
+```
+
+### 5.4.5 Create bigram graph
+
+```{r}
+#| label: fig-5-4-bigram-graph
+
+bigram_graph_54 <- bigram_counts_54 %>%
+  filter(n > 1) %>%
+  slice_max(n, n = 30, with_ties = FALSE) %>%
+  graph_from_data_frame()
+
+bigram_graph_54
+```
+
+### 5.4.6 Visualise bigram network
+
+```{r}
+set.seed(608)
+
+a <- grid::arrow(
+  type = "closed",
+  length = unit(.12, "inches")
+)
+
+ggraph(
+  bigram_graph_54,
+  layout = "fr"
+) +
+  geom_edge_link(
+    aes(edge_alpha = n),
+    show.legend = FALSE,
+    arrow = a,
+    end_cap = circle(.07, "inches")
+  ) +
+  geom_node_point(
+    color = "lightblue",
+    size = 5
+  ) +
+  geom_node_text(
+    aes(label = name),
+    repel = TRUE,
+    size = 3.5
+  ) +
+  theme_void() +
+  labs(
+    title = "Phrase Relationships Among Critical-period Communication Topics",
+    subtitle = "Directed bigram network constructed from recurring word pairs during the Critical Period"
+  ) +
+  theme(
+    plot.title = element_text(face = "bold")
+  )
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+-   During the Critical Period, communications became more focused on governance, access management, auditing, and public communication themes, indicating a move away from regular operational discussions towards issues more connected to organisational oversight and information regulation.
+
+-   The frequent occurrence of phrase relationships such as **access controls**, **role based**, **governance reforms**, and **independent audit** signifies increased focus on governance and accountability structures during the days leading up to the inappropriate release.
+
+-   The recurring phrase **press release** suggests that public communication activities were already being actively discussed prior to the breach event, indicating that these release-related activities were not limited to one communication or individual.
+
+-   Several organisation- and individual-related phrase relationships, including **HarborCrest–ResidentEdge** and **Sarah–Kowalski**, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.
+
+-   In general, these recurring phrase connections imply that the improper release was foreshadowed by a communication context marked by governance dialogues, planning related to the release, and heightened focus on oversight procedures, indicating possible leading signs prior to the embargo breach.
+
+
+
+
+
 :::
