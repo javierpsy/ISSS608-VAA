@@ -1237,7 +1237,7 @@ section4_evidence_summary <- tibble(
 
 This section identifies the participant most actively connected within elevated-risk communication during the critical breach period.
 
-Rather than showing the full communication network, the analysis focuses on the direct ego network of the most active participant. This helps reveal the immediate communication relationships surrounding the breach-related evidence trail.
+Rather than showing the full communication network, the analysis focuses on the direct ego network of the most active participant. This helps reveal the immediate communication relationships surrounding the breach-related evidence trail. The ego-network visualisation approach was informed by the network analytics techniques presented in [Chapter 29 (Network Analytics)](https://r4va.netlify.app/chap29), which demonstrates how graph-based methods can be used to examine communication structures and participant relationships.
 
 ```{r}
 #| fig-width: 12
@@ -1600,7 +1600,7 @@ visNetwork(
 
 The objective is to determine whether communication topics changed as the release approached and whether these changes could have served as early warning indicators of the eventual breach.
 
-Using text mining techniques, communication logs are analyzed across the Normal Period, Escalation Period, and Critical Period. The aim is to assess if the communication content became more concentrated on particular subjects or displayed atypical traits as the release date neared.
+Using text mining techniques, communication logs are analyzed across the Normal Period, Escalation Period, and Critical Period. The TF-IDF approach was adapted from the text mining techniques demonstrated in [Chapter 27 (Text Analytics)](https://r4va.netlify.app/chap27), which illustrates how distinctive terms can be identified across document groups using tidytext.
 
 This analysis offers evidence of whether the inappropriate release was foreshadowed by noticeable changes in communication behavior, rather than happening as a singular incident, through the identification of unique terms and communication patterns.
 
@@ -2159,5 +2159,53 @@ ggplot(
 
 :::
 
+# 6 Summary of Findings
+
+This study explored the communication practices, behavioral trends, and network dynamics that occurred before the inappropriate release of embargo-sensitive information.
+
+The findings  indicate that the release was not triggered by a single, isolated communication event. Rather, numerous warning indicators emerged prior to the breach, such as a significant rise in communication activity, heightened behavioral risk signals, increased reliance on side-channel communication, and more focused high-risk communication routes.
+
+Network analysis showed that Legal, PR, Social Media, and Platform Trust formed the main communication cluster linked to elevated-risk interactions. During the Critical Period, Legal and Social Media also became noticeably more active than in earlier periods, suggesting that participant behaviour changed as the release approached.
+
+Text analysis also revealed that communication subjects shifted to emphasize governance, trust in the platform, access controls, auditing, and public relations. This suggests that the communication context grew more intertwined with matters related to the eventual revelation.
+
+Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
+
+In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants.
+
+## 6.1 Summary of Evidence Supporting the Investigation
+
+```{r}
+summary_evidence_tbl <- tibble(
+  `Mini-Challenge Question` = c(
+    "What events and relationships led to the inappropriate release?",
+    "What decisions and actors were important to the release?",
+    "Were there leading indicators that the release was possible?",
+    "Was the behaviour different from prior behaviour?",
+    "Were similar behaviours observed previously?",
+    "Why did prior occasions not result in noticeable action?"
+  ),
+  
+  `Key Finding` = c(
+    "Communication activity escalated sharply, while high-risk pathways became concentrated around Legal, PR, Social Media, and Platform Trust.",
+    "Legal, PR, Social Media, and Platform Trust were repeatedly involved in elevated-risk communications and key communication pathways during the Critical Period.",
+    "Yes. Moderate- and high-risk communications, side-channel activity, and exposure-risk behaviours were already observable before the Critical Period and intensified near the breach.",
+    "Yes. Legal (+98 communications) and Social Media (+78 communications) showed the largest increases in activity during the Critical Period.",
+    "Yes. Earlier warning signals existed before the breach, but they occurred at lower intensity and involved fewer participants.",
+    "Earlier signals were less concentrated and did not show the same level of behavioural escalation observed during the Critical Period."
+  )
+)
+
+summary_evidence_tbl %>%
+  knitr::kable(
+    caption = "Summary of evidence supporting the Mini-Challenge 1 investigation"
+  )
+```
 
 ## 7 Reference
+
+Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap27
+
+Chapter 29: Visualising and Analysing Text Data with R: tidytext methods – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap29
+
+https://r4va.netlify.app/chap29
