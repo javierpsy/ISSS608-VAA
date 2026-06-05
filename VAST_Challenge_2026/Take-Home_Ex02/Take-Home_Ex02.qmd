@@ -1803,8 +1803,7 @@ bigram_counts_54 %>%
 #| label: fig-5-4-bigram-graph
 
 bigram_graph_54 <- bigram_counts_54 %>%
-  filter(n > 1) %>%
-  slice_max(n, n = 30, with_ties = FALSE) %>%
+  filter(n >= 20) %>%
   graph_from_data_frame()
 
 bigram_graph_54
@@ -1813,11 +1812,15 @@ bigram_graph_54
 ### 5.4.6 Visualise bigram network
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+
 set.seed(608)
 
 a <- grid::arrow(
   type = "closed",
-  length = unit(.12, "inches")
+  length = unit(.10, "inches")
 )
 
 ggraph(
@@ -1825,10 +1828,21 @@ ggraph(
   layout = "fr"
 ) +
   geom_edge_link(
-    aes(edge_alpha = n),
-    show.legend = FALSE,
+    aes(
+      edge_width = n,
+      edge_alpha = n
+    ),
+    show.legend = TRUE,
     arrow = a,
     end_cap = circle(.07, "inches")
+  ) +
+  scale_edge_width(
+    range = c(0.4, 2.8),
+    name = "Bigram frequency"
+  ) +
+  scale_edge_alpha(
+    range = c(0.35, 0.85),
+    guide = "none"
   ) +
   geom_node_point(
     color = "lightblue",
@@ -1837,33 +1851,239 @@ ggraph(
   geom_node_text(
     aes(label = name),
     repel = TRUE,
-    size = 3.5
+    size = 3.7
   ) +
   theme_void() +
   labs(
-    title = "Phrase Relationships Among Critical-period Communication Topics",
-    subtitle = "Directed bigram network constructed from recurring word pairs during the Critical Period"
+    title = "Recurring Communication Themes During the Critical Period",
+    subtitle = "Directed bigram network showing frequently repeated word-pair relationships"
   ) +
   theme(
-    plot.title = element_text(face = "bold")
+    plot.title = element_text(face = "bold"),
+    legend.position = "bottom"
   )
 ```
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   During the Critical Period, communications became more focused on governance, access management, auditing, and public communication themes, indicating a move away from regular operational discussions towards issues more connected to organisational oversight and information regulation.
+-   Communications became increasingly centred around governance, auditing, access control, and platform trust, indicating a shift toward oversight and accountability-related discussions.
 
--   The frequent occurrence of phrase relationships such as **access controls**, **role based**, **governance reforms**, and **independent audit** signifies increased focus on governance and accountability structures during the days leading up to the inappropriate release.
+-   The frequent occurrence of phrase relationships such as **access controls**, **role based**, **governance reforms**, and **independent audit** suggest heightened attention to information governance and permission management during the Critical Period.
 
--   The recurring phrase **press release** suggests that public communication activities were already being actively discussed prior to the breach event, indicating that these release-related activities were not limited to one communication or individual.
+-   The appearance of **press release** and **platform** trust indicates that public communication and platform-related issues were already active discussion topics before the inappropriate release occurred.
 
 -   Several organisation- and individual-related phrase relationships, including **HarborCrest–ResidentEdge** and **Sarah–Kowalski**, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.
 
--   In general, these recurring phrase connections imply that the improper release was foreshadowed by a communication context marked by governance dialogues, planning related to the release, and heightened focus on oversight procedures, indicating possible leading signs prior to the embargo breach.
+-   In general, these recurring communication themes provide evidence that the inappropriate release was preceded by identifiable governance- and communication-related discussions, rather than occurring in isolation.
+:::
 
+## 5.5 What Communication Pathway Likely Led to the Inappropriate Release?
 
+This section reconstructs the likely communication pathway leading to the inappropriate release. By focusing on elevated-risk communications during the critical period, the analysis identifies the key sequence of events, actors, and decision points that may have allowed embargo-sensitive information to move towards public disclosure.
 
+### 5.5.1 Critical Communication Timeline
 
+```{r}
+#| fig-width: 11
+#| fig-height: 6
+#| out-width: "100%"
+#| message: false
+#| warning: false
+
+timeline_55 <- communications_clean %>%
+  filter(
+    near_breach_window == "Critical Period",
+    risk_signal_group %in% c("Moderate Signal", "High Signal")
+  ) %>%
+  mutate(
+    round_hour = lubridate::floor_date(timestamp, unit = "hour")
+  ) %>%
+  count(round_hour, risk_signal_group, name = "n")
+
+ggplot(
+  timeline_55,
+  aes(
+    x = round_hour,
+    y = n,
+    fill = risk_signal_group
+  )
+) +
+  geom_col(position = "stack") +
+  geom_vline(
+    xintercept = as.POSIXct("2046-06-05 17:00:00"),
+    linetype = "dashed",
+    colour = "red",
+    linewidth = 0.8
+  ) +
+  annotate(
+    "text",
+    x = as.POSIXct("2046-06-05 17:00:00"),
+    y = Inf,
+    label = "Inappropriate release",
+    vjust = 1.5,
+    hjust = -0.05,
+    size = 3.3
+  ) +
+  labs(
+    title = "Elevated-risk Communications Increased Near the Release",
+    subtitle = "Hourly count of moderate- and high-risk communications during the Critical Period",
+    x = NULL,
+    y = "Number of communications",
+    fill = "Risk Signal"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom"
+  )
+```
+
+### 5.5.2 Key Events Leading to the Release
+
+```{r}
+#| message: false
+#| warning: false
+
+key_events_55 <- communications_clean %>%
+  filter(
+    near_breach_window == "Critical Period",
+    risk_signal_group %in% c("Moderate Signal", "High Signal")
+  ) %>%
+  mutate(
+    round_hour = lubridate::floor_date(timestamp, unit = "hour"),
+    content_short = str_trunc(content, width = 120)
+  ) %>%
+  arrange(timestamp) %>%
+  select(
+    timestamp,
+    agent_role,
+    channel,
+    communication_scope,
+    risk_signal_group,
+    content_short
+  ) %>%
+  head(15)
+
+key_events_55 %>%
+  knitr::kable(
+    caption = "Chronological sample of elevated-risk communications during the Critical Period"
+  )
+```
+
+### 5.5.3 Focused Communication Pathway Network
+
+```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+#| message: false
+#| warning: false
+
+pathway_edges_55 <- communication_edges %>%
+  mutate(
+    communication_date = as.Date(timestamp),
+    source = clean_actor(source),
+    target = clean_actor(target)
+  ) %>%
+  filter(
+    communication_date >= as.Date("2046-06-04"),
+    communication_date <= as.Date("2046-06-05"),
+    risk_signal_group %in% c("Moderate Signal", "High Signal"),
+    !is.na(source),
+    !is.na(target),
+    source != "",
+    target != "",
+    source != target
+  ) %>%
+  count(source, target, risk_signal_group, name = "weight") %>%
+  group_by(source, target) %>%
+  summarise(
+    weight = sum(weight),
+    high_signal_weight = sum(weight[risk_signal_group == "High Signal"], na.rm = TRUE),
+    moderate_signal_weight = sum(weight[risk_signal_group == "Moderate Signal"], na.rm = TRUE),
+    dominant_risk_signal = if_else(
+      high_signal_weight >= moderate_signal_weight,
+      "High Signal",
+      "Moderate Signal"
+    ),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(weight)) %>%
+  slice_head(n = 20)
+
+pathway_nodes_55 <- tibble(
+  id = unique(c(pathway_edges_55$source, pathway_edges_55$target))
+) %>%
+  mutate(
+    label = id,
+    value = 1,
+    title = id
+  )
+
+pathway_edges_vis_55 <- pathway_edges_55 %>%
+  transmute(
+    from = source,
+    to = target,
+    value = weight,
+    arrows = "to",
+    width = scales::rescale(weight, to = c(1, 7)),
+    color = if_else(
+      dominant_risk_signal == "High Signal",
+      "#cb181d",
+      "#fdae6b"
+    ),
+    title = paste0(
+      "<b>", source, " → ", target, "</b><br>",
+      "Total interactions: ", weight, "<br>",
+      "Dominant signal: ", dominant_risk_signal, "<br>",
+      "High-signal interactions: ", high_signal_weight, "<br>",
+      "Moderate-signal interactions: ", moderate_signal_weight
+    )
+  )
+
+visNetwork(
+  pathway_nodes_55,
+  pathway_edges_vis_55,
+  height = "500px",
+  width = "100%",
+  main = "Likely Communication Pathway During the Critical Period"
+) %>%
+  visNodes(
+    shape = "dot",
+    color = list(background = "#9ecae1", border = "#2171b5"),
+    scaling = list(min = 15, max = 35),
+    font = list(size = 16, face = "bold")
+  ) %>%
+  visEdges(smooth = TRUE) %>%
+  visOptions(
+    highlightNearest = list(enabled = TRUE, degree = 1),
+    nodesIdSelection = FALSE
+  ) %>%
+  visInteraction(
+    navigationButtons = FALSE,
+    dragNodes = TRUE,
+    zoomView = TRUE
+  ) %>%
+  visPhysics(
+    solver = "forceAtlas2Based",
+    stabilization = TRUE
+  ) %>%
+  visLayout(randomSeed = 608)
+```
+
+::: callout-note
+## ![](images/Observation.png){width="31"} Observations
+
+- Elevated-risk communications became concentrated near the release window, indicating that the breach was preceded by an observable escalation in communication activity.
+
+- The chronological event table helps identify the order in which elevated-risk communications appeared, supporting reconstruction of the likely sequence leading to the release.
+
+- The focused pathway network shows which actors were connected through repeated moderate- or high-risk communications during the most critical period.
+
+- Red pathways represent high-risk dominant communication links, highlighting where information movement may have been most sensitive.
+
+- Taken together, the timeline and network provide evidence that the inappropriate release was linked to a sequence of elevated-risk communications rather than a single isolated message.
 
 :::
