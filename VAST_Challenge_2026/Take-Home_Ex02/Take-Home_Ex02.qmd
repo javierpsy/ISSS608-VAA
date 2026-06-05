@@ -2149,7 +2149,7 @@ ggplot(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Legal (+98 communications) and Social Media (+78 communications) exhibited the largest departures from their typical communication behaviour during the Critical Period. Legal became a key coordinator, while Social Media assumed a more prominent broadcasting role.
+-   Legal (+98 communications) and Social Media (+78 communications) exhibited the largest departures from their typical communication behaviour during the Critical Period. Legal became a key coordinator, while Social Media assumed a more prominent broadcasting role. 
 
 -   The Expected vs Observed Behaviour comparison shows that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
 
@@ -2171,7 +2171,7 @@ Text analysis also revealed that communication subjects shifted to emphasize gov
 
 Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
 
-In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants.
+In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2025)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
 
 ## 6.1 Summary of Evidence Supporting the Investigation
 
@@ -2202,7 +2202,7 @@ summary_evidence_tbl %>%
   )
 ```
 
-## 7 Reference
+## 7 References
 
 Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap27
 
