@@ -343,7 +343,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#critical-communication-timeline" id="toc-critical-communication-timeline" class="nav-link" data-scroll-target="#critical-communication-timeline">5.5.1 Critical Communication Timeline</a></li>
   <li><a href="#key-events-leading-to-the-release" id="toc-key-events-leading-to-the-release" class="nav-link" data-scroll-target="#key-events-leading-to-the-release">5.5.2 Key Events Leading to the Release</a></li>
-  <li><a href="#focused-communication-pathway-network" id="toc-focused-communication-pathway-network" class="nav-link" data-scroll-target="#focused-communication-pathway-network">5.5.3 Focused Communication Pathway Network</a></li>
+  </ul></li>
+  <li><a href="#behavioural-deviations-and-prior-warning-signals" id="toc-behavioural-deviations-and-prior-warning-signals" class="nav-link" data-scroll-target="#behavioural-deviations-and-prior-warning-signals">5.6 Behavioural Deviations and Prior Warning Signals</a>
+  <ul class="collapse">
+  <li><a href="#behavioural-shift-by-actor-role" id="toc-behavioural-shift-by-actor-role" class="nav-link" data-scroll-target="#behavioural-shift-by-actor-role">5.6.1 Behavioural Shift by Actor Role</a></li>
+  <li><a href="#elevated-risk-communications-across-breach-windows" id="toc-elevated-risk-communications-across-breach-windows" class="nav-link" data-scroll-target="#elevated-risk-communications-across-breach-windows">5.6.2 Elevated-risk Communications Across Breach Windows</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -438,7 +442,7 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  tidyverse, jsonlite, tidygraph, ggraph,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  knitr, lubridate, patchwork, igraph, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork, tidytext</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork, tidytext, ggrepel</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
@@ -1509,10 +1513,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Communication activity remained relatively stable at approximately 25–40 messages per day across most of the investigation period before increasing sharply to more than 500 communications on June 5, 2046.</p></li>
-<li><p>The abrupt escalation near the embargo breach suggests a sudden increase in coordination activity immediately prior to the inappropriate release.</p></li>
-<li><p>Earlier communication behaviour appeared seemed relatively regulated and consistently operational, suggesting that the communication surge noted during the critical period significantly diverged from earlier behavioral trends.</p></li>
-<li><p>The concentration of communication activity near the breach timeframe may serve as a possible early signal of deteriorating communication controls regarding embargo-sensitive data.</p></li>
+<li><p>Communication activity remained relatively stable at approximately 25–40 messages per day before increasing sharply to more than 500 messages on 5 June 2046.</p></li>
+<li><p>This represents a substantial departure from historical communication levels and indicates a sudden escalation in coordination activity immediately before the embargo breach.</p></li>
+<li><p>No comparable spikes were observed during the earlier investigation period, suggesting that the communication surge was unique to the breach window.</p></li>
+<li><p>The timing of this escalation indicates that abnormal communication volume may have served as an observable warning signal prior to the inappropriate release.</p></li>
 </ul>
 </div>
 </div>
@@ -1588,11 +1592,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Communication activity during the earlier investigation period remained relatively stable, with most daily interactions consisting mainly of low-risk or routine communication behaviour.</p></li>
-<li><p>A noticeable shift emerged during the critical breach window on June 5, 2046, where overall communication activity increased sharply to nearly 500 messages.</p></li>
-<li><p>The proportion of moderate-risk and high-risk communication signals also increased substantially during the critical period, suggesting that communication behaviour became increasingly abnormal closer to the inappropriate release.</p></li>
-<li><p>Earlier communication behaviour appeared relatively controlled and operationally consistent, suggesting that the communication surge observed during the critical period deviated substantially from earlier behavioural patterns.</p></li>
-<li><p>The concentration of elevated behavioural risk signals near the embargo breach may indicate that the inappropriate release was preceded by observable warning signs rather than occurring unexpectedly.</p></li>
+<li><p>Prior to the Critical Period, most communications were classified as No Signal or Low Signal, indicating relatively routine operational activity.</p></li>
+<li><p>On 5 June 2046, total communication volume increased to nearly 500 messages while Moderate Signal and High Signal communications increased substantially.</p></li>
+<li><p>The simultaneous increase in communication volume and risk severity suggests that the breach was preceded by both behavioural escalation and elevated communication risk.</p></li>
+<li><p>This pattern provides evidence that warning signals were observable before the inappropriate release rather than emerging only after the breach occurred.</p></li>
 </ul>
 </div>
 </div>
@@ -1684,7 +1687,6 @@ Note
 <div class="callout-body-container callout-body">
 <ul>
 <li><p>Internal group communication remained the dominant communication environment across all breach windows, accounting for approximately 61% of communication activity during the normal period, 62% during the escalation period, and 46% during the critical breach period.</p></li>
-<li><p>During the normal and escalation periods, communication behaviour was largely concentrated within internal and private communication environments, where private communication accounted for approximately 27%–33% of total communication activity.</p></li>
 <li><p>A noticeable behavioural shift emerged during the critical breach period, where communication activity became more distributed across public-facing, side-channel, and other communication environments.</p></li>
 <li><p>In particular, side-channel communication increased substantially from approximately 4% during the normal period to nearly 20% during the critical breach period, suggesting that communication behaviour became less contained closer to the inappropriate release.</p></li>
 <li><p>The increasing presence of communication activity across higher-exposure environments near the breach may indicate weakening communication containment surrounding sensitive merger-related discussions.</p></li>
@@ -1778,11 +1780,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Controlled exposure communication accounted for the largest communication volume across both the normal and critical periods, increasing from 201 messages during the normal period to 237 messages during the critical breach period.</p></li>
-<li><p>Low exposure communication activity also increased noticeably during the critical period, rising from 90 messages in the normal period to 138 messages near the breach.</p></li>
-<li><p>Although high exposure communication represented a smaller proportion of total communication activity, it remained consistently present across all breach windows, with 29 messages recorded during the normal period and 33 messages during the critical period.</p></li>
-<li><p>The critical breach period exhibited higher communication activity across most exposure-risk categories, suggesting that the inappropriate release was preceded by broader communication escalation rather than a single isolated high-risk interaction.</p></li>
-<li><p>Moderate and high exposure communication behaviour was already observable before the critical breach window, which may indicate that earlier warning signs existed but were not sufficiently escalated into preventive action.</p></li>
+<li><p>Controlled exposure communication accounted for the largest communication volume across all breach windows, increasing from 201 messages during the Normal Period to 237 messages during the Critical Period.</p></li>
+<li><p>Low exposure communication activity also increased noticeably near the breach, rising from 90 messages during the Normal Period to 138 messages during the Critical Period.</p></li>
+<li><p>Although high exposure communication represented a smaller share of total communication activity, it remained consistently present across all breach windows, with 29 messages recorded during the Normal Period and 33 messages during the Critical Period.</p></li>
+<li><p>The Critical Period exhibited higher communication activity across most exposure-risk categories, while moderate- and high-exposure communications were already observable in earlier periods. This suggests that warning signals existed before the breach but intensified substantially as the inappropriate release approached.</p></li>
 </ul>
 </div>
 </div>
@@ -1870,11 +1871,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>High-risk communication behaviour became increasingly concentrated among a relatively small number of sender-recipient pathways prior to the embargo breach.</p></li>
-<li><p>Legal and Social Media emerged as the primary sources of repeated high-risk communication activity, suggesting that communication surrounding embargo-sensitive information became increasingly concentrated within these operational pathways approaching the critical breach period.</p></li>
-<li><p>PR and Platform Trust received substantial volumes of repeated high-risk communication flow, suggesting that communication surrounding embargo-sensitive information became increasingly concentrated within a small number of communication routes.</p></li>
-<li><p>The repeated high-risk interaction patterns observed among a limited group of participants suggest that the inappropriate release was likely preceded by ongoing coordination behaviour rather than isolated one-off communication events.</p></li>
-<li><p>The growing concentration of elevated-risk communication pathways prior to the embargo breach may indicate weakening communication controls and increasing vulnerability within the broader communication environment.</p></li>
+<li><p>High-risk communications were concentrated among a small number of sender-recipient pathways rather than being distributed across the wider communication network.</p></li>
+<li><p>Legal, Social Media, PR, and Platform Trust appeared most frequently within the strongest high-risk pathways, indicating that elevated-risk discussions were largely confined to a core operational group.</p></li>
+<li><p>Several pathways showed repeated interactions between the same actors, suggesting ongoing coordination rather than isolated high-risk messages.</p></li>
+<li><p>The concentration of elevated-risk communications within this tightly connected cluster highlights potential channels through which embargo-sensitive information could have propagated prior to the inappropriate release.</p></li>
 </ul>
 </div>
 </div>
@@ -1966,8 +1966,8 @@ Note
 <span id="cb37-75"><a href="#cb37-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">608</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-041caec627b92aa561f6" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-041caec627b92aa561f6">{"x":{"nodes":{"id":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"label":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"group":["Social Media","Legal","Other","PR","PR","Other","Social Media","Platform Trust","Other"],"value":[20,20,20,20,20,20,20,20,20]},"edges":{"from":["Social Media","Legal","Social Media","Legal","Legal","Social Media","Quality","Quality","Quality","Pr","Pr","Pr","Legal","Pr Intern","Social Media","Pr Intern","Quality","Judge","Legal","Pr","Pr Intern"],"to":["Legal","Pr","Pr","Social Manager","Platform Trust","Platform Trust","Pr","Social Manager","Legal","Legal","Platform Trust","Social Manager","Pr Intern","Social Manager","Pr Intern","Pr","Pr Intern","Legal","Judge","Intern","Intern"],"value":[38,36,36,35,33,33,10,8,7,5,5,5,4,4,4,3,2,1,1,1,1],"title":["Interaction Frequency: 38","Interaction Frequency: 36","Interaction Frequency: 36","Interaction Frequency: 35","Interaction Frequency: 33","Interaction Frequency: 33","Interaction Frequency: 10","Interaction Frequency: 8","Interaction Frequency: 7","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 3","Interaction Frequency: 2","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"groups":{"Legal":{"color":"#fb8072"},"Social Media":{"color":"#80b1d3"},"PR":{"color":"#b3de69"},"Platform Trust":{"color":"#bebada"},"useDefaultGroups":true,"Other":{"color":"#d9d9d9"}},"edges":{"color":{"color":"#cb181d","opacity":0.55},"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"layout":{"randomSeed":608}},"groups":["Social Media","Legal","Other","PR","Platform Trust"],"width":"100%","height":"600px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3cd91ce6041a1eb508f9" style="width:100%;height:600px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3cd91ce6041a1eb508f9">{"x":{"nodes":{"id":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"label":["Social Media","Legal","Quality","Pr","Pr Intern","Judge","Social Manager","Platform Trust","Intern"],"group":["Social Media","Legal","Other","PR","PR","Other","Social Media","Platform Trust","Other"],"value":[20,20,20,20,20,20,20,20,20]},"edges":{"from":["Social Media","Legal","Social Media","Legal","Legal","Social Media","Quality","Quality","Quality","Pr","Pr","Pr","Legal","Pr Intern","Social Media","Pr Intern","Quality","Judge","Legal","Pr","Pr Intern"],"to":["Legal","Pr","Pr","Social Manager","Platform Trust","Platform Trust","Pr","Social Manager","Legal","Legal","Platform Trust","Social Manager","Pr Intern","Social Manager","Pr Intern","Pr","Pr Intern","Legal","Judge","Intern","Intern"],"value":[38,36,36,35,33,33,10,8,7,5,5,5,4,4,4,3,2,1,1,1,1],"title":["Interaction Frequency: 38","Interaction Frequency: 36","Interaction Frequency: 36","Interaction Frequency: 35","Interaction Frequency: 33","Interaction Frequency: 33","Interaction Frequency: 10","Interaction Frequency: 8","Interaction Frequency: 7","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 5","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 4","Interaction Frequency: 3","Interaction Frequency: 2","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1","Interaction Frequency: 1"],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"groups":{"Legal":{"color":"#fb8072"},"Social Media":{"color":"#80b1d3"},"PR":{"color":"#b3de69"},"Platform Trust":{"color":"#bebada"},"useDefaultGroups":true,"Other":{"color":"#d9d9d9"}},"edges":{"color":{"color":"#cb181d","opacity":0.55},"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"layout":{"randomSeed":608}},"groups":["Social Media","Legal","Other","PR","Platform Trust"],"width":"100%","height":"600px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1981,11 +1981,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>High-risk communication activity became noticeably more concentrated within a smaller group of communication participants during the critical breach period, indicating that elevated-risk interactions were no longer spread evenly across the broader communication environment.</p></li>
-<li><p>Legal, PR, Social Media, and Platform Trust appeared repeatedly within the core high-risk communication cluster, suggesting that embargo-sensitive discussions became increasingly concentrated within a closely connected operational communication network during the critical breach period.</p></li>
-<li><p>Multiple communication channels displayed significantly thicker directional flows, especially among those involved in Legal, PR, and Social Media sectors. This indicates ongoing and consistent coordination actions instead of isolated, one-time communication interactions.</p></li>
-<li><p>Communication participants such as Intern and Judge remained comparatively less connected to the central high-risk communication cluster,indicating that the elevated-risk communication behavior was primarily focused within a more limited group of operationally engaged participants rather than across the wider communication system.</p></li>
-<li><p>The dense concentration of repeated high-risk communication pathways during the critical breach period suggests that communication containment might have deteriorated slowly, enabling embargo-sensitive information to flow through more interconnected communication networks.</p></li>
+<li><p>High-risk communication activity became increasingly concentrated within a smaller group of participants during the Critical Period, indicating that elevated-risk interactions were no longer distributed across the broader communication network.</p></li>
+<li><p>Legal, PR, Social Media, and Platform Trust appeared repeatedly within the core high-risk communication cluster, suggesting that embargo-sensitive discussions were largely confined to a closely connected operational group.</p></li>
+<li><p>Several communication pathways displayed substantially thicker directional flows, particularly among Legal, PR, and Social Media participants, indicating sustained coordination rather than isolated one-off interactions.</p></li>
+<li><p>Intern and Judge remained comparatively less connected to the central high-risk cluster, while the dense concentration of repeated interactions among the core participants suggests that embargo-sensitive information may have circulated through a small but highly interconnected communication network prior to the inappropriate release.</p></li>
 </ul>
 </div>
 </div>
@@ -2243,7 +2242,6 @@ Note
 <li><p>The critical period demonstrated a significant rise in elevated-risk communication, jumping from 49 to 337 moderate-to-high risk communications. This signifies a 6.9 times increase, showing that risk signals became significantly more apparent close to the breach.</p></li>
 <li><p>High-risk communication showed the strongest increase, rising from 9 earlier high-risk communications to 193 during the critical period. This 21.4 times increase suggests that severe communication risk intensified rapidly close to the inappropriate release.</p></li>
 <li><p>Public and side-channel communication increased from 44 to 132 communications, indicating that communication risk was increasing in both volume and exposure within less-contained communication contexts.</p></li>
-<li><p>Overall, the findings suggest that earlier warning signs were present but likely appeared too limited or insufficiently severe to trigger stronger intervention. The critical period marked a clear escalation where elevated-risk behaviour became much harder to ignore.</p></li>
 </ul>
 </div>
 </div>
@@ -2257,107 +2255,33 @@ Note
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>section4_evidence_summary <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Analytical Area</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Communication escalation"</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Behavioural risk escalation"</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Communication environment shift"</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Exposure-risk behaviour"</span>,</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High-risk communication pathways"</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Critical-period high-risk network"</span>,</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Earlier warning indicators"</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Key Evidence from Section 4</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Daily communication activity remained relatively stable at around 25–40 messages daily until they surged to over 500 messages on June 5, 2046."</span>,</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate-risk and high-risk communication signals  increased significantly during the critical breach period, indicating that communication behavior grew more unusual close to the inappropriate release."</span>,</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Internal group communication remained dominant, but its share dropped from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%."</span>,</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Controlled and low-exposure communication activity became more prominent during the critical period, while moderate and high exposure behaviours were already observable before the breach window."</span>,</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Repeated high-risk sender-recipient pathways became concentrated among a smaller number of communication routes, particularly involving Legal, Social Media, PR, and Platform Trust."</span>,</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The critical-period network revealed a tightly connected high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows indicating repeated coordination behaviour."</span>,</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Earlier warning indicators existed before June 3, 2046, but appeared at lower intensity. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period."</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">How It Supports the MC1 Investigation</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Supports the presence of abnormal communication escalation before the embargo breach."</span>,</span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Provides evidence that the inappropriate release was preceded by observable behavioural warning signals."</span>,</span>
-<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Suggests weakening communication containment as activity became more distributed across less-contained communication environments."</span>,</span>
-<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Indicates that exposure-related communication risk was not entirely new, but became more pronounced close to the breach."</span>,</span>
-<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Identifies relationship-level communication pathways that may have supported information propagation."</span>,</span>
-<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Highlights the key communication cluster that should be examined more closely in the Section 5 network reconstruction."</span>,</span>
-<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Helps explain why prior warning signs may not have triggered action: earlier signals existed, but appeared less severe than the critical-period escalation."</span></span>
-<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a>section4_evidence_summary <span class="sc">%&gt;%</span></span>
-<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Interim evidence summary from Section 4 exploratory communication and behaviour analysis"</span></span>
-<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Communication Escalation"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Behavioural Risk Escalation"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Communication Environment Shift"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Exposure-risk Behaviour"</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High-risk Communication Concentration"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Earlier Warning Indicators"</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Key Evidence</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Daily messages increased from ~25–40 to over 500 on 5 Jun 2046."</span>,</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate- and high-risk signals increased substantially during the Critical Period."</span>,</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Side-channel communication increased from 4% to 19%."</span>,</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate- and high-exposure communications existed before the breach and intensified later."</span>,</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Legal, PR, Social Media, and Platform Trust became increasingly connected through repeated high-risk interactions."</span>,</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Moderate-to-high risk communications increased from 49 to 337."</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">MC1 Relevance</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Indicates abnormal activity before the breach."</span>,</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Suggests observable warning signals before the release."</span>,</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Indicates weakening communication containment."</span>,</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Shows warning signals were already present."</span>,</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Identifies key actors and relationships involved."</span>,</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Explains why earlier signals may have been overlooked."</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Interim evidence summary from Section 4 exploratory communication and behaviour analysis</caption>
-<colgroup>
-<col style="width: 8%">
-<col style="width: 53%">
-<col style="width: 38%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Analytical Area</th>
-<th style="text-align: left;">Key Evidence from Section 4</th>
-<th style="text-align: left;">How It Supports the MC1 Investigation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Communication escalation</td>
-<td style="text-align: left;">Daily communication activity remained relatively stable at around 25–40 messages daily until they surged to over 500 messages on June 5, 2046.</td>
-<td style="text-align: left;">Supports the presence of abnormal communication escalation before the embargo breach.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Behavioural risk escalation</td>
-<td style="text-align: left;">Moderate-risk and high-risk communication signals increased significantly during the critical breach period, indicating that communication behavior grew more unusual close to the inappropriate release.</td>
-<td style="text-align: left;">Provides evidence that the inappropriate release was preceded by observable behavioural warning signals.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Communication environment shift</td>
-<td style="text-align: left;">Internal group communication remained dominant, but its share dropped from approximately 61% during the normal period to 46% during the critical period, while side-channel communication increased from about 4% to 19%.</td>
-<td style="text-align: left;">Suggests weakening communication containment as activity became more distributed across less-contained communication environments.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Exposure-risk behaviour</td>
-<td style="text-align: left;">Controlled and low-exposure communication activity became more prominent during the critical period, while moderate and high exposure behaviours were already observable before the breach window.</td>
-<td style="text-align: left;">Indicates that exposure-related communication risk was not entirely new, but became more pronounced close to the breach.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">High-risk communication pathways</td>
-<td style="text-align: left;">Repeated high-risk sender-recipient pathways became concentrated among a smaller number of communication routes, particularly involving Legal, Social Media, PR, and Platform Trust.</td>
-<td style="text-align: left;">Identifies relationship-level communication pathways that may have supported information propagation.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Critical-period high-risk network</td>
-<td style="text-align: left;">The critical-period network revealed a tightly connected high-risk communication cluster involving Legal, PR, Social Media, and Platform Trust, with thicker directional flows indicating repeated coordination behaviour.</td>
-<td style="text-align: left;">Highlights the key communication cluster that should be examined more closely in the Section 5 network reconstruction.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Earlier warning indicators</td>
-<td style="text-align: left;">Earlier warning indicators existed before June 3, 2046, but appeared at lower intensity. Moderate-to-high risk communications increased from 49 before the critical period to 337 during the critical period.</td>
-<td style="text-align: left;">Helps explain why prior warning signs may not have triggered action: earlier signals existed, but appeared less severe than the critical-period escalation.</td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <section id="interim-finding" class="level3">
 <h3 class="anchored" data-anchor-id="interim-finding">Interim finding</h3>
@@ -2372,9 +2296,10 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>The exploratory analysis indicates that the inappropriate release was not preceded by a single isolated signal. Instead, several warning patterns gradually emerged across communication volume, behavioural risk signals, communication environments, high-risk pathways, and earlier warning indicators.</p></li>
-<li><p>Although, the earlier warning signs appeared weaker and less concentrated compared to the escalation observed during the critical breach period. This may explain why prior occasions did not result in stronger intervention or containment action.</p></li>
-<li><p>The next section therefore moves from behavioural evidence into network reconstruction to examine how communication relationships and pathways may have contributed to the embargo-sensitive post bypassing enforcement controls.</p></li>
+<li><p>Multiple warning signals emerged before the inappropriate release, including a surge in daily communication activity, increasing behavioural risk signals, growth in side-channel communications, and the concentration of high-risk communication pathways.</p></li>
+<li><p>Earlier warning indicators were already observable before June 3, 2046, with 49 moderate-to-high risk communications recorded prior to the Critical Period. However, this increased sharply to 337 during the Critical Period.</p></li>
+<li><p>The escalation was accompanied by increasingly concentrated communication activity involving Legal, PR, Social Media, and Platform Trust, suggesting that elevated-risk information flow became progressively more coordinated near the breach.</p></li>
+<li><p>These findings suggest that the inappropriate release was preceded by a combination of behavioural escalation, communication pathway concentration, and elevated-risk interactions rather than a single isolated event.</p></li>
 </ul>
 </div>
 </div>
@@ -2549,8 +2474,8 @@ Note
 <span id="cb41-157"><a href="#cb41-157" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-45d60ba0c18df7fa62c6" style="width:100%;height:760px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-45d60ba0c18df7fa62c6">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"total_activity":[216,124,44,154,34,71,85],"label":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[216,124,44,154,34,71,85],"group":["Anchor Participant","Core Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Core Participant"],"title":["<b>Legal<\/b><br>Total weighted activity: 216","<b>Social Media<\/b><br>Total weighted activity: 124","<b>Quality<\/b><br>Total weighted activity: 44","<b>Pr<\/b><br>Total weighted activity: 154","<b>Pr Intern<\/b><br>Total weighted activity: 34","<b>Social Manager<\/b><br>Total weighted activity: 71","<b>Platform Trust<\/b><br>Total weighted activity: 85"]},"edges":{"from":["Legal","Legal","Legal","Social Media","Quality","Pr","Legal","Pr Intern"],"to":["Pr","Social Manager","Platform Trust","Legal","Legal","Legal","Pr Intern","Legal"],"value":[58,47,42,39,10,7,6,5],"arrows":["to","to","to","to","to","to","to","to"],"title":["Interaction frequency: 58<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","Interaction frequency: 47<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","Interaction frequency: 42<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","Interaction frequency: 39<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","Interaction frequency: 10<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","Interaction frequency: 7<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","Interaction frequency: 6<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","Interaction frequency: 5<br>High-signal interactions: 0<br>Moderate-signal interactions: 5"],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":26,"face":"bold"},"scaling":{"min":28,"max":70}},"manipulation":{"enabled":false},"groups":{"Anchor Participant":{"color":{"background":"#cb181d","border":"#99000d"}},"Core Participant":{"color":{"background":"#6baed6","border":"#2171b5"}},"useDefaultGroups":true,"Peripheral Participant":{"color":{"background":"#d9d9d9","border":"#969696"}}},"edges":{"smooth":true,"scaling":{"min":1,"max":10}},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":["Anchor Participant","Core Participant","Peripheral Participant"],"width":"100%","height":"760px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Breach-period Ego Network Anchored on Legal","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3fa397e1a2f714b37a65" style="width:100%;height:760px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3fa397e1a2f714b37a65">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"total_activity":[216,124,44,154,34,71,85],"label":["Legal","Social Media","Quality","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[216,124,44,154,34,71,85],"group":["Anchor Participant","Core Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Peripheral Participant","Core Participant"],"title":["<b>Legal<\/b><br>Total weighted activity: 216","<b>Social Media<\/b><br>Total weighted activity: 124","<b>Quality<\/b><br>Total weighted activity: 44","<b>Pr<\/b><br>Total weighted activity: 154","<b>Pr Intern<\/b><br>Total weighted activity: 34","<b>Social Manager<\/b><br>Total weighted activity: 71","<b>Platform Trust<\/b><br>Total weighted activity: 85"]},"edges":{"from":["Legal","Legal","Legal","Social Media","Quality","Pr","Legal","Pr Intern"],"to":["Pr","Social Manager","Platform Trust","Legal","Legal","Legal","Pr Intern","Legal"],"value":[58,47,42,39,10,7,6,5],"arrows":["to","to","to","to","to","to","to","to"],"title":["Interaction frequency: 58<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","Interaction frequency: 47<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","Interaction frequency: 42<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","Interaction frequency: 39<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","Interaction frequency: 10<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","Interaction frequency: 7<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","Interaction frequency: 6<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","Interaction frequency: 5<br>High-signal interactions: 0<br>Moderate-signal interactions: 5"],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":26,"face":"bold"},"scaling":{"min":28,"max":70}},"manipulation":{"enabled":false},"groups":{"Anchor Participant":{"color":{"background":"#cb181d","border":"#99000d"}},"Core Participant":{"color":{"background":"#6baed6","border":"#2171b5"}},"useDefaultGroups":true,"Peripheral Participant":{"color":{"background":"#d9d9d9","border":"#969696"}}},"edges":{"smooth":true,"scaling":{"min":1,"max":10}},"interaction":{"dragNodes":true,"navigationButtons":true,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":["Anchor Participant","Core Participant","Peripheral Participant"],"width":"100%","height":"760px","idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Breach-period Ego Network Anchored on Legal","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -2731,8 +2656,8 @@ Note
 <span id="cb42-148"><a href="#cb42-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">608</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-2b850ff29f65225a83bf" style="width:100%;height:500px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2b850ff29f65225a83bf">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"outgoing_weight":[153,120,44,7,21,15,0,0],"incoming_weight":[61,0,0,0,132,12,71,84],"total_activity":[214,120,44,7,153,27,71,84],"communication_role":["Coordinator","Broadcaster","Broadcaster","Peripheral","Coordinator","Peripheral","Receiver","Receiver"],"label":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[214,120,44,7,153,27,71,84],"group":["Coordinator","Broadcaster","Broadcaster","Peripheral","Coordinator","Peripheral","Receiver","Receiver"],"title":["<b>Legal<\/b><br>Role: Coordinator<br>Outgoing elevated-risk activity: 153<br>Incoming elevated-risk activity: 61<br>Total weighted activity: 214","<b>Social Media<\/b><br>Role: Broadcaster<br>Outgoing elevated-risk activity: 120<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 120","<b>Quality<\/b><br>Role: Broadcaster<br>Outgoing elevated-risk activity: 44<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 44","<b>Intern<\/b><br>Role: Peripheral<br>Outgoing elevated-risk activity: 7<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 7","<b>Pr<\/b><br>Role: Coordinator<br>Outgoing elevated-risk activity: 21<br>Incoming elevated-risk activity: 132<br>Total weighted activity: 153","<b>Pr Intern<\/b><br>Role: Peripheral<br>Outgoing elevated-risk activity: 15<br>Incoming elevated-risk activity: 12<br>Total weighted activity: 27","<b>Social Manager<\/b><br>Role: Receiver<br>Outgoing elevated-risk activity: 0<br>Incoming elevated-risk activity: 71<br>Total weighted activity: 71","<b>Platform Trust<\/b><br>Role: Receiver<br>Outgoing elevated-risk activity: 0<br>Incoming elevated-risk activity: 84<br>Total weighted activity: 84"]},"edges":{"from":["Legal","Legal","Social Media","Legal","Social Media","Social Media","Quality","Quality","Quality","Intern","Pr","Pr","Pr","Legal","Quality","Pr Intern","Pr Intern","Pr Intern"],"to":["Pr","Social Manager","Pr","Platform Trust","Legal","Platform Trust","Pr","Social Manager","Legal","Pr","Legal","Platform Trust","Social Manager","Pr Intern","Pr Intern","Legal","Pr","Social Manager"],"value":[58,47,46,42,39,35,16,12,10,7,7,7,7,6,6,5,5,5],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"],"width":[8,6.547169811320755,6.415094339622642,5.886792452830188,5.490566037735849,4.962264150943396,2.452830188679245,1.924528301886792,1.660377358490566,1.264150943396226,1.264150943396226,1.264150943396226,1.264150943396226,1.132075471698113,1.132075471698113,1,1,1],"title":["<b>Legal → Pr<\/b><br>Interaction frequency: 58<br>Dominant risk signal: High Signal<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","<b>Legal → Social Manager<\/b><br>Interaction frequency: 47<br>Dominant risk signal: High Signal<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","<b>Social Media → Pr<\/b><br>Interaction frequency: 46<br>Dominant risk signal: High Signal<br>High-signal interactions: 46<br>Moderate-signal interactions: 0","<b>Legal → Platform Trust<\/b><br>Interaction frequency: 42<br>Dominant risk signal: High Signal<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","<b>Social Media → Legal<\/b><br>Interaction frequency: 39<br>Dominant risk signal: High Signal<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","<b>Social Media → Platform Trust<\/b><br>Interaction frequency: 35<br>Dominant risk signal: High Signal<br>High-signal interactions: 35<br>Moderate-signal interactions: 0","<b>Quality → Pr<\/b><br>Interaction frequency: 16<br>Dominant risk signal: High Signal<br>High-signal interactions: 16<br>Moderate-signal interactions: 0","<b>Quality → Social Manager<\/b><br>Interaction frequency: 12<br>Dominant risk signal: High Signal<br>High-signal interactions: 12<br>Moderate-signal interactions: 0","<b>Quality → Legal<\/b><br>Interaction frequency: 10<br>Dominant risk signal: High Signal<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","<b>Intern → Pr<\/b><br>Interaction frequency: 7<br>Dominant risk signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 7","<b>Pr → Legal<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Platform Trust<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Social Manager<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Legal → Pr Intern<\/b><br>Interaction frequency: 6<br>Dominant risk signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Quality → Pr Intern<\/b><br>Interaction frequency: 6<br>Dominant risk signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Pr Intern → Legal<\/b><br>Interaction frequency: 5<br>Dominant risk signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 5","<b>Pr Intern → Pr<\/b><br>Interaction frequency: 5<br>Dominant risk signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0","<b>Pr Intern → Social Manager<\/b><br>Interaction frequency: 5<br>Dominant risk signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0"],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16,"face":"bold"},"scaling":{"min":12,"max":34}},"manipulation":{"enabled":false},"groups":{"Coordinator":{"color":{"background":"#cb181d","border":"#99000d"},"shape":"star"},"Broadcaster":{"color":{"background":"#fb6a4a","border":"#cb181d"},"shape":"triangle"},"Receiver":{"color":{"background":"#6baed6","border":"#2171b5"},"shape":"dot"},"useDefaultGroups":true,"Peripheral":{"color":{"background":"#d9d9d9","border":"#969696"},"shape":"square"}},"edges":{"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":false,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":["Coordinator","Broadcaster","Peripheral","Receiver"],"width":"100%","height":"500px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Breach-period Communication Roles and Information Flow","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a5718939eb201ead4143" style="width:100%;height:500px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5718939eb201ead4143">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"outgoing_weight":[153,120,44,7,21,15,0,0],"incoming_weight":[61,0,0,0,132,12,71,84],"total_activity":[214,120,44,7,153,27,71,84],"communication_role":["Coordinator","Broadcaster","Broadcaster","Peripheral","Coordinator","Peripheral","Receiver","Receiver"],"label":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[214,120,44,7,153,27,71,84],"group":["Coordinator","Broadcaster","Broadcaster","Peripheral","Coordinator","Peripheral","Receiver","Receiver"],"title":["<b>Legal<\/b><br>Role: Coordinator<br>Outgoing elevated-risk activity: 153<br>Incoming elevated-risk activity: 61<br>Total weighted activity: 214","<b>Social Media<\/b><br>Role: Broadcaster<br>Outgoing elevated-risk activity: 120<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 120","<b>Quality<\/b><br>Role: Broadcaster<br>Outgoing elevated-risk activity: 44<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 44","<b>Intern<\/b><br>Role: Peripheral<br>Outgoing elevated-risk activity: 7<br>Incoming elevated-risk activity: 0<br>Total weighted activity: 7","<b>Pr<\/b><br>Role: Coordinator<br>Outgoing elevated-risk activity: 21<br>Incoming elevated-risk activity: 132<br>Total weighted activity: 153","<b>Pr Intern<\/b><br>Role: Peripheral<br>Outgoing elevated-risk activity: 15<br>Incoming elevated-risk activity: 12<br>Total weighted activity: 27","<b>Social Manager<\/b><br>Role: Receiver<br>Outgoing elevated-risk activity: 0<br>Incoming elevated-risk activity: 71<br>Total weighted activity: 71","<b>Platform Trust<\/b><br>Role: Receiver<br>Outgoing elevated-risk activity: 0<br>Incoming elevated-risk activity: 84<br>Total weighted activity: 84"]},"edges":{"from":["Legal","Legal","Social Media","Legal","Social Media","Social Media","Quality","Quality","Quality","Intern","Pr","Pr","Pr","Legal","Quality","Pr Intern","Pr Intern","Pr Intern"],"to":["Pr","Social Manager","Pr","Platform Trust","Legal","Platform Trust","Pr","Social Manager","Legal","Pr","Legal","Platform Trust","Social Manager","Pr Intern","Pr Intern","Legal","Pr","Social Manager"],"value":[58,47,46,42,39,35,16,12,10,7,7,7,7,6,6,5,5,5],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"],"width":[8,6.547169811320755,6.415094339622642,5.886792452830188,5.490566037735849,4.962264150943396,2.452830188679245,1.924528301886792,1.660377358490566,1.264150943396226,1.264150943396226,1.264150943396226,1.264150943396226,1.132075471698113,1.132075471698113,1,1,1],"title":["<b>Legal → Pr<\/b><br>Interaction frequency: 58<br>Dominant risk signal: High Signal<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","<b>Legal → Social Manager<\/b><br>Interaction frequency: 47<br>Dominant risk signal: High Signal<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","<b>Social Media → Pr<\/b><br>Interaction frequency: 46<br>Dominant risk signal: High Signal<br>High-signal interactions: 46<br>Moderate-signal interactions: 0","<b>Legal → Platform Trust<\/b><br>Interaction frequency: 42<br>Dominant risk signal: High Signal<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","<b>Social Media → Legal<\/b><br>Interaction frequency: 39<br>Dominant risk signal: High Signal<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","<b>Social Media → Platform Trust<\/b><br>Interaction frequency: 35<br>Dominant risk signal: High Signal<br>High-signal interactions: 35<br>Moderate-signal interactions: 0","<b>Quality → Pr<\/b><br>Interaction frequency: 16<br>Dominant risk signal: High Signal<br>High-signal interactions: 16<br>Moderate-signal interactions: 0","<b>Quality → Social Manager<\/b><br>Interaction frequency: 12<br>Dominant risk signal: High Signal<br>High-signal interactions: 12<br>Moderate-signal interactions: 0","<b>Quality → Legal<\/b><br>Interaction frequency: 10<br>Dominant risk signal: High Signal<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","<b>Intern → Pr<\/b><br>Interaction frequency: 7<br>Dominant risk signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 7","<b>Pr → Legal<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Platform Trust<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Social Manager<\/b><br>Interaction frequency: 7<br>Dominant risk signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Legal → Pr Intern<\/b><br>Interaction frequency: 6<br>Dominant risk signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Quality → Pr Intern<\/b><br>Interaction frequency: 6<br>Dominant risk signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Pr Intern → Legal<\/b><br>Interaction frequency: 5<br>Dominant risk signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 5","<b>Pr Intern → Pr<\/b><br>Interaction frequency: 5<br>Dominant risk signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0","<b>Pr Intern → Social Manager<\/b><br>Interaction frequency: 5<br>Dominant risk signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0"],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","font":{"size":16,"face":"bold"},"scaling":{"min":12,"max":34}},"manipulation":{"enabled":false},"groups":{"Coordinator":{"color":{"background":"#cb181d","border":"#99000d"},"shape":"star"},"Broadcaster":{"color":{"background":"#fb6a4a","border":"#cb181d"},"shape":"triangle"},"Receiver":{"color":{"background":"#6baed6","border":"#2171b5"},"shape":"dot"},"useDefaultGroups":true,"Peripheral":{"color":{"background":"#d9d9d9","border":"#969696"},"shape":"square"}},"edges":{"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":false,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":["Coordinator","Broadcaster","Peripheral","Receiver"],"width":"100%","height":"500px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Breach-period Communication Roles and Information Flow","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><strong>Role encoding:</strong> star = Coordinator, triangle = Broadcaster, circle = Receiver, square = Peripheral.<br>
@@ -2748,18 +2673,17 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that the circulation of embargo-sensitive information was driven by a focused operational cluster.</p></li>
+<li><p>Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that embargo-sensitive information circulated within a focused operational cluster.</p></li>
 <li><p>Legal and PR functioned as coordinators, exhibiting both high incoming and outgoing communication activity. Their positions within the network indicate that they acted as intermediaries connecting multiple communication pathways.</p></li>
 <li><p>Social Media displayed broadcaster characteristics, contributing a larger proportion of outgoing communication relative to incoming communication. This role is relevant given the eventual public release of embargoed information.</p></li>
 <li><p>Platform Trust and Social Manager appeared more receiver-oriented, indicating that they were more frequently involved in receiving elevated-risk communications than initiating them, suggesting downstream involvement in the communication flow.</p></li>
-<li><p>The concentration of communication activity around Legal, PR, Social Media, Platform Trust, and Social Manager highlights a potential pathway through which embargo-sensitive information could have propagated prior to the inappropriate release.</p></li>
 </ul>
 </div>
 </div>
 </section>
 <section id="what-communication-patterns-emerged-prior-to-the-inappropriate-release" class="level2">
 <h2 class="anchored" data-anchor-id="what-communication-patterns-emerged-prior-to-the-inappropriate-release">5.3 What Communication Patterns Emerged Prior to the Inappropriate Release?</h2>
-<p>This section examines if communication behavior shifted before the improper disclosure of restricted information. Instead of concentrating on specific actors, the analysis looks at communication content to detect emerging patterns that could have acted as early warning indicators prior to the breach happening.</p>
+<p>The objective is to determine whether communication topics changed as the release approached and whether these changes could have served as early warning indicators of the eventual breach.</p>
 <p>Using text mining techniques, communication logs are analyzed across the Normal Period, Escalation Period, and Critical Period. The aim is to assess if the communication content became more concentrated on particular subjects or displayed atypical traits as the release date neared.</p>
 <p>This analysis offers evidence of whether the inappropriate release was foreshadowed by noticeable changes in communication behavior, rather than happening as a singular incident, through the identification of unique terms and communication patterns.</p>
 <section id="emerging-communication-topics-prior-to-the-release" class="level3">
@@ -2865,11 +2789,10 @@ Figure&nbsp;1
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Communication topics significantly changed throughout the three communicatio periods. While the Normal and Escalation Periods were characterised by operational and procedural discussions, the Critical Period introduced several terms associated with governance, platform trust, social media management, and the HarborCrest–CivicLoom context.</p></li>
+<li><p>Communication topics significantly changed throughout the three communication periods. While the Normal and Escalation Periods were characterised by operational and procedural discussions, the Critical Period introduced several terms associated with governance, platform trust, social media management, and the HarborCrest–CivicLoom context.</p></li>
 <li><p>The emergence of terms like <strong>platform_trust</strong>, <strong>governance</strong>, <strong>social_manager</strong>, <strong>HarborCrest</strong>, and <strong>CivicLoom</strong> as prominent Critical Period terms indicates that communication increasingly centered on topics pertinent to the forthcoming disclosure.</p></li>
 <li><p>These terms were not among the dominant topics observed during earlier periods, indicating that the communication environment changed as the release approached.</p></li>
-<li><p>The emergence of governance- and release-related topics pbefore the breach indicates possible early signs that the communication context was turning more sensitive and more linked to the restricted information.</p></li>
-<li><p>Overall, the TF-IDF analysis suggests that the inappropriate release was preceded by a measurable shift in communication content rather than occurring as a completely isolated event.</p></li>
+<li><p>The emergence of governance- and release-related topics before the breach indicates possible early signs that the communication context was turning more sensitive and more linked to the restricted information.</p></li>
 </ul>
 </div>
 </div>
@@ -3145,9 +3068,9 @@ Figure&nbsp;1
 <span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>bigram_graph_54</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>IGRAPH 0f97db4 DN-- 43 27 -- 
+<pre><code>IGRAPH 85dfc4a DN-- 43 27 -- 
 + attr: name (v/c), n (e/n)
-+ edges from 0f97db4 (vertex names):
++ edges from 85dfc4a (vertex names):
  [1] access     -&gt;controls       role       -&gt;based         
  [3] governance -&gt;reforms        independent-&gt;audit         
  [5] based      -&gt;access         enhanced   -&gt;consent       
@@ -3231,11 +3154,10 @@ Figure&nbsp;1
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Communications became increasingly centred around governance, auditing, access control, and platform trust, indicating a shift toward oversight and accountability-related discussions.</p></li>
+<li><p>The recurring phrases suggest that discussions during the Critical Period were increasingly centred on governance, access controls, audits, and public communication activities.</p></li>
 <li><p>The frequent occurrence of phrase relationships such as <strong>access controls</strong>, <strong>role based</strong>, <strong>governance reforms</strong>, and <strong>independent audit</strong> suggest heightened attention to information governance and permission management during the Critical Period.</p></li>
 <li><p>The appearance of <strong>press release</strong> and <strong>platform</strong> trust indicates that public communication and platform-related issues were already active discussion topics before the inappropriate release occurred.</p></li>
 <li><p>Several organisation- and individual-related phrase relationships, including <strong>HarborCrest–ResidentEdge</strong> and <strong>Sarah–Kowalski</strong>, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.</p></li>
-<li><p>In general, these recurring communication themes provide evidence that the inappropriate release was preceded by identifiable governance- and communication-related discussions, rather than occurring in isolation.</p></li>
 </ul>
 </div>
 </div>
@@ -3284,8 +3206,8 @@ Figure&nbsp;1
 <span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.3</span></span>
 <span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Elevated-risk Communications Increased Near the Release"</span>,</span>
-<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Hourly count of moderate- and high-risk communications during the Critical Period"</span>,</span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Communication Activity Immediately Before the Release"</span>,</span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Hourly sequence of moderate- and high-risk communications during the Critical Period"</span>,</span>
 <span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
 <span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of communications"</span>,</span>
 <span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Risk Signal"</span></span>
@@ -3482,106 +3404,195 @@ Figure&nbsp;1
 </table>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><img src="images/Observation.png" class="img-fluid" width="31"> Observations
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The decision-point timeline shows that public response planning had already started on 4 June 2046, with PR preparing a holding statement and Legal reviewing the communication approach.</p></li>
+<li><p>Legal and compliance-related decisions appeared early in the sequence, suggesting that participants were aware of the sensitivity of the situation before the inappropriate release occurred.</p></li>
+<li><p>Several communications on 5 June reflected growing external pressure, including references to public attention, sentiment decline, and urgency to respond quickly.</p></li>
+<li><p>The movement from risk assessment to public response action indicates that the breach was preceded by a sequence of operational decisions rather than a single isolated message.</p></li>
+</ul>
+<p>In short, the timeline and communication excerpts suggest that the inappropriate release was not caused by a single actor or isolated message. But, it emerged through a sequence of escalating communications, risk acknowledgements, and public response decisions that collectively weakened the embargo controls.</p>
+</div>
+</div>
 </section>
-<section id="focused-communication-pathway-network" class="level3">
-<h3 class="anchored" data-anchor-id="focused-communication-pathway-network">5.5.3 Focused Communication Pathway Network</h3>
+</section>
+<section id="behavioural-deviations-and-prior-warning-signals" class="level2">
+<h2 class="anchored" data-anchor-id="behavioural-deviations-and-prior-warning-signals">5.6 Behavioural Deviations and Prior Warning Signals</h2>
+<p>This section examines whether the inappropriate release was preceded by observable behavioural changes and warning signals. By comparing communication activity across the Normal, Escalation, and Critical periods, the analysis evaluates whether the breach represented a departure from typical communication behaviour and whether similar patterns had appeared previously without resulting in a release.</p>
+<section id="behavioural-shift-by-actor-role" class="level3">
+<h3 class="anchored" data-anchor-id="behavioural-shift-by-actor-role">5.6.1 Behavioural Shift by Actor Role</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>pathway_edges_55 <span class="ot">&lt;-</span> communication_edges <span class="sc">%&gt;%</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">communication_date =</span> <span class="fu">as.Date</span>(timestamp),</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">source =</span> <span class="fu">clean_actor</span>(source),</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">target =</span> <span class="fu">clean_actor</span>(target)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    communication_date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">"2046-06-04"</span>),</span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    communication_date <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">"2046-06-05"</span>),</span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    risk_signal_group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Moderate Signal"</span>, <span class="st">"High Signal"</span>),</span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(source),</span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(target),</span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    source <span class="sc">!=</span> <span class="st">""</span>,</span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>    target <span class="sc">!=</span> <span class="st">""</span>,</span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>    source <span class="sc">!=</span> target</span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source, target, risk_signal_group, <span class="at">name =</span> <span class="st">"weight"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source, target) <span class="sc">%&gt;%</span></span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> <span class="fu">sum</span>(weight),</span>
-<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">high_signal_weight =</span> <span class="fu">sum</span>(weight[risk_signal_group <span class="sc">==</span> <span class="st">"High Signal"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">moderate_signal_weight =</span> <span class="fu">sum</span>(weight[risk_signal_group <span class="sc">==</span> <span class="st">"Moderate Signal"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">dominant_risk_signal =</span> <span class="fu">if_else</span>(</span>
-<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>      high_signal_weight <span class="sc">&gt;=</span> moderate_signal_weight,</span>
-<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High Signal"</span>,</span>
-<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Moderate Signal"</span></span>
-<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(weight)) <span class="sc">%&gt;%</span></span>
-<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">20</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>role_deviation_56 <span class="ot">&lt;-</span> communications_clean <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    agent_role <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">"legal"</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">"pr"</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">"social_media"</span>,</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"platform_trust"</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">period_group =</span> <span class="fu">if_else</span>(</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>      near_breach_window <span class="sc">==</span> <span class="st">"Critical Period"</span>,</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Critical Period"</span>,</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Earlier Periods"</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">agent_role =</span> <span class="fu">str_replace_all</span>(agent_role, <span class="st">"_"</span>, <span class="st">" "</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_to_title</span>()</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(agent_role, period_group) <span class="sc">%&gt;%</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> period_group,</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n,</span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">change =</span> <span class="st">`</span><span class="at">Critical Period</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">Earlier Periods</span><span class="st">`</span>,</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">change_label =</span> <span class="fu">paste0</span>(</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">if_else</span>(change <span class="sc">&gt;=</span> <span class="dv">0</span>, <span class="st">"+"</span>, <span class="st">""</span>),</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>      change</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a>pathway_nodes_55 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">unique</span>(<span class="fu">c</span>(pathway_edges_55<span class="sc">$</span>source, pathway_edges_55<span class="sc">$</span>target))</span>
-<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> id,</span>
-<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="dv">1</span>,</span>
-<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> id</span>
-<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>pathway_edges_vis_55 <span class="ot">&lt;-</span> pathway_edges_55 <span class="sc">%&gt;%</span></span>
-<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(</span>
-<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">from =</span> source,</span>
-<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> target,</span>
-<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> weight,</span>
-<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrows =</span> <span class="st">"to"</span>,</span>
-<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(weight, <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">7</span>)),</span>
-<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">if_else</span>(</span>
-<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a>      dominant_risk_signal <span class="sc">==</span> <span class="st">"High Signal"</span>,</span>
-<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a>      <span class="st">"#cb181d"</span>,</span>
-<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a>      <span class="st">"#fdae6b"</span></span>
-<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(</span>
-<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>      <span class="st">"&lt;b&gt;"</span>, source, <span class="st">" → "</span>, target, <span class="st">"&lt;/b&gt;&lt;br&gt;"</span>,</span>
-<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Total interactions: "</span>, weight, <span class="st">"&lt;br&gt;"</span>,</span>
-<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Dominant signal: "</span>, dominant_risk_signal, <span class="st">"&lt;br&gt;"</span>,</span>
-<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High-signal interactions: "</span>, high_signal_weight, <span class="st">"&lt;br&gt;"</span>,</span>
-<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Moderate-signal interactions: "</span>, moderate_signal_weight</span>
-<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(</span>
-<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a>  pathway_nodes_55,</span>
-<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>  pathway_edges_vis_55,</span>
-<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="st">"500px"</span>,</span>
-<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="st">"100%"</span>,</span>
-<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Likely Communication Pathway During the Critical Period"</span></span>
-<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visNodes</span>(</span>
-<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"dot"</span>,</span>
-<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">list</span>(<span class="at">background =</span> <span class="st">"#9ecae1"</span>, <span class="at">border =</span> <span class="st">"#2171b5"</span>),</span>
-<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="fu">list</span>(<span class="at">min =</span> <span class="dv">15</span>, <span class="at">max =</span> <span class="dv">35</span>),</span>
-<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">font =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">16</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
-<span id="cb56-75"><a href="#cb56-75" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-76"><a href="#cb56-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visEdges</span>(<span class="at">smooth =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb56-77"><a href="#cb56-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(</span>
-<span id="cb56-78"><a href="#cb56-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">highlightNearest =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, <span class="at">degree =</span> <span class="dv">1</span>),</span>
-<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">nodesIdSelection =</span> <span class="cn">FALSE</span></span>
-<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visInteraction</span>(</span>
-<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">navigationButtons =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb56-83"><a href="#cb56-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">dragNodes =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb56-84"><a href="#cb56-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">zoomView =</span> <span class="cn">TRUE</span></span>
-<span id="cb56-85"><a href="#cb56-85" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-86"><a href="#cb56-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visPhysics</span>(</span>
-<span id="cb56-87"><a href="#cb56-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">solver =</span> <span class="st">"forceAtlas2Based"</span>,</span>
-<span id="cb56-88"><a href="#cb56-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">stabilization =</span> <span class="cn">TRUE</span></span>
-<span id="cb56-89"><a href="#cb56-89" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb56-90"><a href="#cb56-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">608</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>  role_deviation_56,</span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(agent_role, change))</span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">`</span><span class="at">Earlier Periods</span><span class="st">`</span>,</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend =</span> <span class="st">`</span><span class="at">Critical Period</span><span class="st">`</span>,</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend =</span> agent_role</span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.2</span>,</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"grey70"</span></span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Earlier Periods</span><span class="st">`</span>, <span class="at">colour =</span> <span class="st">"Earlier Periods"</span>),</span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Critical Period</span><span class="st">`</span>, <span class="at">colour =</span> <span class="st">"Critical Period"</span>),</span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="fu">pmax</span>(<span class="st">`</span><span class="at">Earlier Periods</span><span class="st">`</span>, <span class="st">`</span><span class="at">Critical Period</span><span class="st">`</span>) <span class="sc">+</span> <span class="dv">8</span>,</span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> change_label</span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span></span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Earlier Periods"</span> <span class="ot">=</span> <span class="st">"#6baed6"</span>,</span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Critical Period"</span> <span class="ot">=</span> <span class="st">"#cb181d"</span></span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.18</span>))</span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Behavioural Deviation by Actor Role"</span>,</span>
+<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Comparing earlier communication activity with Critical Period activity"</span>,</span>
+<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Number of communications"</span>,</span>
+<span id="cb56-75"><a href="#cb56-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb56-76"><a href="#cb56-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">"Period"</span></span>
+<span id="cb56-77"><a href="#cb56-77" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-78"><a href="#cb56-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
-<div id="htmlwidget-f477d4237f5d2cd7d993" style="width:100%;height:500px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f477d4237f5d2cd7d993">{"x":{"nodes":{"id":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"label":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"],"value":[1,1,1,1,1,1,1,1],"title":["Legal","Social Media","Quality","Intern","Pr","Pr Intern","Social Manager","Platform Trust"]},"edges":{"from":["Legal","Legal","Social Media","Legal","Social Media","Social Media","Quality","Quality","Quality","Intern","Pr","Pr","Pr","Legal","Quality","Pr Intern","Pr Intern","Pr Intern","Social Media","Pr Intern"],"to":["Pr","Social Manager","Pr","Platform Trust","Legal","Platform Trust","Pr","Social Manager","Legal","Pr","Legal","Platform Trust","Social Manager","Pr Intern","Pr Intern","Legal","Pr","Social Manager","Pr Intern","Intern"],"value":[58,47,46,42,39,35,16,12,10,7,7,7,7,6,6,5,5,5,4,2],"arrows":["to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to","to"],"width":[7,5.821428571428571,5.714285714285714,5.285714285714286,4.964285714285714,4.535714285714286,2.5,2.071428571428571,1.857142857142857,1.535714285714286,1.535714285714286,1.535714285714286,1.535714285714286,1.428571428571429,1.428571428571429,1.321428571428571,1.321428571428571,1.321428571428571,1.214285714285714,1],"color":["#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d","#cb181d","#cb181d","#cb181d","#fdae6b","#cb181d","#cb181d","#cb181d","#cb181d"],"title":["<b>Legal → Pr<\/b><br>Total interactions: 58<br>Dominant signal: High Signal<br>High-signal interactions: 58<br>Moderate-signal interactions: 0","<b>Legal → Social Manager<\/b><br>Total interactions: 47<br>Dominant signal: High Signal<br>High-signal interactions: 47<br>Moderate-signal interactions: 0","<b>Social Media → Pr<\/b><br>Total interactions: 46<br>Dominant signal: High Signal<br>High-signal interactions: 46<br>Moderate-signal interactions: 0","<b>Legal → Platform Trust<\/b><br>Total interactions: 42<br>Dominant signal: High Signal<br>High-signal interactions: 42<br>Moderate-signal interactions: 0","<b>Social Media → Legal<\/b><br>Total interactions: 39<br>Dominant signal: High Signal<br>High-signal interactions: 39<br>Moderate-signal interactions: 0","<b>Social Media → Platform Trust<\/b><br>Total interactions: 35<br>Dominant signal: High Signal<br>High-signal interactions: 35<br>Moderate-signal interactions: 0","<b>Quality → Pr<\/b><br>Total interactions: 16<br>Dominant signal: High Signal<br>High-signal interactions: 16<br>Moderate-signal interactions: 0","<b>Quality → Social Manager<\/b><br>Total interactions: 12<br>Dominant signal: High Signal<br>High-signal interactions: 12<br>Moderate-signal interactions: 0","<b>Quality → Legal<\/b><br>Total interactions: 10<br>Dominant signal: High Signal<br>High-signal interactions: 10<br>Moderate-signal interactions: 0","<b>Intern → Pr<\/b><br>Total interactions: 7<br>Dominant signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 7","<b>Pr → Legal<\/b><br>Total interactions: 7<br>Dominant signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Platform Trust<\/b><br>Total interactions: 7<br>Dominant signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Pr → Social Manager<\/b><br>Total interactions: 7<br>Dominant signal: High Signal<br>High-signal interactions: 7<br>Moderate-signal interactions: 0","<b>Legal → Pr Intern<\/b><br>Total interactions: 6<br>Dominant signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Quality → Pr Intern<\/b><br>Total interactions: 6<br>Dominant signal: High Signal<br>High-signal interactions: 6<br>Moderate-signal interactions: 0","<b>Pr Intern → Legal<\/b><br>Total interactions: 5<br>Dominant signal: Moderate Signal<br>High-signal interactions: 0<br>Moderate-signal interactions: 5","<b>Pr Intern → Pr<\/b><br>Total interactions: 5<br>Dominant signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0","<b>Pr Intern → Social Manager<\/b><br>Total interactions: 5<br>Dominant signal: High Signal<br>High-signal interactions: 5<br>Moderate-signal interactions: 0","<b>Social Media → Pr Intern<\/b><br>Total interactions: 4<br>Dominant signal: High Signal<br>High-signal interactions: 4<br>Moderate-signal interactions: 0","<b>Pr Intern → Intern<\/b><br>Total interactions: 2<br>Dominant signal: High Signal<br>High-signal interactions: 2<br>Moderate-signal interactions: 0"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","color":{"background":"#9ecae1","border":"#2171b5"},"font":{"size":16,"face":"bold"},"scaling":{"min":15,"max":35}},"manipulation":{"enabled":false},"edges":{"smooth":true},"interaction":{"dragNodes":true,"navigationButtons":false,"zoomView":true,"zoomSpeed":1},"physics":{"solver":"forceAtlas2Based","stabilization":true},"layout":{"randomSeed":608}},"groups":null,"width":"100%","height":"500px","idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":{"text":"Likely Communication Pathway During the Critical Period","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div>
+<figure class="figure">
+<p><img src="Take-Home_Ex02_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="elevated-risk-communications-across-breach-windows" class="level3">
+<h3 class="anchored" data-anchor-id="elevated-risk-communications-across-breach-windows">5.6.2 Elevated-risk Communications Across Breach Windows</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>elevated_risk_56 <span class="ot">&lt;-</span> communications_clean <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">breach_window =</span> <span class="fu">factor</span>(</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>      near_breach_window,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Normal Period"</span>,</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Escalation Period"</span>,</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Critical Period"</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    risk_signal_group <span class="sc">%in%</span> <span class="fu">c</span>(</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Moderate Signal"</span>,</span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>      <span class="st">"High Signal"</span></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(</span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>    breach_window,</span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>    risk_signal_group,</span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"communications"</span></span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>  elevated_risk_56,</span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> breach_window,</span>
+<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> communications,</span>
+<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> risk_signal_group</span>
+<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(</span>
+<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.65</span></span>
+<span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> communications),</span>
+<span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>),</span>
+<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.4</span>,</span>
+<span id="cb57-40"><a href="#cb57-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.5</span></span>
+<span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb57-43"><a href="#cb57-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))</span>
+<span id="cb57-44"><a href="#cb57-44" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-45"><a href="#cb57-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb57-46"><a href="#cb57-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Elevated-risk Communications Across Breach Windows"</span>,</span>
+<span id="cb57-47"><a href="#cb57-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Comparing moderate- and high-signal communications before and during the Critical Period"</span>,</span>
+<span id="cb57-48"><a href="#cb57-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb57-49"><a href="#cb57-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of communications"</span>,</span>
+<span id="cb57-50"><a href="#cb57-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Risk Signal"</span></span>
+<span id="cb57-51"><a href="#cb57-51" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-52"><a href="#cb57-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb57-53"><a href="#cb57-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb57-54"><a href="#cb57-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb57-55"><a href="#cb57-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb57-56"><a href="#cb57-56" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-Home_Ex02_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -3595,11 +3606,10 @@ Figure&nbsp;1
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>Elevated-risk communications became concentrated near the release window, indicating that the breach was preceded by an observable escalation in communication activity.</p></li>
-<li><p>The chronological event table helps identify the order in which elevated-risk communications appeared, supporting reconstruction of the likely sequence leading to the release.</p></li>
-<li><p>The focused pathway network shows which actors were connected through repeated moderate- or high-risk communications during the most critical period.</p></li>
-<li><p>Red pathways represent high-risk dominant communication links, highlighting where information movement may have been most sensitive.</p></li>
-<li><p>Taken together, the timeline and network provide evidence that the inappropriate release was linked to a sequence of elevated-risk communications rather than a single isolated message.</p></li>
+<li><p>Legal (+98 communications) and Social Media (+78 communications) exhibited the largest increases in activity during the Critical Period, indicating a clear departure from their earlier communication behaviour.</p></li>
+<li><p>Elevated-risk communications were present during the Normal and Escalation Periods, suggesting that warning signals existed before the breach. However, these signals occurred at substantially lower levels than those observed during the Critical Period.</p></li>
+<li><p>The Critical Period recorded the highest concentration of Moderate Signal and High Signal communications, indicating that elevated-risk behaviour became significantly more prevalent as the release approached.</p></li>
+<li><p>The findings suggest that the inappropriate release was preceded by both actor-level behavioural shifts and a substantial increase in elevated-risk communications, rather than a single isolated communication event.</p></li>
 </ul>
 </div>
 </div>
