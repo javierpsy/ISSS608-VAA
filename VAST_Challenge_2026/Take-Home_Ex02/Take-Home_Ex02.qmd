@@ -814,7 +814,6 @@ ggplot(
 -   Although high exposure communication represented a smaller share of total communication activity, it remained consistently present across all breach windows, with 29 messages recorded during the Normal Period and 33 messages during the Critical Period.
 
 -   The Critical Period exhibited higher communication activity across most exposure-risk categories, while moderate- and high-exposure communications were already observable in earlier periods. This suggests that warning signals existed before the breach but intensified substantially as the inappropriate release approached.
-
 :::
 
 ## 4.3 Which Communication Relationships Became More Concentrated Near the Breach?
@@ -992,7 +991,6 @@ visNetwork(
 -   Several communication pathways displayed substantially thicker directional flows, particularly among Legal, PR, and Social Media participants, indicating sustained coordination rather than isolated one-off interactions.
 
 -   Intern and Judge remained comparatively less connected to the central high-risk cluster, while the dense concentration of repeated interactions among the core participants suggests that embargo-sensitive information may have circulated through a small but highly interconnected communication network prior to the inappropriate release.
-
 :::
 
 ## 4.5 Did Earlier Elevated-risk Communication Patterns Exist Before the Critical Breach Period?
@@ -1177,7 +1175,6 @@ warning_escalation_summary %>%
 -   High-risk communication showed the strongest increase, rising from 9 earlier high-risk communications to 193 during the critical period. This 21.4 times increase suggests that severe communication risk intensified rapidly close to the inappropriate release.
 
 -   Public and side-channel communication increased from 44 to 132 communications, indicating that communication risk was increasing in both volume and exposure within less-contained communication contexts.
-
 :::
 
 ## 4.6 What Warning Evidence Emerged Before the Network Reconstruction?
@@ -1407,7 +1404,7 @@ visNetwork(
 ## ![](images/Observation.png){width="31"} Observations
 
 -   The ego network highlights Legal as the most actively connected participant within elevated-risk communication during the critical period.
-  
+
 -   The strongest breach-period links connect Legal with PR, Social Media, and Platform Trust, suggesting that the communication evidence trail was concentrated around a core operational group.
 
 -   Thicker links represent repeated elevated-risk communication, while red links indicate pathways dominated by high-risk signals.
@@ -1580,20 +1577,19 @@ visNetwork(
   visLayout(randomSeed = 608)
 ```
 
-**Role encoding:** star = Coordinator, triangle = Broadcaster, circle = Receiver, square = Peripheral.  
+**Role encoding:** star = Coordinator, triangle = Broadcaster, circle = Receiver, square = Peripheral.\
 **Edge encoding:** red arrows = high-risk dominant pathways; orange arrows = moderate-risk dominant pathways. Thicker arrows indicate more repeated communication.
 
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that embargo-sensitive information circulated within a focused operational cluster.
+-    Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that embargo-sensitive information circulated within a focused operational cluster. This observation is consistent with organisational communication research showing that information flow is often shaped by a relatively small number of highly connected actors within a communication network [(Josephs et al., 2022).](https://www.researchgate.net/publication/362429645_Communication_network_dynamics_in_a_large_organizational_hierarchy)
 
 -   Legal and PR functioned as coordinators, exhibiting both high incoming and outgoing communication activity. Their positions within the network indicate that they acted as intermediaries connecting multiple communication pathways.
 
 -   Social Media displayed broadcaster characteristics, contributing a larger proportion of outgoing communication relative to incoming communication. This role is relevant given the eventual public release of embargoed information.
 
 -   Platform Trust and Social Manager appeared more receiver-oriented, indicating that they were more frequently involved in receiving elevated-risk communications than initiating them, suggesting downstream involvement in the communication flow.
-
 :::
 
 ## 5.3 What Communication Patterns Emerged Prior to the Inappropriate Release?
@@ -1756,6 +1752,7 @@ bigrams_filtered_54 %>%
 ```
 
 ### 5.4.4 Count bigrams
+
 ```{r}
 bigram_counts_54 <- bigrams_filtered_54 %>%
   count(word1, word2, sort = TRUE)
@@ -1837,7 +1834,7 @@ ggraph(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   The recurring phrases suggest that discussions during the Critical Period were increasingly centred on governance, access controls, audits, and public communication activities.
+-   The recurring phrases indicate that discussions during the Critical Period became increasingly focused on governance, access controls, audits, and public communication activities.
 
 -   The frequent occurrence of phrase relationships such as **access controls**, **role based**, **governance reforms**, and **independent audit** suggest heightened attention to information governance and permission management during the Critical Period.
 
@@ -1845,6 +1842,8 @@ ggraph(
 
 -   Several organisation- and individual-related phrase relationships, including **HarborCrest–ResidentEdge** and **Sarah–Kowalski**, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.
 :::
+
+The increasing prominence of governance-, trust-, and public communication-related themes is broadly consistent with crisis communication research, which suggests that discussions often become more focused on accountability, trust, and public response during periods of organisational uncertainty (Abd Elfattah, 2024).
 
 ## 5.5 What Communication Pathway Likely Led to the Inappropriate Release?
 
@@ -2149,21 +2148,20 @@ ggplot(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Legal (+98 communications) and Social Media (+78 communications) exhibited the largest departures from their typical communication behaviour during the Critical Period. Legal became a key coordinator, while Social Media assumed a more prominent broadcasting role. 
+-   Legal (+98 communications) and Social Media (+78 communications) exhibited the largest departures from their typical communication behaviour during the Critical Period. Legal became a key coordinator, while Social Media assumed a more prominent broadcasting role.
 
 -   The Expected vs Observed Behaviour comparison shows that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
 
--   Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods.
+-   - Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114) 
 
 -   Overall, the breach was preceded by both participant-level behavioural deviations and a sharp increase in elevated-risk communications, suggesting that the inappropriate release emerged from a broader shift in communication behaviour rather than a single isolated event.
-
 :::
 
 # 6 Summary of Findings
 
 This study explored the communication practices, behavioral trends, and network dynamics that occurred before the inappropriate release of embargo-sensitive information.
 
-The findings  indicate that the release was not triggered by a single, isolated communication event. Rather, numerous warning indicators emerged prior to the breach, such as a significant rise in communication activity, heightened behavioral risk signals, increased reliance on side-channel communication, and more focused high-risk communication routes.
+The findings indicate that the release was not triggered by a single, isolated communication event. Rather, numerous warning indicators emerged prior to the breach, such as a significant rise in communication activity, heightened behavioral risk signals, increased reliance on side-channel communication, and more focused high-risk communication routes.
 
 Network analysis showed that Legal, PR, Social Media, and Platform Trust formed the main communication cluster linked to elevated-risk interactions. During the Critical Period, Legal and Social Media also became noticeably more active than in earlier periods, suggesting that participant behaviour changed as the release approached.
 
@@ -2171,7 +2169,7 @@ Text analysis also revealed that communication subjects shifted to emphasize gov
 
 Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
 
-In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2024)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
+In summary, the evidence suggests that the inappropriate release was preceded by a gradual escalation of communication risk rather than a single isolated failure. Changes in participant behaviour, communication pathways, and discussion topics collectively created conditions that increased the likelihood of embargo-sensitive information progressing towards public disclosure. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2024.)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
 
 ## 6.1 Summary of Evidence Supporting the Investigation
 
@@ -2204,8 +2202,12 @@ summary_evidence_tbl %>%
 
 ## 7 References
 
-Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap27
+Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for Visual Analytics. (n.d.). Retrieved from <https://r4va.netlify.app/chap27>
 
-Chapter 29: Visualising and Analysing Text Data with R: tidytext methods – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap29
+Chapter 29: Visualising and Analysing Text Data with R: tidytext methods – R for Visual Analytics. (n.d.). Retrieved from <https://r4va.netlify.app/chap29>
 
-Wen, T., Chen, Y., Syed, T. A., & Ghataoura, D. (2024). Examining communication network behaviors, structure and dynamics in an organizational hierarchy: A social network analysis approach. Information Processing & Management, 62(1), 103927. https://doi.org/10.1016/j.ipm.2024.103927
+Hamid, A. S., Mohamad, B., & Ismail, A. (2024). Internal crisis communication: exploring antecedents and consequences from a managerial viewpoint. Frontiers in Communication, 9. <https://doi.org/10.3389/fcomm.2024.1444114>
+
+Josephs, N., Peng, S., & Crawford, F. W. (2022). Communication network dynamics in a large organizational hierarchy. arXiv (Cornell University). Retrieved from <https://doi.org/10.48550/arxiv.2208.01208>
+
+Wen, T., Chen, Y., Syed, T. A., & Ghataoura, D. (2024). Examining communication network behaviors, structure and dynamics in an organizational hierarchy: A social network analysis approach. Information Processing & Management, 62(1), 103927. Retrieved from <https://doi.org/10.1016/j.ipm.2024.103927>
