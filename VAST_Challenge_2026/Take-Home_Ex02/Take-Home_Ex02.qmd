@@ -2171,7 +2171,7 @@ Text analysis also revealed that communication subjects shifted to emphasize gov
 
 Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
 
-In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2025)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
+In summary, the improper release seems to have stemmed from a mix of behavioural escalation, focused communication channels, high-risk interactions, and changing roles of participants. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2024)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
 
 ## 6.1 Summary of Evidence Supporting the Investigation
 
@@ -2208,4 +2208,4 @@ Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for V
 
 Chapter 29: Visualising and Analysing Text Data with R: tidytext methods – R for Visual Analytics. (n.d.). https://r4va.netlify.app/chap29
 
-https://r4va.netlify.app/chap29
+Wen, T., Chen, Y., Syed, T. A., & Ghataoura, D. (2024). Examining communication network behaviors, structure and dynamics in an organizational hierarchy: A social network analysis approach. Information Processing & Management, 62(1), 103927. https://doi.org/10.1016/j.ipm.2024.103927
