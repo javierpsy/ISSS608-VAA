@@ -53,7 +53,7 @@ In the code chunk below, *p_load()* of *pacman* package is used to load the R pa
 pacman::p_load(
   tidyverse, jsonlite, tidygraph, ggraph,
   knitr, lubridate, patchwork, igraph, 
-  ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork, tidytext, ggrepel
+  ggiraph, readr, ggalluvial, visNetwork, gt, visNetwork, tidytext, ggrepel, ggplot2, DT
 )
 ```
 
@@ -68,19 +68,23 @@ The lubridate library facilitates temporal analysis by handling timestamps, whil
 ```{r}
 packages <- tribble(
   ~Library, ~Description,
-  "tidyverse", "Data preprocessing and wrangling.",
-  "jsonlite", "Importing and parsing JSON datasets.",
-  "tidygraph", "Graph and network analysis.",
-  "ggraph", "Network visualisation.",
-  "igraph", "Graph analytics and relationship analysis.",
-  "lubridate", "Date-time and temporal analysis.",
-  "patchwork", "Combining multiple visualisations.",
+  "tidyverse", "Data preprocessing, transformation, and wrangling.",
+  "jsonlite", "Importing and parsing JSON communication datasets.",
+  "tidygraph", "Graph and network data manipulation.",
+  "ggraph", "Network visualisation and graph layouts.",
+  "igraph", "Network analytics, centrality calculations, and relationship analysis.",
+  "ggplot2", "Creating static statistical graphics and customised data visualisations.",
+  "lubridate", "Date-time processing and temporal analysis.",
+  "patchwork", "Combining multiple visualisations into cohesive analytical layouts.",
   "ggiraph", "Interactive graphical visualisations.",
   "readr", "Efficient import of structured communication datasets.",
   "ggalluvial", "Visualising communication flow transitions and pathway structures.",
   "visNetwork", "Interactive network and ego-network visualisations.",
+  "tidytext", "Text mining, TF-IDF analysis, and communication topic extraction.",
+  "ggrepel", "Improved label placement and overlap avoidance in visualisations.",
+  "DT", "Creating interactive tables for ranked summaries and evidence tables.",
   "gt", "Formatting analytical summary tables and evidence matrices.",
-  "knitr", "Dynamic report generation in Quarto."
+  "knitr", "Dynamic report generation and reproducible reporting in Quarto."
 )
 
 knitr::kable(packages)
@@ -519,6 +523,10 @@ The constructed communication network serves as the foundation for subsequent vi
 :::
 
 # 4 **Exploratory Communication and Behaviour Analysis**
+
+This section investigates whether warning signals were observable before the inappropriate release occurred. The analysis examines communication activity, behavioural risk signals, communication environments, exposure-risk behaviours, and high-risk communication pathways across the Normal, Escalation, and Critical Periods.
+
+The objective is to determine whether the release emerged suddenly or was preceded by measurable behavioural and communication changes. Findings from this section provide the initial evidence base for identifying potential risk escalation patterns before reconstructing the communication network in Section 5.
 
 ## 4.1 Are There Signs of Escalating Communication Before the Breach?
 
@@ -1230,6 +1238,10 @@ section4_evidence_summary <- tibble(
 
 # 5 Reconstructing the Embargo Breach Through Communication Networks and Text Evidence
 
+While Section 4 identified warning signals and behavioural changes preceding the release, it did not explain how information moved between participants.
+
+This section reconstructs the communication network during the breach period to identify the participants, relationships, and communication pathways associated with elevated-risk interactions. The analysis examines network structure, communication roles, bridge participants, thematic communication patterns, and behavioural deviations to understand how embargo-sensitive information may have circulated before the inappropriate release.
+
 ## 5.1 Which Participants Became Central to the Breach-period Communication Network?
 
 This section identifies the participant most actively connected within elevated-risk communication during the critical breach period.
@@ -1422,6 +1434,8 @@ While Section 5.1 identified the key participants connected to the breach-period
 
 Examining these communication roles provides a clearer understanding of how information moved through the network and helps identify the actors who may have played an important part in allowing embargo-sensitive information to circulate prior to the inappropriate release.
 
+## 5.2.1 Communication Role Network
+
 ```{r}
 #| fig-width: 10
 #| fig-height: 6
@@ -1580,16 +1594,185 @@ visNetwork(
 **Role encoding:** star = Coordinator, triangle = Broadcaster, circle = Receiver, square = Peripheral.\
 **Edge encoding:** red arrows = high-risk dominant pathways; orange arrows = moderate-risk dominant pathways. Thicker arrows indicate more repeated communication.
 
+### 5.2.2 Communication Bridge Participants
+
+```{r}
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+
+betweenness_edges_52 <- communication_edges %>%
+  mutate(
+    communication_date = as.Date(timestamp),
+    source = clean_actor(source),
+    target = clean_actor(target)
+  ) %>%
+  filter(
+    communication_date >= as.Date("2046-06-03"),
+    risk_signal_group %in% c("Moderate Signal", "High Signal"),
+    !is.na(source),
+    !is.na(target),
+    source != "",
+    target != "",
+    source != target
+  ) %>%
+  count(source, target, risk_signal_group, name = "weight") %>%
+  group_by(source, target) %>%
+  summarise(
+    weight = sum(weight),
+    high_signal_weight = sum(weight[risk_signal_group == "High Signal"], na.rm = TRUE),
+    moderate_signal_weight = sum(weight[risk_signal_group == "Moderate Signal"], na.rm = TRUE),
+    dominant_risk_signal = if_else(
+      high_signal_weight >= moderate_signal_weight,
+      "High Signal",
+      "Moderate Signal"
+    ),
+    .groups = "drop"
+  )
+
+betweenness_graph_52 <- graph_from_data_frame(
+  betweenness_edges_52,
+  directed = TRUE
+)
+
+V(betweenness_graph_52)$betweenness <- betweenness(
+  betweenness_graph_52,
+  directed = TRUE,
+  normalized = TRUE,
+  weights = NULL
+)
+
+V(betweenness_graph_52)$node_type <- ifelse(
+  V(betweenness_graph_52)$betweenness > 0,
+  "Communication Bridge",
+  "Other Participant"
+)
+
+set.seed(608)
+
+bridge_plot_52 <- ggraph(
+  betweenness_graph_52,
+  layout = "nicely"
+) +
+  geom_edge_fan(
+    aes(
+      edge_colour = dominant_risk_signal,
+      edge_width = weight
+    ),
+    alpha = 0.75,
+    strength = 0.5,
+    arrow = arrow(
+      type = "closed",
+      length = unit(2.5, "mm")
+    ),
+    end_cap = circle(3.5, "mm"),
+    start_cap = circle(3.5, "mm")
+  ) +
+  geom_point_interactive(
+    aes(
+      x = x,
+      y = y,
+      size = betweenness,
+      fill = betweenness,
+      tooltip = paste0(
+        name,
+        "<br>Betweenness: ",
+        round(betweenness, 3)
+      ),
+      data_id = name
+    ),
+    shape = 21,
+    colour = "grey35",
+    stroke = 0.8
+  ) +
+  geom_node_label(
+    aes(label = name),
+    size = 3,
+    label.size = 0.25,
+    label.padding = unit(0.12, "lines"),
+    fill = "white",
+    colour = "grey20"
+  ) +
+  scale_edge_colour_manual(
+    values = c(
+      "High Signal" = "#cb181d",
+      "Moderate Signal" = "#fdae6b"
+    ),
+    name = "Risk Signal"
+  ) +
+  scale_edge_width(
+    range = c(0.4, 2.6),
+    name = "Interaction Frequency"
+  ) +
+  scale_fill_gradient(
+    low = "white",
+    high = "orange",
+    name = "Betweenness Score"
+  ) +
+  scale_size_continuous(
+    range = c(4, 16),
+    guide = "none"
+  ) +
+  labs(
+    title = "Communication Bridge Participants During the Critical Period",
+    subtitle = "Node size and colour represent betweenness centrality"
+  ) +
+  theme_graph(base_family = "sans") +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  )
+
+girafe(
+  ggobj = bridge_plot_52,
+  width_svg = 8,
+  height_svg = 5,
+  options = list(
+    opts_tooltip(
+      css = "background-color:black;color:white;padding:5px;border-radius:3px;"
+    ),
+    opts_hover(css = "stroke:black;stroke-width:2px;"),
+    opts_zoom(min = 1, max = 5),
+    opts_sizing(rescale = TRUE)
+  )
+)
+```
+
+### Top 5 Communication Bridge Participants
+
+```{r}
+betweenness_table_52 <- tibble(
+  Participant = names(V(betweenness_graph_52)),
+  `Betweenness Centrality` = V(betweenness_graph_52)$betweenness
+) %>%
+  arrange(desc(`Betweenness Centrality`)) %>%
+  slice_head(n = 5) %>%
+  mutate(
+    `Betweenness Centrality` = round(`Betweenness Centrality`, 3)
+  )
+
+DT::datatable(
+  betweenness_table_52,
+  rownames = FALSE,
+  caption = "Top 5 communication bridge participants during elevated-risk Critical Period communications",
+  options = list(
+    pageLength = 5,
+    autoWidth = TRUE,
+    dom = "t"
+  )
+)
+```
+
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--    Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that embargo-sensitive information circulated within a focused operational cluster. This observation is consistent with organisational communication research showing that information flow is often shaped by a relatively small number of highly connected actors within a communication network [(Josephs et al., 2022).](https://www.researchgate.net/publication/362429645_Communication_network_dynamics_in_a_large_organizational_hierarchy)
+-   Elevated-risk communication was concentrated among a small group of participants rather than being distributed evenly across the communication network, suggesting that embargo-sensitive information circulated within a focused operational cluster. This observation is consistent with organisational communication research showing that information flow is often shaped by a relatively small number of highly connected actors within a communication network [(Josephs et al., 2022).](https://www.researchgate.net/publication/362429645_Communication_network_dynamics_in_a_large_organizational_hierarchy)
 
--   Legal and PR functioned as coordinators, exhibiting both high incoming and outgoing communication activity. Their positions within the network indicate that they acted as intermediaries connecting multiple communication pathways.
+-   Legal and PR functioned as coordinators in the role network because they exhibited both incoming and outgoing elevated-risk communication activity. Their positions suggest that they helped connect multiple communication pathways during the Critical Period.
 
--   Social Media displayed broadcaster characteristics, contributing a larger proportion of outgoing communication relative to incoming communication. This role is relevant given the eventual public release of embargoed information.
+- The betweenness centrality analysis adds further evidence by identifying PR Intern, Legal, and PR as the strongest communication bridges. This indicates that the flow of elevated-risk information depended not only on senior decision-making roles, but also on operational execution roles involved in moving communications forward.
 
--   Platform Trust and Social Manager appeared more receiver-oriented, indicating that they were more frequently involved in receiving elevated-risk communications than initiating them, suggesting downstream involvement in the communication flow.
+- Social Media appeared more broadcaster-oriented, while Platform Trust and Social Manager appeared more receiver-oriented. This suggests that elevated-risk information moved through a differentiated communication structure involving coordinators, bridge participants, broadcasters, and receivers.
 :::
 
 ## 5.3 What Communication Patterns Emerged Prior to the Inappropriate Release?
@@ -1831,6 +2014,52 @@ ggraph(
   )
 ```
 
+### 5.4.7 Top 10 Communication Themes During the Critical Period
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5
+#| out-width: "100%"
+
+top_bigrams_547 <- bigram_counts_54 %>%
+  arrange(desc(n)) %>%
+  slice_head(n = 10) %>%
+  mutate(
+    communication_theme = paste(word1, word2)
+  )
+
+ggplot(
+  top_bigrams_547,
+  aes(
+    x = n,
+    y = reorder(communication_theme, n)
+  )
+) +
+  geom_col(
+    fill = "#3182bd",
+    width = 0.7
+  ) +
+  geom_text(
+    aes(label = n),
+    hjust = -0.15,
+    size = 3.5
+  ) +
+  scale_x_continuous(
+    expand = expansion(mult = c(0, 0.15))
+  ) +
+  labs(
+    title = "Top 10 Communication Themes During the Critical Period",
+    subtitle = "Top recurring bigrams extracted from Critical Period communications",
+    x = "Frequency",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```
+
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
@@ -1843,13 +2072,11 @@ ggraph(
 -   Several organisation- and individual-related phrase relationships, including **HarborCrest–ResidentEdge** and **Sarah–Kowalski**, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.
 :::
 
-The increasing prominence of governance-, trust-, and public communication-related themes is broadly consistent with crisis communication research, which suggests that discussions often become more focused on accountability, trust, and public response during periods of organisational uncertainty (Abd Elfattah, 2024).
-
 ## 5.5 What Communication Pathway Likely Led to the Inappropriate Release?
 
 This section reconstructs the likely communication pathway leading to the inappropriate release. By focusing on elevated-risk communications during the critical period, the analysis identifies the key sequence of events, actors, and decision points that may have allowed embargo-sensitive information to move towards public disclosure.
 
-### 5.5.1 Critical Communication Timeline
+### 5.5.1 Critical Communication Escalation Before the Release
 
 ```{r}
 #| fig-width: 11
@@ -1997,49 +2224,49 @@ role_deviation_56 <- communications_clean %>%
   )
 
 ggplot(
-  role_deviation_56,
-  aes(y = reorder(agent_role, change))
-) +
-  geom_segment(
-    aes(
-      x = `Earlier Periods`,
-      xend = `Critical Period`,
-      yend = agent_role
+  role_deviation_56 %>%
+    mutate(
+      direction = if_else(
+        change >= 0,
+        "Increase during Critical Period",
+        "Decrease during Critical Period"
+      )
     ),
-    linewidth = 1.2,
-    colour = "grey70"
-  ) +
-  geom_point(
-    aes(x = `Earlier Periods`, colour = "Earlier Periods"),
-    size = 4
-  ) +
-  geom_point(
-    aes(x = `Critical Period`, colour = "Critical Period"),
-    size = 4
+  aes(
+    x = change,
+    y = reorder(agent_role, change),
+    fill = direction
+  )
+) +
+  geom_col(width = 0.65) +
+  geom_vline(
+    xintercept = 0,
+    linewidth = 0.6,
+    colour = "grey40"
   ) +
   geom_text(
     aes(
-      x = pmax(`Earlier Periods`, `Critical Period`) + 8,
-      label = change_label
+      label = change_label,
+      hjust = if_else(change >= 0, -0.15, 1.15)
     ),
-    size = 3.5,
+    size = 3.8,
     fontface = "bold"
   ) +
-  scale_colour_manual(
+  scale_fill_manual(
     values = c(
-      "Earlier Periods" = "#6baed6",
-      "Critical Period" = "#cb181d"
+      "Increase during Critical Period" = "#cb181d",
+      "Decrease during Critical Period" = "#6baed6"
     )
   ) +
   scale_x_continuous(
-    expand = expansion(mult = c(0.02, 0.18))
+    expand = expansion(mult = c(0.18, 0.18))
   ) +
   labs(
-    title = "Behavioural Deviation by Actor Role",
-    subtitle = "Comparing earlier communication activity with Critical Period activity",
-    x = "Number of communications",
+    title = "Net Behavioural Deviation During the Critical Period",
+    subtitle =  "Change in communication activity from earlier periods to the Critical Period",
+    x = "Change in number of communications",
     y = NULL,
-    colour = "Period"
+    fill = NULL
   ) +
   theme_minimal(base_size = 12) +
   theme(
@@ -2152,24 +2379,24 @@ ggplot(
 
 -   The Expected vs Observed Behaviour comparison shows that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
 
--   - Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114) 
+-   Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114) 
 
 -   Overall, the breach was preceded by both participant-level behavioural deviations and a sharp increase in elevated-risk communications, suggesting that the inappropriate release emerged from a broader shift in communication behaviour rather than a single isolated event.
 :::
 
 # 6 Summary of Findings
 
-This study explored the communication practices, behavioral trends, and network dynamics that occurred before the inappropriate release of embargo-sensitive information.
+This investigation examined the communication practices, behavioural trends, and network dynamics that emerged before the inappropriate release of embargo-sensitive information. By combining exploratory communication analysis, network reconstruction, role analysis, and behavioural comparisons, the study identified the key warning signals and communication patterns associated with the breach.
 
 The findings indicate that the release was not triggered by a single, isolated communication event. Rather, numerous warning indicators emerged prior to the breach, such as a significant rise in communication activity, heightened behavioral risk signals, increased reliance on side-channel communication, and more focused high-risk communication routes.
 
-Network analysis showed that Legal, PR, Social Media, and Platform Trust formed the main communication cluster linked to elevated-risk interactions. During the Critical Period, Legal and Social Media also became noticeably more active than in earlier periods, suggesting that participant behaviour changed as the release approached.
+Network analysis showed that Legal, PR, Social Media, and Platform Trust formed the main communication cluster linked to elevated-risk interactions. Betweenness centrality analysis further identified PR Intern, Legal, and PR as key communication bridges connecting elevated-risk communication pathways. During the Critical Period, Legal and Social Media also became noticeably more active than in earlier periods, suggesting that participant behaviour changed as the release approached.
 
-Text analysis also revealed that communication subjects shifted to emphasize governance, trust in the platform, access controls, auditing, and public relations. This suggests that the communication context grew more intertwined with matters related to the eventual revelation.
+Text analysis revealed that communication subjects increasingly focused on governance, platform trust, access controls, auditing, and public communication activities. Both the bigram network and Top 10 communication themes analysis highlighted recurring phrases such as role based access, access controls, governance reforms, independent audit, and platform trust. These findings suggest that communication activity became increasingly associated with information governance and public communication concerns as the release approached.
 
 Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
 
-In summary, the evidence suggests that the inappropriate release was preceded by a gradual escalation of communication risk rather than a single isolated failure. Changes in participant behaviour, communication pathways, and discussion topics collectively created conditions that increased the likelihood of embargo-sensitive information progressing towards public disclosure. These findings are broadly aligned with prior research demonstrating that communication networks often exhibit changes in structure, participant behaviour, and information flow patterns before major organisational events [(Wen et al., 2024.)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
+In summary, the evidence suggests that the inappropriate release was preceded by a gradual escalation of communication risk rather than a single isolated failure. Communication activity intensified, elevated-risk pathways became more concentrated, participant behaviour shifted, and governance-related discussion themes became increasingly prominent during the Critical Period. [(Wen et al., 2024.)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
 
 ## 6.1 Summary of Evidence Supporting the Investigation
 
@@ -2189,7 +2416,7 @@ summary_evidence_tbl <- tibble(
     "Legal, PR, Social Media, and Platform Trust were repeatedly involved in elevated-risk communications and key communication pathways during the Critical Period.",
     "Yes. Moderate- and high-risk communications, side-channel activity, and exposure-risk behaviours were already observable before the Critical Period and intensified near the breach.",
     "Yes. Legal (+98 communications) and Social Media (+78 communications) showed the largest increases in activity during the Critical Period.",
-    "Yes. Earlier warning signals existed before the breach, but they occurred at lower intensity and involved fewer participants.",
+    "Yes. Moderate- and high-risk communications, exposure-risk behaviours, and governance-related discussion themes were already observable before the breach, but occurred at lower intensity and involved fewer participants.",
     "Earlier signals were less concentrated and did not show the same level of behavioural escalation observed during the Critical Period."
   )
 )
@@ -2202,9 +2429,9 @@ summary_evidence_tbl %>%
 
 ## 7 References
 
-Chapter 27: Modelling, Visualising and Analysing Network Data with R – R for Visual Analytics. (n.d.). Retrieved from <https://r4va.netlify.app/chap27>
+Chapter 27: Visualising and Analysing Text Data with R (n.d.). Retrieved from <https://r4va.netlify.app/chap27>
 
-Chapter 29: Visualising and Analysing Text Data with R: tidytext methods – R for Visual Analytics. (n.d.). Retrieved from <https://r4va.netlify.app/chap29>
+Chapter 29: Modelling, Visualising and Analysing Network Data with R (n.d.). Retrieved from <https://r4va.netlify.app/chap29>
 
 Hamid, A. S., Mohamad, B., & Ismail, A. (2024). Internal crisis communication: exploring antecedents and consequences from a managerial viewpoint. Frontiers in Communication, 9. <https://doi.org/10.3389/fcomm.2024.1444114>
 
