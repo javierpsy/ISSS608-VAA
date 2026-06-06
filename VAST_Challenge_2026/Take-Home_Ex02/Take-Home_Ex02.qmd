@@ -1,5 +1,5 @@
 ---
-title: "Take Home Exercise 2: VAST Challenge 2026 Mini-Challenge 1"
+title: "Take-Home Exercise 2: VAST Challenge 2026 Mini-Challenge 1"
 author: "Javier Phang"
 date: "25 May, 2026"
 date-modified: "last-modified"
