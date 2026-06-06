@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: false
+  freeze: true
 ---
 
 # 1 **Overview**
@@ -2427,7 +2427,7 @@ summary_evidence_tbl %>%
   )
 ```
 
-## 7 References
+# 7 References
 
 Chapter 27: Visualising and Analysing Text Data with R (n.d.). Retrieved from <https://r4va.netlify.app/chap27>
 
