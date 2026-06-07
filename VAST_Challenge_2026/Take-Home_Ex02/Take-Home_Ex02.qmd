@@ -2184,7 +2184,167 @@ In short, the timeline and communication excerpts suggest that the inappropriate
 
 This section examines whether the inappropriate release was preceded by observable behavioural changes and warning signals. By comparing communication activity across the Normal, Escalation, and Critical periods, the analysis evaluates whether the breach represented a departure from typical communication behaviour and whether similar patterns had appeared previously without resulting in a release.
 
-### 5.6.1 Behavioural Shift by Actor Role
+### 5.6.1 Explicit Risk and Embargo Warning Timeline
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5.8
+#| out-width: "100%"
+
+risk_score_events_548 <- communications_clean %>%
+  filter(!is.na(content)) %>%
+  mutate(
+    content_lower = str_to_lower(content),
+    risk_score = str_extract(
+      content_lower,
+      "risk score(?: moving to| upward to| holding at|:)?\\s*[0-9]+\\.?[0-9]*/10"
+    ),
+    risk_score_value = str_extract(
+      risk_score,
+      "[0-9]+\\.?[0-9]*(?=/10)"
+    ) %>%
+      as.numeric()
+  ) %>%
+  filter(!is.na(risk_score_value)) %>%
+  mutate(
+    warning_type = case_when(
+      str_detect(content_lower, "category 2|embargo sensitivity|material disclosure") ~
+        "Embargo sensitivity event",
+      str_detect(content_lower, "critical|worst-case") ~
+        "Critical risk posture",
+      str_detect(content_lower, "high") ~
+        "High risk posture",
+      TRUE ~
+        "Risk score update"
+    ),
+    
+    evidence_label = case_when(
+      str_detect(content_lower, "category 2") ~
+        "Category 2 embargo\nsensitivity event",
+      str_detect(content_lower, "first time our name") ~
+        "Named in press\ncoverage",
+      str_detect(content_lower, "named target") ~
+        "Named target in\npublic conversation",
+      str_detect(content_lower, "worst-case") ~
+        "Worst-case scenario\nmodelled",
+      TRUE ~
+        "Risk score update"
+    ),
+    
+    timestamp = as.POSIXct(timestamp),
+    communication_date = as.Date(timestamp)
+  ) %>%
+  arrange(timestamp) %>%
+  distinct(
+    communication_date,
+    risk_score_value,
+    .keep_all = TRUE
+  )
+
+ggplot(
+  risk_score_events_548,
+  aes(
+    x = communication_date,
+    y = risk_score_value
+  )
+) +
+  geom_line(
+    linewidth = 1.1,
+    colour = "#525252"
+  ) +
+  geom_point(
+    aes(fill = warning_type),
+    shape = 21,
+    size = 4.8,
+    colour = "white",
+    stroke = 0.9
+  ) +
+  ggrepel::geom_label_repel(
+    aes(label = evidence_label),
+    size = 3.2,
+    label.size = 0.25,
+    fill = "white",
+    alpha = 0.95,
+    box.padding = 0.35,
+    point.padding = 0.25,
+    min.segment.length = 0
+  ) +
+  geom_hline(
+    yintercept = 7,
+    linetype = "dashed",
+    colour = "#fdae6b",
+    linewidth = 0.7
+  ) +
+  geom_hline(
+    yintercept = 9,
+    linetype = "dashed",
+    colour = "#cb181d",
+    linewidth = 0.7
+  ) +
+  annotate(
+    "text",
+    x = min(risk_score_events_548$communication_date),
+    y = 7.15,
+    label = "High-risk threshold",
+    hjust = 0,
+    size = 3,
+    colour = "#b35806"
+  ) +
+  annotate(
+    "text",
+    x = min(risk_score_events_548$communication_date),
+    y = 9.15,
+    label = "Critical-risk threshold",
+    hjust = 0,
+    size = 3,
+    colour = "#cb181d"
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Embargo sensitivity event" = "#756bb1",
+      "High risk posture" = "#fdae6b",
+      "Critical risk posture" = "#cb181d",
+      "Risk score update" = "#9ecae1"
+    )
+  ) +
+  scale_y_continuous(
+    limits = c(5.5, 10),
+    breaks = seq(6, 10, 1)
+  ) +
+  labs(
+    title = "Explicit Risk-score Escalation Before the Embargo Breach",
+    subtitle = "Text analytics extracted risk-score references from communications before the inappropriate release",
+    x = "Communication Date",
+    y = "Extracted Risk Score / 10",
+    fill = "Warning Type"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    panel.grid.minor = element_blank()
+  )
+```
+
+```{r}
+risk_score_events_548 %>%
+  mutate(
+    `Evidence Extract` = str_trunc(content, width = 150)
+  ) %>%
+  transmute(
+    `Timestamp` = timestamp,
+    `Agent Role` = str_to_title(str_replace_all(agent_role, "_", " ")),
+    `Channel` = channel,
+    `Warning Type` = warning_type,
+    `Risk Score` = risk_score_value,
+    `Evidence Extract` = `Evidence Extract`
+  ) %>%
+  knitr::kable(
+    caption = "Extracted textual evidence of embargo-related risk escalation"
+  )
+```
+
+### 5.6.2 Behavioural Shift by Actor Role
 
 ```{r}
 #| fig-width: 10
@@ -2275,7 +2435,7 @@ ggplot(
   )
 ```
 
-### 5.6.2 Expected vs Observed Behaviour
+### 5.6.3 Expected vs Observed Behaviour
 
 ```{r}
 expected_observed_tbl <- tibble(
@@ -2307,7 +2467,7 @@ knitr::kable(
 )
 ```
 
-### 5.6.3 Elevated-risk Communications Across Breach Windows
+### 5.6.4 Elevated-risk Communications Across Breach Windows
 
 ```{r}
 #| fig-width: 10
@@ -2375,9 +2535,13 @@ ggplot(
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   Legal (+98 communications) and Social Media (+78 communications) exhibited the largest departures from their typical communication behaviour during the Critical Period. Legal became a key coordinator, while Social Media assumed a more prominent broadcasting role.
+-   The communication records suggest that warning signs were already emerging before the inappropriate release occurred. Several messages contained explicit references to embargo sensitivity, disclosure concerns, and increasing levels of perceived risk.
 
--   The Expected vs Observed Behaviour comparison shows that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
+-   One significant communication noted a "Category 2 embargo sensitivity incident" in the risk register and raised the reported risk score to 6.5/10. Risk assessments continued to rise in the days leading up to the breach, eventually reaching 9.4/10 by 4 June 2046. This indicates that concerns regarding potential disclosure were already recognised internally before the embargo was broken.
+
+-   Legal (+98 communications) and Social Media (+78 communications) showed the most significant changes from their usual communication patterns during the Critical Period. Legal emerged as a primary coordinator, whereas Social Media took on a more significant broadcasting position within the communication network.
+
+-   The Expected vs Observed Behaviour comparison further suggests that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
 
 -   Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114) 
 
