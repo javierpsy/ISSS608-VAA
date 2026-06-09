@@ -288,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-4-computing-year-average-arrivals-by-month" id="toc-step-4-computing-year-average-arrivals-by-month" class="nav-link" data-scroll-target="#step-4-computing-year-average-arrivals-by-month"><strong>17.5.4 Step 4: Computing year average arrivals by month</strong></a></li>
   <li><a href="#step-5-plotting-the-cycle-plot" id="toc-step-5-plotting-the-cycle-plot" class="nav-link" data-scroll-target="#step-5-plotting-the-cycle-plot"><strong>17.5.5 Step 5: Plotting the cycle plot</strong></a></li>
   </ul></li>
-  <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph"><strong>17.6 Plotting Slopegraph</strong></a>
+  <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph">17.6 Plotting Slopegraph</a>
   <ul class="collapse">
   <li><a href="#step-1-data-import-1" id="toc-step-1-data-import-1" class="nav-link" data-scroll-target="#step-1-data-import-1"><strong>17.6.1 Step 1: Data Import</strong></a></li>
   <li><a href="#step-2-plotting-the-slopegraph" id="toc-step-2-plotting-the-slopegraph" class="nav-link" data-scroll-target="#step-2-plotting-the-slopegraph"><strong>17.6.2 Step 2: Plotting the slopegraph</strong></a></li>
@@ -802,7 +802,7 @@ Note
 </section>
 </section>
 <section id="plotting-slopegraph" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-slopegraph"><strong>17.6 Plotting Slopegraph</strong></h2>
+<h2 class="anchored" data-anchor-id="plotting-slopegraph">17.6 Plotting Slopegraph</h2>
 <p>In this section you will learn how to plot a <a href="https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph">slopegraph</a> by using R.</p>
 <p>Before getting start, make sure that <strong>CGPfunctions</strong> has been installed and loaded onto R environment. Then, refer to <a href="https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html">Using newggslopegraph</a> to learn more about the function. Lastly, read more about <code>newggslopegraph()</code> and its arguments by referring to this <a href="https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph">link</a>.</p>
 <section id="step-1-data-import-1" class="level3">
@@ -881,8 +881,20 @@ Note
 </div>
 </div>
 </div>
-<p>::: callout-Thing to learn from the code chunk above</p>
-<p>For effective data visualisation design, <code>factor()</code> is used convert the value type of <em>Year</em> field from numeric to factor. :::</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For effective data visualisation design, <code>factor()</code> is used convert the value type of <em>Year</em> field from numeric to factor.</p>
+<p>Furthermore, there seems to be an issue with the library: newggslopegraph. Hence, we replaced it with ggplot.</p>
+</div>
+</div>
 
 
 </section>
