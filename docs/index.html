@@ -83,7 +83,8 @@ ul.task-list li input[type="checkbox"] {
 
     const options = {
       valueNames: ['listing-image','listing-title','listing-author','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
+      page: 6,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
@@ -183,6 +184,10 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
  <span class="dropdown-text">Hands-on Exercise 7 (Visualising and Analysing Network &amp; Text Data)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-On_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
+ <span class="dropdown-text">Hands-on Exercise 8 (Visualising and Analysing Time-Oriented Data)</span></a>
   </li>  
     </ul>
   </li>
@@ -426,7 +431,7 @@ May 11, 2026
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="5" data-listing-date-sort="1780243200000" data-listing-file-modified-sort="1780379848284" data-listing-date-modified-sort="1780379848000" data-listing-reading-time-sort="36" data-listing-word-count-sort="7060">
+<div class="g-col-1" data-index="5" data-listing-date-sort="1780243200000" data-listing-file-modified-sort="1781009984327" data-listing-date-modified-sort="1781009984000" data-listing-reading-time-sort="36" data-listing-word-count-sort="7060">
 <a href="./Hands-On_Ex/Hands-on_Ex07/Hands-on_Ex07.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img loading='lazy' src="Hands-On_Ex\Hands-on_Ex07\27.3.1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -445,8 +450,30 @@ Jun 1, 2026
 </div>
 </div></a>
 </div>
+<div class="g-col-1" data-index="6" data-listing-date-sort="1780848000000" data-listing-file-modified-sort="1781013471406" data-listing-date-modified-sort="1781013471000" data-listing-reading-time-sort="12" data-listing-word-count-sort="2317">
+<a href="./Hands-On_Ex/Hands-on_Ex08/Hands-on_Ex08.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img loading='lazy' data-src="Hands-On_Ex\Hands-on_Ex08\17.4 Plotting Calendar Heatmap.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Hands-on Exercise 8 - Visualising and Analysing Time-Oriented Data
+</h5>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Javier Phang
+</div>
+<div class="listing-date">
+Jun 8, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
+<nav id="hands-on-listings-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div>
 
 
