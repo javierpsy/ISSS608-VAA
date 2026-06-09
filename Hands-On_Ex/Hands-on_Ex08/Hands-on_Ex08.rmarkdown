@@ -326,7 +326,7 @@ ggplot() +
   theme_tufte(base_family = "Helvetica")
 ```
 
-## 17.6 Plotting Slopegraph
+## **17.6 Plotting Slopegraph**
 
 In this section you will learn how to plot a [slopegraph](https://www.storytellingwithdata.com/blog/2020/7/27/what-is-a-slopegraph) by using R.
 
