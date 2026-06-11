@@ -403,3 +403,239 @@ For effective data visualisation design, `factor()` is used convert the value ty
 
 Furthermore, there seems to be an issue with the library: newggslopegraph. Hence, we replaced it with ggplot.
 :::
+
+# Additional Analysis
+
+## Additional Analysis 1 - Normalised Attack Timing Pattern by Top Source Countries
+
+**Objective:** To compare the attack timing patterns of the top source countries by weekday and hour, after normalising attack volume within each country.
+
+```{r}
+#| fig-width: 12
+#| fig-height: 7
+#| out-width: "100%"
+
+attacks_raw <- read_csv("eventlog.csv", show_col_types = FALSE)
+
+make_attack_time <- function(ts, sc, tz) {
+  utc_times <- ymd_hms(ts, tz = "UTC", quiet = TRUE)
+  local_times <- with_tz(utc_times, tzone = tz[1])
+  
+  data.table(
+    source_country = sc,
+    wkday = weekdays(local_times),
+    hour = hour(local_times)
+  )
+}
+
+wkday_levels <- c("Saturday", "Friday", 
+                  "Thursday", "Wednesday", 
+                  "Tuesday", "Monday", 
+                  "Sunday")
+
+attacks_time <- attacks_raw %>%
+  group_by(tz) %>%
+  do(make_attack_time(.$timestamp,
+                      .$source_country,
+                      .$tz)) %>%
+  ungroup() %>%
+  mutate(
+    wkday = factor(wkday, levels = wkday_levels),
+    hour = factor(hour, levels = 0:23)
+  )
+
+top6_country <- attacks_time %>%
+  count(source_country, sort = TRUE) %>%
+  slice_head(n = 6) %>%
+  pull(source_country)
+
+attack_hour_share <- attacks_time %>%
+  filter(source_country %in% top6_country) %>%
+  mutate(source_country = factor(source_country, levels = top6_country)) %>%
+  count(source_country, wkday, hour, name = "attacks") %>%
+  complete(source_country, wkday, hour, fill = list(attacks = 0)) %>%
+  group_by(source_country) %>%
+  mutate(share = attacks / sum(attacks)) %>%
+  ungroup()
+
+ggplot(attack_hour_share,
+       aes(hour, wkday, fill = share)) +
+  geom_tile(color = "white", size = 0.1) +
+  facet_wrap(~ source_country, ncol = 3) +
+  coord_equal() +
+  scale_fill_gradient(
+    name = "Share of attacks",
+    low = "sky blue",
+    high = "dark blue",
+    labels = percent_format(accuracy = 0.1)
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Normalised Attack Timing Pattern of Top 6 Source Countries",
+    subtitle = "Darker tiles show the weekday-hour combinations where each country is more active"
+  ) +
+  theme_tufte(base_family = "Helvetica") +
+  theme(
+    axis.ticks = element_blank(),
+    axis.text.x = element_text(size = 6),
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5),
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 6),
+    strip.text = element_text(face = "bold")
+  )
+```
+
+**Insight:** The heatmap shows that attack activities are not evenly distributed across all countries. Some countries, such as KR, show more concentrated darker blocks during specific weekday-hour periods, suggesting stronger timing patterns. In contrast, countries such as CN and US appear more evenly spread across many hours.
+
+## Additional Analysis 2 - Seasonality of Top Visitor Markets by Air
+
+**Objective:** To examine whether the top visitor markets show recurring monthly seasonality in air arrivals from 2010 to 2019.
+
+```{r}
+#| fig-width: 14
+#| fig-height: 7
+#| out-width: "100%"
+
+air <- read_excel("arrivals_by_air.xlsx")
+
+air_tidy <- air %>%
+  mutate(
+    month = factor(month(`Month-Year`),
+                   levels = 1:12,
+                   labels = month.abb,
+                   ordered = TRUE),
+    year = year(`Month-Year`)
+  ) %>%
+  filter(year >= 2010) %>%
+  pivot_longer(
+    cols = -c(`Month-Year`, month, year),
+    names_to = "country",
+    values_to = "arrivals"
+  )
+
+top4_markets <- air_tidy %>%
+  group_by(country) %>%
+  summarise(total_arrivals = sum(arrivals, na.rm = TRUE),
+            .groups = "drop") %>%
+  arrange(desc(total_arrivals)) %>%
+  slice_head(n = 4) %>%
+  pull(country)
+
+market_cycle <- air_tidy %>%
+  filter(country %in% top4_markets) %>%
+  mutate(country = factor(country, levels = top4_markets))
+
+market_avg <- market_cycle %>%
+  group_by(country, month) %>%
+  summarise(avgvalue = mean(arrivals, na.rm = TRUE),
+            .groups = "drop")
+
+ggplot() +
+  geom_line(
+    data = market_cycle,
+    aes(x = year,
+        y = arrivals,
+        group = month),
+    colour = "black",
+    linewidth = 0.3
+  ) +
+  geom_hline(
+    data = market_avg,
+    aes(yintercept = avgvalue),
+    linetype = 6,
+    colour = "red",
+    linewidth = 0.4
+  ) +
+  facet_grid(country ~ month, scales = "free_y") +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Seasonality of Top 4 Visitor Markets by Air, 2010-2019",
+    subtitle = "Red dashed lines show the average arrivals for each month",
+    x = NULL,
+    y = "No. of Visitors"
+  ) +
+  theme_tufte(base_family = "Helvetica") +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5),
+    strip.text = element_text(size = 7, face = "bold")
+  )
+```
+
+**Insight:** The cycle plot shows clear seasonal differences across visitor markets. China shows strong growth over time, especially in months such as July and August. Indonesia has stronger arrivals around June, July, and December, suggesting possible holiday-driven travel patterns. Australia and Malaysia show more moderate but still visible seasonal movement.
+
+## Additional Analysis 3: Rice Production Growth from 1980 to 2010
+
+**Objective:** To compare how rice production changed across Asian countries between 1980 and 2010.
+
+```{r}
+#| fig-width: 10
+#| fig-height: 7
+#| out-width: "100%"
+
+rice_prod <- rice %>%
+  filter(Year %in% c(1980, 2010)) %>%
+  mutate(Production_mil = Production / 1000000) %>%
+  group_by(Country) %>%
+  mutate(
+    change_mil = Production_mil[Year == 2010] -
+                 Production_mil[Year == 1980]
+  ) %>%
+  ungroup() %>%
+  mutate(
+    Year = factor(Year, levels = c(1980, 2010)),
+    x = as.numeric(Year)
+  )
+
+ggplot(rice_prod,
+       aes(x = x,
+           y = Production_mil,
+           group = Country,
+           colour = Country)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  geom_text(
+    data = rice_prod %>% filter(Year == 1980),
+    aes(x = 0.75,
+        label = paste0(Country, " (", round(Production_mil, 1), "m)")),
+    colour = "black",
+    fontface = "bold",
+    hjust = 1,
+    size = 3
+  ) +
+  geom_text(
+    data = rice_prod %>% filter(Year == 2010),
+    aes(x = 2.25,
+        label = paste0(round(Production_mil, 1), "m")),
+    colour = "black",
+    fontface = "bold",
+    hjust = 0,
+    size = 3
+  ) +
+  scale_x_continuous(
+    breaks = c(1, 2),
+    labels = c("1980", "2010"),
+    position = "top",
+    limits = c(0.45, 2.55)
+  ) +
+  scale_y_continuous(labels = label_number(suffix = "m")) +
+  labs(
+    title = "Rice Production Growth of Asian Countries",
+    subtitle = "Comparison between 1980 and 2010",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_void() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(face = "bold", size = 12),
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.subtitle = element_text(size = 10, hjust = 0.5)
+  )
+```
+
+**Insight:**  The slopegraph shows that China remained the largest rice producer, increasing from about 142.9 million to 197.2 million. India also increased strongly from about 80.3 million to 120.6 million. Among the smaller producers, Indonesia and Vietnam recorded strong growth.
