@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
 ---
 
 # 1 **Overview**
@@ -2072,11 +2072,14 @@ ggplot(
 -   Several organisation- and individual-related phrase relationships, including **HarborCrest–ResidentEdge** and **Sarah–Kowalski**, emerged repeatedly during the Critical Period, indicating that specific entities became focal points within ongoing discussions.
 :::
 
-## 5.5 What Communication Pathway Likely Led to the Inappropriate Release?
+## 5.5 What Communication Pathway Likely Led to the Embargo Breach?
 
-This section reconstructs the likely communication pathway leading to the inappropriate release. By focusing on elevated-risk communications during the critical period, the analysis identifies the key sequence of events, actors, and decision points that may have allowed embargo-sensitive information to move towards public disclosure.
+This section reconstructs the likely communication pathway leading to the embargo breach. 
+By focusing on elevated-risk communications during the critical period, the analysis identifies 
+the key sequence of events, actors, and decision points that may have allowed embargo-sensitive 
+information to move towards public disclosure.
 
-### 5.5.1 Critical Communication Escalation Before the Release
+### 5.5.1 Critical Communication Escalation Around the Breach Window
 
 ```{r}
 #| fig-width: 11
@@ -2084,6 +2087,11 @@ This section reconstructs the likely communication pathway leading to the inappr
 #| out-width: "100%"
 #| message: false
 #| warning: false
+
+breach_time <- as.POSIXct(
+  "2046-06-05 17:00:00",
+  tz = "UTC"
+)
 
 timeline_55 <- communications_clean %>%
   filter(
@@ -2105,22 +2113,22 @@ ggplot(
 ) +
   geom_col(position = "stack") +
   geom_vline(
-    xintercept = as.POSIXct("2046-06-05 17:00:00"),
+    xintercept = breach_time,
     linetype = "dashed",
     colour = "red",
     linewidth = 0.8
   ) +
   annotate(
     "text",
-    x = as.POSIXct("2046-06-05 17:00:00"),
-    y = Inf,
-    label = "Inappropriate release",
-    vjust = 1.5,
+    x = breach_time,
+    y = max(timeline_55$n, na.rm = TRUE) * 1.08,
+    label = "Embargo breach reported (~5 PM)",
+    colour = "red",
     hjust = -0.05,
     size = 3.3
   ) +
   labs(
-    title = "Communication Activity Immediately Before the Release",
+    title = "Elevated-risk Communication Activity Around the Breach Window",
     subtitle = "Hourly sequence of moderate- and high-risk communications during the Critical Period",
     x = NULL,
     y = "Number of communications",
@@ -2134,7 +2142,7 @@ ggplot(
   )
 ```
 
-### 5.5.2 Key Events Leading to the Release
+### 5.5.2 Key Events Leading to the Breach
 
 ```{r}
 #| message: false
@@ -2169,15 +2177,15 @@ key_events_55 %>%
 ::: callout-note
 ## ![](images/Observation.png){width="31"} Observations
 
--   The decision-point timeline shows that public response planning had already started on 4 June 2046, with PR preparing a holding statement and Legal reviewing the communication approach.
+-   The chronological sequence indicates that elevated-risk communications were already occurring before the reported embargo breach, suggesting that participants were actively discussing sensitive matters during the Critical Period.
 
--   Legal and compliance-related decisions appeared early in the sequence, suggesting that participants were aware of the sensitivity of the situation before the inappropriate release occurred.
+-   Legal, PR, and other operational participants appeared repeatedly throughout the communication sequence, indicating continued involvement in discussions related to risk management, public communications, and response planning.
 
--   Several communications on 5 June reflected growing external pressure, including references to public attention, sentiment decline, and urgency to respond quickly.
+-   Several communications on 5 June reflected growing urgency and external pressure, suggesting increasing concern about public attention and the potential consequences of information disclosure.
 
--   The movement from risk assessment to public response action indicates that the breach was preceded by a sequence of operational decisions rather than a single isolated message.
+-   The communication sequence shows a progression from risk awareness and internal discussion towards actions related to public communications, indicating that the breach was preceded by a series of interconnected decisions and interactions rather than a single isolated message.
 
-In short, the timeline and communication excerpts suggest that the inappropriate release was not caused by a single actor or isolated message. But, it emerged through a sequence of escalating communications, risk acknowledgements, and public response decisions that collectively weakened the embargo controls.
+In summary, the timeline suggests that the embargo breach emerged through an escalating sequence of elevated-risk communications involving multiple participants. The evidence points towards a breakdown in communication controls and decision processes rather than a single communication event acting as the sole cause of the breach.
 :::
 
 ## 5.6 Behavioural Deviations and Prior Warning Signals
@@ -2185,6 +2193,10 @@ In short, the timeline and communication excerpts suggest that the inappropriate
 This section examines whether the inappropriate release was preceded by observable behavioural changes and warning signals. By comparing communication activity across the Normal, Escalation, and Critical periods, the analysis evaluates whether the breach represented a departure from typical communication behaviour and whether similar patterns had appeared previously without resulting in a release.
 
 ### 5.6.1 Explicit Risk and Embargo Warning Timeline
+
+Several communications contained explicit risk assessments expressed on a 10-point scale (e.g., 6.5/10, 8.5/10, and 9.4/10). These risk scores were extracted directly from the message content using text analytics and used as evidence of how participants perceived the level of risk leading up to the embargo breach.
+
+By examining the progression of these recorded risk assessments over time, the analysis identifies whether concerns about embargo-sensitive information intensified prior to the breach.
 
 ```{r}
 #| fig-width: 10
@@ -2550,17 +2562,11 @@ ggplot(
 
 # 6 Summary of Findings
 
-This investigation examined the communication practices, behavioural trends, and network dynamics that emerged before the inappropriate release of embargo-sensitive information. By combining exploratory communication analysis, network reconstruction, role analysis, and behavioural comparisons, the study identified the key warning signals and communication patterns associated with the breach.
+The investigation confirms that an embargo breach occurred when merger-related information became publicly available before the scheduled 6:00 PM release time. Legal, PR, Social Media, and Platform Trust emerged as the key participants involved in elevated-risk communication pathways during the Critical Period.
 
-The findings indicate that the release was not triggered by a single, isolated communication event. Rather, numerous warning indicators emerged prior to the breach, such as a significant rise in communication activity, heightened behavioral risk signals, increased reliance on side-channel communication, and more focused high-risk communication routes.
+Multiple warning signals were observed before the breach, including increasing communication activity, escalating risk assessments, greater use of side-channel communications, and more concentrated high-risk communication pathways. These behaviours became substantially more pronounced as the breach approached.
 
-Network analysis showed that Legal, PR, Social Media, and Platform Trust formed the main communication cluster linked to elevated-risk interactions. Betweenness centrality analysis further identified PR Intern, Legal, and PR as key communication bridges connecting elevated-risk communication pathways. During the Critical Period, Legal and Social Media also became noticeably more active than in earlier periods, suggesting that participant behaviour changed as the release approached.
-
-Text analysis revealed that communication subjects increasingly focused on governance, platform trust, access controls, auditing, and public communication activities. Both the bigram network and Top 10 communication themes analysis highlighted recurring phrases such as role based access, access controls, governance reforms, independent audit, and platform trust. These findings suggest that communication activity became increasingly associated with information governance and public communication concerns as the release approached.
-
-Even though warning signs existed prior to the Critical Period, they were less intense and involved fewer individuals. This could clarify why previous signals did not result in more robust intervention.
-
-In summary, the evidence suggests that the inappropriate release was preceded by a gradual escalation of communication risk rather than a single isolated failure. Communication activity intensified, elevated-risk pathways became more concentrated, participant behaviour shifted, and governance-related discussion themes became increasingly prominent during the Critical Period. [(Wen et al., 2024.)](https://www.sciencedirect.com/science/article/pii/S0306457324002863?via%3Dihub)
+No clear evidence was found that a single participant deliberately leaked the merger information. Instead, the findings suggest that the breach was more likely caused by a breakdown in communication governance and embargo enforcement processes. Escalating operational pressures, repeated risk acknowledgements, and increasingly concentrated communication flows appear to have collectively weakened the controls intended to prevent the premature release of embargo-sensitive information.
 
 ## 6.1 Summary of Evidence Supporting the Investigation
 
@@ -2601,4 +2607,3 @@ Hamid, A. S., Mohamad, B., & Ismail, A. (2024). Internal crisis communication: e
 
 Josephs, N., Peng, S., & Crawford, F. W. (2022). Communication network dynamics in a large organizational hierarchy. arXiv (Cornell University). Retrieved from <https://doi.org/10.48550/arxiv.2208.01208>
 
-Wen, T., Chen, Y., Syed, T. A., & Ghataoura, D. (2024). Examining communication network behaviors, structure and dynamics in an organizational hierarchy: A social network analysis approach. Information Processing & Management, 62(1), 103927. Retrieved from <https://doi.org/10.1016/j.ipm.2024.103927>
