@@ -26,6 +26,8 @@ website:
             href: Hands-On_Ex/Hands-on_Ex07/Hands-on_Ex07.qmd
           - text: "Hands-on Exercise 8 (Visualising and Analysing Time-Oriented Data)"
             href: Hands-On_Ex/Hands-on_Ex08/Hands-on_Ex08.qmd
+          - text: "Hands-on Exercise 9 (Visualising and Analysing Geographic Data)"
+            href: Hands-On_Ex/Hands-on_Ex09/Hands-on_Ex09.qmd  
           
       - icon: graph-up
         text: "In-class Exercise"
@@ -44,6 +46,11 @@ website:
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex05A/Dashboard1"
           - text: "In-Class Exercise 5B"
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex05B_17789166791910/AnalysisofTreemapofRegionStateandCity"  
+          - text: "In-Class Exercise 8A"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex08A/AnalysisDashboarrd"
+          - text: "In-Class Exercise 8B"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex08B/TimeSeriesAnalysis"  
+            
             
       - icon: clipboard-data
         text: "Take-home Exercise"
