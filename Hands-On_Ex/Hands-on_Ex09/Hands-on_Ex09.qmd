@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: false
+  freeze: true
 ---
 
 # 21 **Choropleth Mapping with R**
@@ -17,7 +17,6 @@ execute:
 Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.
 
 In this chapter, you will learn how to plot functional and truthful choropleth maps by using an R package called [**tmap**](https://r-tmap.github.io/tmap/) package.
-
 
 ## 21.2 **Getting Started**
 
@@ -38,10 +37,6 @@ The code chunk below will be used to install and load these packages in RStudio.
 ```{r}
 pacman::p_load(sf, tmap, tidyverse)
 ```
-
-::: callout-note
-Notice that, we only need to install **tidyverse** instead of **readr**, **tidyr** and **dplyr** individually.
-:::
 
 ### 21.3 **Importing Data into R**
 
@@ -754,8 +749,6 @@ By the end of this in-class exercise, you will be able to use appropriate functi
 
 ### 23.2.1 **Installing and loading packages**
 
-::: call-out note Your turn Using the steps you learned in previous lesson, install and load **sf**, **tmap** and **tidyverse** packages into R environment. :::
-
 ### 23.2.2 **Importing data**
 
 For the purpose of this hands-on exercise, a prepared data set called *NGA_wp.rds* will be used. The data set is a polygon feature data.frame providing information on water point of Nigeria at the LGA level. You can find the data set in the *rds* sub-direct of the hands-on *data* folder.
@@ -765,7 +758,6 @@ NGA_wp <- read_rds("NGA_wp.rds")
 
 glimpse(NGA_wp)
 ```
-
 
 ## 23.3 **Basic Choropleth Mapping**
 
@@ -821,8 +813,6 @@ tm_shape(NGA_wp) +
   tm_borders()
 ```
 
-::: call-out note Do it Yourself Plot a choropleth map showing the distribution of percentage functional water point by LGA :::
-
 ## 23.5 **Extreme Value Maps**
 
 Extreme value maps are variations of common choropleth maps where the classification is designed to highlight extreme values at the lower and upper end of the scale, with the goal of identifying outliers. These maps were developed in the spirit of spatializing EDA, i.e., adding spatial features to commonly used approaches in non-spatial EDA (Anselin 1994).
@@ -849,7 +839,9 @@ var <- NGA_wp["pct_functional"] %>%
 quantile(var[,1], percent)
 ```
 
-::: call-out note Important When variables are extracted from an sf data.frame, the geometry is extracted as well. For mapping and spatial manipulation, this is the expected behavior, but many base R functions cannot deal with the geometry. Specifically, the `quantile()` gives an error. As a result `st_set_geomtry(NULL)` is used to drop geomtry field. :::
+::: callout-note
+Important When variables are extracted from an sf data.frame, the geometry is extracted as well. For mapping and spatial manipulation, this is the expected behavior, but many base R functions cannot deal with the geometry. Specifically, the `quantile()` gives an error. As a result `st_set_geomtry(NULL)` is used to drop geomtry field.
+:::
 
 #### 23.5.1.2 **Why writing functions?**
 
@@ -913,7 +905,7 @@ percentmap <- function(vnam, df, legtitle = NA, mtitle = "Percentile Map") {
 }
 ```
 
-#### 23.5.1.5 ***Test drive the percentile mapping function**
+#### 23.5.1.5 \***Test drive the percentile mapping function**
 
 To run the function, type the code chunk as shown below.
 
@@ -1011,7 +1003,7 @@ var <- get.var("wp_nonfunctional", NGA_wp)
 boxbreaks(var)
 ```
 
-#### 23.5.2.4 ***Boxmap function**
+#### 23.5.2.4 \***Boxmap function**
 
 The code chunk below is an R function to create a box map. - arguments: - vnam: variable name (as character, in quotes) - df: simple features polygon layer - legtitle: legend title - mtitle: map title - mult: multiplier for IQR - returns: - a tmap-element (plots a map)
 

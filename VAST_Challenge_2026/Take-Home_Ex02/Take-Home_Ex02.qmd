@@ -1770,9 +1770,9 @@ DT::datatable(
 
 -   Legal and PR functioned as coordinators in the role network because they exhibited both incoming and outgoing elevated-risk communication activity. Their positions suggest that they helped connect multiple communication pathways during the Critical Period.
 
-- The betweenness centrality analysis adds further evidence by identifying PR Intern, Legal, and PR as the strongest communication bridges. This indicates that the flow of elevated-risk information depended not only on senior decision-making roles, but also on operational execution roles involved in moving communications forward.
+-   The betweenness centrality analysis adds further evidence by identifying PR Intern, Legal, and PR as the strongest communication bridges. This indicates that the flow of elevated-risk information depended not only on senior decision-making roles, but also on operational execution roles involved in moving communications forward.
 
-- Social Media appeared more broadcaster-oriented, while Platform Trust and Social Manager appeared more receiver-oriented. This suggests that elevated-risk information moved through a differentiated communication structure involving coordinators, bridge participants, broadcasters, and receivers.
+-   Social Media appeared more broadcaster-oriented, while Platform Trust and Social Manager appeared more receiver-oriented. This suggests that elevated-risk information moved through a differentiated communication structure involving coordinators, bridge participants, broadcasters, and receivers.
 :::
 
 ## 5.3 What Communication Patterns Emerged Prior to the Inappropriate Release?
@@ -2074,10 +2074,7 @@ ggplot(
 
 ## 5.5 What Communication Pathway Likely Led to the Embargo Breach?
 
-This section reconstructs the likely communication pathway leading to the embargo breach. 
-By focusing on elevated-risk communications during the critical period, the analysis identifies 
-the key sequence of events, actors, and decision points that may have allowed embargo-sensitive 
-information to move towards public disclosure.
+This section reconstructs the likely communication pathway leading to the embargo breach. By focusing on elevated-risk communications during the critical period, the analysis identifies the key sequence of events, actors, and decision points that may have allowed embargo-sensitive information to move towards public disclosure.
 
 ### 5.5.1 Critical Communication Escalation Around the Breach Window
 
@@ -2555,7 +2552,7 @@ ggplot(
 
 -   The Expected vs Observed Behaviour comparison further suggests that communication responsibilities shifted during the breach period, with some participants becoming substantially more active while others became less prominent than in earlier periods.
 
--   Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114) 
+-   Elevated-risk communications were present during the Normal and Escalation Periods, indicating that warning signals existed before the breach. However, the Critical Period recorded substantially higher levels of Moderate Signal and High Signal communications than earlier periods. This pattern is consistent with crisis communication research suggesting that communication intensity and coordination often increase as organisations face growing uncertainty and crisis conditions [(Hamid et al., 2024).](https://doi.org/10.3389/fcomm.2024.1444114)
 
 -   Overall, the breach was preceded by both participant-level behavioural deviations and a sharp increase in elevated-risk communications, suggesting that the inappropriate release emerged from a broader shift in communication behaviour rather than a single isolated event.
 :::
@@ -2606,4 +2603,3 @@ Chapter 29: Modelling, Visualising and Analysing Network Data with R (n.d.). Ret
 Hamid, A. S., Mohamad, B., & Ismail, A. (2024). Internal crisis communication: exploring antecedents and consequences from a managerial viewpoint. Frontiers in Communication, 9. <https://doi.org/10.3389/fcomm.2024.1444114>
 
 Josephs, N., Peng, S., & Crawford, F. W. (2022). Communication network dynamics in a large organizational hierarchy. arXiv (Cornell University). Retrieved from <https://doi.org/10.48550/arxiv.2208.01208>
-
