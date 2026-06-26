@@ -3,11 +3,16 @@ title: "Hands-on Exercise 10 - Information Dashboard Design"
 author: "Javier Phang"
 date: "22 June, 2026"
 date-modified: "last-modified"
+
+format:
+  html:
+    html-table-processing: none
+
 execute:
   eval: true
   echo: true
   warning: false
-  freeze: true
+  freeze: false
 ---
 
 # 31 **Information Dashboard Design: R methods**
