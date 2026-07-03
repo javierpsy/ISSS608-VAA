@@ -52,7 +52,14 @@ website:
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex08A/AnalysisDashboarrd"
           - text: "In-Class Exercise 8B"
             href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex08B/TimeSeriesAnalysis"  
-            
+          - text: "In-Class Exercise 10A"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex10A/GeographicMap"  
+          - text: "In-Class Exercise 10B"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex10B/ResidentialAnalysis"    
+          - text: "In-Class Exercise 10C"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex10C/ChoroplethMap"
+          - text: "In-Class Exercise 10D"
+            href: "https://public.tableau.com/app/profile/javier.phang/viz/In-Class_Ex10D/CoffeeChainDashboardAnalysis"    
             
       - icon: clipboard-data
         text: "Take-home Exercise"

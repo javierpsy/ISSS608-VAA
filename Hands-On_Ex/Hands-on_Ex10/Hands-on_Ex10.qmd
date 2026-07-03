@@ -12,7 +12,7 @@ execute:
   eval: true
   echo: true
   warning: false
-  freeze: false
+  freeze: true
 ---
 
 # 31 **Information Dashboard Design: R methods**
