@@ -77,8 +77,10 @@ website:
       
           
       - icon: people
-        text: "Group Project"
-        href: "https://projectharborcrest.vercel.app/"
+        text: "Group Project - Vast Challenge"
+        menu:
+          - text: "Vast Challenge - Shiny App"
+            href: "https://projectharborcrest.vercel.app/"
         
     right:
       - href: index.qmd
