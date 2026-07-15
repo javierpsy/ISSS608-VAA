@@ -78,7 +78,7 @@ website:
           
       - icon: people
         text: "Group Project"
-        href: "#"
+        href: "https://projectharborcrest.vercel.app/"
         
     right:
       - href: index.qmd
